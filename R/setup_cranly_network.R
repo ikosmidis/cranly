@@ -4,7 +4,7 @@
 #' \dontrun{
 #' data("cran_db_example", package = "cranly")
 #' package_db <- clean_CRAN_db(cran_db_example)
-#' package_network <- setup_cranly_network(packages_db)
+#' package_network <- setup_cranly_network(package_db)
 #' head(package_network$edges)
 #' head(package_network$nodes)
 #' attr(package_network, "timestamp")
@@ -62,13 +62,12 @@ setup_cranly_network <- function(object = clean_CRAN_db(),
 
     }
     else {
-
         edges <- apply(object, 1, function(x) {
             auth <- x$Author
             if (length(auth) < 2)
                 NULL
             else {
-                d <- data.frame(t(combn(auth, 2)))
+                d <- data.frame(t(combn(auth, 2)), stringsAsFactors = FALSE)
                 d[["Package"]] <- x$Package
                 d[["Imports"]] <- unname(x["Imports"])
                 d[["Suggests"]] <- unname(x["Suggests"])
@@ -79,9 +78,21 @@ setup_cranly_network <- function(object = clean_CRAN_db(),
                 d
             }
         })
+        edges <- do.call("rbind", edges)
+        names(edges)[1:2] <- c("from", "to")
+
+        nodes <- do.call("rbind", apply(object[c("Author", "Package")], 1, function(x) {
+                                   auth <- x$Author
+                                   matrix(c(auth, rep(x$Package, length(auth))), ncol = 2)
+                                  }))
+
+        nodes <- do.call("rbind", lapply(unique(nodes[, 1]), function(auth) {
+            d <- data.frame(Author = auth, stringsAsFactors = TRUE)
+            d[["Package"]] <- list(nodes[nodes[, 1] == auth, 2])
+            d
+        }))
 
         ## Here
-
     }
 
 
@@ -89,7 +100,7 @@ setup_cranly_network <- function(object = clean_CRAN_db(),
     out <- list(edges = edges, nodes = nodes)
     class(out) <- c("cranly_network", class(out))
     attr(out, "timestamp") <- attr(object, "timestamp")
-    attr(out, "perspective") <- attr(object, perspective)
+    attr(out, "perspective") <- perspective
     out
 
 }
