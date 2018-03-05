@@ -1,4 +1,4 @@
-#' Clean and organise directives and author names in the output of \code{tools::CRAN_package_db()}
+#' Clean and organise directives and authors in the output of \code{tools::CRAN_package_db()}
 #'
 #' @aliases cranly_db
 #'
