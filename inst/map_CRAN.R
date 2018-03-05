@@ -8,6 +8,7 @@ library("visNetwork")
 library("tidygraph")
 library("ggraph")
 library("igraph")
+library("Matrix")
 
 cran_db <- CRAN_package_db()
 
@@ -15,7 +16,7 @@ packages_db <- prepare_CRAN_package_db(cran_db)
 
 network <- prepare_CRAN_network(packages_db)
 
-my_packages <- network[[2]] %>% filter(grepl("Ioannis Kosmidis", author)) %>% select(id) %>% unlist()
+my_packages <- network[[2]] %>% filter(grepl("Ioannis Kosmidis", Author)) %>% select(Package) %>% unlist()
 
 visualize.cranly_db_network(network, packages = my_packages, physics_threshold = 500)
 
