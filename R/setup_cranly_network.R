@@ -1,5 +1,19 @@
-#' @export
-setup_package_network <- function(object, trace = FALSE) {
+#' Extract edges and nodes from a \code{\link{cranly_db}} object
+#'
+#' @examples
+#' \dontrun{
+#' data("cran_db_example", package = "cranly")
+#' package_db <- clean_CRAN_db(cran_db_example)
+#' package_network <- setup_cranly_network(packages_db)
+#' head(package_network$edges)
+#' head(package_network$nodes)
+#' attr(package_network, "timestamp")
+#' class(package_network)
+#' }
+#'
+#'  @export
+setup_cranly_network <- function(object = clean_CRAN_db(),
+                                  trace = FALSE) {
 
     compute_edges <- function(what = "Imports", rev = FALSE) {
         out <- object[[what]]
@@ -18,28 +32,20 @@ setup_package_network <- function(object, trace = FALSE) {
     ## Edges
     edges_CRAN <- rbind(im, su, en, de)
 
-    ## n_im_by <- stack(Matrix::rowSums(im[]))
     n_im_by <- stack(table(im$from))
     names(n_im_by) <- c("n_imported_by", "Package")
-    ## n_im <- stack(Matrix::colSums(im[]))
     n_im <- stack(table(im$to))
     names(n_im) <- c("n_imports", "Package")
-    ## n_de_by <- stack(Matrix::rowSums(de[]))
     n_de_by <- stack(table(de$from))
     names(n_de_by) <- c("n_depended_by", "Package")
-    ## n_de <- stack(Matrix::colSums(de[]))
     n_de <- stack(table(de$to))
     names(n_de) <- c("n_depends", "Package")
-    ## n_su_by <- stack(Matrix::rowSums(su[]))
     n_su_by <- stack(table(su$from))
     names(n_su_by) <- c("n_suggested_by", "Package")
-    ## n_su <- stack(Matrix::colSums(su[]))
     n_su <- stack(table(su$to))
     names(n_su) <- c("n_suggests", "Package")
-    ## n_en <- stack(Matrix::rowSums(en[]))
     n_en <- stack(table(en$from))
     names(n_en) <- c("n_enhances", "Package")
-    ## n_en_by <- stack(Matrix::colSums(en[]))
     n_en_by <- stack(table(en$to))
     names(n_en_by) <- c("n_enhanced_by", "Package")
 
@@ -51,7 +57,7 @@ setup_package_network <- function(object, trace = FALSE) {
     nodes_CRAN[grep("n_", names(nodes_CRAN))][is.na(nodes_CRAN[grep("n_", names(nodes_CRAN))])] <- 0
 
     out <- list(edges = edges_CRAN, nodes = nodes_CRAN)
-    class(out) <- c("cranly_db_network", class(out))
+    class(out) <- c("cranly_network", class(out))
     attr(out, "timestamp") <- attr(object, "timestamp")
     out
 }
