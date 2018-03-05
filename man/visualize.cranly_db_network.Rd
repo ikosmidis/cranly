@@ -6,7 +6,7 @@
 \usage{
 visualize.cranly_db_network(object, packages = "MASS",
   physics_threshold = 300, height = "800px", width = "800px",
-  types = c("import", "suggest", "enhance", "depend"))
+  types = c("Imports", "Suggests", "Enhances", "Depends"))
 }
 \description{
 Visualise a cranly_bd_network
