@@ -1,5 +1,5 @@
 #' @export
-prepare_CRAN_network <- function(object, trace = FALSE) {
+setup_package_network <- function(object, trace = FALSE) {
 
     compute_edges <- function(what = "Imports", rev = FALSE) {
         out <- object[[what]]

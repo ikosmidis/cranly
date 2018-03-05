@@ -1,6 +1,6 @@
 #' @export
 #' @import stringr tools dplyr tidyr colorspace visNetwork
-prepare_CRAN_package_db <- function(packages_db = CRAN_package_db(),
+clean_package_db <- function(packages_db = CRAN_package_db(),
                                     clean_directives = clean_up_directives,
                                     clean_author = clean_up_author) {
 

@@ -1,6 +1,6 @@
 library("stringr")
 library("tools")
-library("tibble")
+## library("tibble")
 library("dplyr")
 library("tidyr")
 library("colorspace")
@@ -10,11 +10,11 @@ library("ggraph")
 library("igraph")
 library("Matrix")
 
-cran_db <- CRAN_package_db()
+cran_db <- tools::CRAN_package_db()
 
-packages_db <- prepare_CRAN_package_db(cran_db)
+packages_db <- clean_package_db(cran_db)
 
-network <- prepare_CRAN_network(packages_db)
+network <- setup_package_network(packages_db)
 
 my_packages <- network[[2]] %>% filter(grepl("Ioannis Kosmidis", Author)) %>% select(Package) %>% unlist()
 
