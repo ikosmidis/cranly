@@ -12,11 +12,13 @@
 
 ## cran_db <- tools::CRAN_package_db()
 ## packages_db <- clean_package_db(cran_db)
-network <- setup_package_network()
+network <- setup_cranly_network()
+
+au_network <- setup_cranly_network(perspective = "author")
 
 my_packages <- subset(network$nodes, grepl("Ioannis Kosmidis", Author))$Package
 
-visualize.package_network(network, packages = my_packages, physics_threshold = 500)
+visualize.cranly_network(network, packages = my_packages, physics_threshold = 500)
 
 gg1 <- graph.edgelist(network[[1]] %>% group_by() %>% select(from, to) %>% filter(from != "") %>% as.matrix %>% na.omit())
 gg2 <- decompose.graph(gg1)

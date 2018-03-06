@@ -6,18 +6,22 @@
 visualize.cranly_network <- function(object,
                                      packages = "MASS",
                                      authors = "Brian Ripley",
-                                     physics_threshold = 300,
+                                     physics_threshold = 200,
                                      height = "1080px",
                                      width = "1080px",
                                      types = c("Imports", "Suggests", "Enhances", "Depends")) {
     edges <- object[[1]]
     nodes <- object[[2]]
     colors <- colorspace::diverge_hcl(10, c = 100, l = c(50, 100), power = 1)
-    edges_subset <- subset(edges, (to %in% packages | from %in% packages) & (type %in% types))
-    node_names <- unique(c(as.character(edges_subset$from), as.character(edges_subset$to), packages))
-    cat("Number of nodes to be plotted:", length(node_names), "\n")
-    cat("Number of edges to be plotted:", nrow(edges_subset), "\n")
-    if (attr(object, "perspective") == "package") {
+
+    perspective <- attr(object, "perspective")
+
+    if (perspective == "package") {
+        edges_subset <- subset(edges, (to %in% packages | from %in% packages) & (type %in% types))
+        node_names <- unique(c(as.character(edges_subset$from), as.character(edges_subset$to), packages))
+        cat("Number of nodes to be plotted:", length(node_names), "\n")
+        cat("Number of edges to be plotted:", nrow(edges_subset), "\n")
+
         edges_subset <- within(edges_subset, {
             color <- str_replace_all(type,
                                      c("Imports" = colors[10],
@@ -45,15 +49,28 @@ visualize.cranly_network <- function(object,
         })
     }
     else {
+        edges_subset <- subset(edges, (to %in% authors | from %in% authors))
+        node_names <- unique(c(as.character(edges_subset$from), as.character(edges_subset$to), authors))
+        cat("Number of nodes to be plotted:", length(node_names), "\n")
+        cat("Number of edges to be plotted:", nrow(edges_subset), "\n")
+
+        edges_subset <- within(edges_subset, {
+            title <- Package
+        })
+
+        nodes_subset <- subset(nodes, Author %in% node_names)
+
+        nodes_subset <- within(nodes_subset, {
+            label <- Author
+            id <- Author
+            title <- paste0(Author, "<br>",
+                            "Packages: ", unlist(lapply(nodes_subset$Package, paste, collapse = ", ")), "<br>")
+        })
 
     }
 
-##:ess-bp-start::browser@nil:##
-browser(expr=is.null(.ESSBP.[["@12@"]]));##:ess-bp-end:##
-
-
     visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width) %>%
-        visNetwork::visEdges(arrows = list(to = list(enabled = TRUE,  scaleFactor = 0.5)),
+        visNetwork::visEdges(arrows = if(perspective == "author") NULL else list(to = list(enabled = TRUE,  scaleFactor = 0.5)),
                              physics = nrow(nodes_subset) < physics_threshold) %>%
             visNetwork::visOptions(highlightNearest = TRUE)
 }
