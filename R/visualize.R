@@ -60,17 +60,26 @@ visualize.cranly_network <- function(object,
 
         nodes_subset <- subset(nodes, Author %in% node_names)
 
+        format_fun <- function(vec) {
+            n_items <- length(vec)
+            n_full_rows <- n_items %/% 4
+            n_last_row <- n_items %% 4
+            ind <- c(if (n_full_rows > 0) rep(seq.int(n_full_rows), each = 4) else NULL,
+                     rep(n_full_rows + 1, n_last_row))
+            paste(tapply(vec, ind, function(x) paste(x, collapse = ", ")), collapse = "<br>")
+        }
+
         nodes_subset <- within(nodes_subset, {
             label <- Author
             id <- Author
             title <- paste0(Author, "<br>",
-                            "Packages: ", unlist(lapply(nodes_subset$Package, paste, collapse = ", ")), "<br>")
+                            "Packages: ", unlist(lapply(nodes_subset$Package, format_fun)))
         })
 
     }
 
     visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width) %>%
-        visNetwork::visEdges(arrows = if(perspective == "author") NULL else list(to = list(enabled = TRUE,  scaleFactor = 0.5)),
+        visNetwork::visEdges(arrows = if (perspective == "author") NULL else list(to = list(enabled = TRUE, scaleFactor = 0.5)),
                              physics = nrow(nodes_subset) < physics_threshold) %>%
             visNetwork::visOptions(highlightNearest = TRUE)
 }
