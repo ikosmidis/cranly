@@ -56,7 +56,7 @@ setup_cranly_network <- function(object = clean_CRAN_db(),
         nodes <- Reduce(function(x, y) merge(x, y, by = "Package", all = TRUE), list(object, n_im, n_im_by, n_su, n_su_by, n_de, n_de_by, n_en, n_en_by))
 
         ## Remove packages with no version (e.g. coming from other repos like Bioconductor)
-        nodes <- subset(nodes, !is.na(Version))
+        ## nodes <- subset(nodes, !is.na(Version))
         ## Replace NA with zeros
         nodes[grep("n_", names(nodes))][is.na(nodes[grep("n_", names(nodes))])] <- 0
 
@@ -80,6 +80,9 @@ setup_cranly_network <- function(object = clean_CRAN_db(),
         })
         edges <- do.call("rbind", edges)
         names(edges)[1:2] <- c("from", "to")
+        edges <- edges[-which(edges$from == "" | edges$to == ""), ]
+
+
 
         nodes <- do.call("rbind", apply(object[c("Author", "Package")], 1, function(x) {
                                    auth <- x$Author
@@ -94,8 +97,6 @@ setup_cranly_network <- function(object = clean_CRAN_db(),
 
         ## Here
     }
-
-
 
     out <- list(edges = edges, nodes = nodes)
     class(out) <- c("cranly_network", class(out))
