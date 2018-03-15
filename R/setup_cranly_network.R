@@ -82,8 +82,6 @@ setup_cranly_network <- function(object = clean_CRAN_db(),
         names(edges)[1:2] <- c("from", "to")
         edges <- edges[-which(edges$from == "" | edges$to == ""), ]
 
-
-
         nodes <- do.call("rbind", apply(object[c("Author", "Package")], 1, function(x) {
                                    auth <- x$Author
                                    matrix(c(auth, rep(x$Package, length(auth))), ncol = 2)

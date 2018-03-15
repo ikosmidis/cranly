@@ -4,19 +4,20 @@
 #'
 #' @export
 summary.cranly_network <- function(object,
-                                   types = c("Imports", "Suggests", "Enhances", "Depends"),
+                                   edge_type = c("Imports", "Suggests", "Enhances", "Depends"),
                                    normalize = FALSE) {
 
+    perspective <- attr(object, "perspective")
     cranly_graph <- as.igraph.cranly_network(object)
-    cranly_graph <- subgraph.edges(cranly_graph, eids = which(E(cranly_graph)$type %in% types))
+    if (perspective == "package") {
+        cranly_graph <- subgraph.edges(cranly_graph, eids = which(E(cranly_graph)$type %in% edge_type))
+    }
 
     bet <- igraph::betweenness(cranly_graph, normalized = normalize)
     clo <- igraph::closeness(cranly_graph, normalized = normalize)
     pg_rank <- igraph::page_rank(cranly_graph)
     degree <- igraph::degree(cranly_graph, normalized = normalize)
     eigen_cent <- igraph::eigen_centrality(cranly_graph, scale = normalize)
-
-    perspective <- attr(object, "perspective")
 
     if (perspective == "package") {
         package <- names(bet)

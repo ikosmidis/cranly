@@ -4,24 +4,24 @@
 #'
 #' @export
 visualize.cranly_network <- function(object,
-                                     packages = "MASS",
-                                     authors = "Brian Ripley",
+                                     package = NULL,
+                                     author = NULL,
                                      physics_threshold = 200,
-                                     height = "1080px",
-                                     width = "1080px",
-                                     types = c("Imports", "Suggests", "Enhances", "Depends")) {
-    edges <- object[[1]]
-    nodes <- object[[2]]
+                                     height = NULL, #"1080px",
+                                     width = NULL, #"1080px",
+                                     edge_type = c("Imports", "Suggests", "Enhances", "Depends"),
+                                     dragNodes = TRUE,
+                                     dragView = TRUE,
+                                     zoomView = TRUE) {
+    object <- subset(object, package = package, author = author, edge_type = edge_type)
+
+    edges_subset <- object$edges
+    nodes_subset <- object$nodes
     colors <- colorspace::diverge_hcl(10, c = 100, l = c(50, 100), power = 1)
 
     perspective <- attr(object, "perspective")
 
     if (perspective == "package") {
-        edges_subset <- subset(edges, (to %in% packages | from %in% packages) & (type %in% types))
-        node_names <- unique(c(as.character(edges_subset$from), as.character(edges_subset$to), packages))
-        cat("Number of nodes to be plotted:", length(node_names), "\n")
-        cat("Number of edges to be plotted:", nrow(edges_subset), "\n")
-
         edges_subset <- within(edges_subset, {
             color <- str_replace_all(type,
                                      c("Imports" = colors[10],
@@ -35,9 +35,8 @@ visualize.cranly_network <- function(object,
                                        "Suggests" = "is suggested by",
                                        "Enhances" = "enhances"))
         })
-        nodes_subset <- subset(nodes, Package %in% node_names)
         nodes_subset <- within(nodes_subset, {
-            color <- ifelse(Package %in% packages, colors[1], colors[5])
+            color <- ifelse(Package %in% package, colors[1], colors[5])
             label <- Package
             id <- Package
             title <- paste0("<a href=https://CRAN.R-project.org/package=", Package, ">", Package, "</a> (", Version, ")<br>",
@@ -49,16 +48,9 @@ visualize.cranly_network <- function(object,
         })
     }
     else {
-        edges_subset <- subset(edges, (to %in% authors | from %in% authors))
-        node_names <- unique(c(as.character(edges_subset$from), as.character(edges_subset$to), authors))
-        cat("Number of nodes to be plotted:", length(node_names), "\n")
-        cat("Number of edges to be plotted:", nrow(edges_subset), "\n")
-
         edges_subset <- within(edges_subset, {
             title <- Package
         })
-
-        nodes_subset <- subset(nodes, Author %in% node_names)
 
         format_fun <- function(vec) {
             n_items <- length(vec)
@@ -72,7 +64,7 @@ visualize.cranly_network <- function(object,
         nodes_subset <- within(nodes_subset, {
             label <- Author
             id <- Author
-            title <- paste0(Author, "<br>",
+            title <- paste0("Authors:", Author, "<br>",
                             "Packages: ", unlist(lapply(nodes_subset$Package, format_fun)))
         })
 
@@ -81,5 +73,7 @@ visualize.cranly_network <- function(object,
     visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width) %>%
         visNetwork::visEdges(arrows = if (perspective == "author") NULL else list(to = list(enabled = TRUE, scaleFactor = 0.5)),
                              physics = nrow(nodes_subset) < physics_threshold) %>%
-            visNetwork::visOptions(highlightNearest = TRUE)
+            visNetwork::visOptions(highlightNearest = TRUE) %>%
+            visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) %>%
+            visNetwork::visExport()
 }
