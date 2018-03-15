@@ -12,12 +12,12 @@ as.igraph.cranly_network <- function(object, reverse = TRUE, ...) {
                      "n_depends", "n_depended_by",
                      "n_enhances", "n_enhanced_by")
         e_inds <- if (reverse) c(2, 1, 3:ncol(edges)) else 1:ncol(edges)
-        g <- igraph::graph.data.frame(edges[, e_inds], vertices = nodes[v_names], directed = TRUE)
+        g <- graph.data.frame(edges[, e_inds], vertices = nodes[v_names], directed = TRUE)
         E(g)$type <-  edges$type
     }
     else {
 	vnames <- c("Author", "Package")
-        g <- igraph::graph.data.frame(edges, vertices = nodes[vnames], directed = FALSE)
+        g <- graph.data.frame(edges, vertices = nodes[vnames], directed = FALSE)
         E(g)$package <- edges$Package
         E(g)$imports <- edges$Imports
         E(g)$depends <- edges$Depends
