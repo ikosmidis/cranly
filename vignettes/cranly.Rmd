@@ -46,22 +46,30 @@ package_network <- setup_cranly_network(object = packages_db)
 Compute statistics for the package network
 ```{r}
 ## Global package network statistics
-package_summaries <- summary(package_network)
+package_summaries <- summary(package_network, normalize = TRUE)
 ```
 
 Top 10 packages according to various network statistics
 ```{r}
 library("dplyr")
-package_summaries %>% arrange(desc(eigen_centrality)) %>% head(10)
-package_summaries %>% arrange(desc(page_rank)) %>% head(10)
-package_summaries %>% arrange(desc(betweenness)) %>% head(10)
+package_summaries %>% arrange(desc(n_imported_by)) %>%
+    select(package, n_authors, n_imports, n_imported_by) %>% head(10)
+package_summaries %>% arrange(desc(n_imports)) %>%
+    select(package, n_authors, n_imports, n_imported_by) %>% head(10)
+package_summaries %>% arrange(desc(eigen_centrality)) %>%
+    select(package, n_authors, n_imports, n_imported_by, eigen_centrality) %>% head(10)
+package_summaries %>% arrange(desc(page_rank)) %>%
+    select(package, n_authors, n_imports, n_imported_by, page_rank) %>% head(10)
+package_summaries %>% arrange(desc(betweenness)) %>%
+    select(package, n_authors, n_imports, n_imported_by, betweenness) %>% head(10)
 ```
 
-My packages sub-network
+The sub-network of my packages
 ```{r}
-my_packages <- subset(network$nodes, grepl("Ioannis Kosmidis", Author))$Package
-package_summaries %>% filter(package %in% my_packages) %>% arrange(desc(eigen_centrality))
-visualize.cranly_network(package_network, packages = my_packages)
+my_packages <- subset(package_network$nodes, grepl("Ioannis Kosmidis", Author))$Package
+package_summaries %>% filter(package %in% my_packages) %>%
+    select(package, n_authors, n_imports, n_imported_by, eigen_centrality) %>% head(10)
+visualize.cranly_network(package_network, package = my_packages)
 ```
 
 # Author netwroks
@@ -73,29 +81,38 @@ author_network <- setup_cranly_network(object = packages_db, perspective = "auth
 
 Compute statistics for the collaboration network
 ```{r}
-author_summaries <- summary(author_network)
+author_summaries <- summary(author_network, normalize = TRUE)
 ```
 
 Top 10 collaborators according to various network statistics
 ```{r}
 library("dplyr")
-author_summaries %>% arrange(desc(page_rank)) %>% head(10)
-author_summaries %>% arrange(desc(betweenness)) %>% head(10)
-author_summaries %>% arrange(desc(eigen_centrality)) %>% head(10)
+author_summaries %>% arrange(desc(n_packages)) %>%
+    select(author, n_packages) %>% head(10)
+author_summaries %>% arrange(desc(page_rank)) %>%
+    select(author, n_packages, page_rank) %>% head(10)
+author_summaries %>% arrange(desc(betweenness)) %>%
+    select(author, n_packages, betweenness) %>% head(10)
+author_summaries %>% arrange(desc(eigen_centrality)) %>%
+    select(author, n_packages, eigen_centrality) %>% head(10)
 ```
 
 R Core's collaboration sub-network (default)
 ```{r}
-visualize.cranly_network(author_network, authors = "R Core")
+visualize.cranly_network(author_network, author = "R Core")
 ```
 Brian Ripley's collaboration sub-network
 ```{r}
-visualize.cranly_network(author_network, authors = "Brian Ripley")
+visualize.cranly_network(author_network, author = "Brian Ripley")
 ```
-My collaboration sub-network
+My collaboration sub-network (much much smaller that the above, of co)
 ```{r}
-visualize.cranly_network(author_network, authors = "Ioannis Kosmidis")
+visualize.cranly_network(author_network, author = "Ioannis Kosmidis")
 ```
+
+# A more focused analysis of the collaboration network
+
+Let's focus on the sub-network with all authors having authored or contributing to more than 5 packages
 
 
 
