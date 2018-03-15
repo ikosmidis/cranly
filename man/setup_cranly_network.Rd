@@ -4,7 +4,8 @@
 \alias{setup_cranly_network}
 \title{Extract edges and nodes from a \code{\link{cranly_db}} object}
 \usage{
-setup_cranly_network(object = clean_CRAN_db(), trace = FALSE)
+setup_cranly_network(object = clean_CRAN_db(), trace = FALSE,
+  perspective = "package")
 }
 \description{
 Extract edges and nodes from a \code{\link{cranly_db}} object
@@ -13,12 +14,11 @@ Extract edges and nodes from a \code{\link{cranly_db}} object
 \dontrun{
 data("cran_db_example", package = "cranly")
 package_db <- clean_CRAN_db(cran_db_example)
-package_network <- setup_cranly_network(packages_db)
+package_network <- setup_cranly_network(package_db)
 head(package_network$edges)
 head(package_network$nodes)
 attr(package_network, "timestamp")
 class(package_network)
 }
 
- @export
 }
