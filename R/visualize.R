@@ -65,7 +65,8 @@ visualize.cranly_network <- function(object,
             label <- Author
             id <- Author
             title <- paste0("Authors:", Author, "<br>",
-                            "Packages: ", unlist(lapply(nodes_subset$Package, format_fun)))
+                            unlist(lapply(nodes_subset$Package, length)),
+                            " packages: ", unlist(lapply(nodes_subset$Package, format_fun)))
         })
 
     }

@@ -4,9 +4,10 @@
 \alias{visualize.cranly_network}
 \title{Visualise a \code{\link{cranly_network}}}
 \usage{
-visualize.cranly_network(object, packages = "MASS", physics_threshold = 300,
-  height = "800px", width = "800px", types = c("Imports", "Suggests",
-  "Enhances", "Depends"))
+visualize.cranly_network(object, package = NULL, author = NULL,
+  physics_threshold = 200, height = NULL, width = NULL,
+  edge_type = c("Imports", "Suggests", "Enhances", "Depends"),
+  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE)
 }
 \description{
 Visualise a \code{\link{cranly_network}}
