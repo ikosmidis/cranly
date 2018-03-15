@@ -32,7 +32,8 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
     packages_db
 }
 
-
+#' Clean up rules for directives
+#'
 #' @export
 clean_up_directives <- function(variable) {
     variable %>%
@@ -42,7 +43,8 @@ clean_up_directives <- function(variable) {
         str_split(",")
 }
 
-
+#' Clean up rules for author names
+#'
 #' @export
 clean_up_author <- function(variable) {
     variable %>%

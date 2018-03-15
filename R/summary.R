@@ -4,7 +4,8 @@
 #'
 #' @export
 summary.cranly_network <- function(object,
-                                   normalize = FALSE) {
+                                   normalize = FALSE,
+                                   ...) {
 
     perspective <- attr(object, "perspective")
     cranly_graph <- as.igraph.cranly_network(object)

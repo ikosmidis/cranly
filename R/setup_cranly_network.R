@@ -1,9 +1,11 @@
 #' Extract edges and nodes from a \code{\link{cranly_db}} object
 #'
+#'
+#' @aliases cranly_network
+#'
 #' @examples
 #' \dontrun{
-#' data("cran_db_example", package = "cranly")
-#' package_db <- clean_CRAN_db(cran_db_example)
+#' package_db <- clean_CRAN_db()
 #' package_network <- setup_cranly_network(package_db)
 #' head(package_network$edges)
 #' head(package_network$nodes)
