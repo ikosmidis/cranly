@@ -88,10 +88,12 @@ setup_cranly_network <- function(object = clean_CRAN_db(),
                                   }))
 
         nodes <- do.call("rbind", lapply(unique(nodes[, 1]), function(auth) {
-            d <- data.frame(Author = auth, stringsAsFactors = TRUE)
+            d <- data.frame(Author = auth, stringsAsFactors = FALSE)
             d[["Package"]] <- list(nodes[nodes[, 1] == auth, 2])
             d
-        }))
+            }))
+
+        nodes <- nodes[-which(nodes$Author == ""), ]
 
         ## Here
     }

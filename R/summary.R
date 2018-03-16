@@ -35,7 +35,7 @@ summary.cranly_network <- function(object,
                               page_rank = pg_rank$vector[package],
                               degree = degree,
                               eigen_centrality = eigen_cent$vector[package],
-                              stringsAsFactors = TRUE))
+                              stringsAsFactors = FALSE))
     }
     else {
         aut <- object$nodes$Author
@@ -47,7 +47,7 @@ summary.cranly_network <- function(object,
                           page_rank = pg_rank$vector[aut],
                           degree = degree[aut],
                           eigen_centrality = eigen_cent$vector[aut],
-                          stringsAsFactors = TRUE)
+                          stringsAsFactors = FALSE)
     }
     out
 
