@@ -17,17 +17,18 @@ knitr::opts_chunk$set(
 ```
 
 Donwload current CRAN database
-```{r cache = TRUE}
+```{r}
 cran_db <- tools::CRAN_package_db()
 ```
 
 Clean and organise author names, depends, imports, suggests, enhances
-```{r, cache = TRUE}
+```{r}
+library("cranly")
 packages_db <- clean_CRAN_db(packages_db = cran_db)
 ```
 
 The above two steps can be done in one by calling
-```{r, cache = TRUE}
+```{r}
 packages_db <- clean_CRAN_db()
 ```
 
@@ -39,7 +40,7 @@ attr(packages_db, "timestamp")
 # Package network
 
 Setup CRAN package network
-```{r, cache = TRUE}
+```{r}
 package_network <- setup_cranly_network(object = packages_db)
 ```
 
@@ -75,7 +76,7 @@ visualize.cranly_network(package_network, package = my_packages)
 # Author netwroks
 
 Setup CRAN collaboration network
-```{r, cache = TRUE}
+```{r}
 author_network <- setup_cranly_network(object = packages_db, perspective = "author")
 ```
 
