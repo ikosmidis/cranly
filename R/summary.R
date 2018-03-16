@@ -3,18 +3,16 @@
 #' @examples
 #'
 #' @export
-summary.cranly_network <- function(object,
-                                   normalize = FALSE,
-                                   ...) {
+summary.cranly_network <- function(object, ...) {
 
     perspective <- attr(object, "perspective")
     cranly_graph <- as.igraph.cranly_network(object)
 
-    bet <- betweenness(cranly_graph, normalized = normalize)
-    clo <- closeness(cranly_graph, normalized = normalize)
+    bet <- betweenness(cranly_graph, normalized = FALSE)
+    clo <- closeness(cranly_graph, normalized = FALSE)
     pg_rank <- page_rank(cranly_graph)
-    degree <- degree(cranly_graph, normalized = normalize)
-    eigen_cent <- eigen_centrality(cranly_graph, scale = normalize)
+    degree <- degree(cranly_graph, normalized = FALSE)
+    eigen_cent <- eigen_centrality(cranly_graph, scale = FALSE)
 
     if (perspective == "package") {
         package <- object$nodes$Package
@@ -49,6 +47,8 @@ summary.cranly_network <- function(object,
                           eigen_centrality = eigen_cent$vector[aut],
                           stringsAsFactors = FALSE)
     }
+    class(out) <- c("summary_cranly_network", class(out))
+    attr(out, "perspective") <- perspective
+    attr(out, "timestamp") <- attr(object, "timestamp")
     out
-
 }

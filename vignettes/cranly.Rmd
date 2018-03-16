@@ -39,12 +39,17 @@ package_network <- build_cranly_network(object = packages_db)
 Compute statistics for the package network
 ```{r}
 ## Global package network statistics
-package_summaries <- summary(package_network, normalize = TRUE)
+package_summaries <- summary(package_network)
 ```
 
 Top 10 packages according to various statistics
 ```{r}
 library("dplyr")
+library("ggplot2")
+## package_summaries %>%
+##     arrange(eigen_centrality) %>%
+##     mutate(package = factor(package, ordered = TRUE, levels = package)) %>% tail(50) %>%
+##     ggplot(aes(y = eigen_centrality, x = package)) + geom_bar(stat = "identity") + coord_flip()
 package_summaries %>% arrange(desc(n_imported_by)) %>%
     select(package, n_authors, n_imports, n_imported_by) %>% head(10)
 package_summaries %>% arrange(desc(page_rank)) %>%
@@ -74,7 +79,7 @@ author_network <- build_cranly_network(object = packages_db, perspective = "auth
 
 Compute statistics for the collaboration network
 ```{r}
-author_summaries <- summary(author_network, normalize = TRUE)
+author_summaries <- summary(author_network)
 ```
 
 Top 10 collaborators according to various network statistics
