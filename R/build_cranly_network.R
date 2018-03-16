@@ -6,7 +6,7 @@
 #' @examples
 #' \dontrun{
 #' package_db <- clean_CRAN_db()
-#' package_network <- setup_cranly_network(package_db)
+#' package_network <- build_cranly_network(package_db)
 #' head(package_network$edges)
 #' head(package_network$nodes)
 #' attr(package_network, "timestamp")
@@ -14,11 +14,10 @@
 #' }
 #'
 #' @export
-setup_cranly_network <- function(object = clean_CRAN_db(),
+build_cranly_network <- function(object = clean_CRAN_db(),
                                   trace = FALSE, perspective = "package") {
 
     perspective <- match.arg(perspective, c("package", "author"))
-
 
     if (perspective == "package") {
         compute_edges <- function(what = "Imports", rev = FALSE) {

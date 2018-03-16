@@ -1,10 +1,10 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "CRAN top 10s and interactive package and collaboration networks"
+author: "[Ioannis Kosmidis](http://www.ucl.ac.uk/~ucakiko/)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{CRAN top 10s and interactive package and collaboration networks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,32 +16,24 @@ knitr::opts_chunk$set(
 )
 ```
 
-Donwload current CRAN database
-```{r}
-cran_db <- tools::CRAN_package_db()
-```
+# Preparing today's CRAN package database
 
-Clean and organise author names, depends, imports, suggests, enhances
+Donwload today's CRAN database and clean and organise author names, depends, imports, suggests, enhances
 ```{r}
 library("cranly")
-packages_db <- clean_CRAN_db(packages_db = cran_db)
-```
-
-The above two steps can be done in one by calling
-```{r}
 packages_db <- clean_CRAN_db()
 ```
 
-The resulting dataset carries the timestamp it was organised
+The resulting dataset carries the timestamp of when it was put together
 ```{r}
 attr(packages_db, "timestamp")
 ```
 
-# Package network
+# Network of CRAN packages
 
-Setup CRAN package network
+Extract edges and nodes for the CRAN package network
 ```{r}
-package_network <- setup_cranly_network(object = packages_db)
+package_network <- build_cranly_network(object = packages_db)
 ```
 
 Compute statistics for the package network
@@ -50,19 +42,19 @@ Compute statistics for the package network
 package_summaries <- summary(package_network, normalize = TRUE)
 ```
 
-Top 10 packages according to various network statistics
+Top 10 packages according to various statistics
 ```{r}
 library("dplyr")
 package_summaries %>% arrange(desc(n_imported_by)) %>%
     select(package, n_authors, n_imports, n_imported_by) %>% head(10)
-package_summaries %>% arrange(desc(n_imports)) %>%
-    select(package, n_authors, n_imports, n_imported_by) %>% head(10)
-package_summaries %>% arrange(desc(eigen_centrality)) %>%
-    select(package, n_authors, n_imports, n_imported_by, eigen_centrality) %>% head(10)
 package_summaries %>% arrange(desc(page_rank)) %>%
     select(package, n_authors, n_imports, n_imported_by, page_rank) %>% head(10)
 package_summaries %>% arrange(desc(betweenness)) %>%
     select(package, n_authors, n_imports, n_imported_by, betweenness) %>% head(10)
+package_summaries %>% arrange(desc(n_authors)) %>%
+    select(package, n_authors, n_imports, n_imported_by) %>% head(10)
+package_summaries %>% arrange(desc(n_imports)) %>%
+    select(package, n_authors, n_imports, n_imported_by) %>% head(10)
 ```
 
 The sub-network of my packages
@@ -73,11 +65,11 @@ package_summaries %>% filter(package %in% my_packages) %>%
 visualize.cranly_network(package_network, package = my_packages)
 ```
 
-# Author netwroks
+# CRAN collaboration network
 
-Setup CRAN collaboration network
+Build CRAN collaboration network
 ```{r}
-author_network <- setup_cranly_network(object = packages_db, perspective = "author")
+author_network <- build_cranly_network(object = packages_db, perspective = "author")
 ```
 
 Compute statistics for the collaboration network
@@ -98,7 +90,7 @@ author_summaries %>% arrange(desc(eigen_centrality)) %>%
     select(author, n_packages, eigen_centrality) %>% head(10)
 ```
 
-R Core's collaboration sub-network (default)
+R Core's collaboration sub-network
 ```{r}
 visualize.cranly_network(author_network, author = "R Core")
 ```

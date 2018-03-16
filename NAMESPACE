@@ -2,10 +2,10 @@
 
 S3method(subset,cranly_network)
 S3method(summary,cranly_network)
+export(build_cranly_network)
 export(clean_CRAN_db)
 export(clean_up_author)
 export(clean_up_directives)
-export(setup_cranly_network)
 export(visualize.cranly_network)
 import(igraph)
 importFrom(magrittr,"%>%")
