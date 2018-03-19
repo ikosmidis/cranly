@@ -12,19 +12,41 @@
 NULL
 
 #' @export
+package_with <- function(object, ...) {
+    UseMethod("package_with")
+}
+
+#' @export
+author_with <- function(object, ...) {
+    UseMethod("author_with")
+}
+
+#' @export
 author_of <- function(object, ...) {
     UseMethod("author_of")
 }
+
 
 #' @export
 package_by <- function(object, ...) {
     UseMethod("package_by")
 }
 
+#' Visualize method for an object
+#'
+#' @aliases visualise
+#'
+#' @param object an object to be visualized
+#' @param ... other arguments to be passed to the method
+#'
 #' @export
+#'
 visualize <- function(object, ...) {
     UseMethod("visualize")
 }
+
+#' @export
+visualise <- visualize
 
 #' @export
 build_network <- function(object, ...) {

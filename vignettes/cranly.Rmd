@@ -87,6 +87,6 @@ visualize(author_network, author = "Brian Ripley")
 ```
 My collaboration sub-network (much much smaller that the above, of co)
 ```{r}
-visualize(author_network, author = "Ioannis Kosmidis")
+visualize(author_network, author = "Kosmidis")
 ```
 

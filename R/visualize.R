@@ -2,22 +2,30 @@
 #'
 #' @export
 visualize.cranly_network <- function(object,
-                                     package = NULL,
-                                     author = NULL,
+                                     package = "cranly",
+                                     author = "Ioannis Kosmidis",
                                      physics_threshold = 200,
                                      height = NULL, #"1080px",
                                      width = NULL, #"1080px",
                                      edge_type = c("Imports", "Suggests", "Enhances", "Depends"),
                                      dragNodes = TRUE,
                                      dragView = TRUE,
-                                     zoomView = TRUE, ...) {
+                                     zoomView = TRUE,
+                                     exact = TRUE,...) {
+
     object <- subset(object, package = package, author = author, edge_type = edge_type)
+
+    if (nrow(object$nodes) == 0) {
+            message("Nothing to visualise")
+            return(invisible(NULL))
+    }
 
     edges_subset <- object$edges
     nodes_subset <- object$nodes
     colors <- colorspace::diverge_hcl(10, c = 100, l = c(50, 100), power = 1)
 
     perspective <- attr(object, "perspective")
+    keep <- attr(object, "keep")
 
     if (perspective == "package") {
         edges_subset <- within(edges_subset, {
@@ -34,7 +42,7 @@ visualize.cranly_network <- function(object,
                                        "Enhances" = "enhances"))
         })
         nodes_subset <- within(nodes_subset, {
-            color <- ifelse(Package %in% package, colors[1], colors[5])
+            color <- ifelse(Package %in% keep, colors[1], colors[5])
             label <- Package
             id <- Package
             title <- paste0("<a href=https://CRAN.R-project.org/package=", Package, ">", Package, "</a> (", Version, ")<br>",
@@ -61,7 +69,7 @@ visualize.cranly_network <- function(object,
         }
 
         nodes_subset <- within(nodes_subset, {
-            color <- ifelse(Author %in% author, colors[1], colors[5])
+            color <- ifelse(Author %in% keep, colors[1], colors[5])
             label <- Author
             id <- Author
             title <- paste0("Author: ", Author, "<br>",
