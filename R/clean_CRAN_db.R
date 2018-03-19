@@ -143,7 +143,7 @@ clean_up_author <- function(variable) {
         str_replace_all("R Core Deveopment Team|R[- ][Cc]ore [Tt]eam|R [Dd]evelopment [Tt]eam|R[- ][Cc]ore [Dd]evelopment [Tt]eam|R core|R[- ][Cc]ore|R[- ][Dd]evelopment [Cc]ore [Tt]eam", "R Core") %>%
         str_replace_all("[Cc][Rr][Aa][Nn] [Tt]eam", "CRAN Team") %>%
         str_replace_all("R[ sS]tudio|R[ sS]tudio Inc", "RStudio") %>%
-        str_replace_all("\\b[Tt]he \\b|\\bthe \\b|-", "") %>%
+        str_replace_all("\\b[Tt]he \\b|\\bthe \\b", "") %>%
         str_replace_all("Wickham Hadley|Hadley Wickham function", "Hadley Wickham") %>%
         str_replace_all("Yihui Xie function", "Yihui Xie") %>%
         iconv(from = "UTF8", to = "ASCII//TRANSLIT") %>%
