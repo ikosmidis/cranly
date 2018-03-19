@@ -49,7 +49,8 @@ visualize.cranly_network <- function(object,
     }
     else {
         edges_subset <- within(edges_subset, {
-            title <- Package
+            title <- paste("collaborate in:", Package)
+            color <- colors[1]
         })
 
         format_fun <- function(vec) {
@@ -62,11 +63,13 @@ visualize.cranly_network <- function(object,
         }
 
         nodes_subset <- within(nodes_subset, {
+            color <- ifelse(Author %in% author, colors[1], colors[5])
             label <- Author
             id <- Author
-            title <- paste0("Authors:", Author, "<br>",
+            title <- paste0("Author: ", Author, "<br>",
+                            n_collaborators, " collaborators in ",
                             unlist(lapply(nodes_subset$Package, length)),
-                            " packages: ", unlist(lapply(nodes_subset$Package, format_fun)))
+                            " packages: <br>", unlist(lapply(nodes_subset$Package, format_fun)))
         })
 
     }
@@ -80,37 +83,3 @@ visualize.cranly_network <- function(object,
 }
 
 
-#' @export
-plot.summary_cranly_network <- function(x, top = 10, according_to = NULL, scale = FALSE) {
-    perspective <- attr(x, "perspective")
-    if (perspective == "package") {
-        what <- "package"
-        nam <- x$package
-        x$package <- NULL
-        if (is.null(according_to))
-            according_to <- "n_imported_by"
-    }
-    else {
-        what <- "author"
-        nam <- x$author
-        x$author <- NULL
-        if (is.null(according_to))
-            according_to <- "n_packages"
-    }
-    stats <- colnames(x)
-    according_to <- match.arg(according_to, stats)
-    x[[what]] <- nam
-    if (scale) {
-        r <- range(x[[according_to]], na.rm = TRUE)
-        x[[according_to]] <- (x[[according_to]] - r[1])/diff(r)
-    }
-    v <- x[rev(head(order(x[[according_to]], decreasing = TRUE), top)), c(what, according_to)]
-    v[[what]] <- factor(v[[what]], ordered = TRUE, levels = v[[what]])
-    ggplot2::ggplot(v) +
-        ggplot2::geom_bar(ggplot2::aes_string(x = what, y = according_to), stat = "identity") +
-            ggplot2::coord_flip() +
-            ggplot2::theme_minimal() +
-            ggplot2::labs(title = paste("Top", top, "according to", according_to),
-                          subtitle = paste("Package database as of", format(attr(x, "timestamp"))))
-    invisible(v)
-}

@@ -17,23 +17,24 @@ summary.cranly_network <- function(object, ...) {
     if (perspective == "package") {
         package <- object$nodes$Package
         n_authors <- unlist(lapply(object$nodes$Author, function(x) {l <- length(x); ifelse(l, l, NA)}))
+
         out <- with(object$nodes,
                     data.frame(package = package,
-                              n_authors = n_authors,
-                              n_imports = ifelse(is.na(n_authors), NA, n_imports),
-                              n_imported_by = n_imported_by,
-                              n_suggests = ifelse(is.na(n_authors), NA, n_suggests),
-                              n_suggested_by = n_suggested_by,
-                              n_depends = ifelse(is.na(n_authors), NA, n_depends),
-                              n_depended_by = n_depended_by,
-                              n_enhances = ifelse(is.na(n_authors), NA, n_enhances),
-                              n_enhanced_by = n_enhanced_by,
-                              betweenness = bet[package],
-                              closeness = clo[package],
-                              page_rank = pg_rank$vector[package],
-                              degree = degree,
-                              eigen_centrality = eigen_cent$vector[package],
-                              stringsAsFactors = FALSE))
+                               n_authors = n_authors,
+                               n_imports = ifelse(is.na(n_authors), NA, n_imports),
+                               n_imported_by = n_imported_by,
+                               n_suggests = ifelse(is.na(n_authors), NA, n_suggests),
+                               n_suggested_by = n_suggested_by,
+                               n_depends = ifelse(is.na(n_authors), NA, n_depends),
+                               n_depended_by = n_depended_by,
+                               n_enhances = ifelse(is.na(n_authors), NA, n_enhances),
+                               n_enhanced_by = n_enhanced_by,
+                               betweenness = bet[package],
+                               closeness = clo[package],
+                               page_rank = pg_rank$vector[package],
+                               degree = degree,
+                               eigen_centrality = eigen_cent$vector[package],
+                               stringsAsFactors = FALSE))
     }
     else {
         aut <- object$nodes$Author

@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: c(person(given = "Ioannis", family = "Kosmidis", role = c("aut", "cre"), email = "ioannis.kosmidis@warwick.ac.uk"))
 Description: What the package does (one paragraph).
 Depends: R (>= 3.4.3)
-Imports: visNetwork, colorspace, igraph, magrittr, stringr
+Imports: visNetwork, colorspace, igraph, magrittr, stringr, ggplot2, countrycode
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

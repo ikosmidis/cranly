@@ -6,7 +6,7 @@
 #' @examples
 #' \dontrun{
 #' package_db <- clean_CRAN_db()
-#' package_network <- build_cranly_network(package_db)
+#' package_network <- build_network(package_db)
 #' head(package_network$edges)
 #' head(package_network$nodes)
 #' attr(package_network, "timestamp")
@@ -14,8 +14,8 @@
 #' }
 #'
 #' @export
-build_cranly_network <- function(object = clean_CRAN_db(),
-                                  trace = FALSE, perspective = "package") {
+build_network.cranly_db <- function(object = clean_CRAN_db(),
+                                    trace = FALSE, perspective = "package") {
 
     perspective <- match.arg(perspective, c("package", "author"))
 
@@ -23,8 +23,8 @@ build_cranly_network <- function(object = clean_CRAN_db(),
         compute_edges <- function(what = "Imports", rev = FALSE) {
             out <- object[[what]]
             names(out) <- object$Package
-            out <- out[sapply(out, function(x) !all(is.na(x)))]
-            out <- stack(lapply(out, function(x) x[x != "" & x != "R"]))
+            out <- stack(out[sapply(out, function(x) !all(is.na(x)))])
+            ## out <- stack(lapply(out, function(x) x[x != "" & x != "R"]))
             names(out) <- if (rev) c("to", "from") else c("from", "to")
             data.frame(out[c("from", "to")], type = what, stringsAsFactors = FALSE)
         }
@@ -78,8 +78,10 @@ build_cranly_network <- function(object = clean_CRAN_db(),
             }
         })
         edges <- do.call("rbind", edges)
+
         names(edges)[1:2] <- c("from", "to")
-        edges <- edges[-which(edges$from == "" | edges$to == ""), ]
+
+        n_col <- with(edges, {table(c(from, to))})
 
         nodes <- do.call("rbind", apply(object[c("Author", "Package")], 1, function(x) {
                                    auth <- x$Author
@@ -92,9 +94,8 @@ build_cranly_network <- function(object = clean_CRAN_db(),
             d
             }))
 
-        nodes <- nodes[-which(nodes$Author == ""), ]
+        nodes$n_collaborators <- n_col[nodes$Author]
 
-        ## Here
     }
 
     out <- list(edges = edges, nodes = nodes)

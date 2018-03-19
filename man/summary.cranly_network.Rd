@@ -4,7 +4,7 @@
 \alias{summary.cranly_network}
 \title{Summarize a \code{\link{cranly_network}}}
 \usage{
-\method{summary}{cranly_network}(object, normalize = FALSE, ...)
+\method{summary}{cranly_network}(object, ...)
 }
 \description{
 Summarize a \code{\link{cranly_network}}

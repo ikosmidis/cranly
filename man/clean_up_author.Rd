@@ -2,10 +2,19 @@
 % Please edit documentation in R/clean_CRAN_db.R
 \name{clean_up_author}
 \alias{clean_up_author}
-\title{Clean up rules for author names}
+\title{Clean up author names}
 \usage{
 clean_up_author(variable)
 }
+\arguments{
+\item{variable}{a character string}
+}
+\value{
+A list of one vector of author names
+}
 \description{
-Clean up rules for author names
+Clean up author names
+}
+\examples{
+clean_up_author("The R Core team, Achim & with some assistance from Hadley; Kurt; France")
 }

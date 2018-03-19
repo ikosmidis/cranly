@@ -2,10 +2,19 @@
 % Please edit documentation in R/clean_CRAN_db.R
 \name{clean_up_directives}
 \alias{clean_up_directives}
-\title{Clean up rules for directives}
+\title{Clean up package directives}
 \usage{
 clean_up_directives(variable)
 }
+\arguments{
+\item{variable}{a character string}
+}
+\value{
+A list of one vector of package names
+}
 \description{
-Clean up rules for directives
+Clean up package directives
+}
+\examples{
+clean_up_directives("R (234)\\n stats (>0.01),     base\\n graphics")
 }
