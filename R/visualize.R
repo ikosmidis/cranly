@@ -1,7 +1,5 @@
 #' Visualise a \code{\link{cranly_network}}
 #'
-#' @examples
-#'
 #' @export
 visualize.cranly_network <- function(object,
                                      package = NULL,

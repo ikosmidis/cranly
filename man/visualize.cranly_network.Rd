@@ -12,6 +12,3 @@
 \description{
 Visualise a \code{\link{cranly_network}}
 }
-\examples{
-
-}

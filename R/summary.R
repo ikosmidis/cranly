@@ -1,7 +1,5 @@
 #' Summarize a \code{\link{cranly_network}}
 #'
-#' @examples
-#'
 #' @export
 summary.cranly_network <- function(object, ...) {
 

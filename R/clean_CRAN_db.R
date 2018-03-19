@@ -8,7 +8,7 @@
 #' @param clean_directives a function that transforms the contents of
 #'     the various directives in the package descriptions to vectors
 #'     of package names. Default is \code{\link{clean_up_directives}}.
-#' @param clean_directives a function that transforms the contents of
+#' @param clean_author a function that transforms the contents of
 #'     \code{Author} to vectors of package authors. Default is
 #'     \code{\link{clean_up_author}}.
 #'

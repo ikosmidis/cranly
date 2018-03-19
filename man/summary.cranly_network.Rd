@@ -9,6 +9,3 @@
 \description{
 Summarize a \code{\link{cranly_network}}
 }
-\examples{
-
-}

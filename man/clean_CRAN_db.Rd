@@ -17,7 +17,7 @@ structure to the output of \code{\link[tools]{CRAN_package_db}}
 the various directives in the package descriptions to vectors
 of package names. Default is \code{\link{clean_up_directives}}.}
 
-\item{clean_directives}{a function that transforms the contents of
+\item{clean_author}{a function that transforms the contents of
 \code{Author} to vectors of package authors. Default is
 \code{\link{clean_up_author}}.}
 }
