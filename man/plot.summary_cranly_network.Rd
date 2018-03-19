@@ -5,7 +5,7 @@
 \title{Top-n packge or author barplots according to a range of network statistics}
 \usage{
 \method{plot}{summary_cranly_network}(x, top = 10, according_to = NULL,
-  scale = FALSE)
+  scale = FALSE, ...)
 }
 \description{
 Top-n packge or author barplots according to a range of network statistics

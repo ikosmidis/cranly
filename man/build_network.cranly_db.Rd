@@ -6,7 +6,7 @@
 \title{Extract edges and nodes from a \code{\link{cranly_db}} object}
 \usage{
 \method{build_network}{cranly_db}(object = clean_CRAN_db(), trace = FALSE,
-  perspective = "package")
+  perspective = "package", ...)
 }
 \description{
 Extract edges and nodes from a \code{\link{cranly_db}} object

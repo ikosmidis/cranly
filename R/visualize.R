@@ -12,7 +12,7 @@ visualize.cranly_network <- function(object,
                                      edge_type = c("Imports", "Suggests", "Enhances", "Depends"),
                                      dragNodes = TRUE,
                                      dragView = TRUE,
-                                     zoomView = TRUE) {
+                                     zoomView = TRUE, ...) {
     object <- subset(object, package = package, author = author, edge_type = edge_type)
 
     edges_subset <- object$edges

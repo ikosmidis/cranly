@@ -1,7 +1,7 @@
 #' Top-n packge or author barplots according to a range of network statistics
 #'
 #' @export
-plot.summary_cranly_network <- function(x, top = 10, according_to = NULL, scale = FALSE) {
+plot.summary_cranly_network <- function(x, top = 10, according_to = NULL, scale = FALSE, ...) {
     perspective <- attr(x, "perspective")
     if (perspective == "package") {
         what <- "package"

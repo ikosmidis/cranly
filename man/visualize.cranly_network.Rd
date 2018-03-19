@@ -7,7 +7,7 @@
 \method{visualize}{cranly_network}(object, package = NULL, author = NULL,
   physics_threshold = 200, height = NULL, width = NULL,
   edge_type = c("Imports", "Suggests", "Enhances", "Depends"),
-  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE)
+  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, ...)
 }
 \description{
 Visualise a \code{\link{cranly_network}}

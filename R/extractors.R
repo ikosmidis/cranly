@@ -1,5 +1,5 @@
 #' @export
-package_by.cranly_network <- function(object, author = NULL) {
+package_by.cranly_network <- function(object, author = NULL, ...) {
     if (is.null(author)) {
         return(unlist(object$nodes$Package))
     }
@@ -15,7 +15,7 @@ package_by.cranly_network <- function(object, author = NULL) {
 }
 
 #' @export
-author_of.cranly_network <- function(object, package = NULL) {
+author_of.cranly_network <- function(object, package = NULL, ...) {
     if (is.null(package)) {
         return(unlist(object$nodes$Package))
     }

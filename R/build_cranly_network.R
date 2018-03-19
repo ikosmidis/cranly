@@ -15,7 +15,7 @@
 #'
 #' @export
 build_network.cranly_db <- function(object = clean_CRAN_db(),
-                                    trace = FALSE, perspective = "package") {
+                                    trace = FALSE, perspective = "package", ...) {
 
     perspective <- match.arg(perspective, c("package", "author"))
 
