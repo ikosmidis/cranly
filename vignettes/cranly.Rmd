@@ -4,7 +4,7 @@ author: "[Ioannis Kosmidis](http://www.ucl.ac.uk/~ucakiko/)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{CRAN tope 10s and interactive package and collaboration networks}
+  %\VignetteIndexEntry{CRAN top 10s and interactive package and collaboration networks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
