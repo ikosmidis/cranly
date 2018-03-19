@@ -1,0 +1,39 @@
+#' Top-n packge or author barplots according to a range of network statistics
+#'
+#' @export
+plot.summary_cranly_network <- function(x, top = 10, according_to = NULL, scale = FALSE) {
+    perspective <- attr(x, "perspective")
+    if (perspective == "package") {
+        what <- "package"
+        nam <- x$package
+        x$package <- NULL
+        if (is.null(according_to))
+            according_to <- "n_imported_by"
+    }
+    else {
+        what <- "author"
+        nam <- x$author
+        x$author <- NULL
+        if (is.null(according_to))
+            according_to <- "n_packages"
+    }
+    stats <- colnames(x)
+    according_to <- match.arg(according_to, stats)
+    x[[what]] <- nam
+    if (scale) {
+        r <- range(x[[according_to]], na.rm = TRUE)
+        x[[according_to]] <- (x[[according_to]] - r[1])/diff(r)
+    }
+    v <- x[rev(head(order(x[[according_to]], decreasing = TRUE), top)), c(what, according_to)]
+    v[[what]] <- factor(v[[what]], ordered = TRUE, levels = v[[what]])
+
+    out <- ggplot2::ggplot(v) +
+        ggplot2::geom_bar(ggplot2::aes_string(x = what, y = according_to), stat = "identity") +
+        ggplot2::theme_minimal() +
+        ggplot2::labs(title = paste("Top", top, "according to", according_to),
+                      subtitle = paste("Package database as of", format(attr(x, "timestamp"))),
+                      y = if (scale) paste(according_to, "score") else according_to) +
+        ggplot2::coord_flip()
+    print(out)
+    invisible(v)
+}
