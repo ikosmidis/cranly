@@ -22,8 +22,8 @@ Compute edges and nodes of package and author networks
 }
 \examples{
 \dontrun{
-package_db <- clean_CRAN_db()
-package_network <- build_network(package_db)
+data("cran20032018", package = "cranly")
+package_network <- build_network(object = cran20032018)
 head(package_network$edges)
 head(package_network$nodes)
 attr(package_network, "timestamp")

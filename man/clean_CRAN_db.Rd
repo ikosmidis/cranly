@@ -33,26 +33,31 @@ Clean and organise package and author names in the output of \code{tools::CRAN_p
 \code{clean_CRAN_db} uses \code{clean_up_directives} and
 \code{clean_up_authors} to clean up the author names and package
 names in the various directives (like \code{Imports},
-\code{Depends}, \code{Suggests}, \code{Enahnces}, as in the
+\code{Depends}, \code{Suggests}, \code{Enhances}, as in the
 \code{data.frame} that results from
 \code{\link[tools]{CRAN_package_db}}) and return an organised
 \code{data.frame} of class \code{cranly_db} that can be used for
-furter analysis.
+further analysis.
 
-\code{clean_CRAN_db} tries hard to identify and eliminate mistakes
-in the Author field of the description file, and exract and return
-a clean list of only author names. The relevant operations are
-coded in the \code{\link{clean_up_author}} function. Custom
-functions for clean up can be supplied via the
+The function hard to identify and eliminate mistakes in the Author
+field of the description file, and extract a clean list of only
+author names. The relevant operations are coded in the
+\code{\link{clean_up_author}} function. The current version of
+\code{\link{clean_up_author}} is far from best practice in using
+regex but it currently does a fair job in cleaning up messy Author
+fields. It will be improving in future versions.
+
+Custom clean-up functions can also be supplied via the
 \code{clean_directives} and \code{clean_author} arguments.
 }
 \examples{
 \dontrun{
+## Before cleaning
 cran_db <- tools::CRAN_package_db()
-cran_db[which(cran_db$Package == "lmtest"), "Author"]
+cran_db[cran_db$Package == "weights", "Author"]
 
 ## After clean up
 package_db <- clean_CRAN_db(cran_db)
-packages_db[which(packages_db$Package == "lmtest"), "Author"]
+package_db[package_db$Package == "weights", "Author"]
 }
 }

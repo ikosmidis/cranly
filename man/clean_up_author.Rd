@@ -10,11 +10,11 @@ clean_up_author(variable)
 \item{variable}{a character string}
 }
 \value{
-A list of one vector of author names
+A list of one vector of character strings
 }
 \description{
 Clean up author names
 }
 \examples{
-clean_up_author("The R Core team, Achim & with some assistance from Hadley; Kurt; France")
+clean_up_author("The R Core team, Brian & with some assistance from Achim, Hadley; Kurt\\n Portugal; Ireland; Italy; Greece; Spain")
 }

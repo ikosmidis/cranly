@@ -17,17 +17,21 @@
 #' \code{clean_CRAN_db} uses \code{clean_up_directives} and
 #' \code{clean_up_authors} to clean up the author names and package
 #' names in the various directives (like \code{Imports},
-#' \code{Depends}, \code{Suggests}, \code{Enahnces}, as in the
+#' \code{Depends}, \code{Suggests}, \code{Enhances}, as in the
 #' \code{data.frame} that results from
 #' \code{\link[tools]{CRAN_package_db}}) and return an organised
 #' \code{data.frame} of class \code{cranly_db} that can be used for
-#' furter analysis.
+#' further analysis.
 #'
-#' \code{clean_CRAN_db} tries hard to identify and eliminate mistakes
-#' in the Author field of the description file, and exract and return
-#' a clean list of only author names. The relevant operations are
-#' coded in the \code{\link{clean_up_author}} function. Custom
-#' functions for clean up can be supplied via the
+#' The function hard to identify and eliminate mistakes in the Author
+#' field of the description file, and extract a clean list of only
+#' author names. The relevant operations are coded in the
+#' \code{\link{clean_up_author}} function. The current version of
+#' \code{\link{clean_up_author}} is far from best practice in using
+#' regex but it currently does a fair job in cleaning up messy Author
+#' fields. It will be improving in future versions.
+#'
+#' Custom clean-up functions can also be supplied via the
 #' \code{clean_directives} and \code{clean_author} arguments.
 #'
 #' @return
@@ -38,12 +42,13 @@
 #'
 #' @examples
 #' \dontrun{
+#' ## Before cleaning
 #' cran_db <- tools::CRAN_package_db()
-#' cran_db[which(cran_db$Package == "lmtest"), "Author"]
+#' cran_db[cran_db$Package == "weights", "Author"]
 #'
 #' ## After clean up
 #' package_db <- clean_CRAN_db(cran_db)
-#' packages_db[which(packages_db$Package == "lmtest"), "Author"]
+#' package_db[package_db$Package == "weights", "Author"]
 #' }
 #' @export
 clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
@@ -77,7 +82,7 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
 #'
 #' @return
 #'
-#' A list of one vector of package names
+#' A list of one vector of character strings
 #'
 #' @examples
 #' clean_up_directives("R (234)\n stats (>0.01),     base\n graphics")
@@ -101,10 +106,10 @@ clean_up_directives <- function(variable) {
 #'
 #' @return
 #'
-#' A list of one vector of author names
+#' A list of one vector of character strings
 #'
 #' @examples
-#' clean_up_author("The R Core team, Achim & with some assistance from Hadley; Kurt; France")
+#' clean_up_author("The R Core team, Brian & with some assistance from Achim, Hadley; Kurt\n Portugal; Ireland; Italy; Greece; Spain")
 #' @export
 clean_up_author <- function(variable) {
     variable %>%
@@ -130,7 +135,7 @@ clean_up_author <- function(variable) {
         str_replace_all(paste(countrycode::codelist$country.name.en, collapse = "|"), "") %>% ## eliminate country names
         str_replace_all("with contributions from:|with the contributions from|with contributions of|with contributions from|with collaborations of|with collaborations of|with collaborations by|with contribution from|with contributions of|with substantial contributions of code by|With considerable contributions by|with contributions by|with contribution by|with contributons from|With contributions from|with considerable contribution from|with a contribution from|with a contribution of|with a code snipped borrowed from", ",") %>%
         str_replace_all("with additional code from|with code developed by the|with code for case-control data contributed by|with collaboration of|with corrections by|with embedded Fortran code due to|with help from|with ideas from|with loess code from|with some assistance from|with some Fortran code adapted by|from the original by|with support from|Based on earlier work by|earlier work by| with data provided by|with suggestions from|Zhejiang university school of medicine|with tsvq code originally from|with the colaboration of|with Fortran code for Sampson-Guttorp estimation authored by|with \\\\code\\{hwexact\\} from|Ported to R by|Originally written for S-Plus by:|functions from rastamat by|R functions by|contains copies of ttice functions written by|Datasets via|qrng functions by|We are grateful to|S functions written by|comments go to|compiled by|Compiled by|The included GUDHI is authored by", ",") %>%
-        str_replace_all("Based on models developed by|BiSSE-ness by|for the|based in part on an earlier implementation by|based on code from|contribution of|contributions by|contributions from|Contributions from|Contributions by|Contribution from|Additional contributions|data collected by|Original|R version by|Enhancements by|also based on C-code developed by|Function simpls based on simplsfit by|apart from a set of Fortran-77 subroutines written by|assisted by|R code by|based on Onigmo by|based on original code by|R documentation provided by|Transfer Entropy Packge:| Additional Code by|the contents of this package were written by|code written by", ",") %>%
+        str_replace_all("Based on models developed by|BiSSE-ness by|for the|based in part on an earlier implementation by|based on code from|contribution of|contributions by|contributions from|Contributions from|Contributions by|Contribution from|Additional contributions by|Additional contributions|data collected by|Original|R version by|Enhancements by|also based on C-code developed by|Function simpls based on simplsfit by|apart from a set of Fortran-77 subroutines written by|assisted by|R code by|based on Onigmo by|based on original code by|R documentation provided by|Transfer Entropy Packge:| Additional Code by|the contents of this package were written by|code written by", ",") %>%
         str_replace_all("based on readdcf by|based on RSvgDevice by|based on the program by|based on the source code from the randomForest package by|based on the work of|Author:|Author|Function fbvpot by:|Function fbvpot by|based in part on C code written by|based on|under the supervision of|Special thanks are due to|Contains|functions from rastamat by|The included parts of the libmad MPEG audio decoder library are authored by|together with|see README Function getHostnameSystem from package Rutils by|Earlier developements by|Contributors:|Contributor:|S original by| adopted to recent S-PLUS by|S scripts originally by|with key contributors|some code modified from|some package testing by|Derived from mda:mars by|substantially revised from|MATLAB code which is in turn adopted from|guide document were prepared by", ",") %>%
         str_replace_all("Includes R source code and|Significant contributions on the package skeleton creation|with code for the Fourier transform from the seewave package|with general advice from the R-help listserv community|with parts adapted from Fortran|also changed its un-safe pointer arithmetics|ANN Library:|are provided under the terms of the GNU General Public License|readxportR is adapted from the Hmisc package created by|R port + extensions by|zlib from| Uses |Fortran utilities with|Cards were created by|method implementation by|s\\@R: c|s\\@R: person|examples from the argparse Python module by the Python Software Foundation Ports examples from the getopt package by|transition to Plan 9 codebase by", ",") %>%
         str_replace_all("The package uses functions from dlib|others in each function manual|plotting functions|for histsu function|for qqglddefault function|readMP3 function from the tuneR package|provided creative direction|for significant work on the functions new to version 20: cstratapsa|authored the function mtxexp|whose code has been included in our source package|released into the public domain They were downloaded from http:|with support|for low discrepancy algorithm|leaps wrapper|for gld C codes|s of libhunspell|S original|MATLAB code|support from the French National Research Program for Environmental|Apache Commons Codec", " ") %>%

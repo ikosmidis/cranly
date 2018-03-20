@@ -10,7 +10,7 @@ clean_up_directives(variable)
 \item{variable}{a character string}
 }
 \value{
-A list of one vector of package names
+A list of one vector of character strings
 }
 \description{
 Clean up package directives

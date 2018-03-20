@@ -5,13 +5,12 @@
 #' @param perspective character. Build a \code{"package"} (default )or an \code{"author"} network?
 #' @param ... Currently not used
 #'
-#'
 #' @aliases cranly_network
 #'
 #' @examples
 #' \dontrun{
-#' package_db <- clean_CRAN_db()
-#' package_network <- build_network(package_db)
+#' data("cran20032018", package = "cranly")
+#' package_network <- build_network(object = cran20032018)
 #' head(package_network$edges)
 #' head(package_network$nodes)
 #' attr(package_network, "timestamp")
