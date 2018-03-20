@@ -1,4 +1,9 @@
-#' Extract edges and nodes from a \code{\link{cranly_db}} object
+#' Compute edges and nodes of package and author networks
+#'
+#' @param object a \code{\link{cranly_db}} object
+#' @param trace logical. Print progress infromation? Default is \code{FALSE}
+#' @param perspective character. Build a \code{"package"} (default )or an \code{"author"} network?
+#' @param ... Currently not used
 #'
 #'
 #' @aliases cranly_network
