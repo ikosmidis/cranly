@@ -1,5 +1,14 @@
 #' Top-n packge or author barplots according to a range of network statistics
 #'
+#' @examples
+#'
+#' \dontrun{
+#' data("cran20032018", package = "cranly")
+#' package_network <- build_network(object = cran20032018)
+#' package_summaries <- summary(package_network)
+#' plot(package_summaries, top = 30)
+#' }
+#'
 #' @export
 plot.summary_cranly_network <- function(x, top = 10, according_to = NULL, scale = FALSE, ...) {
     perspective <- attr(x, "perspective")

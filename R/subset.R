@@ -1,9 +1,17 @@
+#' Subset a \code{\link{cranly_network}} according to author, package and/or directive
+#'
+#' @param x a \code{\link{cranly_network}} object
+#' @param package a vector of character strings with the package names to be matched
+#' @param author a vector of character strings with the author names to be matched
+#' @param directive a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}
+#' @param exact logical. Should we use exact matching of author and package names? Default is \code{TRUE}
+#' @param ... currently not used
+#'
 #' @export
-
 subset.cranly_network <- function(x,
                                   package = "cranly",
                                   author = "Ioannis Kosmidis",
-                                  edge_type = c("Imports", "Suggests", "Enhances", "Depends"),
+                                  directive = c("Imports", "Suggests", "Enhances", "Depends"),
                                   exact = TRUE,
                                   ...) {
     perspective <- attr(x, "perspective")
@@ -11,7 +19,7 @@ subset.cranly_network <- function(x,
         p1 <- package_with(x, name = package, exact = exact)
         p2 <- package_by(x, author = author, exact = exact)
         keep <- unique(c(p1, p2))
-        edges_subset <- subset(x$edges, (to %in% keep | from %in% keep) & (type %in% edge_type))
+        edges_subset <- subset(x$edges, (to %in% keep | from %in% keep) & (type %in% directive))
         node_names <- unique(c(as.character(edges_subset$from), as.character(edges_subset$to), keep))
         nodes_subset <- subset(x$nodes, Package %in% node_names)
     }

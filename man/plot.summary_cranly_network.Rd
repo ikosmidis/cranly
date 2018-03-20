@@ -10,3 +10,13 @@
 \description{
 Top-n packge or author barplots according to a range of network statistics
 }
+\examples{
+
+\dontrun{
+data("cran20032018", package = "cranly")
+package_network <- build_network(object = cran20032018)
+package_summaries <- summary(package_network)
+plot(package_summaries, top = 30)
+}
+
+}
