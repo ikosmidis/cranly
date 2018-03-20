@@ -18,10 +18,15 @@ knitr::opts_chunk$set(
 
 # Preparing today's CRAN package database
 
-Donwload today's CRAN database and clean and organise author names, depends, imports, suggests, enhances
+Donwload today's CRAN database
 ```{r}
 library("cranly")
-package_db <- clean_CRAN_db()
+p_db <- tools::CRAN_package_db()
+```
+
+Clean and organise author names, depends, imports, suggests, enhances
+```{r}
+package_db <- clean_CRAN_db(p_db)
 ```
 
 The resulting dataset carries the timestamp of when it was put together

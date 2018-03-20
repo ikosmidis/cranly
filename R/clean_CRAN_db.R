@@ -117,6 +117,7 @@ clean_up_author <- function(variable) {
         str_replace_all(" - ", ",") %>%
         str_replace_all("/", ",") %>% ## replace ; with ,
         str_replace_all("&", ",") %>% ## eliminate &
+        str_replace_all("'s", ",") %>% ## eliminate &
         str_replace_all("^\\s+|\\s+$|\\s+(?=\\s)", "") %>% ## eliminate white space
         str_replace_all("\t+", " ") %>% ## replace tabs with whitespace
         str_replace_all("\"|'", "") %>% ## eliminate quotes
