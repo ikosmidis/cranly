@@ -6,7 +6,7 @@
 #'
 #' @details
 #'
-#' The convention for a \code{\link{cranly_network}} with
+#' The convention for a \code{\link{cranly_network}} object with
 #' \code{perspective = "package"} is that the direction of an edge is
 #' from the package that is imported by, suggested by, enhances or is
 #' a dependency of another package, to the latter

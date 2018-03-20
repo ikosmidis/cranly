@@ -2,10 +2,19 @@
 % Please edit documentation in R/summary.R
 \name{summary.cranly_network}
 \alias{summary.cranly_network}
-\title{Summarize a \code{\link{cranly_network}}}
+\alias{summary_cranly_network}
+\title{Compute a range of author and package network statistics}
 \usage{
 \method{summary}{cranly_network}(object, ...)
 }
+\arguments{
+\item{object}{a \code{\link{cranly_network}} object}
+
+\item{...}{currently not used}
+}
 \description{
-Summarize a \code{\link{cranly_network}}
+Compute a range of author and package network statistics
+}
+\details{
+
 }

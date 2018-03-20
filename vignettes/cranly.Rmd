@@ -1,5 +1,5 @@
 ---
-title: "CRAN top 10s and interactive package and collaboration networks"
+title: "CRAN top 20s and interactive R package and collaboration networks"
 author: "[Ioannis Kosmidis](http://www.ucl.ac.uk/~ucakiko/)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -49,12 +49,12 @@ package_summaries <- summary(package_network)
 
 Top 10 packages according to various statistics
 ```{r}
-plot(package_summaries, according_to = "n_imported_by", top = 20)
-plot(package_summaries, according_to = "page_rank", top = 20)
-plot(package_summaries, according_to = "betweenness", top = 20)
-plot(package_summaries, according_to = "n_enhances", top = 20)
-plot(package_summaries, according_to = "n_authors", top = 20)
-plot(package_summaries, according_to = "n_imports", top = 20)
+plot(package_summaries, according_to = "n_imported_by")
+plot(package_summaries, according_to = "page_rank")
+plot(package_summaries, according_to = "betweenness")
+plot(package_summaries, according_to = "n_enhances")
+plot(package_summaries, according_to = "n_authors")
+plot(package_summaries, according_to = "n_imports")
 ```
 
 The sub-network of my packages
@@ -77,9 +77,9 @@ author_summaries <- summary(author_network)
 
 Top 10 collaborators according to various network statistics
 ```{r}
-plot(author_summaries, according_to = "n_packages", top = 20)
-plot(author_summaries, according_to = "page_rank", top = 20)
-plot(author_summaries, according_to = "betweenness", top = 20)
+plot(author_summaries, according_to = "n_packages")
+plot(author_summaries, according_to = "page_rank")
+plot(author_summaries, according_to = "betweenness")
 ```
 
 R Core's collaboration sub-network

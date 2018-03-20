@@ -1,16 +1,22 @@
 #' Top-n packge or author barplots according to a range of network statistics
 #'
+#' @param x a \code{\link{summary_cranly_network}} object
+#' @param top integer. How may top packages or authors should be plotted? Default is \code{20}
+#' @param according_to the statistic according to which the top-\code{\top} list is produced. See \code{\link{summary.cranly_network}} for available statistics
+#' @param scale logical. Should the statistics be scaled to lie between \code{0} and \code{1} before plotting? Default is \code{TRUE}
+#' @param ... currently not used
+#'
 #' @examples
 #'
 #' \dontrun{
 #' data("cran20032018", package = "cranly")
-#' package_network <- build_network(object = cran20032018)
+#' package_network <- build_network(cran20032018)
 #' package_summaries <- summary(package_network)
-#' plot(package_summaries, top = 30)
+#' plot(package_summaries, according_to = "page_rank", top = 30)
 #' }
 #'
 #' @export
-plot.summary_cranly_network <- function(x, top = 10, according_to = NULL, scale = FALSE, ...) {
+plot.summary_cranly_network <- function(x, top = 20, according_to = NULL, scale = TRUE, ...) {
     perspective <- attr(x, "perspective")
     if (perspective == "package") {
         what <- "package"

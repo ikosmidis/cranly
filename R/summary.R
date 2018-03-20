@@ -1,4 +1,11 @@
-#' Summarize a \code{\link{cranly_network}}
+#' Compute a range of author and package network statistics
+#'
+#' @aliases summary_cranly_network
+#'
+#' @param object a \code{\link{cranly_network}} object
+#' @param ... currently not used
+#'
+#' @details
 #'
 #' @export
 summary.cranly_network <- function(object, ...) {
