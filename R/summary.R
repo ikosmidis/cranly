@@ -4,7 +4,7 @@
 summary.cranly_network <- function(object, ...) {
 
     perspective <- attr(object, "perspective")
-    cranly_graph <- as.igraph.cranly_network(object)
+    cranly_graph <- as.igraph.cranly_network(object, reverse = TRUE)
 
     bet <- betweenness(cranly_graph, normalized = FALSE)
     clo <- closeness(cranly_graph, normalized = FALSE)
@@ -13,8 +13,8 @@ summary.cranly_network <- function(object, ...) {
     eigen_cent <- eigen_centrality(cranly_graph, scale = FALSE)
 
     if (perspective == "package") {
-        package <- object$nodes$Package
-        n_authors <- unlist(lapply(object$nodes$Author, function(x) {l <- length(x); ifelse(l, l, NA)}))
+        package <- object$nodes$package
+        n_authors <- unlist(lapply(object$nodes$author, function(x) {l <- length(x); ifelse(l, l, NA)}))
 
         out <- with(object$nodes,
                     data.frame(package = package,
@@ -35,8 +35,9 @@ summary.cranly_network <- function(object, ...) {
                                stringsAsFactors = FALSE))
     }
     else {
-        aut <- object$nodes$Author
-        n_packages <- unlist(lapply(object$nodes$Package, function(x) {l <- length(x); ifelse(l, l, NA)}))
+        aut <- object$nodes$author
+
+        n_packages <- unlist(lapply(object$nodes$package, function(x) {l <- length(x); ifelse(l, l, NA)}))
         out <- data.frame(author = aut,
                           n_packages = n_packages,
                           betweenness = bet[aut],

@@ -23,8 +23,8 @@ of package names. Default is \code{\link{clean_up_directives}}.}
 }
 \value{
 An \code{\link{data.frame}} with the same variables as
-\code{packaged_db} with a \code{timestamp} attribute and aslo
-inheriting from \code{class_db}.
+\code{packaged_db} (but with lower case names), a \code{timestamp}
+attribute and also inheriting from \code{class_db}.
 }
 \description{
 Clean and organise package and author names in the output of \code{tools::CRAN_package_db()}
@@ -39,9 +39,10 @@ names in the various directives (like \code{Imports},
 \code{data.frame} of class \code{cranly_db} that can be used for
 further analysis.
 
-The function hard to identify and eliminate mistakes in the Author
-field of the description file, and extract a clean list of only
-author names. The relevant operations are coded in the
+
+The function tries hard to identify and eliminate mistakes in the
+Author field of the description file, and extract a clean list of
+only author names. The relevant operations are coded in the
 \code{\link{clean_up_author}} function. The current version of
 \code{\link{clean_up_author}} is far from best practice in using
 regex but it currently does a fair job in cleaning up messy Author

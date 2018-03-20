@@ -1,12 +1,46 @@
-as.igraph.cranly_network <- function(object, reverse = TRUE, ...) {
+#' Coerce a crancly network to an \code{\link[igraph]{graph}} object
+#'
+#' @param x a \code{\link{cranly_network}} object
+#' @param reverse logical. Should the direction of the edges be reversed? See details. Default is \code{TRUE}
+#' @param ... currently not used
+#'
+#' @details
+#'
+#' The convention for a \code{\link{cranly_network}} with
+#' \code{perspective = "package"} is that the direction of an edge is
+#' from the package that is imported by, suggested by, enhances or is
+#' a dependency of another package, to the latter
+#' package. \code{reverse} reverses that direction to correctly
+#' compute relevant network summaries (see
+#' \code{summary.cranly_network}). \code{reverse} is only relevant
+#' when the \code{attr(x, "perspective")} is "package" and is ignored
+#' when \code{attr(x, "perspective")} is "author", in which case the
+#' resulting \code{\link[igraph]{graph}} object represents an
+#' undirected network of authors.
+#'
+#' @examples
+#' \dontrun{
+#'
+#' data("cran20032018", package = "cranly")
+#' ## Package network
+#' package_network <- build_network(object = cran20032018, perspective = "package")
+#' igraph::as.igraph(package_network)
+#'
+#' ## Author network
+#' author_network <- build_network(object = cran20032018, perspective = "author")
+#' igraph::as.igraph(author_network)
+#'
+#' }
+#' @export
+as.igraph.cranly_network <- function(x, reverse = FALSE, ...) {
 
-    perspective <- attr(object, "perspective")
+    perspective <- attr(x, "perspective")
 
-    edges <- object$edges
-    nodes <- object$nodes
+    edges <- x$edges
+    nodes <- x$nodes
 
     if (perspective == "package") {
-        v_names <- c("Package", "Version", "Author", "Date", "URL",
+        v_names <- c("package", "version", "author", "date", "url", "license", "maintainer",
                      "n_imports", "n_imported_by",
                      "n_suggests", "n_suggested_by",
                      "n_depends", "n_depended_by",
@@ -16,17 +50,15 @@ as.igraph.cranly_network <- function(object, reverse = TRUE, ...) {
         E(g)$type <-  edges$type
     }
     else {
-	vnames <- c("Author", "Package")
+	vnames <- c("author", "package")
         g <- graph.data.frame(edges, vertices = nodes[vnames], directed = FALSE)
-        E(g)$package <- edges$Package
-        E(g)$imports <- edges$Imports
-        E(g)$depends <- edges$Depends
-        E(g)$suggests <- edges$Suggests
-        E(g)$enhances <- edges$Enhances
-        E(g)$version <- edges$Version
+        E(g)$package <- edges$package
+        E(g)$imports <- edges$imports
+        E(g)$depends <- edges$depends
+        E(g)$suggests <- edges$suggests
+        E(g)$enhances <- edges$enhances
+        E(g)$version <- edges$version
     }
     g
 
 }
-
-## see http://kateto.net/networks-r-igraph for intro

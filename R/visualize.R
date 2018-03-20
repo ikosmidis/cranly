@@ -2,18 +2,18 @@
 #'
 #' @export
 visualize.cranly_network <- function(object,
-                                     package = "cranly",
-                                     author = "Ioannis Kosmidis",
+                                     package = NULL,
+                                     author = NULL,
                                      physics_threshold = 200,
                                      height = NULL, #"1080px",
                                      width = NULL, #"1080px",
-                                     edge_type = c("Imports", "Suggests", "Enhances", "Depends"),
+                                     directive = c("imports", "suggests", "enhances", "depends"),
                                      dragNodes = TRUE,
                                      dragView = TRUE,
                                      zoomView = TRUE,
                                      exact = TRUE,...) {
 
-    object <- subset(object, package = package, author = author, edge_type = edge_type, exact = exact)
+    object <- subset(object, package = package, author = author, directive = directive, exact = exact)
 
     if (nrow(object$nodes) == 0) {
             message("Nothing to visualise")
@@ -31,32 +31,33 @@ visualize.cranly_network <- function(object,
     if (perspective == "package") {
         edges_subset <- within(edges_subset, {
             color <- str_replace_all(type,
-                                     c("Imports" = colors[10],
-                                       "Depends" = colors[10],
-                                       "Suggests" = colors[4],
-                                       "Enhances" = colors[4]))
-            dashes <- ifelse(type %in% c("Imports", "Depends", "Suggests"), FALSE, TRUE)
+                                     c("imports" = colors[10],
+                                       "depends" = colors[10],
+                                       "suggests" = colors[4],
+                                       "enhances" = colors[4]))
+            dashes <- ifelse(type %in% c("imports", "depends", "suggests"), FALSE, TRUE)
             title <- str_replace_all(type,
-                                     c("Imports" = "is imported by",
-                                       "Depends" = "is dependency of",
-                                       "Suggests" = "is suggested by",
-                                       "Enhances" = "enhances"))
+                                     c("imports" = "is imported by",
+                                       "depends" = "is dependency of",
+                                       "suggests" = "is suggested by",
+                                       "enhances" = "enhances"))
         })
         nodes_subset <- within(nodes_subset, {
-            color <- ifelse(Package %in% keep, colors[1], colors[5])
-            label <- Package
-            id <- Package
-            title <- paste0("<a href=https://CRAN.R-project.org/package=", Package, ">", Package, "</a> (", Version, ")<br>",
+            color <- ifelse(package %in% keep, colors[1], colors[5])
+            label <- package
+            id <- package
+            title <- paste0("<a href=https://CRAN.R-project.org/package=", package, ">", package, "</a> (", version, ")<br>",
+                            "Maintainer: ", maintainer, "<br>",
                             "imports/imported by:", n_imports, "/", n_imported_by, "<br>",
                             "depends/is dependency of:", n_depends, "/", n_depended_by, "<br>",
                             "suggests/suggested by:", n_suggests, "/", n_suggested_by, "<br>",
                             "enhances/enhaced by:", n_enhances, "/", n_enhanced_by, "<br>",
-                            "<img src=https://cranlogs.r-pkg.org/badges/", Package, "?color=969696>")
+                            "<img src=https://cranlogs.r-pkg.org/badges/", package, "?color=969696>")
         })
     }
     else {
         edges_subset <- within(edges_subset, {
-            title <- paste("collaborate in:", Package)
+            title <- paste("collaborate in:", package)
             color <- colors[1]
         })
 
@@ -70,13 +71,13 @@ visualize.cranly_network <- function(object,
         }
 
         nodes_subset <- within(nodes_subset, {
-            color <- ifelse(Author %in% keep, colors[1], colors[5])
-            label <- Author
-            id <- Author
-            title <- paste0("Author: ", Author, "<br>",
+            color <- ifelse(author %in% keep, colors[1], colors[5])
+            label <- author
+            id <- author
+            title <- paste0("Author: ", author, "<br>",
                             n_collaborators, " collaborators in ",
-                            unlist(lapply(nodes_subset$Package, length)),
-                            " packages: <br>", unlist(lapply(nodes_subset$Package, format_fun)))
+                            unlist(lapply(nodes_subset$package, length)),
+                            " packages: <br>", unlist(lapply(nodes_subset$package, format_fun)))
         })
 
     }

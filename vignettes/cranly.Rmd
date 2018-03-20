@@ -90,8 +90,9 @@ Brian Ripley's collaborneion sub-network
 ```{r}
 visualize(author_network, author = "Brian Ripley")
 ```
-My collaboration sub-network (much much smaller that the above, of co)
+My (small but valuable to me!) collaboration sub-network
 ```{r}
 visualize(author_network, author = "Kosmidis")
 ```
 
+<!-- what is the most popular package have glm in its name? -->

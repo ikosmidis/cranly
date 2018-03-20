@@ -4,9 +4,9 @@
 \alias{subset.cranly_network}
 \title{Subset a \code{\link{cranly_network}} according to author, package and/or directive}
 \usage{
-\method{subset}{cranly_network}(x, package = "cranly",
-  author = "Ioannis Kosmidis", directive = c("Imports", "Suggests",
-  "Enhances", "Depends"), exact = TRUE, ...)
+\method{subset}{cranly_network}(x, package = NULL, author = NULL,
+  directive = c("imports", "suggests", "enhances", "depends"), exact = TRUE,
+  ...)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
@@ -17,7 +17,7 @@
 
 \item{directive}{a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}}
 
-\item{exact}{logical. Should we use exact matching of author and package names? Default is \code{TRUE}}
+\item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
 
 \item{...}{currently not used}
 }

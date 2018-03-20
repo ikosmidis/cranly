@@ -1,9 +1,10 @@
+#' @rdname package_by
 #' @export
-package_by.cranly_network <- function(object, author = NULL, exact = FALSE, ...) {
+package_by.cranly_network <- function(x, author = NULL, exact = FALSE) {
     if (is.null(author)) {
-        return(NULL) # return(unlist(object$nodes$Package))
+        return(NULL) # return(unlist(x$nodes$Package))
     }
-    perspective <- attr(object, "perspective")
+    perspective <- attr(x, "perspective")
     if (exact) {
         str <- paste(author, collapse = "\\b|\\b")
         str <- paste0("\\b", str, "\\b")
@@ -11,16 +12,17 @@ package_by.cranly_network <- function(object, author = NULL, exact = FALSE, ...)
     else {
         str <- paste(author, collapse = "|")
     }
-    inds <- grep(str, object$nodes$Author, ignore.case = !exact)
-    unlist(object$nodes[inds, "Package"])
+    inds <- grep(str, x$nodes$author, ignore.case = !exact)
+    unique(unlist(x$nodes[inds, "package"]))
 }
 
+#' @rdname package_by
 #' @export
-author_of.cranly_network <- function(object, package = NULL, exact = FALSE, ...) {
+author_of.cranly_network <- function(x, package = NULL, exact = FALSE) {
     if (is.null(package)) {
-        return(NULL) # return(unlist(object$nodes$Package))
+        return(NULL) # return(unlist(x$nodes$Package))
     }
-    perspective <- attr(object, "perspective")
+    perspective <- attr(x, "perspective")
     if (exact) {
         str <- paste(package, collapse = "\\b|\\b")
         str <- paste0("\\b", str, "\\b")
@@ -28,17 +30,18 @@ author_of.cranly_network <- function(object, package = NULL, exact = FALSE, ...)
     else {
         str <- paste(package, collapse = "|")
     }
-    inds <- grep(str, object$nodes$Package, ignore.case = !exact)
-    ## inds <- sapply(object$nodes$Package, function(x) any(grepl(str, x)))
-    unlist(object$nodes[inds, "Author"])
+    inds <- grep(str, x$nodes$package, ignore.case = !exact)
+    ## inds <- sapply(x$nodes$Package, function(x) any(grepl(str, x)))
+    unique(unlist(x$nodes[inds, "author"]))
 }
 
+#' @rdname package_by
 #' @export
-author_with.cranly_network <- function(object, name = NULL, exact = FALSE) {
+author_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
     if (is.null(name)) {
-        return(NULL) #return(unlist(object$nodes$Author))
+        return(NULL) #return(unlist(x$nodes$Author))
     }
-    perspective <- attr(object, "perspective")
+    perspective <- attr(x, "perspective")
     if (exact) {
         str <- paste(name, collapse = "\\b|\\b")
         str <- paste0("\\b", str, "\\b")
@@ -46,17 +49,18 @@ author_with.cranly_network <- function(object, name = NULL, exact = FALSE) {
     else {
         str <- paste(name, collapse = "|")
     }
-    authors <- unlist(object$nodes$Author)
+    authors <- unlist(x$nodes$author)
     inds <- grep(str, authors, ignore.case = !exact)
     unique(authors[inds])
 }
 
+#' @rdname package_by
 #' @export
-package_with.cranly_network <- function(object, name = NULL, exact = FALSE) {
+package_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
     if (is.null(name)) {
-        return(NULL) #return(unlist(object$nodes$Author))
+        return(NULL) #return(unlist(x$nodes$Author))
     }
-    perspective <- attr(object, "perspective")
+    perspective <- attr(x, "perspective")
     if (exact) {
         str <- paste(name, collapse = "\\b|\\b")
         str <- paste0("\\b", str, "\\b")
@@ -64,7 +68,7 @@ package_with.cranly_network <- function(object, name = NULL, exact = FALSE) {
     else {
         str <- paste(name, collapse = "|")
     }
-    package <- unlist(object$nodes$Package)
+    package <- unlist(x$nodes$package)
     inds <- grep(str, package, ignore.case = !exact)
     unique(package[inds])
 }

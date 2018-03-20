@@ -23,9 +23,10 @@
 #' \code{data.frame} of class \code{cranly_db} that can be used for
 #' further analysis.
 #'
-#' The function hard to identify and eliminate mistakes in the Author
-#' field of the description file, and extract a clean list of only
-#' author names. The relevant operations are coded in the
+#'
+#' The function tries hard to identify and eliminate mistakes in the
+#' Author field of the description file, and extract a clean list of
+#' only author names. The relevant operations are coded in the
 #' \code{\link{clean_up_author}} function. The current version of
 #' \code{\link{clean_up_author}} is far from best practice in using
 #' regex but it currently does a fair job in cleaning up messy Author
@@ -37,8 +38,8 @@
 #' @return
 #'
 #' An \code{\link{data.frame}} with the same variables as
-#' \code{packaged_db} with a \code{timestamp} attribute and aslo
-#' inheriting from \code{class_db}.
+#' \code{packaged_db} (but with lower case names), a \code{timestamp}
+#' attribute and also inheriting from \code{class_db}.
 #'
 #' @examples
 #' \dontrun{
@@ -62,12 +63,15 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
     ## Remove duplicated pacakges
     packages_db <- packages_db[!duplicated(packages_db$MD5sum), ]
 
+    ## Coerce variable names to lower case
+    names(packages_db) <- tolower(names(packages_db))
+
     packages_db <- within(packages_db, {
-        Imports <- clean_directives(Imports)
-        Depends <- clean_directives(Depends)
-        Suggests <- clean_directives(Suggests)
-        Enhances <- clean_directives(Enhances)
-        Author <- clean_author(Author)
+        imports <- clean_directives(imports)
+        depends <- clean_directives(depends)
+        suggests <- clean_directives(suggests)
+        enhances <- clean_directives(enhances)
+        author <- clean_author(author)
     })
 
     attr(packages_db, "timestamp") <- Sys.time()
@@ -93,6 +97,7 @@ clean_up_directives <- function(variable) {
         str_replace_all("\\([^()]*\\)", "") %>%
         str_replace_all(" ", "") %>%
         str_replace_all("\\bR,\\b", "") %>%
+        str_replace_all("\\bR\\b", "") %>%
         str_split(",") %>%
         lapply(function(x) {
             out <- str_replace_all(x, ",|^\\s+|\\s+$", "")
@@ -152,7 +157,7 @@ clean_up_author <- function(variable) {
         str_replace_all("\\b[Tt]he \\b|\\bthe \\b", "") %>%
         str_replace_all("Wickham Hadley|Hadley Wickham function", "Hadley Wickham") %>%
         str_replace_all("Yihui Xie function", "Yihui Xie") %>%
-        iconv(from = "UTF8", to = "ASCII//TRANSLIT") %>%
+        ## iconv(from = "UTF8", to = "ASCII//TRANSLIT") %>%
         str_split(",") %>%
         lapply(function(x) {
             out <- str_replace_all(x, ",|^\\s+|\\s+$", "")

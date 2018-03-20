@@ -4,9 +4,9 @@
 \alias{visualize.cranly_network}
 \title{Visualise a \code{\link{cranly_network}}}
 \usage{
-\method{visualize}{cranly_network}(object, package = "cranly",
-  author = "Ioannis Kosmidis", physics_threshold = 200, height = NULL,
-  width = NULL, edge_type = c("Imports", "Suggests", "Enhances", "Depends"),
+\method{visualize}{cranly_network}(object, package = NULL, author = NULL,
+  physics_threshold = 200, height = NULL, width = NULL,
+  directive = c("imports", "suggests", "enhances", "depends"),
   dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, exact = TRUE, ...)
 }
 \description{
