@@ -26,6 +26,7 @@ subset.cranly_network <- function(x,
     out <- list(edges = edges_subset, nodes = nodes_subset)
     attr(out, "timestamp") <- attr(x, "timestamp")
     attr(out, "perspective") <- perspective
+
     attr(out, "keep") <- keep
     class(out) <- c("cranly_network", class(out))
     out

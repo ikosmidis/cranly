@@ -13,7 +13,7 @@ visualize.cranly_network <- function(object,
                                      zoomView = TRUE,
                                      exact = TRUE,...) {
 
-    object <- subset(object, package = package, author = author, edge_type = edge_type)
+    object <- subset(object, package = package, author = author, edge_type = edge_type, exact = exact)
 
     if (nrow(object$nodes) == 0) {
             message("Nothing to visualise")
@@ -26,6 +26,7 @@ visualize.cranly_network <- function(object,
 
     perspective <- attr(object, "perspective")
     keep <- attr(object, "keep")
+
 
     if (perspective == "package") {
         edges_subset <- within(edges_subset, {
