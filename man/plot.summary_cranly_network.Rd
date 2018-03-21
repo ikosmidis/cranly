@@ -5,16 +5,16 @@
 \title{Top-n packge or author barplots according to a range of network statistics}
 \usage{
 \method{plot}{summary_cranly_network}(x, top = 20, according_to = NULL,
-  scale = TRUE, ...)
+  scale = FALSE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{summary_cranly_network}} object}
 
 \item{top}{integer. How may top packages or authors should be plotted? Default is \code{20}}
 
-\item{according_to}{the statistic according to which the top-\code{\top} list is produced. See \code{\link{summary.cranly_network}} for available statistics}
+\item{according_to}{the statistic according to which the top-\code{top} list is produced. See \code{\link{summary.cranly_network}} for available statistics}
 
-\item{scale}{logical. Should the statistics be scaled to lie between \code{0} and \code{1} before plotting? Default is \code{TRUE}}
+\item{scale}{logical. Should the statistics be scaled to lie between \code{0} and \code{1} before plotting? Default is \code{FALSE}}
 
 \item{...}{currently not used}
 }
@@ -25,9 +25,19 @@ Top-n packge or author barplots according to a range of network statistics
 
 \dontrun{
 data("cran20032018", package = "cranly")
+## package network
 package_network <- build_network(cran20032018)
 package_summaries <- summary(package_network)
+plot(package_summaries, according_to = "n_imported_by", top = 30)
+plot(package_summaries, according_to = "n_depended_by", top = 30)
 plot(package_summaries, according_to = "page_rank", top = 30)
+
+## author network
+author_network <- build_network(cran20032018, perspective = "author")
+author_summaries <- summary(author_network)
+plot(author_summaries, according_to = "n_collaborators", top = 30)
+plot(author_summaries, according_to = "n_packages", top = 30)
+plot(author_summaries, according_to = "page_rank", top = 30)
 }
 
 }

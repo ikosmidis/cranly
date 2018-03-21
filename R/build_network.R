@@ -116,7 +116,7 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
             d
             }))
 
-        nodes$n_collaborators <- n_col[nodes$author]
+        nodes$n_collaborators <- as.vector(n_col[nodes$author])
 
     }
 

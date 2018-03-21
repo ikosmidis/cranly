@@ -7,6 +7,8 @@
 #'
 #' @details
 #'
+#'
+#'
 #' @export
 summary.cranly_network <- function(object, ...) {
 
@@ -47,6 +49,7 @@ summary.cranly_network <- function(object, ...) {
         n_packages <- unlist(lapply(object$nodes$package, function(x) {l <- length(x); ifelse(l, l, NA)}))
         out <- data.frame(author = aut,
                           n_packages = n_packages,
+                          n_collaborators = object$nodes$n_collaborators,
                           betweenness = bet[aut],
                           closeness = clo[aut],
                           page_rank = pg_rank$vector[aut],
