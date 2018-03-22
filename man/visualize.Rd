@@ -3,9 +3,11 @@
 \name{visualize}
 \alias{visualize}
 \alias{visualise}
-\title{Visualize method for an object}
+\title{\code{visualize} method for an object}
 \usage{
 visualize(object, ...)
+
+visualise(object, ...)
 }
 \arguments{
 \item{object}{an object to be visualized}
@@ -13,5 +15,8 @@ visualize(object, ...)
 \item{...}{other arguments to be passed to the method}
 }
 \description{
-Visualize method for an object
+\code{visualize} method for an object
+}
+\seealso{
+visualize.cranly_network
 }

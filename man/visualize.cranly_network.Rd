@@ -2,13 +2,63 @@
 % Please edit documentation in R/visualize.R
 \name{visualize.cranly_network}
 \alias{visualize.cranly_network}
-\title{Visualise a \code{\link{cranly_network}}}
+\alias{visualise.cranly_network}
+\title{Interactive visualisation of a package or author \code{\link{cranly_network}} using the vis.js library}
 \usage{
 \method{visualize}{cranly_network}(object, package = NULL, author = NULL,
   physics_threshold = 200, height = NULL, width = NULL,
   directive = c("imports", "suggests", "enhances", "depends"),
-  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, exact = TRUE, ...)
+  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, exact = TRUE,
+  legend = FALSE, title = FALSE, ...)
+
+\method{visualise}{cranly_network}(object, package = NULL, author = NULL,
+  physics_threshold = 200, height = NULL, width = NULL,
+  directive = c("imports", "suggests", "enhances", "depends"),
+  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, exact = TRUE,
+  legend = FALSE, title = FALSE, ...)
+}
+\arguments{
+\item{object}{a \code{\link{cranly_network}} object}
+
+\item{package}{a vector of character strings with the package names to be matched}
+
+\item{author}{a vector of character strings with the author names to be matched}
+
+\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork]{visEdges}}}
+
+\item{height}{: Height (optional, defaults to automatic sizing)}
+
+\item{width}{: Width (optional, defaults to automatic sizing)}
+
+\item{directive}{a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}}
+
+\item{dragNodes}{logical. Should the user be able to drag the nodes that are not fixed? Default is \code{TRUE}}
+
+\item{dragView}{logical. Should the user be able to drag the view around? Default is \code{TRUE}}
+
+\item{zoomView}{logical. Should the user be able to zoom in? Default is \code{TRUE}}
+
+\item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
+
+\item{legend}{logical. Should a legend be added on the resulting visualitation? Default is \code{FALSE}}
+
+\item{title}{logical. Should a title be added on the resulting visualitation? Default is \code{FALSE}}
+
+\item{...}{currently not used}
 }
 \description{
-Visualise a \code{\link{cranly_network}}
+Interactive visualisation of a package or author \code{\link{cranly_network}} using the vis.js library
+}
+\examples{
+\dontrun{
+data("cran20032018", package = "cranly")
+package_network <- build_network(cran20032018)
+## The package network of all users with Ioannis in their name
+visualize(package_network, author = "Ioannis")
+## The package network of "Achim Zeileis"
+visualize(package_network, author = "Achim Zeileis")
+
+author_network <- build_network(cran20032018, perspective = "author")
+visualize(author_network, author = "Ioannis", title = TRUE)
+}
 }
