@@ -1,11 +1,16 @@
 #' Compute edges and nodes of package and author networks
 #'
 #' @param object a \code{\link{cranly_db}} object
-#' @param trace logical. Print progress infromation? Default is \code{FALSE}
+#' @param trace logical. Print progress information? Default is \code{FALSE}
 #' @param perspective character. Build a \code{"package"} (default )or an \code{"author"} network?
 #' @param ... Currently not used
 #'
 #' @aliases cranly_network
+#'
+#' @return
+#'
+#' A list of 2 \code{\link{data.frame}s} with the \code{edges} and
+#' \code{nodes} of the network
 #'
 #' @details
 #'

@@ -12,9 +12,47 @@
 
 \item{...}{currently not used}
 }
+\value{
+A \code{\link{data.frame}} of various statistics for the author
+network or the package network, depending on whether
+\code{attr(object, "perspective")} is \code{"author"} or
+\code{"package"}, respectively. See Details for the current list of
+statistics returned.
+
+
+If \code{attr(object, "perspective")} is \code{"package"} then the
+resulting \code{data.frame} will have the following variables:
+\itemize{
+\item package. package name
+\item n_authors. number of authors for the package
+\item n_imports. number of packages the package imports
+\item n_imported_by. number of times the package is imported by other packages
+\item n_suggests. number of packages the package suggests
+\item n_suggested_by. number of times the package is suggested by other packages
+\item n_depends. number of packages the package depends on
+\item n_depended_by. number of packages that have the package as a dependency
+\item n_enhances. number of packages the package enhances
+\item n_enhanced_by. number of packages the package is enhanced by
+\item betweenness. the package betweenness in the package network; as computed by \code{\link[igraph]{betweenness}}
+\item closeness. the closeness centrality of the package in the package network; as computed by \code{\link[igraph]{closeness}}
+\item page_rank. the Google PageRank of the package in the package network; as computed by \code{\link[igraph]{page_rank}}
+\item degree. the degree of the package in the package network;  as computed by \code{\link[igraph]{degree}}
+\item eigen_centrality. the eigenvector centrality score of the package in the package network; as computed by \code{\link[igraph]{eigen_centrality}}
+}
+
+If \code{attr(object, "perspective")} is \code{"author"} then the
+resulting \code{data.frame} will have the following variables:
+\itemize{
+\item author. author name
+\item n_packages. number of packages the author appears in the package authors
+\item n_collaborators. total number of co-authors the author has in CRAN
+\item betweenness. the author betweenness in the author network; as computed by \code{\link[igraph]{betweenness}}
+\item closeness. the closeness centrality of the author in the author network; as computed by \code{\link[igraph]{closeness}}
+\item page_rank. the Google PageRank of the author in the author network; as computed by \code{\link[igraph]{page_rank}}
+\item degree. the degree of the author in the author network;  as computed by \code{\link[igraph]{degree}}; same as n_collaborators
+\item eigen_centrality. the eigenvector centrality score of the author in the author network; as computed by \code{\link[igraph]{eigen_centrality}}
+}
+}
 \description{
 Compute a range of author and package network statistics
-}
-\details{
-
 }

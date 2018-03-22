@@ -2,7 +2,7 @@
 % Please edit documentation in R/coerce.R
 \name{as.igraph.cranly_network}
 \alias{as.igraph.cranly_network}
-\title{Coerce a crancly network to an \code{\link[igraph]{graph}} object}
+\title{Coerce a \code{\link{cranly_network}} to an \code{\link[igraph]{graph}} object}
 \usage{
 \method{as.igraph}{cranly_network}(x, reverse = FALSE, ...)
 }
@@ -14,7 +14,7 @@
 \item{...}{currently not used}
 }
 \description{
-Coerce a crancly network to an \code{\link[igraph]{graph}} object
+Coerce a \code{\link{cranly_network}} to an \code{\link[igraph]{graph}} object
 }
 \details{
 The convention for a \code{\link{cranly_network}} object with

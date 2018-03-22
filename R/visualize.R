@@ -1,4 +1,4 @@
-#' Interactive visualisation of a package or author \code{\link{cranly_network}} using the vis.js library
+#' Interactive visualization of a package or author \code{\link{cranly_network}} using the vis.js library
 #'
 #' @inheritParams subset.cranly_network
 #' @inheritParams summary.cranly_network
@@ -7,8 +7,8 @@
 #' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is \code{TRUE}
 #' @param dragView logical. Should the user be able to drag the view around? Default is \code{TRUE}
 #' @param zoomView logical. Should the user be able to zoom in? Default is \code{TRUE}
-#' @param legend logical. Should a legend be added on the resulting visualitation? Default is \code{FALSE}
-#' @param title logical. Should a title be added on the resulting visualitation? Default is \code{FALSE}
+#' @param legend logical. Should a legend be added on the resulting visualization? Default is \code{FALSE}
+#' @param title logical. Should a title be added on the resulting visualization? Default is \code{FALSE}
 #' @param ... currently not used
 #'
 #' @examples

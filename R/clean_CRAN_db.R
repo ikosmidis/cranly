@@ -56,11 +56,11 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
                           clean_directives = clean_up_directives,
                           clean_author = clean_up_author) {
 
-    ## Remove reducndant MD5 sum
+    ## Remove redundant MD5 sum
     ind <- which(grepl("MD5sum", names(packages_db)))
 
     packages_db <- packages_db[-ind[1]]
-    ## Remove duplicated pacakges
+    ## Remove duplicated packages
     packages_db <- packages_db[!duplicated(packages_db$MD5sum), ]
 
     ## Coerce variable names to lower case

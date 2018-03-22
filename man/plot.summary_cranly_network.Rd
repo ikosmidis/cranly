@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{plot.summary_cranly_network}
 \alias{plot.summary_cranly_network}
-\title{Top-n packge or author barplots according to a range of network statistics}
+\title{Top-n package or author barplots according to a range of network statistics}
 \usage{
 \method{plot}{summary_cranly_network}(x, top = 20, according_to = NULL,
   scale = FALSE, ...)
@@ -19,7 +19,7 @@
 \item{...}{currently not used}
 }
 \description{
-Top-n packge or author barplots according to a range of network statistics
+Top-n package or author barplots according to a range of network statistics
 }
 \examples{
 

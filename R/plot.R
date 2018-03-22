@@ -1,4 +1,4 @@
-#' Top-n packge or author barplots according to a range of network statistics
+#' Top-n package or author barplots according to a range of network statistics
 #'
 #' @param x a \code{\link{summary_cranly_network}} object
 #' @param top integer. How may top packages or authors should be plotted? Default is \code{20}

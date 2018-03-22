@@ -3,7 +3,7 @@
 \name{visualize.cranly_network}
 \alias{visualize.cranly_network}
 \alias{visualise.cranly_network}
-\title{Interactive visualisation of a package or author \code{\link{cranly_network}} using the vis.js library}
+\title{Interactive visualization of a package or author \code{\link{cranly_network}} using the vis.js library}
 \usage{
 \method{visualize}{cranly_network}(object, package = NULL, author = NULL,
   physics_threshold = 200, height = NULL, width = NULL,
@@ -40,14 +40,14 @@
 
 \item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
 
-\item{legend}{logical. Should a legend be added on the resulting visualitation? Default is \code{FALSE}}
+\item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{FALSE}}
 
-\item{title}{logical. Should a title be added on the resulting visualitation? Default is \code{FALSE}}
+\item{title}{logical. Should a title be added on the resulting visualization? Default is \code{FALSE}}
 
 \item{...}{currently not used}
 }
 \description{
-Interactive visualisation of a package or author \code{\link{cranly_network}} using the vis.js library
+Interactive visualization of a package or author \code{\link{cranly_network}} using the vis.js library
 }
 \examples{
 \dontrun{

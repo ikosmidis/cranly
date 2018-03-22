@@ -11,11 +11,15 @@
 \arguments{
 \item{object}{a \code{\link{cranly_db}} object}
 
-\item{trace}{logical. Print progress infromation? Default is \code{FALSE}}
+\item{trace}{logical. Print progress information? Default is \code{FALSE}}
 
 \item{perspective}{character. Build a \code{"package"} (default )or an \code{"author"} network?}
 
 \item{...}{Currently not used}
+}
+\value{
+A list of 2 \code{\link{data.frame}s} with the \code{edges} and
+\code{nodes} of the network
 }
 \description{
 Compute edges and nodes of package and author networks

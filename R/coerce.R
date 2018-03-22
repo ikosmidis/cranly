@@ -1,4 +1,4 @@
-#' Coerce a crancly network to an \code{\link[igraph]{graph}} object
+#' Coerce a \code{\link{cranly_network}} to an \code{\link[igraph]{graph}} object
 #'
 #' @param x a \code{\link{cranly_network}} object
 #' @param reverse logical. Should the direction of the edges be reversed? See details. Default is \code{TRUE}
