@@ -6,7 +6,7 @@
 \title{Cleaned and processed CRAN package metadata from 20 March 2018}
 \format{An object of class \code{cranly_db} (inherits from \code{data.frame}) with 12337 rows and 13 columns.}
 \usage{
-data("cran20032018", package = "cranly")
+cran20032018
 }
 \description{
 This is a processed version of the result of a

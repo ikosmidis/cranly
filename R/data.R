@@ -26,5 +26,4 @@
 #'
 #' @docType data
 #' @keywords datasets
-#' @usage data("cran20032018", package = "cranly")
 "cran20032018"
