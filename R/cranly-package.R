@@ -68,12 +68,12 @@ author_of <- function(x, package = NULL, exact = FALSE) {
     UseMethod("author_of")
 }
 
-#' Visualize method for an object
-#'
-#' @aliases visualise
+#' \code{visualize} method for an object
 #'
 #' @param object an object to be visualized
 #' @param ... other arguments to be passed to the method
+#'
+#' @seealso visualize.cranly_network
 #'
 #' @export
 #'
@@ -81,9 +81,19 @@ visualize <- function(object, ...) {
     UseMethod("visualize")
 }
 
+#' @rdname visualize
 #' @export
-visualise <- visualize
+visualise <- function(object, ...) {
+    UseMethod("visualize")
+}
 
+#' \code{build_network} method for an object
+#'
+#' @param object an object to use for building a network
+#' @param ... other arguments to be passed to the method
+#'
+#' @seealso build_network.cranly_network
+#'
 #' @export
 build_network <- function(object, ...) {
     UseMethod("build_network")
@@ -91,7 +101,7 @@ build_network <- function(object, ...) {
 
 
 if(getRversion() >= "2.15.1")  {
-    utils::globalVariables(c("author", "package", "version", "from", "n_depended_by", "n_depends", "n_enhanced_by", "n_enhances", "n_imported_by", "n_imports", "n_suggested_by", "n_suggests", "to", "type", "n_collaborators"))
+    utils::globalVariables(c("author", "package", "version", "from", "n_depended_by", "n_depends", "n_enhanced_by", "n_enhances", "n_imported_by", "n_imports", "n_suggested_by", "n_suggests", "to", "type", "n_collaborators", "maintainer"))
 }
 
 
