@@ -1,85 +1,3 @@
-#' Clean and organise package and author names in the output of \code{tools::CRAN_package_db()}
-#'
-#' @aliases cranly_db
-#'
-#' @param packages_db a \code{\link{data.frame}} with the same
-#'     structure to the output of \code{\link[tools]{CRAN_package_db}}
-#'     (default).
-#' @param clean_directives a function that transforms the contents of
-#'     the various directives in the package descriptions to vectors
-#'     of package names. Default is \code{\link{clean_up_directives}}.
-#' @param clean_author a function that transforms the contents of
-#'     \code{Author} to vectors of package authors. Default is
-#'     \code{\link{clean_up_author}}.
-#'
-#' @details
-#'
-#' \code{clean_CRAN_db} uses \code{clean_up_directives} and
-#' \code{clean_up_authors} to clean up the author names and package
-#' names in the various directives (like \code{Imports},
-#' \code{Depends}, \code{Suggests}, \code{Enhances}, as in the
-#' \code{data.frame} that results from
-#' \code{\link[tools]{CRAN_package_db}}) and return an organised
-#' \code{data.frame} of class \code{cranly_db} that can be used for
-#' further analysis.
-#'
-#'
-#' The function tries hard to identify and eliminate mistakes in the
-#' Author field of the description file, and extract a clean list of
-#' only author names. The relevant operations are coded in the
-#' \code{\link{clean_up_author}} function. The current version of
-#' \code{\link{clean_up_author}} is far from best practice in using
-#' regex but it currently does a fair job in cleaning up messy Author
-#' fields. It will be improving in future versions.
-#'
-#' Custom clean-up functions can also be supplied via the
-#' \code{clean_directives} and \code{clean_author} arguments.
-#'
-#' @return
-#'
-#' An \code{\link{data.frame}} with the same variables as
-#' \code{packaged_db} (but with lower case names), a \code{timestamp}
-#' attribute and also inheriting from \code{class_db}.
-#'
-#' @examples
-#' \dontrun{
-#' ## Before cleaning
-#' cran_db <- tools::CRAN_package_db()
-#' cran_db[cran_db$Package == "weights", "Author"]
-#'
-#' ## After clean up
-#' package_db <- clean_CRAN_db(cran_db)
-#' package_db[package_db$Package == "weights", "Author"]
-#' }
-#' @export
-clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
-                          clean_directives = clean_up_directives,
-                          clean_author = clean_up_author) {
-
-    ## Remove reducndant MD5 sum
-    ind <- which(grepl("MD5sum", names(packages_db)))
-
-    packages_db <- packages_db[-ind[1]]
-    ## Remove duplicated pacakges
-    packages_db <- packages_db[!duplicated(packages_db$MD5sum), ]
-
-    ## Coerce variable names to lower case
-    names(packages_db) <- tolower(names(packages_db))
-
-    packages_db <- within(packages_db, {
-        imports <- clean_directives(imports)
-        depends <- clean_directives(depends)
-        suggests <- clean_directives(suggests)
-        enhances <- clean_directives(enhances)
-        author <- clean_author(author)
-    })
-
-    attr(packages_db, "timestamp") <- Sys.time()
-
-    class(packages_db) <- c("cranly_db", class(packages_db))
-    packages_db
-}
-
 #' Clean up package directives
 #'
 #' @param variable a character string
@@ -91,7 +9,7 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
 #' @examples
 #' clean_up_directives("R (234)\n stats (>0.01),     base\n graphics")
 #' @export
-clean_up_directives <- function(variable) {
+clean_up_directives1 <- function(variable) {
     variable %>%
         str_replace_all("\n", ",") %>%
         str_replace_all("\\([^()]*\\)", "") %>%
