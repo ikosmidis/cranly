@@ -114,7 +114,8 @@ clean_up_directives <- function(variable) {
 #' A list of one vector of character strings
 #'
 #' @examples
-#' clean_up_author("The R Core team, Brian & with some assistance from Achim, Hadley; Kurt\n Portugal; Ireland; Italy; Greece; Spain")
+#' clean_up_author(paste("The R Core team, Brian & with some assistance from Achim, Hadley;",
+#'                       "Kurt\n Portugal; Ireland; Italy; Greece; Spain"))
 #' @export
 clean_up_author <- function(variable) {
     variable %>%

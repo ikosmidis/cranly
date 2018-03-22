@@ -16,5 +16,6 @@ A list of one vector of character strings
 Clean up author names
 }
 \examples{
-clean_up_author("The R Core team, Brian & with some assistance from Achim, Hadley; Kurt\\n Portugal; Ireland; Italy; Greece; Spain")
+clean_up_author(paste("The R Core team, Brian & with some assistance from Achim, Hadley;",
+                      "Kurt\\n Portugal; Ireland; Italy; Greece; Spain"))
 }
