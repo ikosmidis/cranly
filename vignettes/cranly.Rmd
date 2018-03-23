@@ -1,5 +1,5 @@
 ---
-title: "CRAN top 20s and interactive R package and collaboration networks"
+title: "CRAN top 20s and interactive R package directives and collaboration networks"
 author: "[Ioannis Kosmidis](http://www.ucl.ac.uk/~ucakiko/)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -20,81 +20,84 @@ knitr::opts_chunk$set(
 
 # Preparing today's CRAN package database
 
-Donwload today's CRAN database
+Download today's CRAN database
 ```{r}
 library("cranly")
 p_db <- tools::CRAN_package_db()
 ```
 
-Clean and organise author names, depends, imports, suggests, enhances
+Next we need to clean and organise author names, depends, imports, suggests, enhances
 ```{r}
 package_db <- clean_CRAN_db(p_db)
 ```
 
-The resulting dataset carries the timestamp of when it was put together
+The resulting dataset carries the timestamp of when it was put together, which helps keeping track of when the data import has taken place and will be helpful in future versions when dynamic analyses and visualisation methods are implemented.
 ```{r}
 attr(package_db, "timestamp")
 ```
 
-# Network of CRAN packages
+# Network of package directives
 
-Extract edges and nodes for the CRAN package network
+We can now extract edges and nodes for the CRAN package directives network by simply doing
 ```{r}
 package_network <- build_network(object = package_db)
 ```
-
-Compute statistics for the package network
+and compute various statistics for the package network
 ```{r}
 ## Global package network statistics
 package_summaries <- summary(package_network)
 ```
 
-Top 10 packages according to various statistics
+The `package_summaries` object can now be used for finding the top-20
+packages according to various statistics
 ```{r}
-plot(package_summaries, according_to = "n_imported_by")
-plot(package_summaries, according_to = "page_rank")
-plot(package_summaries, according_to = "betweenness")
-plot(package_summaries, according_to = "n_enhances")
-plot(package_summaries, according_to = "n_authors")
-plot(package_summaries, according_to = "n_imports")
+plot(package_summaries, according_to = "n_imported_by", top = 20)
+plot(package_summaries, according_to = "page_rank", top = 20)
+plot(package_summaries, according_to = "betweenness", top = 20)
+plot(package_summaries, according_to = "n_enhances", top = 20)
+plot(package_summaries, according_to = "n_authors", top = 20)
+plot(package_summaries, according_to = "n_imports", top = 20)
 ```
 
-The sub-network of my packages
+The sub-network for my packages can be found using the extractor function `package_of` which use exact matching by default
 ```{r}
 my_packages <- package_by(package_network, "Ioannis Kosmidis")
-visualize(package_network, package = my_packages)
+my_packages
 ```
+We can now get an interactive visualisation of the sub-network for my packages using
+```{r}
+visualize(package_network, package = my_packages, title = TRUE, legend = TRUE)
+```
+You can hover over the nodes and the edges to get package-specific information and links to the package pages.
 
 # CRAN collaboration network
 
-Build CRAN collaboration network
+Next let's build the CRAN collaboration network
 ```{r}
 author_network <- build_network(object = package_db, perspective = "author")
 ```
 
-Compute statistics for the collaboration network
+Statistics for the collaboration network can be computed using the `summary` method as we did for package directives.
 ```{r}
 author_summaries <- summary(author_network)
 ```
 
-Top 10 collaborators according to various network statistics
+The top-20 collaborators according to various network statistics are
 ```{r}
-plot(author_summaries, according_to = "n_packages")
-plot(author_summaries, according_to = "page_rank")
-plot(author_summaries, according_to = "betweenness")
+plot(author_summaries, according_to = "n_packages", top = 20)
+plot(author_summaries, according_to = "page_rank", top = 20)
+plot(author_summaries, according_to = "betweenness", top = 20)
 ```
 
-R Core's collaboration sub-network
+The R Core's collaboration sub-network is
 ```{r}
 visualize(author_network, author = "R Core")
 ```
-Brian Ripley's collaborneion sub-network
+Brian Ripley's collaboration sub-network is
 ```{r}
 visualize(author_network, author = "Brian Ripley")
 ```
-My (small but valuable to me!) collaboration sub-network
+and my (small but valuable to me!) collaboration sub-network is
 ```{r}
 visualize(author_network, author = "Kosmidis")
 ```
-
-<!-- what is the most popular package have glm in its name? -->

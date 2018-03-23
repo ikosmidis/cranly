@@ -1,0 +1,36 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# cranly
+
+[**cranly**](https://github.com/ikosmidis/cranly) provides core visualisations and summaries for the CRAN package database. The package provides comprehensive methods for cleaning up and organising the information in the CRAN package database, for building package directives networks (depends, imports, suggests, enhances) and collaboration networks, and for computing summaries and producing interactive visualisations from the resulting networks. Network visualisation is through the [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package. The package also provides functions to coerce the networks to igraph <https://CRAN.R-project.org/package=igraph> objects for further analyses and modelling.
+
+### Installation
+
+Install the development version from github:
+``` r
+# install.packages("devtools")
+devtools::install_github("ikosmidis/cranly")
+```
+
+### Collaboration and package directives networks in CRAN
+```{r}
+
+```
+
+### Top-20s collaborators and packages
+
+
