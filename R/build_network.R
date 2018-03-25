@@ -1,4 +1,4 @@
-#' Compute edges and nodes of package and author networks
+#' Compute edges and nodes of package directives and collaboration networks
 #'
 #' @param object a \code{\link{cranly_db}} object
 #' @param trace logical. Print progress information? Default is \code{FALSE}
@@ -24,14 +24,14 @@
 #' @examples
 #' \dontrun{
 #' data("cran20032018", package = "cranly")
-#' ## Package network
+#' ## Package directives network
 #' package_network <- build_network(object = cran20032018, perspective = "package")
 #' head(package_network$edges)
 #' head(package_network$nodes)
 #' attr(package_network, "timestamp")
 #' class(package_network)
 #'
-#' ## Author network
+#' ## Author collaboration network
 #' author_network <- build_network(object = cran20032018, perspective = "author")
 #' head(author_network$edges)
 #' head(author_network$nodes)

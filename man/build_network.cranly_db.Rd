@@ -3,7 +3,7 @@
 \name{build_network.cranly_db}
 \alias{build_network.cranly_db}
 \alias{cranly_network}
-\title{Compute edges and nodes of package and author networks}
+\title{Compute edges and nodes of package directives and collaboration networks}
 \usage{
 \method{build_network}{cranly_db}(object = clean_CRAN_db(), trace = FALSE,
   perspective = "package", ...)
@@ -22,7 +22,7 @@ A list of 2 \code{\link{data.frame}s} with the \code{edges} and
 \code{nodes} of the network
 }
 \description{
-Compute edges and nodes of package and author networks
+Compute edges and nodes of package directives and collaboration networks
 }
 \details{
 The convention for a \code{\link{cranly_network}} object with
@@ -35,14 +35,14 @@ network is analysed and visualised as undirected by all methods in
 \examples{
 \dontrun{
 data("cran20032018", package = "cranly")
-## Package network
+## Package directives network
 package_network <- build_network(object = cran20032018, perspective = "package")
 head(package_network$edges)
 head(package_network$nodes)
 attr(package_network, "timestamp")
 class(package_network)
 
-## Author network
+## Author collaboration network
 author_network <- build_network(object = cran20032018, perspective = "author")
 head(author_network$edges)
 head(author_network$nodes)

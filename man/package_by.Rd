@@ -44,7 +44,7 @@ Find packages and authors by authors or packages with names matching a specific 
 \examples{
 \dontrun{
 data("cran20032018", package = "cranly")
-## Using a package network
+## Using a package directives network
 package_network <- build_network(cran20032018)
 ## Find all packages containing glm in their name
 package_with(package_network, name = "glm")
@@ -57,7 +57,7 @@ author_of(package_network, package = "brglm2", exact = TRUE)
 ## Find all authors with Ioannis in their name
 author_with(package_network, name = "Ioannis", exact = TRUE)
 
-## Using an author network
+## Using an author collaboration network
 author_network <- build_network(cran20032018, perspective = "author")
 ## Find all packages containing glm in their name
 package_with(author_network, name = "glm")

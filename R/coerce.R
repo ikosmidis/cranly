@@ -22,11 +22,11 @@
 #' \dontrun{
 #'
 #' data("cran20032018", package = "cranly")
-#' ## Package network
+#' ## Package directives network
 #' package_network <- build_network(object = cran20032018, perspective = "package")
 #' igraph::as.igraph(package_network)
 #'
-#' ## Author network
+#' ## Author collaboration network
 #' author_network <- build_network(object = cran20032018, perspective = "author")
 #' igraph::as.igraph(author_network)
 #'
