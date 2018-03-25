@@ -26,9 +26,9 @@ devtools::install_github("ikosmidis/cranly")
 
 ### Collaboration and package directives networks in CRAN
 
-The first step in the workflow **cranly** sets is to try and “clean-up”
-the package and author names in the data frame that results from a call
-to `tools::CRAN_package_db()`
+The first step in the **cranly** workflow is to try and “clean-up” the
+package and author names in the data frame that results from a call to
+`tools::CRAN_package_db()`
 
 ``` r
 p_db <- tools::CRAN_package_db()
