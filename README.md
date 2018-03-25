@@ -3,10 +3,15 @@ cranly
 ======
 
 [**cranly**](https://github.com/ikosmidis/cranly) provides core
-visualisations and summaries for the CRAN package database. The package
-provides comprehensive methods for cleaning up and organising the
-information in the CRAN package database, for building package
-directives networks (depends, imports, suggests, enhances) and
+visualisations and summaries for the CRAN package database. It is aimed
+mainly as an analytics tool for developers to keep track of their CRAN
+packages and profiles, as well as those of others, which, at least for
+me, is proving harder and harder with the rapid growth of the
+[CRAN](https://cran.r-project.org) ecosystem.
+
+The package provides comprehensive methods for cleaning up and
+organising the information in the CRAN package database, for building
+package directives networks (depends, imports, suggests, enhances) and
 collaboration networks, and for computing summaries and producing
 interactive visualisations from the resulting networks. Network
 visualisation is through the

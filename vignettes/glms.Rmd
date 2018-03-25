@@ -1,0 +1,71 @@
+---
+title: "CRAN packages for generalized linear models and with related methods"
+author: "[Ioannis Kosmidis](http://www.ucl.ac.uk/~ucakiko/)"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{CRAN "glm" packages}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 6
+)
+```
+
+### Packages for glm's and associated methods
+The current vignette is a quick analysis of all CRAN packages that have "glm" in their name. The crude asssumption we make here is that a package with "glm" in its name does something related to generalized linear models.
+
+### Preparing today's CRAN package database
+
+Download today's CRAN database and clean and organise author names, depends, imports, suggests, enhances.
+```{r}
+library("cranly")
+p_db <- tools::CRAN_package_db()
+package_db <- clean_CRAN_db(p_db)
+```
+
+Let's build the CRAN package directives and collaboration networks
+```{r}
+package_network <- build_network(package_db)
+author_network <- build_network(package_db, perspective = "author")
+```
+
+### Packages for generalized linear models
+
+The packages that have "glm" in their name are
+```{r}
+(glm_packages <- package_with(package_network, name = "glm"))
+```
+and the corresponding subnetworks are
+```{r}
+glm_package_network <- subset(package_network, package = glm_packages)
+glm_author_network <- subset(author_network, package = glm_packages)
+```
+
+As the following visualizations illustrate these networks are heavily connected
+```{r}
+visualize(glm_package_network, package = glm_packages, title = TRUE)
+visualize(glm_author_network, package = glm_packages, title = TRUE)
+```
+
+The top-20 packages in terms of various statistics of the directives sub-network for generalized linear models are
+```{r}
+glm_package_summaries <- summary(glm_package_network)
+plot(glm_package_summaries, according_to = "degree")
+plot(glm_package_summaries, according_to = "betweenness")
+plot(glm_package_summaries, according_to = "page_rank")
+```
+
+The top-20 in the collaboration sub-network for generalized linear models are
+```{r}
+glm_author_summaries <- summary(glm_author_network)
+plot(glm_author_summaries, according_to = "degree")
+plot(glm_author_summaries, according_to = "betweenness")
+plot(glm_author_summaries, according_to = "page_rank")
+```
