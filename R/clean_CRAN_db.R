@@ -153,6 +153,7 @@ clean_up_author <- function(variable) {
         str_replace_all("contains copies of ttice functions written by|contains copies of lattice functions written by|Copyright - United States Government as represented by the US Army Research Laboratory", "") %>%
         str_replace_all("\\d{4}", "") %>%
         str_replace_all("R Core Deveopment Team|R[- ][Cc]ore [Tt]eam|R [Dd]evelopment [Tt]eam|R[- ][Cc]ore [Dd]evelopment [Tt]eam|R core|R[- ][Cc]ore|R[- ][Dd]evelopment [Cc]ore [Tt]eam", "R Core") %>%
+        str_replace_all("R Core -", "R Core") %>%
         str_replace_all("[Cc][Rr][Aa][Nn] [Tt]eam", "CRAN Team") %>%
         str_replace_all("R[ sS]tudio|R[ sS]tudio Inc", "RStudio") %>%
         str_replace_all("\\b[Tt]he \\b|\\bthe \\b", "") %>%

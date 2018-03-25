@@ -10,7 +10,9 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "README-",
+  fig.width = 6,
+  fig.height = 6
 )
 ```
 
@@ -27,9 +29,16 @@ devtools::install_github("ikosmidis/cranly")
 ```
 
 ### Collaboration and package directives networks in CRAN
-```{r}
 
+**cranly** has a basic set of data wrangling functions that can be
+used to "clean-up" the package and author names in the data frame that
+results from a call to `tools::CRAN_package_db()`
+```{r}
+p_db <- tools::CRAN_package_db()
+package_db <- clean_CRAN_db(p_db)
 ```
+
+`package_db` can then be used for further
 
 ### Top-20s collaborators and packages
 
