@@ -2,3 +2,6 @@
 ^README-.*\.png$
 ^\.travis\.yml$
 ^codecov\.yml$
+README.md
+README_files/
+README.html
