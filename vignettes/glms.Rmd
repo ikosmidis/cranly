@@ -42,17 +42,20 @@ The packages that have "glm" in their name are
 ```{r}
 (glm_packages <- package_with(package_network, name = "glm"))
 ```
-and the corresponding subnetworks are
+and the corresponding sub-networks are
 ```{r}
 glm_package_network <- subset(package_network, package = glm_packages)
 glm_author_network <- subset(author_network, package = glm_packages)
+visualize(glm_package_network, package = glm_packages, title = TRUE)
+```
+Note here that the package sub-network contains not only `glm_packages` but also all packages that are linked somehow with `glm_packages`.
+
+In order to focusing on the sub-network with *only* `glm_packages`, we do
+```{r}
+glm_package_only_network <- subset(package_network, package = glm_packages, only = TRUE)
+visualize(glm_package_only_network, package = glm_packages, title = TRUE)
 ```
 
-As the following visualizations illustrate these networks are heavily connected
-```{r}
-visualize(glm_package_network, package = glm_packages, title = TRUE)
-visualize(glm_author_network, package = glm_packages, title = TRUE)
-```
 
 The top-20 packages in terms of various statistics of the directives sub-network for generalized linear models are
 ```{r}

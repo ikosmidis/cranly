@@ -6,7 +6,7 @@
 \usage{
 \method{subset}{cranly_network}(x, package = NULL, author = NULL,
   directive = c("imports", "suggests", "enhances", "depends"), exact = TRUE,
-  ...)
+  only = FALSE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
@@ -18,6 +18,8 @@
 \item{directive}{a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}}
 
 \item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
+
+\item{only}{logical. If \code{TRUE} the subset includes only the edges between packages named in \code{package} and/or authors named in \code{author}. If \code{FALSE} (default) edges to and from all other packages and/or authors that are linked to \code{package} and/or \code{author} are included in the subset}
 
 \item{...}{currently not used}
 }

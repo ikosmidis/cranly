@@ -5,6 +5,7 @@
 #' @param author a vector of character strings with the author names to be matched
 #' @param directive a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}
 #' @param exact logical. Should we use exact matching? Default is \code{TRUE}
+#' @param only logical. If \code{TRUE} the subset includes only the edges between packages named in \code{package} and/or authors named in \code{author}. If \code{FALSE} (default) edges to and from all other packages and/or authors that are linked to \code{package} and/or \code{author} are included in the subset
 #' @param ... currently not used
 #'
 #' @export
@@ -13,6 +14,7 @@ subset.cranly_network <- function(x,
                                   author = NULL,
                                   directive = c("imports", "suggests", "enhances", "depends"),
                                   exact = TRUE,
+                                  only = FALSE,
                                   ...) {
     perspective <- attr(x, "perspective")
     if (perspective == "package") {
@@ -20,15 +22,26 @@ subset.cranly_network <- function(x,
         p2 <- package_by(x, author = author, exact = exact)
 
         keep <- unique(c(p1, p2))
-        edges_subset <- subset(x$edges, (to %in% keep | from %in% keep) & (type %in% directive))
+        if (only) {
+            edges_subset <- subset(x$edges, (to %in% keep & from %in% keep) & (type %in% directive))
+        }
+        else {
+            edges_subset <- subset(x$edges, (to %in% keep | from %in% keep) & (type %in% directive))
+        }
         node_names <- unique(c(as.character(edges_subset$from), as.character(edges_subset$to), keep))
         nodes_subset <- subset(x$nodes, package %in% node_names)
+
     }
     else {
         a1 <- author_with(x, name = author, exact = exact)
         a2 <- author_of(x, package = package, exact = exact)
         keep <- unique(c(a1, a2))
-        edges_subset <- subset(x$edges, (to %in% keep | from %in% keep))
+        if (only) {
+            edges_subset <- subset(x$edges, (to %in% keep & from %in% keep))
+        }
+        else {
+            edges_subset <- subset(x$edges, (to %in% keep | from %in% keep))
+        }
         node_names <- unique(c(as.character(edges_subset$from), as.character(edges_subset$to), keep))
         nodes_subset <- subset(x$nodes, author %in% node_names)
     }
