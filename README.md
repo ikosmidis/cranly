@@ -87,13 +87,11 @@ author_network <- build_network(package_db, perspective = "author")
 ```
 
 and the extractor functions work exactly as they did for the package
-directives network. For example, [Brian
-Ripley’s](https://en.wikipedia.org/wiki/Brian_D._Ripley) massive
-collaboration network results in an nice interactive visualization, a
-shapshot of which is below
+directives network. For example, my collaboration network results can be
+summarized as an interactive visualization, a shapshot of which is below
 
 ``` r
-visualize(author_network, author = "Brian Ripley")
+visualize(author_network, author = "Ioannis Kosmidis")
 ```
 
 ![](README_files/README-unnamed-chunk-8-1.png)
@@ -120,4 +118,8 @@ plot(author_summaries, according_to = "page_rank", top = 20)
 
 ![](README_files/README-unnamed-chunk-9-3.png)
 
-Well, the usual suspects… Dynamic networks are already in the wishlist
+Well, the usual suspects…
+
+Check the package vignettes for a more comprehensive tour of the package
+and for network visualisations on authors with orders of magnitude
+larger collaboration networks than mine.
