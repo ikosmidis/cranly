@@ -55,7 +55,7 @@ plot.summary_cranly_network <- function(x, top = 20, according_to = NULL, scale 
     out <- ggplot2::ggplot(v) +
         ggplot2::geom_bar(ggplot2::aes_string(x = what, y = according_to), stat = "identity") +
         ggplot2::theme_minimal() +
-        ggplot2::labs(title = paste("Top", top, "according to", according_to),
+        ggplot2::labs(title = paste("cranly Top", top, "according to", according_to),
                       subtitle = paste("Package database as of", format(attr(x, "timestamp"))),
                       y = if (scale) paste(according_to, "score") else according_to) +
         ggplot2::coord_flip()
