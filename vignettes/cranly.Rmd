@@ -100,10 +100,6 @@ The R Core's collaboration sub-network is
 ```{r}
 visualize(author_network, author = "R Core")
 ```
-Brian Ripley's collaboration sub-network is
-```{r}
-visualize(author_network, author = "Brian Ripley")
-```
 and my (small but valuable to me!) collaboration sub-network is
 ```{r}
 visualize(author_network, author = "Kosmidis")
