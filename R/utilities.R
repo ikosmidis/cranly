@@ -1,6 +1,6 @@
-firstup <- function(x) {
-    stri_trans_totitle(x, opts_brkiter = stri_opts_brkiter(type = "sentence"))
-}
+## firstup <- function(x) {
+##     stri_trans_totitle(x, opts_brkiter = stri_opts_brkiter(type = "sentence"))
+## }
 
 split_and_replace <- function(string, base_patterns, replacement,
                               nparts = ceiling(length(base_patterns)/5), fixed_word = TRUE) {
