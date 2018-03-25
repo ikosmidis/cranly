@@ -43,7 +43,10 @@ further analysis.
 The function tries hard to identify and eliminate mistakes in the
 Author field of the description file, and extract a clean list of
 only author names. The relevant operations are coded in the
-\code{\link{clean_up_author}} function. The current version of
+\code{\link{clean_up_author}} function. Specifically, some
+references to copyright holders had to go because they were
+contaminating the list of authors (most are not necessary anyway,
+but that is a different story...). The current version of
 \code{\link{clean_up_author}} is far from best practice in using
 regex but it currently does a fair job in cleaning up messy Author
 fields. It will be improving in future versions.
