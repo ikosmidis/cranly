@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-",
+  fig.path = "README_files/README-",
   fig.width = 6,
   fig.height = 6
 )
@@ -30,16 +30,54 @@ devtools::install_github("ikosmidis/cranly")
 
 ### Collaboration and package directives networks in CRAN
 
-**cranly** has a basic set of data wrangling functions that can be
-used to "clean-up" the package and author names in the data frame that
-results from a call to `tools::CRAN_package_db()`
+The first step in the workflow **cranly** sets is to try and
+"clean-up" the package and author names in the data frame that results
+from a call to `tools::CRAN_package_db()`
 ```{r}
 p_db <- tools::CRAN_package_db()
 package_db <- clean_CRAN_db(p_db)
 ```
 
-`package_db` can then be used for further
+#### Package directives networks
 
-### Top-20s collaborators and packages
+The package directives network can then be built using
+```{r}
+package_network <- build_network(package_db)
+```
+`package_network` can then be interrogated using extractor methods
+(see, `?package_by`). For example, my packages can be extracted as follows
+```{r}
+my_packages <- package_by(package_network, "Ioannis Kosmidis")
+my_packages
+```
+and their sub-network of directives can be summarized in an interactive visualization, a shapshot of which is below
+```{r}
+visualize(package_network, package = my_packages, title = TRUE, legend = TRUE)
+```
 
+We can also compute package summaries and plot "Top-n" lists according to the various summaries
+```{r}
+package_summaries <- summary(package_network)
+plot(package_summaries, according_to = "n_imported_by", top = 20)
+plot(package_summaries, according_to = "page_rank", top = 20)
+```
 
+#### Collaboration networks
+The collaboration network can also be built using a similar call
+```{r}
+author_network <- build_network(package_db, perspective = "author")
+```
+and the extractor functions work exactly as they did for the package directives network. For example, [Brian Ripley's](https://en.wikipedia.org/wiki/Brian_D._Ripley) massive collaboration network results in an nice interactive visualization, a shapshot of which is below
+```{r}
+visualize(author_network, author = "Brian Ripley")
+```
+
+"Top-n" collaborators according to various summaries can again be computed
+```{r}
+author_summaries <- summary(author_network)
+plot(author_summaries, according_to = "n_collaborators", top = 20)
+plot(author_summaries, according_to = "n_packages", top = 20)
+plot(author_summaries, according_to = "page_rank", top = 20)
+```
+
+Well, the usual suspects... Dynamic networks are already in the wishlist

@@ -40,7 +40,7 @@ attr(package_db, "timestamp")
 
 We can now extract edges and nodes for the CRAN package directives network by simply doing
 ```{r}
-package_network <- build_network(object = package_db)
+package_network <- build_network(package_db)
 ```
 and compute various statistics for the package network
 ```{r}
