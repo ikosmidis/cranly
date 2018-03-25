@@ -54,21 +54,17 @@ visualize(glm_package_network, package = glm_packages, title = TRUE)
 In order to focus on the sub-network with edges *only* between the packages in `glm_packages`, we do
 ```{r}
 glm_package_only_network <- subset(package_network, package = glm_packages, only = TRUE)
-visualize(glm_package_only_network, package = glm_packages, title = TRUE)
+visualize(glm_package_only_network, package = glm_packages)
 ```
 
-The top-20 packages in terms of various statistics of the directives sub-network for generalized linear models are
+The top-20 packages in terms of various statistics of the directives sub-network for generalized linear models according to degree  are
 ```{r}
 glm_package_summaries <- summary(glm_package_network)
 plot(glm_package_summaries, according_to = "degree")
-plot(glm_package_summaries, according_to = "betweenness")
-plot(glm_package_summaries, according_to = "page_rank")
 ```
 
-The top-20 in the collaboration sub-network for generalized linear models are
+The top-20 in the collaboration sub-network for generalized linear models according to degree are
 ```{r}
 glm_author_summaries <- summary(glm_author_network)
 plot(glm_author_summaries, according_to = "degree")
-plot(glm_author_summaries, according_to = "betweenness")
-plot(glm_author_summaries, according_to = "page_rank")
 ```
