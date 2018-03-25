@@ -27,7 +27,10 @@
 #' The function tries hard to identify and eliminate mistakes in the
 #' Author field of the description file, and extract a clean list of
 #' only author names. The relevant operations are coded in the
-#' \code{\link{clean_up_author}} function. The current version of
+#' \code{\link{clean_up_author}} function. Specifically, some
+#' references to copyright holders had to go because they were
+#' contaminating the list of authors (most are not necessary anyway,
+#' but that is a different story...). The current version of
 #' \code{\link{clean_up_author}} is far from best practice in using
 #' regex but it currently does a fair job in cleaning up messy Author
 #' fields. It will be improving in future versions.
@@ -118,52 +121,376 @@ clean_up_directives <- function(variable) {
 #'                       "Kurt\n Portugal; Ireland; Italy; Greece; Spain"))
 #' @export
 clean_up_author <- function(variable) {
+
+    repl_symbols0 <- c(";", "/", "&", ":")
+    ## "\\+"
+    repl_symbols1 <- c(" - ", "'s", "\"|'",
+                       "\\*", "\\(", "\\)")
+    ## "\\." "\n", \t+
+
+    repl_other_words0 <- c("and", "with", "by", "due", "from", "uses", "supervision of")
+    repl_other_words1 <- c("also", "apart", "as", "at", "based", "itself",
+                           "during", "each", "for", "him", "her", "in",
+                           "into", "its", "not", "of", "off", "on",
+                           "or", "otherwise", "our", "some", "that",
+                           "their", "these", "they", "this", "to",
+                           "then", "since", "etc", "except",
+                           "together", "under", "unless", "up", "via",
+                           "we", "which", "whose", "the", "both", "much", "more")
+    ## "a"
+
+    repl_nouns0 <- c("advice", "algorithm", "author", "coauthor", "book", "case", "name",
+                     "guidance", "policy", "creation", "portion",
+                     "code", "codebase", "collaboration", "colaboration", "comment",
+                    "content", "contribution", "contributor",
+                    "control", "copies", "copy", "copyright",
+                    "correction", "creator", "data", "dataset",
+                    "detail", "development", "developement", "direction",
+                    "discrepancy", "distribution", "document",
+                    "documentation", "domain", "earlier", "email",
+                    "enhancement", "entropy", "estimation", "example",
+                    "excerpt", "extension", "file", "font",
+                    "fragment", "function", "guide", #"group",
+                    "help", "idea",
+                    "implementation", "library", "maintainer",
+                    "manual", "math", "method", "model",
+                    "modification", "module", "moment", "note",
+                    "notice", "other", "package", "part",
+                    "participant", "pattern", "person", "professor",
+                    "program", "provider", "project", "script",
+                    "series", "set", "similarity", "software",
+                    "source", "subroutine", "routine", "suggestion",
+                    "supervision", "survey", "term", "testing", "tests",
+                    "thanks", "time", "tool", "toolbox", "transform",
+                    "transition", "turn", "utilities", "utility",
+                    "version", "website", "work", "worldwide",
+                    "wrapper", "number", "libraries", "packge", "input",
+                    "minister", "queen", "majesty", "right",
+                    "resource", "webpage", "material",
+                    "colleague") # add s
+    repl_nouns1 <- paste0(repl_nouns0, "s")
+
+    repl_adjectives0 <- c("additional", "all", "assistance", "initial",
+                         "available", "considerable", "creative",
+                         "former", "general", "grateful", "interface",
+                         "key", "low", "new", "numerous", "open",
+                         "original", "public", "recent",
+                         "significant", "sole", "special", "standard",
+                         "substantial", "support", "toplevel",
+                         "unsafe", "written", "various", "natural",
+                         "most", "many", "current")
+
+    repl_verbs0 <- c("adapt", "adopt", "are", "assist", "author",
+                     "debug", "debugging", "enhance", "extend",
+                    "base", "belong", "borrow", "change", "claim",
+                    "collect", "compile", "contain", "contribute",
+                    "cover", "package", "inspire",
+                    "create", "derive", "develop", "download",
+                    "embed", "extract", "follow", "fork", "fund",
+                    "give", "go", "have", "include", "incorporate",
+                    "interface", "is", "learn", "limit", "maintain",
+                    "modified", "modify", "note", "order", "plot", "plotting",
+                    "port", "prepare", "provide", "publish", "relate",
+                    "release", "remove", "represent", "revise", "see",
+                    "set", "snip", "snipped", "transfer", "translate", "use",
+                    "was", "were", "been", "copied", "did",
+                    "embedded", "had", "made", "list", "comply") # Add d ed s ing (remove e if last)
+    repl_verbs1 <- sapply(repl_verbs0, function(x) {
+        if (substr(x, nchar(x), nchar(x)) == "e") paste0(x, "d")
+        else paste0(x, "ed")
+    })
+    repl_verbs2 <- paste0(repl_verbs0, "s")
+    repl_verbs3 <- sapply(repl_verbs0, function(x) {
+        if (substr(x, nchar(x), nchar(x)) == "e") paste0(substr(x, 0, nchar(x) - 1), "ing")
+        else  paste0(x, "ing")
+    })
+
+    repl_proglang0 <- c("Fortran-77", "Fortran", "JAVA", "MATLAB", "S-Plus",
+                       "L-", "Python", "Perl", "Stata", "octave")#, "R", "S", "C")
+
+    repl_software0 <- c("ars", "loess", "tsvq", "rastamat", "ttice", "gzstream", "PHAT",
+                        "mars", "mda", "estout", "RDCOMClient", "GSL",
+                        "ppexp", "es5-shim", "OpenBugs",
+                        "Netlib", "NAG", "odepack", "LAPACK",
+                        "qrng", "GUDHI", "BiSSE-ness", "simpls", "EISPACK",
+                        "simplsfit", "Onigmo", "readdcf",
+                        "RSvgDevice", "randomForest", "fbvpot",
+                        "fbvpot", "rastamat", "libmad", "MPEG",
+                        "audio", "decoder", "getHostnameSystem",
+                        "Rutils", "mdamars", "seewave", "listserv",
+                        "GNU", "General", "Public", "License", "iwidgets",
+                        ## "ANN",
+                        "readxportR", "Hmisc", "zlib", "Cards",
+                        "argparse", "Python Software Foundation",
+                        "getopt", "Plan 9", "dlib", "histsu",
+                        "qqglddefault", "readMP3", "tuneR",
+                        "cstratapsa", "mtxexp", "leaps", "gld",
+                        "libhunspell", "Apache Commons Codec",
+                        "multicore", "yale sparse matrix", "GeoSSE",
+                        "suite Quadpack", "XGobi",
+                        "libhunspell", "lmgls", "lm", "ARPACK",
+                        "SCEoptim", "MsgPack", "QuantLib", "BOOM",
+                        "Cephes", "Cuba", "mnormt", "foreignh",
+                        "foreign", "rPython", "seewave", "fprintf",
+                        "ibm2ieeec", "BRL-CAD", "sound", "ieee2ibmc",
+                        "CppJieba", "Eigen", "cddlib", "R2OpenBUGS",
+                        "R2WinBUGS", "TTBOX", "Leaflet", "XGobi",
+                        "tem", "bicubuc", "bicubic", "ttice", "emgllmfitter",
+                        "lattice", "pm", "NEWUOA", "ClaSSE", "LevelDB",
+                        "ARMS", "DLNAC1", "DLARPC", "DLAPST", "ScaLAPACK",
+                        "fdGPH", "fdSperio", "libuv", "starship", "GPC",
+                        "onenormest", "mdm", "multinom", "nnet",
+                        "Spectra", "eclat", "JMapViewer",
+                        "CVODE", "SUNDIALS", "DEoptim", "DE-Engine", "h2",
+                        "Moment.js contributors", "dchud", "dchdd", "printf",
+                        "compresid2way",
+                        "f.robftest",
+                        "last",
+                        "p.scales",
+                        "p.dnorm",
+                        "p.arrows",
+                        "p.profileTraces",
+                        "p.res.2x",
+                        "histBxp",
+                        "p.tachoPlot",
+                        "KSd",
+                        "ecdf.ksCI",
+                        "cairoSwd",
+                        "is.whole",
+                        "toLatex.numeric",
+                        "Duplicated",
+                        "p.res.2fact",
+                        "empty.dimnames",
+                        "primes",
+                        "inv.seq",
+                        "loessDemo", "ANN Library",
+                         "SLATEC Common Mathematical Library")#, "ALINE")
+
+    repl_technical0 <- c("CPU", "Windows", "Mac", "README",
+                         "Fourier", "http", "Linux",
+                         "statlib", "CRAN", "github")
+
+    repl_adverbs0 <- c("largely", "originally", "previously",
+                       "randomly", "substantially", "equally",
+                       "well", "partly", "partially", "potentially",
+                       "especially")
+
+    ## These are case-insensitive replacements to be done after replacing symbols (some cph go here)
+    repl_replacements0 <- c("based on", "based on earlier work by")
+    repl_replacements1 <- c("has", "DePauw University", "LUNAM Universite",
+                            "Universite Angers", "Laboratoire d'ergonomie et d'epidemiologie en sante au travail",
+                            "French National Research Program",
+                            "Environmental and Occupational Health of Anses",
+                           "Minister of Natural Resources Canada",
+                           "National Institute on Drug Abuse Award",
+                           "Zhejiang university",
+                           "University of Pittsburgh",
+                           "school of medicine", "Sampson-Guttorp",
+                           "R-port", "skeleton creation",
+                           "un-safe pointer arithmetics", "r-cran",
+                           "United States Government",
+                           "US Army Research Laboratory",
+                           "Regents of the University of California",
+                           "Intramural Research Program", "22e5",
+                           "Alcoholism Award Number R03 AA019775",
+                           "Regularized random forest for regression",
+                           "Iowa State University",
+                           "Ferdowsi University Of Mashhad",
+                           "University of Edinburgh",
+                           "Australian Bureau of Statistics",
+                           "TOMS",
+                           "Trustees of Columbia University",
+                           "copyright holder",
+                           "Ragnar Frisch Centre for Economic Research",
+                           "Oslo",
+                           "Institute for Defense Analyses",
+                           "Finnish Institute of Occupational Health",
+                           "National Agrarian University La Molina",
+                           "Agriculture Ministry of Peru",
+                           "Agronomy Faculty",
+                           "Missouri Botanical Garden",
+                           "Province of British Columbia",
+                           "Foundation SmarterPoland.pl",
+                           "University Hospital of Zurich",
+                           "Menne Biomed Consulting Tuebingen",
+                           "Dep Gastroenterology",
+                           "Pacific Climate Impacts Consortium",
+                           "Students REU13",
+                           "R Special Interest Group on Databases",
+                           "University of Oxford",
+                           "7th edition",
+                           "CASTLE research group",
+                           "University of Puerto Rico-Mayaguez",
+                           "Stat.ASSQ",
+                           "University of Tennessee Research\\s+Foundation",
+                           "University of Tennessee",
+                           "University of California Berkeley",
+                           "University of Colorado Denver",
+                           "Commonwealth of Australia AEC",
+                           "University of Washington",
+                           "Open Water Analytics",
+                           "University of Canterbury",
+                           "Crown Copyright 2018",
+                           "CENSUR working survival group",
+                           "TU Wien",
+                           "other Node contributors",
+                           "version 1.0",
+                           "version 2.0",
+                           "Federal University of Pernambuco",
+                           "Federal Rural University of Pernambuco",
+                           "jQuery UI",
+                           "Novartis Institute for BioMedical Research",
+                           "National Geodetic Survey",
+                           "Berlin School of Economics and Law",
+                           "Massachusetts Institute of Technology",
+                           "AnacletoLab, Dipartimento di Informatica",
+                           "Universita degli Studi di Milano",
+                           "Charite, Universitatsmedizin Berlin",
+                           "Integrative Analysis of Longitudinal Studies of Aging",
+                           "University of Duisburg-Essen",
+                           "Department of Psychology",
+                           "Dalhousie University",
+                           "The School of Business", "Portland State University",
+                           "University of Copenhagen", "Kungliga Tekniska Hogskolan", "CWI",
+                           "database design", "MuckRock Project",
+                           "NAEP Primer", "R\\s+package",
+                           "British Geological Survey", "New York University",
+                           "University of Hamburg",
+                           "National Institutes for Standards and Technology",
+                           "Chipmunk BASIC", "Indiana University",
+                           "Data Science Team", "Predictive Analytics Team",
+                           "Pennsylvania State University", "University of Bristol",
+                           "Department for Biogeochemical Integration at MPI-BGC, Jena, Germany",
+                           "ILO Department of Statistics", "University of Waikato",
+                           "University of Konstanz", "listserv community",
+                           "University of Warwick",
+                           "Institut de Radioprotection et de Surete Nucleaire",
+                           "Southern Methodist University", "Lawrence Livermore National Security",
+                           "Department of Biostatistics",
+                           "University of Texas", "Data Science Workshops", "Umea University",
+                           "Department of Statistics", "Geometry Center", "University of Minnesota",
+                           "Institute of Formal and Applied Linguistics",
+                           "Charles University in Prague", "Czech Republic",
+                           "THL A29 Limited", "Research Applications Laboratory",
+                           "Valid International office@validinternational.org",
+                           "Water and Sanitation for the Urban Poor",
+                           "Population Division, Department of Economic and Social Affairs",
+                           "Aalto University", "American University", "International-Harvard Statistical Consulting Company",
+                           "Brazilian Jurimetrics Association", "IQSS Harvard University", "Johns Hopkins University", "Lund University", "Ohio State University", "Universidad Nacional de Colombia",
+                           "Universidade Federal de Santa Maria", "Universidad de Chile",
+                           "Universite Paris Dauphine", "Valid International", "Vanderbilt University")
+
+    ## These are case-insensitive replacements to be done first
+    repl000 <- c("other code", "Engineering and Physical Sciences Research Council",
+                 "simpls\\.fit", "\\.f", "\\bS\\b\\s+original", "ld98",
+                 "S-Plus\\s+original", "\\\\code\\{hwexact\\(\\)\\}",
+                 "Ported\\s+to\\s+R", "R\\s+port", "University of Perugia",
+                 "R\\s+code", "C\\s+code[s ]",  "Decision Patterns",
+                 "Free Software Foundation, Inc", "U.S. NIST", "lm.gls",
+                 "Free Software Foundation", "mtx\\.exp",
+                 "U.Washington, Seattle", "C-code",
+                 "jQuery contributors", "MathQuill contributors",
+                 "a\n\tpackage", "Ph\\.D\\.", "PhD", "R\\s+source",
+                 "good questions", "\\\\email\\{bmarx\\@LSU.EDU\\}", "\\\\email\\{mgallo\\@unior.it\\}",
+                 "\\\\email\\{paul.conn\\@\\@noaa.gov\\}",
+                 "Very Good Research & Development, LLC",
+                 "The Jackson Laboratory for Genomic Medicine, Farmington CT, USA",
+                 "NIH, National Cancer Institute",
+                 "Center for\\s+Cancer Research under NCI Contract NO1-CO-12400",
+                 "D3 contributors", "Vega contributors", "ks.gof",
+                 "qqgld.default", "SAIC-Frederick, Inc",
+                 "WG127 SCOR/IAPSO",
+                 "The students of the `Advanced R Programming Course'",
+                 "Scientific Software Development", "www.linhi.com",
+                 "Geospatial Information Authority of Japan",
+                 "Joint Research\\s+Centre of the European Commission",
+                 "Press et al",
+                 "National Institute on Drug Abuse", "Award number 1R03DA030850", "National Institute on Alcohol Abuse and Alcoholism", "Award Number R03 AA019775", "National Institute of Justice", "Award Number 2011-RY-BX-0003",
+                 "Statistical Consulting - intelligent data analysis, stochastic modelling and statistical inference", "'sumtxt'", "Dept. of Integrative Biology", "U.C. Berkeley",
+                 "MonetDB B.V.", "http://meteo.unican.es",
+                 "http://www.itl.nist.gov/div898/strd/nls/nls_main.shtml",
+                 "version 0.1-13", "Python Team", "NumPy team", "IRD CEPED",
+                 "College of William \\& Mary", "read.dcf",
+                 "cstrata.psa", "cv.bal.psa", "cv.trans.psa", "Knuth-TAOCP RNG", "underlying SFMT",
+                 "Unit D.02 Water and Marine Resources", "UMS RIATE", "QOS.ch",
+                 "IP2Location.com", "Regularized random forest for classification",
+                 "ERC Grant Agreement number 336167 - the CHAI Project",
+                 "http://code.google.com/p/vector-playing-cards/downloads/detail\\?name=PNG-cards-1.2.zip",
+                 "Rice University's DSP group", "e\\.g\\.", "version 2.1", " version 2.2", "v 4.6-7 for SNPs",
+                 "MD Anderson Cancer\\s+Center", "Laboclima - Universidade Federal do Paran",
+                 "Faculty of Mathematics and\\s+Physics", "CEPOI - EA 7388", "about 2.2e5",
+                 "Fordham University, NY", "INRIA-Chile", "Universite Montpellier 2", "Universite Paris Dauphine")
+
+    repl_lists0 <- "R-help"
+
+    ## Remove hopeless entries
+    inds <- grepl("^Authors\\@R|^c\\(|^\\s+c\\(", variable)
+    variable[inds] <- ""
+
+    countries <- countrycode::codelist$country.name.en
+    countries <- countries[-which(countries %in% c("Jordan"))] ## exclude country names here
+
     variable %>%
-        str_replace_all("\n", "") %>%
+        split_and_replace(repl000, "", fixed_word = FALSE) %>%
         str_replace_all(", Inc", " Inc") %>%
-        str_replace_all("\\[.*?\\]", "") %>% ## remove all [aut, ctb etc]
-        str_replace_all("\\(.*?\\)", "") %>% ## remove anything in parenthesis; assuming that author names are NOT in parentheses
-        str_replace_all("\\<.*?\\>", "") %>% ## remove anything in <>
-        str_replace_all(";", ",") %>% ## replace ; with ,
-        str_replace_all(" - ", ",") %>%
-        str_replace_all("/", ",") %>% ## replace ; with ,
-        str_replace_all("&", ",") %>% ## eliminate &
-        str_replace_all("'s", ",") %>% ## eliminate &
+        str_replace_all(", Ltd", " Ltd") %>%
+        str_replace_all(", LLC", " LLC") %>%
+        str_replace_all("\\[(.|\n)*?\\]", "") %>% ## remove all [aut, ctb etc]
+        str_replace_all("\\((.|\n)*?\\)", "") %>% ## remove anything in parenthesis; assuming that author names are NOT in parentheses
+        str_replace_all("\\<(.|\n)*?\\>", "") %>% ## remove anything in <>
+        str_replace_all("\\.", " ") %>%
+        str_replace_all("\n", " ") %>%
+        str_replace_all("\t+", " ") %>%
+        str_replace_all("R\\s+Core\\s+Deveopment\\s+Team|R(-|\\s+)[Cc]ore\\s+[Tt]eam|R\\s+[Dd]evelopment\\s+[Tt]eam|R(-|\\s+)[Cc]ore\\s+[Dd]evelopment\\s+[Tt]eam|R\\s+core|R(-|\\s+)[Cc]ore|R(-|\\s+)[Dd]evelopment\\s+[Cc]ore\\s+[Tt]eam", "R Core") %>%
+        split_and_replace(repl_lists0, "") %>%
+        str_replace_all(paste(repl_symbols0, collapse = "|"), ",") %>%
+        str_replace_all(paste(repl_symbols1, collapse = "|"), "") %>%
+        ## str_replace_all(paste0("(?i)\\b", letters, "\\b", collapse = "|"), "") %>%
         str_replace_all("^\\s+|\\s+$|\\s+(?=\\s)", "") %>% ## eliminate white space
-        str_replace_all("\t+", " ") %>% ## replace tabs with whitespace
-        str_replace_all("\"|'", "") %>% ## eliminate quotes
-        str_replace_all("\\*", "") %>% ## eliminate stars
-        str_replace_all(" and ", ",") %>%
-        str_replace_all(" AND ", ",") %>%
-        str_replace_all("\\)", "") %>%
-        str_replace_all("[\\. ]R port by ", ",") %>%
-        str_replace_all("\\.", "") %>% ## eliminate .
-        str_replace_all(paste(countrycode::codelist$country.name.en, collapse = "|"), "") %>% ## eliminate country names
-        str_replace_all("with contributions from:|with the contributions from|with contributions of|with contributions from|with collaborations of|with collaborations of|with collaborations by|with contribution from|with contributions of|with substantial contributions of code by|With considerable contributions by|with contributions by|with contribution by|with contributons from|With contributions from|with considerable contribution from|with a contribution from|with a contribution of|with a code snipped borrowed from", ",") %>%
-        str_replace_all("with additional code from|with code developed by the|with code for case-control data contributed by|with collaboration of|with corrections by|with embedded Fortran code due to|with help from|with ideas from|with loess code from|with some assistance from|with some Fortran code adapted by|from the original by|with support from|Based on earlier work by|earlier work by| with data provided by|with suggestions from|Zhejiang university school of medicine|with tsvq code originally from|with the colaboration of|with Fortran code for Sampson-Guttorp estimation authored by|with \\\\code\\{hwexact\\} from|Ported to R by|Originally written for S-Plus by:|functions from rastamat by|R functions by|contains copies of ttice functions written by|Datasets via|qrng functions by|We are grateful to|S functions written by|comments go to|compiled by|Compiled by|The included GUDHI is authored by", ",") %>%
-        str_replace_all("Based on models developed by|BiSSE-ness by|for the|based in part on an earlier implementation by|based on code from|contribution of|contributions by|contributions from|Contributions from|Contributions by|Contribution from|Additional contributions by|Additional contributions|data collected by|Original|R version by|Enhancements by|also based on C-code developed by|Function simpls based on simplsfit by|apart from a set of Fortran-77 subroutines written by|assisted by|R code by|based on Onigmo by|based on original code by|R documentation provided by|Transfer Entropy Packge:| Additional Code by|the contents of this package were written by|code written by", ",") %>%
-        str_replace_all("based on readdcf by|based on RSvgDevice by|based on the program by|based on the source code from the randomForest package by|based on the work of|Author:|Author|Function fbvpot by:|Function fbvpot by|based in part on C code written by|based on|under the supervision of|Special thanks are due to|Contains|functions from rastamat by|The included parts of the libmad MPEG audio decoder library are authored by|together with|see README Function getHostnameSystem from package Rutils by|Earlier developements by|Contributors:|Contributor:|S original by| adopted to recent S-PLUS by|S scripts originally by|with key contributors|some code modified from|some package testing by|Derived from mda:mars by|substantially revised from|MATLAB code which is in turn adopted from|guide document were prepared by", ",") %>%
-        str_replace_all("Includes R source code and|Significant contributions on the package skeleton creation|with code for the Fourier transform from the seewave package|with general advice from the R-help listserv community|with parts adapted from Fortran|also changed its un-safe pointer arithmetics|ANN Library:|are provided under the terms of the GNU General Public License|readxportR is adapted from the Hmisc package created by|R port + extensions by|zlib from| Uses |Fortran utilities with|Cards were created by|method implementation by|s\\@R: c|s\\@R: person|examples from the argparse Python module by the Python Software Foundation Ports examples from the getopt package by|transition to Plan 9 codebase by", ",") %>%
-        str_replace_all("The package uses functions from dlib|others in each function manual|plotting functions|for histsu function|for qqglddefault function|readMP3 function from the tuneR package|provided creative direction|for significant work on the functions new to version 20: cstratapsa|authored the function mtxexp|whose code has been included in our source package|released into the public domain They were downloaded from http:|with support|for low discrepancy algorithm|leaps wrapper|for gld C codes|s of libhunspell|S original|MATLAB code|support from the French National Research Program for Environmental|Apache Commons Codec", " ") %>%
-        str_replace_all("as represented by the Minister of Natural Resources Canada|as well as code fragments|assisted on the multicore|yale sparse matrix package authors|with GeoSSE|up to version 20|belonging to the suite Quadpack|for corrections|based on code written during 2005|based on datasets provided on the books website|based on the Matlab code of Royset|Funded by the National Institute on Drug Abuse Award number|is the sole author|documentation|email=|email = |\\bperson\\b|\\bc\\b|under the direction of professor|code in R", " ") %>%
-        str_replace_all("based on the S code in the XGobi distribution Windows port based on this|authors of included software See file AUTHORS for details|Authors of libhunspell|authors of lmgls|authors of R function lm|authors of the ARPACK library See file AUTHORS for details|authors of the java libraries|Authors\\@R: c|Authors\\@R: person|which is not on r-cran  The SCEoptim function is adapted|a method developed by|contributors of MsgPack|contributors of QuantLib|contributors of the included fonts See file AUTHORS for details|contributors of the included software See file AUTHORS for details", " ") %>%
-        str_replace_all("contributors worldwide|United States Government as represented by the US Army Research Laboratory|copyright claimed by Steven L Scott is limited to modifications made to the original code|copyright notices have been maintained in all source files In these cases|Copyright: Regents of the University of California|CPU implementation|creator of the BOOM project Some code in the BOOM libraries has been modified from other open source projects These include Cephes|Cuba library has been written by|See AUTHORS file|see AUTHORS file for additional contributors|see COPYRIGHTS file|See file AUTHORS|Randall C Johnson are Copyright SAIC-Frederick Inc Funded by the Intramural Research Program", " ") %>%
-        str_replace_all("a modified version of the R math libraries|about 22e5 survey participants|Alcoholism Award Number R03 AA019775|We removed standard IO related functions|mnormt package|Note that maintainers are not available to give advice on using a package they did not author|DePauw University|following earlier work|foreignh are copied or adapted from the R foreign package created|for numerous other suggestions|forked off of rPython|Fortran code|Fortran original|Fourier transform from the seewave package", " ") %>%
-        str_replace_all("fprintf|Developer| -- Unless otherwise noted|him into the public domain: http:|Regularized random forest for regression|ibm2ieeec were extracted from BRL-CAD file|ideas from the former package sound|ieee2ibmc|included version of CppJieba|included version of Eigen|incorporates code from cddlib written|Interface to R was written|Iowa State University|with R port|R port from S|Adapted to R2OpenBUGS from R2WinBUGS|for L moments codes|largely translated from the TTBOX Matlab toolbox|Leaflet contributors|Leaflet Providers contributors|Learned Pattern Similarity for time series|- Ferdowsi University Of Mashhad|bicubic\\* functions|The function tem is|Toplevel R functions|the S code in the XGobi distribution Windows port|The University of Edinburgh Excerpts adapted from   Copyright|their names are randomly ordered", " ") %>%
-        str_replace_all("contains copies of ttice functions written by|contains copies of lattice functions written by|Copyright - United States Government as represented by the US Army Research Laboratory", "") %>%
+        split_and_replace(repl_replacements0, ",") %>%
+        split_and_replace(repl_replacements1, "") %>%
+        split_and_replace(repl_software0, "") %>%
+        split_and_replace(repl_proglang0, "") %>%
+        str_replace_all("C\\+\\+", "") %>%
+        str_replace_all("\\+", ",") %>%
+        split_and_replace(repl_other_words0, ",") %>%
+        split_and_replace(repl_other_words1, "") %>%
+        str_replace_all("\\ba\\b|\\ban\\b", "") %>% # replace a but not A
+        split_and_replace(repl_nouns0, "") %>%
+        split_and_replace(repl_nouns1, "") %>%
+        split_and_replace(repl_adjectives0, "") %>%
+        split_and_replace(repl_verbs0, "") %>%
+        split_and_replace(repl_verbs1, "") %>%
+        split_and_replace(repl_verbs2, "") %>%
+        split_and_replace(repl_verbs3, "") %>%
+        split_and_replace(repl_technical0, "") %>%
+        split_and_replace(repl_adverbs0, "") %>%
+        split_and_replace(countries, "") %>%
+        str_replace_all("\\d{4}-\\d{4}", "") %>%
         str_replace_all("\\d{4}", "") %>%
-        str_replace_all("R Core Deveopment Team|R[- ][Cc]ore [Tt]eam|R [Dd]evelopment [Tt]eam|R[- ][Cc]ore [Dd]evelopment [Tt]eam|R core|R[- ][Cc]ore|R[- ][Dd]evelopment [Cc]ore [Tt]eam", "R Core") %>%
-        str_replace_all("R Core -", "R Core") %>%
+        str_replace_all("\\d{3}", "") %>%
+        str_replace_all("\\d{2}", "") %>%
         str_replace_all("[Cc][Rr][Aa][Nn] [Tt]eam", "CRAN Team") %>%
         str_replace_all("R[ sS]tudio|R[ sS]tudio Inc", "RStudio") %>%
-        str_replace_all("\\b[Tt]he \\b|\\bthe \\b", "") %>%
+        str_replace_all("\\bH2O ai team\\b|\\bH2O ai\\b", "H2O.ai") %>%
+        ## Special people
         str_replace_all("Wickham Hadley|Hadley Wickham function", "Hadley Wickham") %>%
         str_replace_all("Yihui Xie function", "Yihui Xie") %>%
+        str_replace_all("B D Ripley|Brian D Ripley", "Brian Ripley") %>%
         ## iconv(from = "UTF8", to = "ASCII//TRANSLIT") %>%
         str_split(",") %>%
         lapply(function(x) {
-            out <- str_replace_all(x, ",|^\\s+|\\s+$", "")
-            out[!(out == "")]
-        }) ## eliminate remaining commas and leading and trailing whitespaces
+            x <- str_replace_all(x, ",|^\\s+|\\s+$|\\s+(?=\\s)", "")
+            unique(x[!(x == "" | x == " " | x %in% letters | x %in% LETTERS | x == "-")])
+        })
+
 }
+
+## if it starts with A do not remove A
+## If it ends with R, S, A remove R
+## If there is a programmer named "R", "S", "A" remove
+## Remove single letters
+## Clean sequences of single letters (e.g. "Martell-Juarez, D.A. & Nieto-Barajas, L.E.")
+##\n replace with , or ""? "J.A. e.g. "Torres-Matallana [aut, cre]\n    K. Klepiszewski [aut, cre]\n    U. Leopold [ctb]\n    G. Schutz [ctb]\n    G.B.M. Heuvelink [ctb]"
+
 
