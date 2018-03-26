@@ -40,6 +40,13 @@ p_db <- tools::CRAN_package_db()
 package_db <- clean_CRAN_db(p_db)
 ```
 
+The CRAN database we use is from
+
+``` r
+attr(package_db, "timestamp")
+#> [1] "2018-03-26 13:26:03 BST"
+```
+
 #### Package directives networks
 
 The package directives network can then be built using
@@ -65,7 +72,7 @@ visualization, a shapshot of which is below
 visualize(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```
 
-![](README_files/README-unnamed-chunk-5-1.png)
+![](README_files/README-unnamed-chunk-6-1.png)
 
 We can also compute package summaries and plot “Top-n” lists according
 to the various summaries
@@ -75,13 +82,13 @@ package_summaries <- summary(package_network)
 plot(package_summaries, according_to = "n_imported_by", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-6-1.png)
+![](README_files/README-unnamed-chunk-7-1.png)
 
 ``` r
 plot(package_summaries, according_to = "page_rank", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-6-2.png)
+![](README_files/README-unnamed-chunk-7-2.png)
 
 #### Collaboration networks
 
@@ -99,7 +106,7 @@ summarized as an interactive visualization, a shapshot of which is below
 visualize(author_network, author = "Ioannis Kosmidis")
 ```
 
-![](README_files/README-unnamed-chunk-8-1.png)
+![](README_files/README-unnamed-chunk-9-1.png)
 
 “Top-n” collaborators according to various summaries can again be
 computed
@@ -109,19 +116,19 @@ author_summaries <- summary(author_network)
 plot(author_summaries, according_to = "n_collaborators", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-9-1.png)
+![](README_files/README-unnamed-chunk-10-1.png)
 
 ``` r
 plot(author_summaries, according_to = "n_packages", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-9-2.png)
+![](README_files/README-unnamed-chunk-10-2.png)
 
 ``` r
 plot(author_summaries, according_to = "page_rank", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-9-3.png)
+![](README_files/README-unnamed-chunk-10-3.png)
 
 Well, the usual suspects…
 

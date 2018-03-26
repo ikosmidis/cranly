@@ -49,7 +49,7 @@ glm_author_network <- subset(author_network, package = glm_packages)
 ```
 Note here that the package sub-network contains not only `glm_packages` but also all packages that are linked somehow with `glm_packages`. The network can be visualized using
 ```{r, eval = FALSE}
-visualize(glm_package_network, package = glm_packages, title = TRUE)
+visualize(glm_package_network, package = glm_packages)
 ```
 In order to focus on the sub-network with edges *only* between the packages in `glm_packages`, we do
 ```{r}

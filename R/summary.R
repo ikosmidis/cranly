@@ -61,7 +61,6 @@ summary.cranly_network <- function(object, ...) {
     if (perspective == "package") {
         package <- object$nodes$package
         n_authors <- unlist(lapply(object$nodes$author, function(x) {l <- length(x); ifelse(l, l, NA)}))
-
         out <- with(object$nodes,
                     data.frame(package = package,
                                n_authors = n_authors,
