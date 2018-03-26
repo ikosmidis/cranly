@@ -53,7 +53,8 @@ Interactive visualization of a package or author \code{\link{cranly_network}} us
 \dontrun{
 data("cran20032018", package = "cranly")
 package_network <- build_network(cran20032018)
-## The package directives network of all users with Ioannis in their name
+## The package directives network of all users with Ioannis in
+## their name from the CRAN database subset cran20032018
 visualize(package_network, author = "Ioannis")
 ## The package directives network of "Achim Zeileis"
 visualize(package_network, author = "Achim Zeileis")
