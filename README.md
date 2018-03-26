@@ -14,9 +14,9 @@ packages and profiles, as well as those of others, which, at least for
 me, is proving harder and harder with the rapid growth of the
 [CRAN](https://cran.r-project.org) ecosystem.
 
-The package provides comprehensive methods for cleaning up and
-organising the information in the CRAN package database, for building
-package directives networks (depends, imports, suggests, enhances) and
+The package provides methods for cleaning up and organising the
+information in the CRAN package database, for building package
+directives networks (depends, imports, suggests, enhances) and
 collaboration networks, and for computing summaries and producing
 interactive visualisations from the resulting networks. Network
 visualisation is through the
@@ -49,7 +49,7 @@ The CRAN database we use is from
 
 ``` r
 attr(package_db, "timestamp")
-#> [1] "2018-03-27 00:33:03 BST"
+#> [1] "2018-03-27 00:53:08 BST"
 ```
 
 #### Package directives networks

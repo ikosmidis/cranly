@@ -25,10 +25,10 @@ test_that("package_by with exact = TRUE returns correct results", {
 )
 
 test_that("author_of with exact = TRUE returns correct results", {
-          expect_equal(author_of(package_network, "brglm", exact = TRUE),
-                       "Ioannis Kosmidis")
-          expect_equal(author_of(author_network, "brglm", exact = TRUE),
-                       "Ioannis Kosmidis")
+          expect_equal(author_of(package_network, "trackeR", exact = TRUE),
+                       c("Hannah Frick", "Ioannis Kosmidis"))
+          expect_equal(author_of(author_network, "trackeR", exact = TRUE),
+                       c("Hannah Frick", "Ioannis Kosmidis"))
 }
 )
 
