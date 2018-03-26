@@ -1,4 +1,9 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+[![Travis-CI Build
+Status](https://travis-ci.org/ikosmidis/cranly.svg?branch=master)](https://travis-ci.org/ikosmidis/cranly)
+[![Coverage
+Status](https://img.shields.io/codecov/c/github/ikosmidis/cranly/master.svg)](https://codecov.io/github/ikosmidis/cranly?branch=master)
+
 cranly
 ======
 
@@ -16,9 +21,9 @@ collaboration networks, and for computing summaries and producing
 interactive visualisations from the resulting networks. Network
 visualisation is through the
 [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package.
-The package also provides functions to coerce the networks to igraph
-<https://CRAN.R-project.org/package=igraph> objects for further analyses
-and modelling.
+The package also provides functions to coerce the networks to
+[igraph](https://CRAN.R-project.org/package=igraph) objects for further
+analyses and modelling.
 
 ### Installation
 
@@ -44,7 +49,7 @@ The CRAN database we use is from
 
 ``` r
 attr(package_db, "timestamp")
-#> [1] "2018-03-26 13:26:03 BST"
+#> [1] "2018-03-27 00:33:03 BST"
 ```
 
 #### Package directives networks
