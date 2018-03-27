@@ -26,7 +26,7 @@ objects for further analyses and modelling.
 \itemize{
 
 \item David Selby (\url{http://selbydavid.com}) experimented with
-and provided helpful comments and feedback in a pre-release version
+and provided helpful comments and feedback on a pre-release version
 of \pkg{cranly}. His help is gratefully acknowledged.
 
 }
