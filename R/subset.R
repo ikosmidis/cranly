@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' Subset a \code{\link{cranly_network}} according to author, package and/or directive
 #'
 #' @param x a \code{\link{cranly_network}} object

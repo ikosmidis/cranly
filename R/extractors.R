@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' @rdname package_by
 #' @export
 package_by.cranly_network <- function(x, author = NULL, exact = FALSE) {

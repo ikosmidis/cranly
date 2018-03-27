@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' Compute edges and nodes of package directives and collaboration networks
 #'
 #' @param object a \code{\link{cranly_db}} object

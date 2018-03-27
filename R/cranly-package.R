@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' cranly: CRAN package database analytics and visualizations
 #'
 #' @docType package

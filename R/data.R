@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' Cleaned and processed CRAN package metadata from 20 March 2018
 #'
 #' This is a random sample of 1000 R packages from a processed version

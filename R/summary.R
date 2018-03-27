@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' Compute a range of package directives and collaboration network statistics
 #'
 #' @aliases summary_cranly_network

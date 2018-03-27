@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' Top-n package or author barplots according to a range of network statistics
 #'
 #' @param x a \code{\link{summary_cranly_network}} object

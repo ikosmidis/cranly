@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' Coerce a \code{\link{cranly_network}} to an \code{\link[igraph]{graph}} object
 #'
 #' @param x a \code{\link{cranly_network}} object

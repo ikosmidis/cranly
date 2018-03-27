@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' Interactive visualization of a package or author \code{\link{cranly_network}} using the vis.js library
 #'
 #' @inheritParams subset.cranly_network

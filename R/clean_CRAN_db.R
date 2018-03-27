@@ -1,3 +1,5 @@
+# Copyright (C) 2018 Ioannis Kosmidis
+
 #' Clean and organise package and author names in the output of \code{tools::CRAN_package_db()}
 #'
 #' @aliases cranly_db
