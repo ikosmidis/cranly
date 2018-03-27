@@ -49,12 +49,12 @@ glm_author_network <- subset(author_network, package = glm_packages)
 ```
 Note here that the package sub-network contains not only `glm_packages` but also all packages that are linked somehow with `glm_packages`. The network can be visualized using
 ```{r, eval = FALSE}
-visualize(glm_package_network, package = glm_packages)
+plot(glm_package_network, package = glm_packages)
 ```
 In order to focus on the sub-network with edges *only* between the packages in `glm_packages`, we do
 ```{r}
 glm_package_only_network <- subset(package_network, package = glm_packages, only = TRUE)
-visualize(glm_package_only_network, package = glm_packages)
+plot(glm_package_only_network, package = glm_packages)
 ```
 
 The top-20 packages in terms of various statistics of the directives sub-network for generalized linear models according to degree  are

@@ -73,7 +73,7 @@ my_packages
 ```
 We can now get an interactive visualisation of the sub-network for my packages using
 ```{r}
-visualize(package_network, package = my_packages, title = TRUE, legend = TRUE)
+plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```
 You can hover over the nodes and the edges to get package-specific information and links to the package pages.
 
@@ -98,9 +98,9 @@ plot(author_summaries, according_to = "betweenness", top = 20)
 
 The R Core's collaboration sub-network is
 ```{r}
-visualize(author_network, author = "R Core")
+plot(author_network, author = "R Core")
 ```
 and my (small but valuable to me!) collaboration sub-network is
 ```{r}
-visualize(author_network, author = "Kosmidis")
+plot(author_network, author = "Kosmidis")
 ```

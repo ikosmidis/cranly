@@ -63,7 +63,7 @@ my_packages
 ```
 and their sub-network of directives can be summarized in an interactive visualization, a shapshot of which is below
 ```{r}
-visualize(package_network, package = my_packages, title = TRUE, legend = TRUE)
+plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```
 
 
@@ -81,7 +81,7 @@ author_network <- build_network(package_db, perspective = "author")
 ```
 and the extractor functions work exactly as they did for the package directives network. For example, my collaboration network results can be summarized as an interactive visualization, a shapshot of which is below
 ```{r}
-visualize(author_network, author = "Ioannis Kosmidis")
+plot(author_network, author = "Ioannis Kosmidis")
 ```
 
 

@@ -68,25 +68,6 @@ author_of <- function(x, package = NULL, exact = FALSE) {
     UseMethod("author_of")
 }
 
-#' \code{visualize} method for an object
-#'
-#' @param object an object to be visualized
-#' @param ... other arguments to be passed to the method
-#'
-#' @seealso visualize.cranly_network
-#'
-#' @export
-#'
-visualize <- function(object, ...) {
-    UseMethod("visualize")
-}
-
-#' @rdname visualize
-#' @export
-visualise <- function(object, ...) {
-    UseMethod("visualize")
-}
-
 #' \code{build_network} method for an object
 #'
 #' @param object an object to use for building a network

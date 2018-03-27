@@ -18,52 +18,52 @@
 #' package_network <- build_network(cran20032018)
 #' ## The package directives network of all users with Ioannis in
 #' ## their name from the CRAN database subset cran20032018
-#' visualize(package_network, author = "Ioannis")
+#' plot(package_network, author = "Ioannis")
 #' ## The package directives network of "Achim Zeileis"
-#' visualize(package_network, author = "Achim Zeileis")
+#' plot(package_network, author = "Achim Zeileis")
 #'
 #' author_network <- build_network(cran20032018, perspective = "author")
-#' visualize(author_network, author = "Ioannis", title = TRUE)
+#' plot(author_network, author = "Ioannis", title = TRUE)
 #' }
 #' @export
-visualize.cranly_network <- function(object,
-                                     package = NULL,
-                                     author = NULL,
-                                     physics_threshold = 200,
-                                     height = NULL, #"1080px",
-                                     width = NULL, #"1080px",
-                                     directive = c("imports", "suggests", "enhances", "depends"),
-                                     dragNodes = TRUE,
-                                     dragView = TRUE,
-                                     zoomView = TRUE,
-                                     exact = TRUE,
-                                     legend = FALSE,
-                                     title = FALSE,
-                                     global = TRUE,
-                                     ...) {
+plot.cranly_network <- function(x,
+                                package = NULL,
+                                author = NULL,
+                                physics_threshold = 200,
+                                height = NULL, #"1080px",
+                                width = NULL, #"1080px",
+                                directive = c("imports", "suggests", "enhances", "depends"),
+                                dragNodes = TRUE,
+                                dragView = TRUE,
+                                zoomView = TRUE,
+                                exact = TRUE,
+                                legend = FALSE,
+                                title = FALSE,
+                                global = TRUE,
+                                ...) {
 
     if (global) {
-        summaries <- summary(object, advanced = FALSE)
+        summaries <- summary(x, advanced = FALSE)
     }
-    object <- subset(object, package = package, author = author, directive = directive, exact = exact)
+    x <- subset(x, package = package, author = author, directive = directive, exact = exact)
 
     if (!global) {
-        summaries <- summary(object, advanced = FALSE)
+        summaries <- summary(x, advanced = FALSE)
     }
 
-    timestamp <- attr(object, "timestamp")
+    timestamp <- attr(x, "timestamp")
 
-    if (nrow(object$nodes) == 0) {
+    if (nrow(x$nodes) == 0) {
             message("Nothing to visualise")
             return(invisible(NULL))
     }
 
-    edges_subset <- object$edges
-    nodes_subset <- object$nodes
+    edges_subset <- x$edges
+    nodes_subset <- x$nodes
     colors <- colorspace::diverge_hcl(10, c = 100, l = c(50, 100), power = 1)
 
-    perspective <- attr(object, "perspective")
-    keep <- attr(object, "keep")
+    perspective <- attr(x, "perspective")
+    keep <- attr(x, "keep")
 
     lnodes <- ledges <- main <- NULL
 
@@ -173,36 +173,4 @@ visualize.cranly_network <- function(object,
             visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) %>%
             visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) %>%
             visNetwork::visExport(name = export_name, label = "PNG snapshot", style = "")
-}
-
-#' @rdname visualize.cranly_network
-#' @export
-visualise.cranly_network <- function(object,
-                                     package = NULL,
-                                     author = NULL,
-                                     physics_threshold = 200,
-                                     height = NULL, #"1080px",
-                                     width = NULL, #"1080px",
-                                     directive = c("imports", "suggests", "enhances", "depends"),
-                                     dragNodes = TRUE,
-                                     dragView = TRUE,
-                                     zoomView = TRUE,
-                                     exact = TRUE,
-                                     legend = FALSE,
-                                     title = FALSE,
-                                     ...) {
-    visualize.cranly_network(object,
-                             package = NULL,
-                             author = NULL,
-                             physics_threshold = 200,
-                             height = NULL, #"1080px",
-                             width = NULL, #"1080px",
-                             directive = c("imports", "suggests", "enhances", "depends"),
-                             dragNodes = TRUE,
-                             dragView = TRUE,
-                             zoomView = TRUE,
-                             exact = TRUE,
-                             legend = FALSE,
-                             title = FALSE,
-                             ...)
 }
