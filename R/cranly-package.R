@@ -9,6 +9,30 @@
 #' @import countrycode
 #' @importFrom ggplot2 ggplot geom_bar theme_minimal labs coord_flip
 #'
+#' @details
+#'
+#' \pkg{cranly} provides core visualisations and summaries for the
+#' CRAN package database. The package provides comprehensive methods
+#' for cleaning up and organising the information in the CRAN package
+#' database, for building package directives networks (depends,
+#' imports, suggests, enhances) and collaboration networks, and for
+#' computing summaries and producing interactive visualisations from
+#' the resulting networks. Network visualisation is through the
+#' \pkg{visNetwork} (\url{https://CRAN.R-project.org/package=visNetwork})
+#' package. The package also provides functions to coerce the networks
+#' to \pkg{igraph} \url{https://CRAN.R-project.org/package=igraph}
+#' objects for further analyses and modelling.
+#'
+#' @section Acknowledgements:
+#' \itemize{
+#'
+#' \item David Selby (\url{http://selbydavid.com}) experimented with
+#' and provided helpful comments and feedback in a pre-release version
+#' of \pkg{cranly}. His help is gratefully acknowledged.
+#'
+#' }
+#'
+#'
 NULL
 
 #' Find packages and authors by authors or packages with names matching a specific string
