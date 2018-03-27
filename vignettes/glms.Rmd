@@ -42,14 +42,10 @@ The packages that have "glm" in their name are
 ```{r}
 (glm_packages <- package_with(package_network, name = "glm"))
 ```
-and the corresponding sub-networks are
-```{r}
-glm_package_network <- subset(package_network, package = glm_packages)
-glm_author_network <- subset(author_network, package = glm_packages)
-```
-Note here that the package sub-network contains not only `glm_packages` but also all packages that are linked somehow with `glm_packages`. The network can be visualized using
+
+The sub-network for `glm_packages` can be visualized using
 ```{r, eval = FALSE}
-plot(glm_package_network, package = glm_packages)
+plot(package_network, package = glm_packages)
 ```
 In order to focus on the sub-network with edges *only* between the packages in `glm_packages`, we do
 ```{r}
@@ -57,14 +53,16 @@ glm_package_only_network <- subset(package_network, package = glm_packages, only
 plot(glm_package_only_network, package = glm_packages)
 ```
 
-The top-20 packages in terms of various statistics of the directives sub-network for generalized linear models according to degree  are
+The top-20 packages in terms of various statistics of the directives sub-network for generalized linear models according to the number they are imported by other packages
 ```{r}
+glm_package_network <- subset(package_network, package = glm_packages)
 glm_package_summaries <- summary(glm_package_network)
-plot(glm_package_summaries, according_to = "degree")
+plot(glm_package_summaries, according_to = "n_imported_by")
 ```
 
-The top-20 in the collaboration sub-network for generalized linear models according to degree are
+The top-20 in the collaboration sub-network for generalized linear models according to the number of collaborators is
 ```{r}
+glm_author_network <- subset(author_network, package = glm_packages)
 glm_author_summaries <- summary(glm_author_network)
-plot(glm_author_summaries, according_to = "degree")
+plot(glm_author_summaries, according_to = "n_collaborators")
 ```
