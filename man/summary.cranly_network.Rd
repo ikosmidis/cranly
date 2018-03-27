@@ -5,7 +5,7 @@
 \alias{summary_cranly_network}
 \title{Compute a range of package directives and collaboration network statistics}
 \usage{
-\method{summary}{cranly_network}(object, advanced = FALSE, ...)
+\method{summary}{cranly_network}(object, advanced = TRUE, ...)
 }
 \arguments{
 \item{object}{a \code{\link{cranly_network}} object}

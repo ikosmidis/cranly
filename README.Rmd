@@ -66,6 +66,7 @@ and their sub-network of directives can be summarized in an interactive visualiz
 visualize(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```
 
+
 We can also compute package summaries and plot "Top-n" lists according to the various summaries
 ```{r}
 package_summaries <- summary(package_network)

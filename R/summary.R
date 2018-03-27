@@ -49,7 +49,7 @@
 #' \item eigen_centrality (advanced). the eigenvector centrality score of the author in the author network; as computed by \code{\link[igraph]{eigen_centrality}}
 #' }
 #' @export
-summary.cranly_network <- function(object, advanced = FALSE, ...) {
+summary.cranly_network <- function(object, advanced = TRUE, ...) {
 
     perspective <- attr(object, "perspective")
     cranly_graph <- as.igraph.cranly_network(object, reverse = TRUE)
