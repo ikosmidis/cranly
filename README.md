@@ -49,7 +49,7 @@ The CRAN database we use is from
 
 ``` r
 attr(package_db, "timestamp")
-#> [1] "2018-03-27 16:37:35 BST"
+#> [1] "2018-03-27 19:28:54 BST"
 ```
 
 #### Package directives networks
@@ -74,7 +74,7 @@ and their sub-network of directives can be summarized in an interactive
 visualization, a shapshot of which is below
 
 ``` r
-visualize(package_network, package = my_packages, title = TRUE, legend = TRUE)
+plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```
 
 ![](README_files/README-unnamed-chunk-6-1.png)
@@ -108,7 +108,7 @@ directives network. For example, my collaboration network results can be
 summarized as an interactive visualization, a shapshot of which is below
 
 ``` r
-visualize(author_network, author = "Ioannis Kosmidis")
+plot(author_network, author = "Ioannis Kosmidis")
 ```
 
 ![](README_files/README-unnamed-chunk-9-1.png)
