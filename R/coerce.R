@@ -40,11 +40,11 @@ as.igraph.cranly_network <- function(x, reverse = FALSE, ...) {
     nodes <- x$nodes
 
     if (perspective == "package") {
-        v_names <- c("package", "version", "author", "date", "url", "license", "maintainer",
-                     "n_imports", "n_imported_by",
-                     "n_suggests", "n_suggested_by",
-                     "n_depends", "n_depended_by",
-                     "n_enhances", "n_enhanced_by")
+        v_names <- c("package", "version", "author", "date", "url", "license", "maintainer")
+                     ## "n_imports", "n_imported_by",
+                     ## "n_suggests", "n_suggested_by",
+                     ## "n_depends", "n_depended_by",
+                     ## "n_enhances", "n_enhanced_by")
         e_inds <- if (reverse) c(2, 1, 3:ncol(edges)) else 1:ncol(edges)
         g <- graph.data.frame(edges[, e_inds], vertices = nodes[v_names], directed = TRUE)
         E(g)$type <-  edges$type

@@ -9,6 +9,7 @@
 #' @param zoomView logical. Should the user be able to zoom in? Default is \code{TRUE}
 #' @param legend logical. Should a legend be added on the resulting visualization? Default is \code{FALSE}
 #' @param title logical. Should a title be added on the resulting visualization? Default is \code{FALSE}
+#' @param global locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package} and \code{author}
 #' @param ... currently not used
 #'
 #' @examples
@@ -38,9 +39,18 @@ visualize.cranly_network <- function(object,
                                      exact = TRUE,
                                      legend = FALSE,
                                      title = FALSE,
+                                     global = TRUE,
                                      ...) {
 
+    if (global) {
+        summaries <- summary(object, advanced = FALSE)
+    }
     object <- subset(object, package = package, author = author, directive = directive, exact = exact)
+
+    if (!global) {
+        summaries <- summary(object, advanced = FALSE)
+    }
+
     timestamp <- attr(object, "timestamp")
 
     if (nrow(object$nodes) == 0) {
@@ -71,16 +81,17 @@ visualize.cranly_network <- function(object,
                                        "suggests" = "is suggested by",
                                        "enhances" = "enhances"))
         })
+        summaries <- summaries[nodes_subset$package, ]
         nodes_subset <- within(nodes_subset, {
             color <- ifelse(package %in% keep, colors[1], colors[5])
             label <- package
             id <- package
             title <- paste0("<a href=https://CRAN.R-project.org/package=", package, ">", package, "</a> (", version, ")<br>",
                             "Maintainer: ", maintainer, "<br>",
-                            "imports/imported by:", n_imports, "/", n_imported_by, "<br>",
-                            "depends/is dependency of:", n_depends, "/", n_depended_by, "<br>",
-                            "suggests/suggested by:", n_suggests, "/", n_suggested_by, "<br>",
-                            "enhances/enhaced by:", n_enhances, "/", n_enhanced_by, "<br>",
+                            "imports/imported by:", summaries$n_imports, "/", summaries$n_imported_by, "<br>",
+                            "depends/is dependency of:", summaries$n_depends, "/", summaries$n_depended_by, "<br>",
+                            "suggests/suggested by:", summaries$n_suggests, "/", summaries$n_suggested_by, "<br>",
+                            "enhances/enhaced by:", summaries$n_enhances, "/", summaries$n_enhanced_by, "<br>",
                             "<img src=https://cranlogs.r-pkg.org/badges/", package, "?color=969696>")
         })
 
@@ -106,7 +117,6 @@ visualize.cranly_network <- function(object,
                 if (!is.null(author)) paste0("Author names with<br> \"", paste(author, collapse = "\", \""), "\"", collapse = ""))
         }
 
-
     }
     else {
         edges_subset <- within(edges_subset, {
@@ -122,13 +132,14 @@ visualize.cranly_network <- function(object,
                      rep(n_full_rows + 1, n_last_row))
             paste(tapply(vec, ind, function(x) paste(x, collapse = ", ")), collapse = "<br>")
         }
+        summaries <- summaries[nodes_subset$author, ]
 
         nodes_subset <- within(nodes_subset, {
             color <- ifelse(author %in% keep, colors[1], colors[5])
             label <- author
             id <- author
             title <- paste0("Author: ", author, "<br>",
-                            n_collaborators, " collaborators in ",
+                            summaries$n_collaborators, " collaborators in ",
                             unlist(lapply(nodes_subset$package, length)),
                             " packages: <br>", unlist(lapply(nodes_subset$package, format_fun)))
         })

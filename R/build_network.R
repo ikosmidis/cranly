@@ -50,9 +50,10 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
             out <- object[[what]]
             names(out) <- object[["package"]]
             out <- stack(out[sapply(out, function(x) !all(is.na(x)))])
+            out$ind <- as.character(out$ind)
             ## out <- stack(lapply(out, function(x) x[x != "" & x != "R"]))
             names(out) <- if (rev) c("to", "from") else c("from", "to")
-            data.frame(out[c("from", "to")], type = what, stringsAsFactors = FALSE)
+            data.frame(out[, c("from", "to")], type = what, stringsAsFactors = FALSE)
         }
 
         im <- compute_edges(what = "imports")
@@ -63,28 +64,28 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
         ## Edges
         edges <- rbind(im, su, en, de)
 
+        ## n_im_by <- stack(table(im$from))
+        ## names(n_im_by) <- c("n_imported_by", "package")
+        ## n_im <- stack(table(im$to))
+        ## names(n_im) <- c("n_imports", "package")
+        ## n_de_by <- stack(table(de$from))
+        ## names(n_de_by) <- c("n_depended_by", "package")
+        ## n_de <- stack(table(de$to))
+        ## names(n_de) <- c("n_depends", "package")
+        ## n_su_by <- stack(table(su$from))
+        ## names(n_su_by) <- c("n_suggested_by", "package")
+        ## n_su <- stack(table(su$to))
+        ## names(n_su) <- c("n_suggests", "package")
+        ## n_en <- stack(table(en$from))
+        ## names(n_en) <- c("n_enhances", "package")
+        ## n_en_by <- stack(table(en$to))
+        ## names(n_en_by) <- c("n_enhanced_by", "package")
+        ## nodes <- Reduce(function(x, y) merge(x, y, by = "package", all = TRUE), list(object, n_im, n_im_by, n_su, n_su_by, n_de, n_de_by, n_en, n_en_by))
+        ## ## Replace NA with zeros
+        ## nodes[grep("n_", names(nodes))][is.na(nodes[grep("n_", names(nodes))])] <- 0
 
-        n_im_by <- stack(table(im$from))
-        names(n_im_by) <- c("n_imported_by", "package")
-        n_im <- stack(table(im$to))
-        names(n_im) <- c("n_imports", "package")
-        n_de_by <- stack(table(de$from))
-        names(n_de_by) <- c("n_depended_by", "package")
-        n_de <- stack(table(de$to))
-        names(n_de) <- c("n_depends", "package")
-        n_su_by <- stack(table(su$from))
-        names(n_su_by) <- c("n_suggested_by", "package")
-        n_su <- stack(table(su$to))
-        names(n_su) <- c("n_suggests", "package")
-        n_en <- stack(table(en$from))
-        names(n_en) <- c("n_enhances", "package")
-        n_en_by <- stack(table(en$to))
-        names(n_en_by) <- c("n_enhanced_by", "package")
-
-        nodes <- Reduce(function(x, y) merge(x, y, by = "package", all = TRUE), list(object, n_im, n_im_by, n_su, n_su_by, n_de, n_de_by, n_en, n_en_by))
-
-        ## Replace NA with zeros
-        nodes[grep("n_", names(nodes))][is.na(nodes[grep("n_", names(nodes))])] <- 0
+        nodes <- merge(data.frame(package = unique(c(edges$from, edges$to)), stringsAsFactors=FALSE),
+                       object, by = "package", all.x = TRUE)
 
     }
     else {
@@ -108,7 +109,7 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
 
         names(edges)[1:2] <- c("from", "to")
 
-        n_col <- with(edges, {table(c(from, to))})
+        ## n_col <- with(edges, {table(c(from, to))})
 
         nodes <- do.call("rbind", apply(object[c("author", "package")], 1, function(x) {
                                    auth <- x$author
@@ -121,7 +122,7 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
             d
             }))
 
-        nodes$n_collaborators <- as.vector(n_col[nodes$author])
+        ## nodes$n_collaborators <- as.vector(n_col[nodes$author])
 
     }
 

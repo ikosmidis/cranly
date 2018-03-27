@@ -9,7 +9,7 @@
   physics_threshold = 200, height = NULL, width = NULL,
   directive = c("imports", "suggests", "enhances", "depends"),
   dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, exact = TRUE,
-  legend = FALSE, title = FALSE, ...)
+  legend = FALSE, title = FALSE, global = TRUE, ...)
 
 \method{visualise}{cranly_network}(object, package = NULL, author = NULL,
   physics_threshold = 200, height = NULL, width = NULL,
@@ -43,6 +43,8 @@
 \item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{FALSE}}
 
 \item{title}{logical. Should a title be added on the resulting visualization? Default is \code{FALSE}}
+
+\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package} and \code{author}}
 
 \item{...}{currently not used}
 }
