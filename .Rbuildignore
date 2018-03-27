@@ -3,6 +3,8 @@
 ^codecov\.yml$
 README.md
 README_files/.*\.png$
+README_files
 README.html
 vignettes/cranly.html
 vignettes/glms.html
+vignettes/historical.Rmd
