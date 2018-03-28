@@ -62,15 +62,44 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
                           clean_author = clean_up_author) {
 
 
+
+    if (is.matrix(packages_db)) {
+        packages_db <- as.data.frame(packages_db)
+    }
+
     md5 <- grepl("MD5sum", names(packages_db))
     if (any(md5)) {
         ## Remove redundant MD5 sum
         ind <- which(md5)
-
-        packages_db <- packages_db[-ind[1]]
-        ## Remove duplicated packages
-        packages_db <- packages_db[!duplicated(packages_db$MD5sum), ]
+        if (length(ind) > 1) {
+            packages_db <- packages_db[-ind[1]]
+        }
     }
+    else {
+        warning("no MD5sum information found in package_db")
+        packages_db$MD5sum <- NA
+    }
+
+    ## Remove duplicated packages
+    packages_db <- packages_db[is.na(packages_db$Package) | !duplicated(packages_db$Package), ]
+
+    if (is.null(packages_db$Author)) {
+        warning("no author information found in package_db")
+        packages_db$Author <- NA
+    }
+    if (is.null(packages_db$Date)) {
+        warning("no date information found in package_db")
+        packages_db$Date <- NA
+    }
+    if (is.null(packages_db$URL)) {
+        warning("no url information found in package_db")
+        packages_db$URL <- NA
+    }
+    if (is.null(packages_db$Maintainer)) {
+        warning("no Maintainer information found in package_db")
+        packages_db$Maintainer <- NA
+    }
+
 
     ## Coerce variable names to lower case
     names(packages_db) <- tolower(names(packages_db))

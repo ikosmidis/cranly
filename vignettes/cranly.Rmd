@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 # **cranly**
 [**cranly**](https://github.com/ikosmidis/cranly) provides core visualisations and summaries for the CRAN package database. It is aimed mainly as an analytics tool for developers to keep track of their CRAN packages and profiles, as well as those of others, which, at least for me, is proving harder and harder as the CRAN ecosystem grows.
 
