@@ -3,6 +3,7 @@
 Status](https://travis-ci.org/ikosmidis/cranly.svg?branch=master)](https://travis-ci.org/ikosmidis/cranly)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/ikosmidis/cranly/master.svg)](https://codecov.io/github/ikosmidis/cranly?branch=master)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/cranly)](https://cran.r-project.org/package=cranly)
 
 cranly
 ======
@@ -49,7 +50,7 @@ The CRAN database we use is from
 
 ``` r
 attr(package_db, "timestamp")
-#> [1] "2018-03-27 19:28:54 BST"
+#> [1] "2018-03-28 11:20:19 BST"
 ```
 
 #### Package directives networks
@@ -66,8 +67,8 @@ package_network <- build_network(package_db)
 ``` r
 my_packages <- package_by(package_network, "Ioannis Kosmidis")
 my_packages
-#> [1] "betareg"      "brglm"        "brglm2"       "enrichwith"  
-#> [5] "PlackettLuce" "profileModel" "trackeR"
+#> [1] "betareg"      "brglm"        "brglm2"       "cranly"      
+#> [5] "enrichwith"   "PlackettLuce" "profileModel" "trackeR"
 ```
 
 and their sub-network of directives can be summarized in an interactive
@@ -84,6 +85,8 @@ to the various summaries
 
 ``` r
 package_summaries <- summary(package_network)
+#> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
+#> 2784 :closeness centrality is not well-defined for disconnected graphs
 plot(package_summaries, according_to = "n_imported_by", top = 20)
 ```
 
@@ -118,6 +121,8 @@ computed
 
 ``` r
 author_summaries <- summary(author_network)
+#> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
+#> 2784 :closeness centrality is not well-defined for disconnected graphs
 plot(author_summaries, according_to = "n_collaborators", top = 20)
 ```
 

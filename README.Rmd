@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 
 [![Travis-CI Build Status](https://travis-ci.org/ikosmidis/cranly.svg?branch=master)](https://travis-ci.org/ikosmidis/cranly)
 [![Coverage Status](https://img.shields.io/codecov/c/github/ikosmidis/cranly/master.svg)](https://codecov.io/github/ikosmidis/cranly?branch=master)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/cranly)](https://cran.r-project.org/package=cranly)
 
 # cranly
 
