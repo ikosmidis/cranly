@@ -23,13 +23,13 @@
 #' @examples
 #' \dontrun{
 #'
-#' data("cran20032018", package = "cranly")
+#' data("cran_sample", package = "cranly")
 #' ## Package directives network
-#' package_network <- build_network(object = cran20032018, perspective = "package")
+#' package_network <- build_network(object = cran_sample, perspective = "package")
 #' igraph::as.igraph(package_network)
 #'
 #' ## Author collaboration network
-#' author_network <- build_network(object = cran20032018, perspective = "author")
+#' author_network <- build_network(object = cran_sample, perspective = "author")
 #' igraph::as.igraph(author_network)
 #'
 #' }
@@ -43,10 +43,6 @@ as.igraph.cranly_network <- function(x, reverse = FALSE, ...) {
 
     if (perspective == "package") {
         v_names <- c("package", "version", "author", "date", "url", "license", "maintainer")
-                     ## "n_imports", "n_imported_by",
-                     ## "n_suggests", "n_suggested_by",
-                     ## "n_depends", "n_depended_by",
-                     ## "n_enhances", "n_enhanced_by")
         e_inds <- if (reverse) c(2, 1, 3:ncol(edges)) else 1:ncol(edges)
         g <- graph.data.frame(edges[, e_inds], vertices = nodes[v_names], directed = TRUE)
         E(g)$type <-  edges$type
@@ -59,6 +55,7 @@ as.igraph.cranly_network <- function(x, reverse = FALSE, ...) {
         E(g)$depends <- edges$depends
         E(g)$suggests <- edges$suggests
         E(g)$enhances <- edges$enhances
+        E(g)$linkingto <- edges$linkingto
         E(g)$version <- edges$version
     }
     g

@@ -24,16 +24,16 @@ Top-n package or author barplots according to a range of network statistics
 \examples{
 
 \dontrun{
-data("cran20032018", package = "cranly")
+data("cran_sample", package = "cranly")
 ## package network
-package_network <- build_network(cran20032018)
+package_network <- build_network(cran_sample)
 package_summaries <- summary(package_network)
 plot(package_summaries, according_to = "n_imported_by", top = 30)
 plot(package_summaries, according_to = "n_depended_by", top = 30)
 plot(package_summaries, according_to = "page_rank", top = 30)
 
 ## author network
-author_network <- build_network(cran20032018, perspective = "author")
+author_network <- build_network(cran_sample, perspective = "author")
 author_summaries <- summary(author_network)
 plot(author_summaries, according_to = "n_collaborators", top = 30)
 plot(author_summaries, according_to = "n_packages", top = 30)

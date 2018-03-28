@@ -32,13 +32,13 @@ undirected network of authors.
 \examples{
 \dontrun{
 
-data("cran20032018", package = "cranly")
+data("cran_sample", package = "cranly")
 ## Package directives network
-package_network <- build_network(object = cran20032018, perspective = "package")
+package_network <- build_network(object = cran_sample, perspective = "package")
 igraph::as.igraph(package_network)
 
 ## Author collaboration network
-author_network <- build_network(object = cran20032018, perspective = "author")
+author_network <- build_network(object = cran_sample, perspective = "author")
 igraph::as.igraph(author_network)
 
 }

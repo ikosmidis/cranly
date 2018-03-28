@@ -31,6 +31,8 @@
 #' \item n_depended_by (basic). number of packages that have the package as a dependency
 #' \item n_enhances (basic). number of packages the package enhances
 #' \item n_enhanced_by (basic). number of packages the package is enhanced by
+#' \item n_linking_to (basic). number of packages the package links to
+#' \item n_linked_by (basic). number of packages the package is linked by
 #' \item betweenness (advanced). the package betweenness in the package network; as computed by \code{\link[igraph]{betweenness}}
 #' \item closeness (advanced). the closeness centrality of the package in the package network; as computed by \code{\link[igraph]{closeness}}
 #' \item page_rank (advanced). the Google PageRank of the package in the package network; as computed by \code{\link[igraph]{page_rank}}
@@ -82,6 +84,10 @@ summary.cranly_network <- function(object, advanced = TRUE, ...) {
                              delete.vertices = FALSE)
         n_enhanced_by <- degree(gr, mode = "out")
         n_enhances <- degree(gr, mode = "in")
+        gr <- subgraph.edges(graph = cranly_graph, eids = which(E(cranly_graph)$type == "linkingto"),
+                             delete.vertices = FALSE)
+        n_linking_to <- degree(gr, mode = "out")
+        n_linked_by <- degree(gr, mode = "in")
 
         package <- object$nodes$package
         n_authors <- unlist(lapply(object$nodes$author, function(x) {l <- length(x); ifelse(l, l, NA)}))
@@ -96,6 +102,8 @@ summary.cranly_network <- function(object, advanced = TRUE, ...) {
                                n_depended_by = n_depended_by,
                                n_enhances = ifelse(is.na(n_authors), NA, n_enhances),
                                n_enhanced_by = n_enhanced_by,
+                               n_linking_to = ifelse(is.na(n_authors), NA, n_linking_to),
+                               n_linked_by = n_linked_by,
                                betweenness = if (advanced) bet[package] else NA,
                                closeness = if (advanced)clo[package] else NA,
                                page_rank = if (advanced) pg_rank$vector[package] else NA,

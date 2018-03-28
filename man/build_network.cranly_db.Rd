@@ -34,16 +34,16 @@ network is analysed and visualised as undirected by all methods in
 }
 \examples{
 \dontrun{
-data("cran20032018", package = "cranly")
+data("cran_sample", package = "cranly")
 ## Package directives network
-package_network <- build_network(object = cran20032018, perspective = "package")
+package_network <- build_network(object = cran_sample, perspective = "package")
 head(package_network$edges)
 head(package_network$nodes)
 attr(package_network, "timestamp")
 class(package_network)
 
 ## Author collaboration network
-author_network <- build_network(object = cran20032018, perspective = "author")
+author_network <- build_network(object = cran_sample, perspective = "author")
 head(author_network$edges)
 head(author_network$nodes)
 attr(author_network, "timestamp")

@@ -48,9 +48,9 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' data("cran20032018", package = "cranly")
+#' data("cran_sample", package = "cranly")
 #' ## Using a package directives network
-#' package_network <- build_network(cran20032018)
+#' package_network <- build_network(cran_sample)
 #' ## Find all packages containing glm in their name
 #' package_with(package_network, name = "glm")
 #' ## Find all authors of packages containing brglm in their name
@@ -63,7 +63,7 @@ NULL
 #' author_with(package_network, name = "Ioannis", exact = TRUE)
 #'
 #' ## Using an author collaboration network
-#' author_network <- build_network(cran20032018, perspective = "author")
+#' author_network <- build_network(cran_sample, perspective = "author")
 #' ## Find all packages containing glm in their name
 #' package_with(author_network, name = "glm")
 #' ## Find all authors of packages containing brglm in their name
@@ -112,7 +112,7 @@ build_network <- function(object, ...) {
 
 
 if(getRversion() >= "2.15.1")  {
-    utils::globalVariables(c("author", "package", "version", "from", "n_depended_by", "n_depends", "n_enhanced_by", "n_enhances", "n_imported_by", "n_imports", "n_suggested_by", "n_suggests", "to", "type", "n_collaborators", "maintainer"))
+    utils::globalVariables(c("author", "package", "version", "from", "n_depended_by", "n_depends", "n_enhanced_by", "n_enhances", "n_imported_by", "n_imports", "n_suggested_by", "n_suggests", "to", "type", "n_collaborators", "maintainer", "n_linking_to", "n_linked_by"))
 }
 
 

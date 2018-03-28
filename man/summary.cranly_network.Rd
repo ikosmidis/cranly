@@ -38,6 +38,8 @@ resulting \code{data.frame} will have the following variables:
 \item n_depended_by (basic). number of packages that have the package as a dependency
 \item n_enhances (basic). number of packages the package enhances
 \item n_enhanced_by (basic). number of packages the package is enhanced by
+\item n_linking_to (basic). number of packages the package links to
+\item n_linked_by (basic). number of packages the package is linked by
 \item betweenness (advanced). the package betweenness in the package network; as computed by \code{\link[igraph]{betweenness}}
 \item closeness (advanced). the closeness centrality of the package in the package network; as computed by \code{\link[igraph]{closeness}}
 \item page_rank (advanced). the Google PageRank of the package in the package network; as computed by \code{\link[igraph]{page_rank}}

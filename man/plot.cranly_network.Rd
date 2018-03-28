@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{cranly_network}(x, package = NULL, author = NULL,
   physics_threshold = 200, height = NULL, width = NULL,
-  directive = c("imports", "suggests", "enhances", "depends"),
+  directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
   dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, exact = TRUE,
   legend = FALSE, title = FALSE, global = TRUE, ...)
 }
@@ -46,15 +46,15 @@ Interactive visualization of a package or author \code{\link{cranly_network}} us
 }
 \examples{
 \dontrun{
-data("cran20032018", package = "cranly")
-package_network <- build_network(cran20032018)
+data("cran_sample", package = "cranly")
+package_network <- build_network(cran_sample)
 ## The package directives network of all users with Ioannis in
-## their name from the CRAN database subset cran20032018
+## their name from the CRAN database subset cran_sample
 plot(package_network, author = "Ioannis")
 ## The package directives network of "Achim Zeileis"
 plot(package_network, author = "Achim Zeileis")
 
-author_network <- build_network(cran20032018, perspective = "author")
+author_network <- build_network(cran_sample, perspective = "author")
 plot(author_network, author = "Ioannis", title = TRUE)
 }
 }

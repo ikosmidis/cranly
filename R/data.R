@@ -17,6 +17,7 @@
 #'   \item imports
 #'   \item suggests
 #'   \item enhances
+#'   \item linkingto
 #'   \item license
 #'   \item author
 #'   \item maintainer
@@ -29,4 +30,4 @@
 #'
 #' @docType data
 #' @keywords datasets
-"cran20032018"
+"cran_sample"

@@ -16,15 +16,15 @@
 #'
 #' @examples
 #' \dontrun{
-#' data("cran20032018", package = "cranly")
-#' package_network <- build_network(cran20032018)
+#' data("cran_sample", package = "cranly")
+#' package_network <- build_network(cran_sample)
 #' ## The package directives network of all users with Ioannis in
-#' ## their name from the CRAN database subset cran20032018
+#' ## their name from the CRAN database subset cran_sample
 #' plot(package_network, author = "Ioannis")
 #' ## The package directives network of "Achim Zeileis"
 #' plot(package_network, author = "Achim Zeileis")
 #'
-#' author_network <- build_network(cran20032018, perspective = "author")
+#' author_network <- build_network(cran_sample, perspective = "author")
 #' plot(author_network, author = "Ioannis", title = TRUE)
 #' }
 #' @export
@@ -34,7 +34,7 @@ plot.cranly_network <- function(x,
                                 physics_threshold = 200,
                                 height = NULL, #"1080px",
                                 width = NULL, #"1080px",
-                                directive = c("imports", "suggests", "enhances", "depends"),
+                                directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
                                 dragNodes = TRUE,
                                 dragView = TRUE,
                                 zoomView = TRUE,
@@ -75,13 +75,15 @@ plot.cranly_network <- function(x,
                                      c("imports" = colors[10],
                                        "depends" = colors[10],
                                        "suggests" = colors[4],
-                                       "enhances" = colors[4]))
+                                       "enhances" = colors[4],
+                                       "linkingto" = colors[7]))
             dashes <- ifelse(type %in% c("imports", "depends", "suggests"), FALSE, TRUE)
             title <- str_replace_all(type,
                                      c("imports" = "is imported by",
                                        "depends" = "is dependency of",
                                        "suggests" = "is suggested by",
-                                       "enhances" = "enhances"))
+                                       "enhances" = "enhances",
+                                       "linkingto" = "is linked by"))
         })
         summaries <- summaries[nodes_subset$package, ]
         nodes_subset <- within(nodes_subset, {
@@ -94,6 +96,7 @@ plot.cranly_network <- function(x,
                             "depends/is dependency of:", summaries$n_depends, "/", summaries$n_depended_by, "<br>",
                             "suggests/suggested by:", summaries$n_suggests, "/", summaries$n_suggested_by, "<br>",
                             "enhances/enhaced by:", summaries$n_enhances, "/", summaries$n_enhanced_by, "<br>",
+                            "linkingto/linked by:", summaries$n_linking, "/", summaries$n_linked_by, "<br>",
                             "<img src=https://cranlogs.r-pkg.org/badges/", package, "?color=969696>")
         })
 
@@ -103,10 +106,10 @@ plot.cranly_network <- function(x,
                                  color = c(colors[1], colors[5]),
                                  font.align = "top")
 
-            ledges <- data.frame(label = c("is imported by", "is dependency of", "is suggested by", "enhances"),
-                                 color = c(colors[10], colors[10], colors[4], colors[4]),
-                                 dashes = c(FALSE, FALSE, FALSE, TRUE),
-                                 arrows = c("to", "to", "to", "to"),
+            ledges <- data.frame(label = c("is imported by", "is dependency of", "is suggested by", "enhances", "is linked by"),
+                                 color = c(colors[10], colors[10], colors[4], colors[4], colors[7]),
+                                 dashes = c(FALSE, FALSE, FALSE, TRUE, TRUE),
+                                 arrows = c("to", "to", "to", "to", "to"),
                                  font.align = "top")
         }
 
