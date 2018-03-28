@@ -91,6 +91,10 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
 
     }
     else {
+        if (all(is.na(unlist(object$author)))) {
+            stop("no author information found")
+        }
+
         edges <- apply(object, 1, function(x) {
             auth <- x$author
             if (length(auth) < 2)
@@ -107,6 +111,8 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
                 d
             }
         })
+
+
         edges <- do.call("rbind", edges)
 
         names(edges)[1:2] <- c("from", "to")
