@@ -11,7 +11,7 @@ clean_CRAN_db(packages_db = tools::CRAN_package_db(),
 \arguments{
 \item{packages_db}{a \code{\link{data.frame}} with the same
 structure to the output of \code{\link[tools]{CRAN_package_db}}
-(default).}
+(default) or \code{\link[utils]{available.packages}}}
 
 \item{clean_directives}{a function that transforms the contents of
 the various directives in the package descriptions to vectors

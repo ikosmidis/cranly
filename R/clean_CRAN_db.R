@@ -6,7 +6,7 @@
 #'
 #' @param packages_db a \code{\link{data.frame}} with the same
 #'     structure to the output of \code{\link[tools]{CRAN_package_db}}
-#'     (default).
+#'     (default) or \code{\link[utils]{available.packages}}
 #' @param clean_directives a function that transforms the contents of
 #'     the various directives in the package descriptions to vectors
 #'     of package names. Default is \code{\link{clean_up_directives}}.
