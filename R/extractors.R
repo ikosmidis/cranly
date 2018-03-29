@@ -32,14 +32,14 @@ author_of.cranly_network <- function(x, package = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(package, collapse = "\\b$|^\\b")
-        str <- paste0("^\\b", str, "\\b$")
+        str <- paste(package, collapse = "\\b|\\b")
+        str <- paste0("\\b", str, "\\b")
     }
     else {
         str <- paste(package, collapse = "|")
     }
     inds <- grep(str, x$nodes$package, ignore.case = !exact)
-    ## inds <- sapply(x$nodes$Package, function(x) any(grepl(str, x)))
+
     out <- unique(unlist(x$nodes[inds, "author"]))
     if (length(out)) {
         out
