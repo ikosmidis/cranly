@@ -18,8 +18,8 @@ me, is proving harder and harder with the rapid growth of the
 
 The package provides methods for cleaning up and organising the
 information in the CRAN package database, for building package
-directives networks (depends, imports, suggests, enhances) and
-collaboration networks, and for computing summaries and producing
+directives networks (depends, imports, suggests, enhances, linking to)
+and collaboration networks, and for computing summaries and producing
 interactive visualisations from the resulting networks. Network
 visualisation is through the
 [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package.
@@ -51,7 +51,7 @@ The CRAN database we use is from
 
 ``` r
 attr(package_db, "timestamp")
-#> [1] "2018-03-28 11:20:19 BST"
+#> [1] "2018-03-29 01:09:27 BST"
 ```
 
 #### Package directives networks
@@ -68,7 +68,7 @@ package_network <- build_network(package_db)
 ``` r
 my_packages <- package_by(package_network, "Ioannis Kosmidis")
 my_packages
-#> [1] "betareg"      "brglm"        "brglm2"       "cranly"
+#> [1] "betareg"      "brglm"        "brglm2"       "cranly"      
 #> [5] "enrichwith"   "PlackettLuce" "profileModel" "trackeR"
 ```
 

@@ -13,12 +13,13 @@ cranly: CRAN package database analytics and visualizations
 CRAN package database. The package provides comprehensive methods
 for cleaning up and organising the information in the CRAN package
 database, for building package directives networks (depends,
-imports, suggests, enhances) and collaboration networks, and for
-computing summaries and producing interactive visualisations from
-the resulting networks. Network visualisation is through the
-\pkg{visNetwork} (\url{https://CRAN.R-project.org/package=visNetwork})
-package. The package also provides functions to coerce the networks
-to \pkg{igraph} \url{https://CRAN.R-project.org/package=igraph}
+imports, suggests, enhances, linking to) and collaboration
+networks, and for computing summaries and producing interactive
+visualisations from the resulting networks. Network visualisation
+is through the \pkg{visNetwork}
+(\url{https://CRAN.R-project.org/package=visNetwork}) package. The
+package also provides functions to coerce the networks to
+\pkg{igraph} \url{https://CRAN.R-project.org/package=igraph}
 objects for further analyses and modelling.
 }
 \section{Acknowledgements}{
