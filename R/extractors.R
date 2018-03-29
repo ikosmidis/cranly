@@ -178,7 +178,7 @@ linking_to <- function(x, package = NULL, exact = FALSE) {
 
 #' @rdname package_by
 #' @export
-dependency_set <- function(x, package = NULL) {
+dependency_tree <- function(x, package = NULL) {
     im <- imports(x, package = package, exact = TRUE)
     de <- depends(x, package = package, exact = TRUE)
     li <- linking_to(x, package = package, exact = TRUE)
