@@ -78,6 +78,15 @@ plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```
 You can hover over the nodes and the edges to get package-specific information and links to the package pages.
 
+In order to *focus only on optional packages* (i.e. exclude base and recommended packages), we do
+```{r}
+optional_packages <- subset(package_network, recommended = FALSE, base = FALSE)
+optional_summary <- summary(optional_packages)
+plot(optional_summary, top = 30, according_to = "n_imported_by")
+```
+
+
+
 # CRAN collaboration network
 
 Next let's build the CRAN collaboration network
@@ -103,5 +112,5 @@ plot(author_network, author = "R Core")
 ```
 and my (small but valuable to me!) collaboration sub-network is
 ```{r}
-plot(author_network, author = "Kosmidis")
+plot(author_network, author = "Kosmidis", exact = FALSE)
 ```

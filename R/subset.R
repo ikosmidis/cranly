@@ -32,6 +32,7 @@ subset.cranly_network <- function(x,
 
         keep <- unique(c(p1, p2))
 
+
         if (only) {
             inds <- with(x$edges, (to %in% keep & from %in% keep) & (type %in% directive))
         }
@@ -51,6 +52,7 @@ subset.cranly_network <- function(x,
     else {
         a1 <- author_with(x, name = author, exact = exact)
         a2 <- author_of(x, package = package, exact = exact)
+
         keep <- unique(c(a1, a2))
         if (only) {
             edges_subset <- subset(x$edges, (to %in% keep & from %in% keep))
