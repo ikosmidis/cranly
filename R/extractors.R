@@ -126,13 +126,67 @@ imports <- function(x, package = NULL, exact = FALSE) {
 
 #' @rdname package_by
 #' @export
+depends <- function(x, package = NULL, exact = FALSE) {
+    if (is.null(package)) {
+        return(NULL) # return(unlist(x$nodes$Package))
+    }
+    perspective <- attr(x, "perspective")
+    if (exact) {
+        str <- paste(package, collapse = "\\b$|^\\b")
+        str <- paste0("^\\b", str, "\\b$")
+    }
+    else {
+        str <- paste(package, collapse = "|")
+    }
+    inds <- grep(str, x$nodes$package, ignore.case = !exact)
+    ## inds <- sapply(x$nodes$Package, function(x) any(grepl(str, x)))
+    out <- unique(unlist(x$nodes[inds, "depends"]))
+    if (length(out)) {
+        out
+    }
+    else {
+        NULL
+    }
+}
+
+
+#' @rdname package_by
+#' @export
+linking_to <- function(x, package = NULL, exact = FALSE) {
+    if (is.null(package)) {
+        return(NULL) # return(unlist(x$nodes$Package))
+    }
+    perspective <- attr(x, "perspective")
+    if (exact) {
+        str <- paste(package, collapse = "\\b$|^\\b")
+        str <- paste0("^\\b", str, "\\b$")
+    }
+    else {
+        str <- paste(package, collapse = "|")
+    }
+    inds <- grep(str, x$nodes$package, ignore.case = !exact)
+    ## inds <- sapply(x$nodes$Package, function(x) any(grepl(str, x)))
+    out <- unique(unlist(x$nodes[inds, "linkingto"]))
+    if (length(out)) {
+        out
+    }
+    else {
+        NULL
+    }
+}
+
+
+#' @rdname package_by
+#' @export
 dependency_set <- function(x, package = NULL) {
     im <- imports(x, package = package, exact = TRUE)
-    im0 <- na.omit(im)
-    if (all(im0 %in% package)) {
+    de <- depends(x, package = package, exact = TRUE)
+    li <- linking_to(x, package = package, exact = TRUE)
+    pack <- na.omit(c(im, de, li))
+    if (all(pack %in% package)) {
         package
     }
     else {
-        unique(c(package, dependency_set(x, package = im0)))
+        unique(c(package, dependency_set(x, package = pack)))
     }
 }
