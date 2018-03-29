@@ -6,9 +6,9 @@
 \alias{author_with}
 \alias{author_of}
 \alias{package_by.cranly_network}
+\alias{package_with.cranly_network}
 \alias{author_of.cranly_network}
 \alias{author_with.cranly_network}
-\alias{package_with.cranly_network}
 \alias{imports}
 \alias{depends}
 \alias{linking_to}
@@ -25,11 +25,11 @@ author_of(x, package = NULL, exact = FALSE)
 
 \method{package_by}{cranly_network}(x, author = NULL, exact = FALSE)
 
+\method{package_with}{cranly_network}(x, name = NULL, exact = FALSE)
+
 \method{author_of}{cranly_network}(x, package = NULL, exact = FALSE)
 
 \method{author_with}{cranly_network}(x, name = NULL, exact = FALSE)
-
-\method{package_with}{cranly_network}(x, name = NULL, exact = FALSE)
 
 imports(x, package = NULL, exact = FALSE)
 
@@ -42,13 +42,13 @@ dependency_tree(x, package = NULL)
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
 
-\item{author}{a vector of character strings with the author names to be matched}
+\item{author}{a vector of character strings with the author names to be matched. Default is \code{Inf} which returns all available author in \code{x} for further subsetting}
 
 \item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
 
-\item{name}{a vector of character strings with the names to be matched}
+\item{name}{a vector of character strings with the names to be matched. If \code{Inf} all available names in \code{x} are returned. If \code{NULL} (default) nothing is matched}
 
-\item{package}{a vector of character strings with the package names to be matched}
+\item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
 }
 \description{
 Find packages and authors by authors or packages with names matching a specific string

@@ -11,7 +11,7 @@
 #' @param zoomView logical. Should the user be able to zoom in? Default is \code{TRUE}
 #' @param legend logical. Should a legend be added on the resulting visualization? Default is \code{FALSE}
 #' @param title logical. Should a title be added on the resulting visualization? Default is \code{FALSE}
-#' @param global locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package} and \code{author}
+#' @param global locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}
 #' @param ... currently not used
 #'
 #' @examples
@@ -35,6 +35,8 @@ plot.cranly_network <- function(x,
                                 height = NULL, #"1080px",
                                 width = NULL, #"1080px",
                                 directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
+                                base = TRUE,
+                                recommended = TRUE,
                                 dragNodes = TRUE,
                                 dragView = TRUE,
                                 zoomView = TRUE,
@@ -47,7 +49,8 @@ plot.cranly_network <- function(x,
     if (global) {
         summaries <- summary(x, advanced = FALSE)
     }
-    x <- subset(x, package = package, author = author, directive = directive, exact = exact)
+    x <- subset(x, package = package, author = author, directive = directive, exact = exact,
+                base = base, recommended = recommended)
 
     if (!global) {
         summaries <- summary(x, advanced = FALSE)

@@ -4,18 +4,22 @@
 \alias{subset.cranly_network}
 \title{Subset a \code{\link{cranly_network}} according to author, package and/or directive}
 \usage{
-\method{subset}{cranly_network}(x, package = NULL, author = NULL,
+\method{subset}{cranly_network}(x, package = Inf, author = Inf,
   directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
-  exact = TRUE, only = FALSE, ...)
+  base = TRUE, recommended = TRUE, exact = TRUE, only = FALSE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
 
-\item{package}{a vector of character strings with the package names to be matched}
+\item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
 
-\item{author}{a vector of character strings with the author names to be matched}
+\item{author}{a vector of character strings with the author names to be matched. Default is \code{Inf} which returns all available author in \code{x} for further subsetting}
 
 \item{directive}{a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}}
+
+\item{base}{logical. Should we include base packages in the subset? Default is \code{TRUE}}
+
+\item{recommended}{logical. Should we include recommended packages in the subset? Default is \code{TRUE}}
 
 \item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
 

@@ -7,7 +7,7 @@
 #' @import igraph
 #' @importFrom magrittr %>%
 #' @importFrom stringr str_replace_all str_split
-#' @importFrom utils combn stack head
+#' @importFrom utils combn stack head installed.packages
 #' @import countrycode
 #' @importFrom ggplot2 ggplot geom_bar theme_minimal labs coord_flip
 #'
@@ -45,7 +45,7 @@ NULL
 #' Find packages and authors by authors or packages with names matching a specific string
 #'
 #' @inheritParams subset.cranly_network
-#' @param name a vector of character strings with the names to be matched
+#' @param name a vector of character strings with the names to be matched. If \code{Inf} all available names in \code{x} are returned. If \code{NULL} (default) nothing is matched
 #'
 #' @examples
 #' \dontrun{

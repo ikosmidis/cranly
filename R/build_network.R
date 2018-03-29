@@ -70,6 +70,11 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
         nodes <- merge(data.frame(package = unique(c(edges$from, edges$to)), stringsAsFactors=FALSE),
                        object, by = "package", all.x = TRUE)
 
+        base_packages <- utils::installed.packages(priority = "high")
+        base_package_names <- base_packages[, "Package"]
+        inds <- which(base_package_names %in% nodes$package)
+        nodes[nodes$package %in% base_package_names, "priority"] <- base_packages[inds, "Priority"]
+
     }
     else {
         if (all(is.na(unlist(object$author)))) {
