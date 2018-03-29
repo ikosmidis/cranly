@@ -85,8 +85,6 @@ optional_summary <- summary(optional_packages)
 plot(optional_summary, top = 30, according_to = "n_imported_by")
 ```
 
-
-
 # CRAN collaboration network
 
 Next let's build the CRAN collaboration network

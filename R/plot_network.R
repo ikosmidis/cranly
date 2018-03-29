@@ -29,8 +29,8 @@
 #' }
 #' @export
 plot.cranly_network <- function(x,
-                                package = NULL,
-                                author = NULL,
+                                package = Inf,
+                                author = Inf,
                                 physics_threshold = 200,
                                 height = NULL, #"1080px",
                                 width = NULL, #"1080px",
@@ -172,7 +172,7 @@ plot.cranly_network <- function(x,
 
     export_name <- paste0("cranly_network-", format(timestamp, format = "%d-%b-%Y"), "-", paste0(c(author, package), collapse = "-"))
 
-    visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width,
+    res <- visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width,
                            main = list(text = main,
                                        style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) %>%
         visNetwork::visEdges(arrows = if (perspective == "author") NULL else list(to = list(enabled = TRUE, scaleFactor = 0.5)),
@@ -181,4 +181,6 @@ plot.cranly_network <- function(x,
             visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) %>%
             visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) %>%
             visNetwork::visExport(name = export_name, label = "PNG snapshot", style = "")
+
+   res #%>% visNetwork::visHierarchicalLayout(levelSeparation = 50)
 }

@@ -30,11 +30,12 @@ subset.cranly_network <- function(x,
         base_packages <- subset(x$nodes, priority == "base")$package
         recommended_packages <- subset(x$nodes, priority == "recommended")$package
 
-        keep <- unique(c(p1, p2))
-
+        ## keep <- unique(c(p1, p2))
+        keep <- intersect(p1, p2)
 
         if (only) {
-            inds <- with(x$edges, (to %in% keep & from %in% keep) & (type %in% directive))
+            inds <- with(x$edges, (to %in% keep & from %in% keep) &
+                                  (type %in% directive))
         }
         else {
             inds <- with(x$edges, (to %in% keep | from %in% keep) & (type %in% directive))
@@ -53,7 +54,9 @@ subset.cranly_network <- function(x,
         a1 <- author_with(x, name = author, exact = exact)
         a2 <- author_of(x, package = package, exact = exact)
 
-        keep <- unique(c(a1, a2))
+        ## keep <- unique(c(a1, a2))
+        keep <- intersect(a1, a2)
+
         if (only) {
             edges_subset <- subset(x$edges, (to %in% keep & from %in% keep))
         }

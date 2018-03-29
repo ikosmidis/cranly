@@ -6,7 +6,7 @@ package_by.cranly_network <- function(x, author = NULL, exact = FALSE) {
     if (is.null(author)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
-    if (is.infinite(author)) {
+    if (any(is.infinite(author))) {
         return(unique(unlist(x$nodes$package)))
     }
     perspective <- attr(x, "perspective")
@@ -33,7 +33,7 @@ package_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
     if (is.null(name)) {
         return(NULL) #return(unlist(x$nodes$Author))
     }
-    if (is.infinite(name)) {
+    if (any(is.infinite(name))) {
         return(unique(unlist(x$nodes$package)))
     }
     perspective <- attr(x, "perspective")
@@ -61,7 +61,7 @@ author_of.cranly_network <- function(x, package = NULL, exact = FALSE) {
     if (is.null(package)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
-    if (is.infinite(package)) {
+    if (any(is.infinite(package))) {
         return(unique(unlist(x$nodes$author)))
     }
     perspective <- attr(x, "perspective")
@@ -88,7 +88,7 @@ author_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
     if (is.null(name)) {
         return(NULL) #return(unlist(x$nodes$Author))
     }
-    if (is.infinite(name)) {
+    if (any(is.infinite(name))) {
         return(unique(unlist(x$nodes$author)))
     }
     perspective <- attr(x, "perspective")
@@ -116,7 +116,7 @@ imports <- function(x, package = NULL, exact = FALSE) {
     if (is.null(package)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
-    if (is.infinite(package)) {
+    if (any(is.infinite(package))) {
         return(unique(unlist(x$nodes$imports)))
     }
     perspective <- attr(x, "perspective")
@@ -144,7 +144,7 @@ depends <- function(x, package = NULL, exact = FALSE) {
     if (is.null(package)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
-    if (is.infinite(package)) {
+    if (any(is.infinite(package))) {
         return(unique(unlist(x$nodes$depends)))
     }
     perspective <- attr(x, "perspective")
@@ -173,7 +173,7 @@ linking_to <- function(x, package = NULL, exact = FALSE) {
     if (is.null(package)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
-    if (is.infinite(package)) {
+    if (any(is.infinite(package))) {
         return(unique(unlist(x$nodes$linkingto)))
     }
     perspective <- attr(x, "perspective")
@@ -198,15 +198,31 @@ linking_to <- function(x, package = NULL, exact = FALSE) {
 
 #' @rdname package_by
 #' @export
-dependency_tree <- function(x, package = NULL) {
+dependence_tree <- function(x, package = NULL, generation = 0) {
     im <- imports(x, package = package, exact = TRUE)
     de <- depends(x, package = package, exact = TRUE)
     li <- linking_to(x, package = package, exact = TRUE)
     pack <- na.omit(c(im, de, li))
     if (all(pack %in% package)) {
-        package
+        data.frame(package = unique(package), generation = generation, stringsAsFactors = FALSE)
     }
     else {
-        unique(c(package, dependency_set(x, package = pack)))
+        rbind(data.frame(package = unique(package), generation = generation, stringsAsFactors = FALSE),
+              dependence_tree(x, package = pack, generation + 1))
     }
 }
+
+
+
+## dependence_tree <- function(x, package = NULL) {
+##     im <- imports(x, package = package, exact = TRUE)
+##     de <- depends(x, package = package, exact = TRUE)
+##     li <- linking_to(x, package = package, exact = TRUE)
+##     pack <- na.omit(c(im, de, li))
+##     if (all(pack %in% package)) {
+##         package
+##     }
+##     else {
+##         unique(c(package, dependence_tree(x, package = pack)))
+##     }
+## }

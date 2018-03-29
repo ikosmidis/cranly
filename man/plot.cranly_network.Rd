@@ -4,7 +4,7 @@
 \alias{plot.cranly_network}
 \title{Interactive visualization of a package or author \code{\link{cranly_network}} using the vis.js library}
 \usage{
-\method{plot}{cranly_network}(x, package = NULL, author = NULL,
+\method{plot}{cranly_network}(x, package = Inf, author = Inf,
   physics_threshold = 200, height = NULL, width = NULL,
   directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
   base = TRUE, recommended = TRUE, dragNodes = TRUE, dragView = TRUE,
