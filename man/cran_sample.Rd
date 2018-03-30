@@ -3,15 +3,15 @@
 \docType{data}
 \name{cran_sample}
 \alias{cran_sample}
-\title{Cleaned and processed CRAN package metadata from 20 March 2018}
-\format{An object of class \code{cranly_db} (inherits from \code{data.frame}) with 1000 rows and 14 columns.}
+\title{Cleaned and processed CRAN package metadata from 30 March 2018}
+\format{An object of class \code{cranly_db} (inherits from \code{data.frame}) with 1000 rows and 64 columns.}
 \usage{
 cran_sample
 }
 \description{
 This is a random sample of 1000 R packages from a processed version
 of the result of a \code{\link[tools]{CRAN_package_db}()} call on
-20 March 2018. Specifically, the resulting data frame was passed to
+30 March 2018. Specifically, the resulting data frame was passed to
 the \code{\link{clean_CRAN_db}} function and only the following
 variables have been kept:
 }
@@ -32,6 +32,8 @@ variables have been kept:
   \item contact
   \item md5sum
 }
+
+
 
 The author names have been converted to ASCII using transliteration
 through the \code{\link{iconv}} function.

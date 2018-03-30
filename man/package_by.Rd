@@ -12,7 +12,6 @@
 \alias{imports}
 \alias{depends}
 \alias{linking_to}
-\alias{dependence_tree}
 \title{Find packages and authors by authors or packages with names matching a specific string}
 \usage{
 package_by(x, author = NULL, exact = FALSE)
@@ -36,8 +35,6 @@ imports(x, package = NULL, exact = FALSE)
 depends(x, package = NULL, exact = FALSE)
 
 linking_to(x, package = NULL, exact = FALSE)
-
-dependence_tree(x, package = NULL, generation = 0)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
