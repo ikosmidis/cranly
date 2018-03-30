@@ -2,14 +2,14 @@
 % Please edit documentation in R/plot_network.R
 \name{plot.cranly_network}
 \alias{plot.cranly_network}
-\title{Interactive visualization of a package or author \code{\link{cranly_network}} using the vis.js library}
+\title{Interactive visualization of a package or author \code{\link{cranly_network}}}
 \usage{
 \method{plot}{cranly_network}(x, package = Inf, author = Inf,
-  physics_threshold = 200, height = NULL, width = NULL,
   directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
-  base = TRUE, recommended = TRUE, dragNodes = TRUE, dragView = TRUE,
-  zoomView = TRUE, exact = TRUE, legend = FALSE, title = FALSE,
-  global = TRUE, ...)
+  base = TRUE, recommended = TRUE, exact = TRUE, global = TRUE,
+  physics_threshold = 200, height = NULL, width = NULL,
+  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, legend = FALSE,
+  title = FALSE, plot = TRUE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
@@ -18,17 +18,21 @@
 
 \item{author}{a vector of character strings with the author names to be matched. Default is \code{Inf} which returns all available author in \code{x} for further subsetting}
 
-\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork]{visEdges}}}
-
-\item{height}{: Height (optional, defaults to automatic sizing)}
-
-\item{width}{: Width (optional, defaults to automatic sizing)}
-
 \item{directive}{a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}}
 
 \item{base}{logical. Should we include base packages in the subset? Default is \code{TRUE}}
 
 \item{recommended}{logical. Should we include recommended packages in the subset? Default is \code{TRUE}}
+
+\item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
+
+\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}}
+
+\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork]{visEdges}}}
+
+\item{height}{: Height (optional, defaults to automatic sizing)}
+
+\item{width}{: Width (optional, defaults to automatic sizing)}
 
 \item{dragNodes}{logical. Should the user be able to drag the nodes that are not fixed? Default is \code{TRUE}}
 
@@ -36,18 +40,14 @@
 
 \item{zoomView}{logical. Should the user be able to zoom in? Default is \code{TRUE}}
 
-\item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
-
 \item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{FALSE}}
 
 \item{title}{logical. Should a title be added on the resulting visualization? Default is \code{FALSE}}
 
-\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}}
-
 \item{...}{currently not used}
 }
 \description{
-Interactive visualization of a package or author \code{\link{cranly_network}} using the vis.js library
+Interactive visualization of a package or author \code{\link{cranly_network}}
 }
 \examples{
 \dontrun{

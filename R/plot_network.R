@@ -1,6 +1,6 @@
 # Copyright (C) 2018 Ioannis Kosmidis
 
-#' Interactive visualization of a package or author \code{\link{cranly_network}} using the vis.js library
+#' Interactive visualization of a package or author \code{\link{cranly_network}}
 #'
 #' @inheritParams subset.cranly_network
 #' @inheritParams summary.cranly_network
@@ -31,45 +31,45 @@
 plot.cranly_network <- function(x,
                                 package = Inf,
                                 author = Inf,
-                                physics_threshold = 200,
-                                height = NULL, #"1080px",
-                                width = NULL, #"1080px",
                                 directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
                                 base = TRUE,
                                 recommended = TRUE,
+                                exact = TRUE,
+                                global = TRUE,
+                                physics_threshold = 200,
+                                height = NULL, #"1080px",
+                                width = NULL, #"1080px",
                                 dragNodes = TRUE,
                                 dragView = TRUE,
                                 zoomView = TRUE,
-                                exact = TRUE,
                                 legend = FALSE,
                                 title = FALSE,
-                                global = TRUE,
+                                plot = TRUE,
                                 ...) {
 
     if (global) {
         summaries <- summary(x, advanced = FALSE)
     }
+
     x <- subset(x, package = package, author = author, directive = directive, exact = exact,
                 base = base, recommended = recommended)
+
 
     if (!global) {
         summaries <- summary(x, advanced = FALSE)
     }
-
     timestamp <- attr(x, "timestamp")
 
     if (nrow(x$nodes) == 0) {
-            message("Nothing to visualise")
+            message("Nothing to plot")
             return(invisible(NULL))
     }
 
     edges_subset <- x$edges
     nodes_subset <- x$nodes
     colors <- colorspace::diverge_hcl(10, c = 100, l = c(50, 100), power = 1)
-
     perspective <- attr(x, "perspective")
     keep <- attr(x, "keep")
-
     lnodes <- ledges <- main <- NULL
 
     if (perspective == "package") {
@@ -120,11 +120,10 @@ plot.cranly_network <- function(x,
             main <- paste(
                 paste0("CRAN database version<br>", format(timestamp, format = "%a, %d %b %Y, %H:%M"), collapse = ""),
                 "<br>",
-                if (!is.null(package)) paste0("Package names with<br> \"", paste(package, collapse = "\", \""), "\"", collapse = ""),
+                if (is.infinite(package)) "" else paste0("Package names with<br> \"", paste(package, collapse = "\", \""), "\"", collapse = ""),
                 "<br>",
-                if (!is.null(author)) paste0("Author names with<br> \"", paste(author, collapse = "\", \""), "\"", collapse = ""))
+                if (is.infinite(author)) "" else paste0("Author names with<br> \"", paste(author, collapse = "\", \""), "\"", collapse = ""))
         }
-
     }
     else {
         edges_subset <- within(edges_subset, {
@@ -164,10 +163,7 @@ plot.cranly_network <- function(x,
                 if (!is.null(author)) paste0("Author names with<br> \"", paste(author, collapse = "\", \""), "\"", collapse = ""),
                 "<br>",
                 if (!is.null(package)) paste0("Package names with<br> \"", paste(package, collapse = "\", \""), "\"", collapse = ""))
-
         }
-
-
     }
 
     export_name <- paste0("cranly_network-", format(timestamp, format = "%d-%b-%Y"), "-", paste0(c(author, package), collapse = "-"))
@@ -182,5 +178,136 @@ plot.cranly_network <- function(x,
             visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) %>%
             visNetwork::visExport(name = export_name, label = "PNG snapshot", style = "")
 
-   res #%>% visNetwork::visHierarchicalLayout(levelSeparation = 50)
+    if (plot) {
+        print(res)
+    }
+    invisible(res)
 }
+
+
+
+
+
+## plot.cranly_dependence_tree <- function(x,
+##                                         package = Inf,
+##                                         base = TRUE,
+##                                         recommended = TRUE,
+##                                         global = TRUE,
+##                                         physics_threshold = 200,
+##                                         height = NULL, #"1080px",
+##                                         width = NULL, #"1080px",
+##                                         dragNodes = TRUE,
+##                                         dragView = TRUE,
+##                                         zoomView = TRUE,
+##                                         legend = FALSE,
+##                                         title = FALSE,
+##                                         plot = TRUE,
+##                                         ...) {
+
+##     if (global) {
+##         summaries <- summary(x, advanced = FALSE)
+##     }
+
+##     d_tree <- dependence_tree(x, package = package, generation = 0)
+##     pack0 <- package
+##     package <- d_tree$package
+##     x <- subset(x, package = package, author = Inf,
+##                 directive = c("imports", "depends", "linkingto"),
+##                 exact = TRUE, only = TRUE,
+##                 base = base, recommended = recommended)
+
+##     ## Make sure that nodes has only what is in edges
+##     x$nodes <- subset(x$nodes, package %in% c(x$edges$from, x$edges$to))
+
+##     d_tree <- d_tree[d_tree$package %in% x$nodes$package, ]
+
+##     if (!global) {
+##         summaries <- summary(x, advanced = FALSE)
+##     }
+##     timestamp <- attr(x, "timestamp")
+
+##     if (nrow(x$nodes) == 0) {
+##             message("Nothing to plot")
+##             return(invisible(NULL))
+##     }
+
+##     edges_subset <- x$edges
+##     nodes_subset <- x$nodes
+
+##     n_colors <- abs(min(d_tree$generation))
+##     colors <- c("#D33F6A", colorspace::sequential_hcl(n_colors, c = 100, l = c(50, 100), power = 1))
+##     perspective <- attr(x, "perspective")
+##     keep <- attr(x, "keep")
+##     lnodes <- ledges <- main <- NULL
+
+##     edges_subset <- within(edges_subset, {
+##         color <- str_replace_all(type,
+##                                  c("imports" = "#D33F6A",
+##                                    "depends" = "#D33F6A",
+##                                    "suggests" = "#C7CEF5",
+##                                    "enhances" = "#C7CEF5",
+##                                    "linkingto" = "#F9C2CB"))
+##         dashes <- ifelse(type %in% c("imports", "depends", "suggests"), FALSE, TRUE)
+##         title <- str_replace_all(type,
+##                                  c("imports" = "is imported by",
+##                                    "depends" = "is dependency of",
+##                                    "suggests" = "is suggested by",
+##                                    "enhances" = "enhances",
+##                                    "linkingto" = "is linked by"))
+##     })
+##     summaries <- summaries[nodes_subset$package, ]
+##     node_generation <- d_tree$generation[match(nodes_subset$package, d_tree$package)]
+
+##     nodes_subset <- within(nodes_subset, {
+##         color <- colors[abs(node_generation) + 1]
+##         label <- package
+##         id <- package
+##         title <- paste0("<a href=https://CRAN.R-project.org/package=", package, ">", package, "</a> (", version, ")<br>",
+##                         "Generation: ", node_generation, "<br>",
+##                         "Maintainer: ", maintainer, "<br>",
+##                         "imports/imported by:", summaries$n_imports, "/", summaries$n_imported_by, "<br>",
+##                         "depends/is dependency of:", summaries$n_depends, "/", summaries$n_depended_by, "<br>",
+##                         "suggests/suggested by:", summaries$n_suggests, "/", summaries$n_suggested_by, "<br>",
+##                         "enhances/enhaced by:", summaries$n_enhances, "/", summaries$n_enhanced_by, "<br>",
+##                         "linkingto/linked by:", summaries$n_linking, "/", summaries$n_linked_by, "<br>",
+##                         "<img src=https://cranlogs.r-pkg.org/badges/", package, "?color=969696>")
+##     })
+
+##     ## legend
+##     if (legend) {
+##         lnodes <- data.frame(label = c(paste("Generation", 0:(-n_colors))),
+##                              color = colors,
+##                              font.align = "top")
+
+##         ledges <- data.frame(label = c("is imported by", "is dependency of", "is suggested by", "enhances", "is linked by"),
+##                              color = c("#D33F6A", "#D33F6A", "#C7CEF5", "#C7CEF5", "#F9C2CB"),
+##                              dashes = c(FALSE, FALSE, FALSE, TRUE, TRUE),
+##                              arrows = c("to", "to", "to", "to", "to"),
+##                              font.align = "top")
+##     }
+
+##     if (title) {
+##         main <- paste(
+##             paste0("CRAN database version<br>", format(timestamp, format = "%a, %d %b %Y, %H:%M"), collapse = ""),
+##             "<br>",
+##             paste0("Dependence tree for package names with<br> \"", paste(pack0, collapse = "\", \""), "\"", collapse = ""))
+##     }
+
+##     export_name <- paste0("cranly_dependence_tree-", format(timestamp, format = "%d-%b-%Y"), "-", paste0(package, collapse = "-"))
+
+##     res <- visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width,
+##                                   main = list(text = main,
+##                                               style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) %>%
+##         visNetwork::visEdges(arrows = list(to = list(enabled = TRUE, scaleFactor = 0.5)),
+##                              physics = nrow(nodes_subset) < physics_threshold) %>%
+##         visNetwork::visOptions(highlightNearest = TRUE) %>%
+##         visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) %>%
+##         visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) %>%
+##         visNetwork::visExport(name = export_name, label = "PNG snapshot", style = "")
+
+##     if (plot) {
+##         print(res %>% visNetwork::visHierarchicalLayout(levelSeparation = 50))
+##     }
+##     invisible(res)
+## }
+
