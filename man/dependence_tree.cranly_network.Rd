@@ -22,3 +22,6 @@ dependence_tree.cranly_network(x, package = Inf, base = TRUE,
 \description{
 Construct a \code{\link{cranly_dependence_tree}} object
 }
+\seealso{
+compute_dependence_tree
+}

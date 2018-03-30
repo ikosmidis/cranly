@@ -27,8 +27,13 @@
 
 \item{title}{logical. Should a title be added on the resulting visualization? Default is \code{FALSE}}
 
+\item{plot}{logical. Should the visualisation be returned? Default is \code{TRUE}}
+
 \item{...}{currently not used}
 }
 \description{
 Interactive visualization of a package's dependence tree from a \code{\link{cranly_network}}
+}
+\seealso{
+compute_dependence_tree dependence_tree
 }

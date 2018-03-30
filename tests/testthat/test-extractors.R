@@ -20,10 +20,7 @@ test_that("package_by with exact = TRUE returns correct results", {
 )
 
 test_that("author_of with exact = TRUE returns correct results", {
-          expect_equal(author_of(package_network, "PlackettLuce", exact = TRUE),
-                       c("Ioannis Kosmidis"))
-          expect_equal(author_of(author_network, "PlackettLuce", exact = TRUE),
-                       c("Ioannis Kosmidis"))
+          expect_true("Ioannis Kosmidis" %in% author_of(package_network, "PlackettLuce", exact = TRUE))
 }
 )
 

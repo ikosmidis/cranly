@@ -39,8 +39,11 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
 }
 
 #' Construct a \code{\link{cranly_dependence_tree}} object
+#'
 #' @aliases cranly_dependence_tree
 #' @inheritParams  plot.cranly_network
+#' @seealso compute_dependence_tree
+#'
 #' @export
 dependence_tree.cranly_network <- function(x,
                                            package = Inf,
@@ -82,6 +85,8 @@ dependence_tree.cranly_network <- function(x,
 #'
 #' @inheritParams plot.cranly_network
 #' @param x a \code{\link{cranly_dependence_tree}} object
+#'
+#' @seealso compute_dependence_tree dependence_tree
 #'
 #' @export
 plot.cranly_dependence_tree <- function(x,
@@ -143,7 +148,6 @@ plot.cranly_dependence_tree <- function(x,
                         "<img src=https://cranlogs.r-pkg.org/badges/", package, "?color=969696>")
     })
 
-
     lnodes <- ledges <- main <- NULL
     ## legend
     if (legend) {
@@ -181,9 +185,6 @@ plot.cranly_dependence_tree <- function(x,
         print(res %>% visNetwork::visHierarchicalLayout(levelSeparation = 50))
     }
     invisible(res)
-
-
-
 }
 
 
