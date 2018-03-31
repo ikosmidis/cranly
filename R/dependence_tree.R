@@ -49,7 +49,8 @@ build_dependence_tree.cranly_network <- function(x,
                                                  package = Inf,
                                                  base = TRUE,
                                                  recommended = TRUE,
-                                                 global = TRUE) {
+                                                 global = TRUE,
+                                                 ...) {
 
     if (global) {
         summaries <- summary(x, advanced = FALSE)

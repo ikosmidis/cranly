@@ -6,7 +6,7 @@
 \title{Construct a \code{\link{cranly_dependence_tree}} object}
 \usage{
 \method{build_dependence_tree}{cranly_network}(x, package = Inf,
-  base = TRUE, recommended = TRUE, global = TRUE)
+  base = TRUE, recommended = TRUE, global = TRUE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
@@ -18,6 +18,8 @@
 \item{recommended}{logical. Should we include recommended packages in the subset? Default is \code{TRUE}}
 
 \item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}}
+
+\item{...}{currently not used}
 }
 \description{
 Construct a \code{\link{cranly_dependence_tree}} object
