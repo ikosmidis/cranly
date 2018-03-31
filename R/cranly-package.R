@@ -112,6 +112,17 @@ build_network <- function(object, ...) {
     UseMethod("build_network")
 }
 
+#' \code{build_dependence_tree} method for an object
+#'
+#' @param x an object to use for building a dependence tree
+#' @param ... other arguments to be passed to the method
+#'
+#' @seealso build_network.cranly_network compute_dependence_tree
+#'
+#' @export
+build_dependence_tree <- function(x, ...) {
+    UseMethod("build_dependence_tree")
+}
 
 if(getRversion() >= "2.15.1")  {
     utils::globalVariables(c("author", "package", "version", "from", "n_depended_by", "n_depends", "n_enhanced_by", "n_enhances", "n_imported_by", "n_imports", "n_suggested_by", "n_suggests", "to", "type", "n_collaborators", "maintainer", "n_linking_to", "n_linked_by", "generation", "priority"))
