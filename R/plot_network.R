@@ -121,9 +121,9 @@ plot.cranly_network <- function(x,
             main <- paste(
                 paste0("CRAN database version<br>", format(timestamp, format = "%a, %d %b %Y, %H:%M"), collapse = ""),
                 "<br>",
-                if (is.infinite(package)) "" else paste0("Package names with<br> \"", paste(package, collapse = "\", \""), "\"", collapse = ""),
+                if (any(is.infinite(package))) "" else paste0("Package names with<br> \"", paste(package, collapse = "\", \""), "\"", collapse = ""),
                 "<br>",
-                if (is.infinite(author)) "" else paste0("Author names with<br> \"", paste(author, collapse = "\", \""), "\"", collapse = ""))
+                if (any(is.infinite(author))) "" else paste0("Author names with<br> \"", paste(author, collapse = "\", \""), "\"", collapse = ""))
         }
     }
     else {
@@ -169,6 +169,9 @@ plot.cranly_network <- function(x,
 
     export_name <- paste0("cranly_network-", format(timestamp, format = "%d-%b-%Y"), "-", paste0(c(author, package), collapse = "-"))
 
+    ## Keep only relevant information
+    nodes_subset <- nodes_subset[c("color", "label", "id", "title")]
+    edges_subset <- edges_subset[c("from", "to", "color", "title", "dashes")]
     res <- visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width,
                            main = list(text = main,
                                        style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) %>%
