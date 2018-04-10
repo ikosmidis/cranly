@@ -116,7 +116,7 @@ plot.cranly_network <- function(x,
                                  arrows = c("to", "to", "to", "to", "to"),
                                  font.align = "top")
         }
-
+x
         if (title) {
             main <- paste(
                 paste0("CRAN database version<br>", format(timestamp, format = "%a, %d %b %Y, %H:%M"), collapse = ""),
@@ -170,8 +170,8 @@ plot.cranly_network <- function(x,
     export_name <- paste0("cranly_network-", format(timestamp, format = "%d-%b-%Y"), "-", paste0(c(author, package), collapse = "-"))
 
     ## Keep only relevant information
-    nodes_subset <- nodes_subset[c("color", "label", "id", "title")]
-    edges_subset <- edges_subset[c("from", "to", "color", "title", "dashes")]
+    nodes_subset <- nodes_subset[match(c("color", "label", "id", "title"), names(nodes_subset), nomatch = 0)]
+    edges_subset <- edges_subset[match(c("from", "to", "color", "title", "dashes"), names(edges_subset), nomatch = 0)]
     res <- visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width,
                            main = list(text = main,
                                        style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) %>%
@@ -181,11 +181,12 @@ plot.cranly_network <- function(x,
             visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) %>%
             visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) %>%
             visNetwork::visExport(name = export_name, label = "PNG snapshot", style = "")
-
     if (plot) {
-        print(res)
+        return(res)
     }
-    invisible(res)
+    else {
+        return(invisible(res))
+    }
 }
 
 
