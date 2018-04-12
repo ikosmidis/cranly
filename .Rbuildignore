@@ -1,6 +1,7 @@
 ^README\.Rmd$
 ^\.travis\.yml$
 ^codecov\.yml$
+^CONDUCT\.md$
 README.md
 README_files/.*\.png$
 README_files

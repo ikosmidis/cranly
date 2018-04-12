@@ -51,7 +51,7 @@ The CRAN database we use is from
 
 ``` r
 attr(package_db, "timestamp")
-#> [1] "2018-03-29 01:09:27 BST"
+#> [1] "2018-04-12 12:15:51 BST"
 ```
 
 #### Package directives networks
@@ -146,3 +146,9 @@ Well, the usual suspects…
 Check the package vignettes for a more comprehensive tour of the package
 and for network visualisations on authors with orders of magnitude
 larger collaboration networks than mine.
+
+### Code of Conduct
+
+Please note that this project is released with a [Contributor Code of
+Conduct](CONDUCT.md). By participating in this project you agree to
+abide by its terms.

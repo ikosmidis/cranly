@@ -85,7 +85,6 @@ and the extractor functions work exactly as they did for the package directives 
 plot(author_network, author = "Ioannis Kosmidis")
 ```
 
-
 "Top-n" collaborators according to various summaries can again be computed
 ```{r}
 author_summaries <- summary(author_network)
@@ -97,3 +96,7 @@ plot(author_summaries, according_to = "page_rank", top = 20)
 Well, the usual suspects...
 
 Check the package vignettes for a more comprehensive tour of the package and for network visualisations on authors with orders of magnitude larger collaboration networks than mine.
+
+### Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
