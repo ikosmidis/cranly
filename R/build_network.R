@@ -20,8 +20,8 @@
 #' \code{perspective = "package"} is that the direction of an edge is
 #' from the package that is imported by, suggested by, enhances or is
 #' a dependency of another package, to the latter package. The author
-#' network is analysed and visualised as undirected by all methods in
-#' \code{cranly}.
+#' collaboration network is analysed and visualised as undirected by
+#' all methods in \code{cranly}.
 #'
 #' @examples
 #' \dontrun{
