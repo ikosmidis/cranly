@@ -85,6 +85,7 @@ and the extractor functions work exactly as they did for the package directives 
 plot(author_network, author = "Ioannis Kosmidis")
 ```
 
+
 "Top-n" collaborators according to various summaries can again be computed
 ```{r}
 author_summaries <- summary(author_network)

@@ -55,7 +55,6 @@ plot.cranly_network <- function(x,
     x <- subset(x, package = package, author = author, directive = directive, exact = exact,
                 base = base, recommended = recommended)
 
-
     if (!global) {
         summaries <- summary(x, advanced = FALSE)
     }

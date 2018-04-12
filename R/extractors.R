@@ -11,8 +11,8 @@ package_by.cranly_network <- function(x, author = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(author, collapse = "\\b$|^\\b")
-        str <- paste0("^\\b", str, "\\b$")
+        str <- paste(author, collapse = "\\b|\\b")
+        str <- paste0("\\b", str, "\\b")
     }
     else {
         str <- paste(author, collapse = "|")
@@ -38,8 +38,8 @@ package_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(name, collapse = "\\b$|^\\b")
-        str <- paste0("^\\b", str, "\\b$")
+        str <- paste(name, collapse = "\\b|\\b")
+        str <- paste0("\\b", str, "\\b")
     }
     else {
         str <- paste(name, collapse = "|")
@@ -93,8 +93,8 @@ author_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(name, collapse = "\\b$|^\\b")
-        str <- paste0("^\\b", str, "\\b$")
+        str <- paste(name, collapse = "\\b|\\b")
+        str <- paste0("\\b", str, "\\b")
     }
     else {
         str <- paste(name, collapse = "|")
@@ -121,8 +121,8 @@ imports <- function(x, package = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(package, collapse = "\\b$|^\\b")
-        str <- paste0("^\\b", str, "\\b$")
+        str <- paste(package, collapse = "\\b|\\b")
+        str <- paste0("\\b", str, "\\b")
     }
     else {
         str <- paste(package, collapse = "|")
@@ -149,8 +149,8 @@ depends <- function(x, package = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(package, collapse = "\\b$|^\\b")
-        str <- paste0("^\\b", str, "\\b$")
+        str <- paste(package, collapse = "\\b|\\b")
+        str <- paste0("\\b", str, "\\b")
     }
     else {
         str <- paste(package, collapse = "|")
@@ -178,8 +178,8 @@ linking_to <- function(x, package = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(package, collapse = "\\b$|^\\b")
-        str <- paste0("^\\b", str, "\\b$")
+        str <- paste(package, collapse = "\\b|\\b")
+        str <- paste0("\\b", str, "\\b")
     }
     else {
         str <- paste(package, collapse = "|")

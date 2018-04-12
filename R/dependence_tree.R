@@ -17,7 +17,7 @@
 #' \dontrun{
 #' data("cran_sample", package = "cranly")
 #' package_network <- build_network(object = cran_sample)
-#' dependence_tree(package_network, package = "PlackettLuce")
+#' build_dependence_tree(package_network, package = "PlackettLuce")
 #' }
 #'
 #' @export
