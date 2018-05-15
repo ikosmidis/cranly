@@ -6,7 +6,8 @@
 
 ## New functionality
 * `clean_CRAN_db` now accepts the matrix from `available.packages`
-* `build_dependency_tree` and a plot method for extracting the dependence tree fo a package
+* `compute_dependence_tree` is a recursion to compute all generations of a package (i.e. what else is installed)
+* `build_dependence_tree` and a plot method for extracting the dependence tree fo a package
 
 ## Other improvements, updates and addition
 * Added support for LinkingTo (thanks to Dirk Eddelbuettel for raising the [issue](https://github.com/ikosmidis/cranly/issues/1))
