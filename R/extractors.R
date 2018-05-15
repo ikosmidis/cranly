@@ -37,6 +37,8 @@ package_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
         return(unique(unlist(x$nodes$package)))
     }
     perspective <- attr(x, "perspective")
+    ## Escape .
+    name <- gsub("\\.", "\\\\.", name)
     if (exact) {
         str <- paste(name, collapse = "$(?!\\.)|^")
         str <- paste0("^", str, "$(?!\\.)")
@@ -65,6 +67,7 @@ author_of.cranly_network <- function(x, package = NULL, exact = FALSE) {
         return(unique(unlist(x$nodes$author)))
     }
     perspective <- attr(x, "perspective")
+    package <- gsub("\\.", "\\\\.", package)
     if (exact) {
         str <- paste(package, collapse = "$(?!\\.)|^")
         str <- paste0("^", str, "$(?!\\.)")
@@ -120,6 +123,7 @@ imports <- function(x, package = NULL, exact = FALSE) {
         return(unique(unlist(x$nodes$imports)))
     }
     perspective <- attr(x, "perspective")
+    package <- gsub("\\.", "\\\\.", package)
     if (exact) {
         str <- paste(package, collapse = "$(?!\\.)|^")
         str <- paste0("^", str, "$(?!\\.)")
@@ -148,6 +152,7 @@ depends <- function(x, package = NULL, exact = FALSE) {
         return(unique(unlist(x$nodes$depends)))
     }
     perspective <- attr(x, "perspective")
+    package <- gsub("\\.", "\\\\.", package)
     if (exact) {
         str <- paste(package, collapse = "$(?!\\.)|^")
         str <- paste0("^", str, "$(?!\\.)")
@@ -177,6 +182,7 @@ linking_to <- function(x, package = NULL, exact = FALSE) {
         return(unique(unlist(x$nodes$linkingto)))
     }
     perspective <- attr(x, "perspective")
+    package <- gsub("\\.", "\\\\.", package)
     if (exact) {
         str <- paste(package, collapse = "$(?!\\.)|^")
         str <- paste0("^", str, "$(?!\\.)")
