@@ -2,10 +2,11 @@
 
 ## Bug fixes
 * handling of duplicated packages in `clean_CRAN_db`
+* various regex imporvements
 
 ## New functionality
 * `clean_CRAN_db` now accepts the matrix from `available.packages`
-* `dependency_set` for extracting dependency tree of packages
+* `build_dependency_tree` and a plot method for extracting the dependence tree fo a package
 
 ## Other improvements, updates and addition
 * Added support for LinkingTo (thanks to Dirk Eddelbuettel for raising the [issue](https://github.com/ikosmidis/cranly/issues/1))

@@ -8,8 +8,8 @@
   directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
   base = TRUE, recommended = TRUE, exact = TRUE, global = TRUE,
   physics_threshold = 200, height = NULL, width = NULL,
-  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, legend = FALSE,
-  title = FALSE, plot = TRUE, ...)
+  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, legend = TRUE,
+  title = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}

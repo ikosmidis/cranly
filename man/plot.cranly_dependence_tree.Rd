@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{cranly_dependence_tree}(x, physics_threshold = 200,
   height = NULL, width = NULL, dragNodes = TRUE, dragView = TRUE,
-  zoomView = TRUE, legend = FALSE, title = FALSE, plot = TRUE, ...)
+  zoomView = TRUE, legend = TRUE, title = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_dependence_tree}} object}

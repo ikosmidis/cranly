@@ -25,9 +25,10 @@ packages, and so on.
 }
 \examples{
 \dontrun{
-data("cran_sample", package = "cranly")
-package_network <- build_network(object = cran_sample)
-dependence_tree(package_network, package = "PlackettLuce")
+cran_db <- clean_CRAN_db()
+package_network <- build_network(object = cran_db)
+dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
+plot(dep_tree)
 }
 
 }
