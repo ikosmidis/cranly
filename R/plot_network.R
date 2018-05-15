@@ -43,8 +43,8 @@ plot.cranly_network <- function(x,
                                 dragNodes = TRUE,
                                 dragView = TRUE,
                                 zoomView = TRUE,
-                                legend = FALSE,
-                                title = FALSE,
+                                legend = TRUE,
+                                title = TRUE,
                                 plot = TRUE,
                                 ...) {
 
@@ -118,6 +118,7 @@ plot.cranly_network <- function(x,
 x
         if (title) {
             main <- paste(
+                paste0("cranly package network<br>"),
                 paste0("CRAN database version<br>", format(timestamp, format = "%a, %d %b %Y, %H:%M"), collapse = ""),
                 "<br>",
                 if (any(is.infinite(package))) "" else paste0("Package names with<br> \"", paste(package, collapse = "\", \""), "\"", collapse = ""),
