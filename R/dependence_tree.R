@@ -4,6 +4,7 @@
 #'
 #' @inheritParams package_by
 #' @param generation integer. The original generation for the package.
+#' @seealso build_dependence_tree
 #'
 #' @details
 #'
@@ -12,14 +13,6 @@
 #' requirements for \code{package} (\code{Depends}, \code{Imports} or
 #' \code{LinkingTo}) are found, then the requirements for those
 #' packages, and so on.
-#'
-#' @examples
-#' \dontrun{
-#' cran_db <- clean_CRAN_db()
-#' package_network <- build_network(object = cran_db)
-#' dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
-#' plot(dep_tree)
-#' }
 #'
 #' @export
 compute_dependence_tree <- function(x, package = NULL, generation = 0) {
@@ -44,6 +37,14 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
 #' @aliases cranly_dependence_tree
 #' @inheritParams  plot.cranly_network
 #' @seealso compute_dependence_tree
+#'
+#' @examples
+#' \dontrun{
+#' cran_db <- clean_CRAN_db()
+#' package_network <- build_network(object = cran_db)
+#' dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
+#' plot(dep_tree)
+#' }
 #'
 #' @export
 build_dependence_tree.cranly_network <- function(x,
@@ -87,6 +88,76 @@ build_dependence_tree.cranly_network <- function(x,
 
     class(x) <- c("cranly_dependence_tree", class(x))
     x
+}
+
+#' Hard-dependence summaries for R packages from a \code{\link{cranly_dependence_tree}} object
+#'
+#' @param x a \code{\link{cranly_dependence_tree}} object
+#' @param ... currently not used
+#'
+#' @return
+#'
+#' A list with components \code{generation_depth}, \code{parents}, and
+#' \code{dependence_index}.
+#'
+#' @details
+#'
+#' The summary method for a \code{\link{cranly_dependence_tree}}
+#' object returns the number of generations the R package(s) in the
+#' object inherit from (\code{generation_depth}), the immediate
+#' parents of the R package(s) (\code{parents}), and a dependence
+#' index \code{dependence_index} defined as
+#' \deqn{
+#' \frac{\sum_{i \in C_p; i \ne p} \frac{1}{N_i} g_i}{\sum_{i \in C_p; i \ne p} \frac{1}{N_i}}
+#' }
+#'
+#' where \eqn{C_p} is the dependence tree for the package(s) \eqn{p},
+#' \eqn{N_i} is the total number of packages that depend, link or
+#' import package \eqn{i}, and \eqn{g_i} is the generation that
+#' package \eqn{i} appears in the dependence tree of package(s)
+#' \eqn{p}. The generation takes values on the non-positive integers,
+#' with the package(s) \eqn{p} being at the \code{0} generation, the
+#' packages that \eqn{p} links to, depends or imports are generation
+#' \code{-1} and so on.
+#'
+#' A dependence index of zero means that the \eqn{p} only has
+#' immediate parents. The dependence index weights the dependencies
+#' based on how "popular" these are, in the sense that the index is
+#' not penalised if the package depends on popular packages. The
+#' greatest the dependence index is the more baggage the package
+#' carries, and the maintainers may want to remove any dependencies
+#' that are not necessary.
+#'
+#' @seealso build_dependence_tree compute_dependence_tree
+#'
+#' @examples
+#' \dontrun{
+#' cran_db <- clean_CRAN_db()
+#' package_network <- build_network(object = cran_db)
+#'
+#' ## Two "light" packages
+#' dep_tree <- build_dependence_tree(package_network, package = "brglm")
+#' summary(dep_tree)
+#'
+#' dep_tree <- build_dependence_tree(package_network, package = "gnm")
+#' summary(dep_tree)
+#'
+#' ## A somewhat heavier package (sorry)...
+#' dep_tree <- build_dependence_tree(package_network, package = "cranly")
+#' summary(dep_tree)
+#'
+#' }
+#'
+#' @export
+summary.cranly_dependence_tree <- function(x, ...) {
+    ## dependence index
+    w <- 1/rowSums(x$summaries[c("n_imported_by", "n_depended_by", "n_linked_by")])
+    g <- x$nodes$generation
+    ind <- names(w) != x$package
+    dependence_index <- weighted.mean(-g[ind], w[ind]) - 1
+    list(generation_depth = -min(x$nodes$generation),
+         parents = x$nodes$package[x$nodes$generation == -1],
+         dependence_index = dependence_index)
 }
 
 #' Interactive visualization of a package's dependence tree from a \code{\link{cranly_network}}

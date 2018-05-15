@@ -23,12 +23,6 @@ requirements for \code{package} (\code{Depends}, \code{Imports} or
 \code{LinkingTo}) are found, then the requirements for those
 packages, and so on.
 }
-\examples{
-\dontrun{
-cran_db <- clean_CRAN_db()
-package_network <- build_network(object = cran_db)
-dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
-plot(dep_tree)
-}
-
+\seealso{
+build_dependence_tree
 }

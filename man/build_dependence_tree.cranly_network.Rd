@@ -24,6 +24,15 @@
 \description{
 Construct a \code{\link{cranly_dependence_tree}} object
 }
+\examples{
+\dontrun{
+cran_db <- clean_CRAN_db()
+package_network <- build_network(object = cran_db)
+dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
+plot(dep_tree)
+}
+
+}
 \seealso{
 compute_dependence_tree
 }
