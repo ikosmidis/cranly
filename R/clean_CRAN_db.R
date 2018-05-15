@@ -135,8 +135,8 @@ clean_up_directives <- function(variable) {
         str_replace_all("\n", ",") %>%
         str_replace_all("\\([^()]*\\)", "") %>%
         str_replace_all(" ", "") %>%
-        str_replace_all("^R,$", "") %>%
-        str_replace_all("^R$", "") %>%
+        str_replace_all("\\bR,\\b", "") %>%
+        str_replace_all("\\bR\\b", "") %>%
         str_split(",") %>%
         lapply(function(x) {
             out <- str_replace_all(x, ",|^\\s+|\\s+$", "")
