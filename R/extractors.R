@@ -11,12 +11,13 @@ package_by.cranly_network <- function(x, author = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(author, collapse = "\\b|\\b")
-        str <- paste0("\\b", str, "\\b")
+        str <- paste(author, collapse = "$|^")
+        str <- paste0("^", str, "$")
     }
     else {
         str <- paste(author, collapse = "|")
     }
+
     inds <- grep(str, x$nodes$author, ignore.case = !exact)
     out <- unique(unlist(x$nodes[inds, "package"]))
     if (length(out)) {
@@ -38,14 +39,15 @@ package_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(name, collapse = "\\b|\\b")
-        str <- paste0("\\b", str, "\\b")
+        str <- paste(name, collapse = "$(?!\\.)|^")
+        str <- paste0("^", str, "$(?!\\.)")
     }
     else {
         str <- paste(name, collapse = "|")
     }
+
     package <- unlist(x$nodes$package)
-    inds <- grep(str, package, ignore.case = !exact)
+    inds <- grep(str, package, ignore.case = !exact, perl = TRUE)
     out <- unique(package[inds])
     if (length(out)) {
         out
@@ -66,13 +68,13 @@ author_of.cranly_network <- function(x, package = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(package, collapse = "\\b|\\b")
-        str <- paste0("\\b", str, "\\b")
+        str <- paste(package, collapse = "$(?!\\.)|^")
+        str <- paste0("^", str, "$(?!\\.)")
     }
     else {
         str <- paste(package, collapse = "|")
     }
-    inds <- grep(str, x$nodes$package, ignore.case = !exact)
+    inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     out <- unique(unlist(x$nodes[inds, "author"]))
     if (length(out)) {
         out
@@ -93,8 +95,8 @@ author_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(name, collapse = "\\b|\\b")
-        str <- paste0("\\b", str, "\\b")
+        str <- paste(name, collapse = "$|^")
+        str <- paste0("^", str, "$")
     }
     else {
         str <- paste(name, collapse = "|")
@@ -121,13 +123,13 @@ imports <- function(x, package = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(package, collapse = "\\b|\\b")
-        str <- paste0("\\b", str, "\\b")
+        str <- paste(package, collapse = "$(?!\\.)|^")
+        str <- paste0("^", str, "$(?!\\.)")
     }
     else {
         str <- paste(package, collapse = "|")
     }
-    inds <- grep(str, x$nodes$package, ignore.case = !exact)
+    inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     ## inds <- sapply(x$nodes$Package, function(x) any(grepl(str, x)))
     out <- unique(unlist(x$nodes[inds, "imports"]))
     if (length(out)) {
@@ -149,13 +151,13 @@ depends <- function(x, package = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(package, collapse = "\\b|\\b")
-        str <- paste0("\\b", str, "\\b")
+        str <- paste(package, collapse = "$(?!\\.)|^")
+        str <- paste0("^", str, "$(?!\\.)")
     }
     else {
         str <- paste(package, collapse = "|")
     }
-    inds <- grep(str, x$nodes$package, ignore.case = !exact)
+    inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     ## inds <- sapply(x$nodes$Package, function(x) any(grepl(str, x)))
     out <- unique(unlist(x$nodes[inds, "depends"]))
     if (length(out)) {
@@ -178,13 +180,13 @@ linking_to <- function(x, package = NULL, exact = FALSE) {
     }
     perspective <- attr(x, "perspective")
     if (exact) {
-        str <- paste(package, collapse = "\\b|\\b")
-        str <- paste0("\\b", str, "\\b")
+        str <- paste(package, collapse = "$(?!\\.)|^")
+        str <- paste0("^", str, "$(?!\\.)")
     }
     else {
         str <- paste(package, collapse = "|")
     }
-    inds <- grep(str, x$nodes$package, ignore.case = !exact)
+    inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     ## inds <- sapply(x$nodes$Package, function(x) any(grepl(str, x)))
     out <- unique(unlist(x$nodes[inds, "linkingto"]))
     if (length(out)) {

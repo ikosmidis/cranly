@@ -135,8 +135,8 @@ clean_up_directives <- function(variable) {
         str_replace_all("\n", ",") %>%
         str_replace_all("\\([^()]*\\)", "") %>%
         str_replace_all(" ", "") %>%
-        str_replace_all("\\bR,\\b", "") %>%
-        str_replace_all("\\bR\\b", "") %>%
+        str_replace_all("^R,$", "") %>%
+        str_replace_all("^R$", "") %>%
         str_split(",") %>%
         lapply(function(x) {
             out <- str_replace_all(x, ",|^\\s+|\\s+$", "")
@@ -508,7 +508,7 @@ clean_up_author <- function(variable) {
         str_replace_all("\\d{2}", "") %>%
         str_replace_all("[Cc][Rr][Aa][Nn] [Tt]eam", "CRAN Team") %>%
         str_replace_all("R[ sS]tudio|R[ sS]tudio Inc", "RStudio") %>%
-        str_replace_all("\\bH2O ai team\\b|\\bH2O ai\\b", "H2O.ai") %>%
+        str_replace_all("^H2O ai team$|^H2O ai$", "H2O.ai") %>%
         ## Special people
         str_replace_all("Wickham Hadley|Hadley Wickham function", "Hadley Wickham") %>%
         str_replace_all("Yihui Xie function", "Yihui Xie") %>%

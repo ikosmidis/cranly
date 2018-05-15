@@ -15,9 +15,10 @@
 #'
 #' @examples
 #' \dontrun{
-#' data("cran_sample", package = "cranly")
-#' package_network <- build_network(object = cran_sample)
-#' build_dependence_tree(package_network, package = "PlackettLuce")
+#' cran_db <- clean_CRAN_db()
+#' package_network <- build_network(object = cran_db)
+#' dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
+#' plot(dep_tree)
 #' }
 #'
 #' @export
@@ -58,13 +59,15 @@ build_dependence_tree.cranly_network <- function(x,
 
     d_tree <- compute_dependence_tree(x, package = package, generation = 0)
     pack0 <- package
-    package <- d_tree$package
+    package <- unique(d_tree$package)
+
     x <- subset(x, package = package, author = Inf,
                 directive = c("imports", "depends", "linkingto"),
                 exact = TRUE, only = TRUE,
                 base = base, recommended = recommended)
 
     ## Make sure that nodes has only what is in edges
+    ## x$nodes <- subset(x$nodes, package %in% c(x$edges$from, x$edges$to))
     x$nodes <- subset(x$nodes, package %in% c(x$edges$from, x$edges$to))
 
     d_tree <- d_tree[d_tree$package %in% x$nodes$package, ]
@@ -115,6 +118,7 @@ plot.cranly_dependence_tree <- function(x,
     nodes <- x$nodes
 
     n_colors <- abs(min(nodes$generation))
+
     colors <- c("#D33F6A", colorspace::sequential_hcl(n_colors, c = 100, l = c(50, 100), power = 1))
 
     edges <- within(edges, {
@@ -165,9 +169,9 @@ plot.cranly_dependence_tree <- function(x,
 
     if (title) {
         main <- paste(
-            paste0("CRAN database version<br>", format(timestamp, format = "%a, %d %b %Y, %H:%M"), collapse = ""),
+            paste0("cranly dependence tree for package names with<br> \"", paste(x$package, collapse = "\", \""), "\"", collapse = ""),
             "<br>",
-            paste0("Dependence tree for package names with<br> \"", paste(x$package, collapse = "\", \""), "\"", collapse = ""))
+            paste0("CRAN database version<br>", format(timestamp, format = "%a, %d %b %Y, %H:%M"), collapse = ""))
     }
 
     export_name <- paste0("cranly_dependence_tree-", format(timestamp, format = "%d-%b-%Y"), "-", paste0(x$package, collapse = "-"))

@@ -24,6 +24,7 @@ subset.cranly_network <- function(x,
                                   ...) {
     perspective <- attr(x, "perspective")
     if (perspective == "package") {
+
         p1 <- package_with(x, name = package, exact = exact)
         p2 <- package_by(x, author = author, exact = exact)
 
