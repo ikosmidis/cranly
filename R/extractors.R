@@ -17,8 +17,7 @@ package_by.cranly_network <- function(x, author = NULL, exact = FALSE) {
     else {
         str <- paste(author, collapse = "|")
     }
-
-    inds <- grep(str, x$nodes$author, ignore.case = !exact)
+    inds <- sapply(x$nodes$author, function(z) any(grepl(str, z, ignore.case = !exact)))
     out <- unique(unlist(x$nodes[inds, "package"]))
     if (length(out)) {
         out
@@ -45,7 +44,6 @@ package_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
     else {
         str <- paste(name, collapse = "|")
     }
-
     package <- unlist(x$nodes$package)
     inds <- grep(str, package, ignore.case = !exact, perl = TRUE)
     out <- unique(package[inds])
