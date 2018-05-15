@@ -53,6 +53,10 @@ build_dependence_tree.cranly_network <- function(x,
                                                  global = TRUE,
                                                  ...) {
 
+    if (is.infinite(package)) {
+        stop("Please specify package")
+    }
+
     if (global) {
         summaries <- summary(x, advanced = FALSE)
     }
