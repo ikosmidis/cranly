@@ -48,12 +48,12 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
 #' @export
 build_dependence_tree.cranly_network <- function(x,
                                                  package = Inf,
-                                                 base = TRUE,
+                                                 base = FALSE,
                                                  recommended = TRUE,
                                                  global = TRUE,
                                                  ...) {
 
-    if (is.infinite(package)) {
+    if (any(is.infinite(package))) {
         stop("Please specify package")
     }
 
