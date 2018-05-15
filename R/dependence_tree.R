@@ -100,8 +100,8 @@ plot.cranly_dependence_tree <- function(x,
                                         dragNodes = TRUE,
                                         dragView = TRUE,
                                         zoomView = TRUE,
-                                        legend = FALSE,
-                                        title = FALSE,
+                                        legend = TRUE,
+                                        title = TRUE,
                                         plot = TRUE,
                                         ...) {
 
