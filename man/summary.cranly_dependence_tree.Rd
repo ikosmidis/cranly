@@ -4,15 +4,15 @@
 \alias{summary.cranly_dependence_tree}
 \title{Hard-dependence summaries for R packages from a \code{\link{cranly_dependence_tree}} object}
 \usage{
-\method{summary}{cranly_dependence_tree}(x, ...)
+\method{summary}{cranly_dependence_tree}(object, ...)
 }
 \arguments{
-\item{x}{a \code{\link{cranly_dependence_tree}} object}
+\item{object}{a \code{\link{cranly_dependence_tree}} object}
 
 \item{...}{currently not used}
 }
 \value{
-A list with components \code{generation_depth}, \code{parents}, and
+A list with components \code{n_generations}, \code{parents}, and
 \code{dependence_index}.
 }
 \description{
@@ -21,7 +21,7 @@ Hard-dependence summaries for R packages from a \code{\link{cranly_dependence_tr
 \details{
 The summary method for a \code{\link{cranly_dependence_tree}}
 object returns the number of generations the R package(s) in the
-object inherit from (\code{generation_depth}), the immediate
+object inherit from (\code{n_generations}), the immediate
 parents of the R package(s) (\code{parents}), and a dependence
 index \code{dependence_index} defined as
 \deqn{

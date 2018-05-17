@@ -11,6 +11,7 @@
 #' @importFrom stats na.omit
 #' @import countrycode
 #' @importFrom ggplot2 ggplot geom_bar theme_minimal labs coord_flip
+#' @importFrom stats weighted.mean
 #'
 #' @details
 #'

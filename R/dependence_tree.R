@@ -92,19 +92,19 @@ build_dependence_tree.cranly_network <- function(x,
 
 #' Hard-dependence summaries for R packages from a \code{\link{cranly_dependence_tree}} object
 #'
-#' @param x a \code{\link{cranly_dependence_tree}} object
+#' @param object a \code{\link{cranly_dependence_tree}} object
 #' @param ... currently not used
 #'
 #' @return
 #'
-#' A list with components \code{generation_depth}, \code{parents}, and
+#' A list with components \code{n_generations}, \code{parents}, and
 #' \code{dependence_index}.
 #'
 #' @details
 #'
 #' The summary method for a \code{\link{cranly_dependence_tree}}
 #' object returns the number of generations the R package(s) in the
-#' object inherit from (\code{generation_depth}), the immediate
+#' object inherit from (\code{n_generations}), the immediate
 #' parents of the R package(s) (\code{parents}), and a dependence
 #' index \code{dependence_index} defined as
 #' \deqn{
@@ -149,14 +149,13 @@ build_dependence_tree.cranly_network <- function(x,
 #' }
 #'
 #' @export
-summary.cranly_dependence_tree <- function(x, ...) {
-    ## dependence index
-    w <- 1/rowSums(x$summaries[c("n_imported_by", "n_depended_by", "n_linked_by")])
-    g <- x$nodes$generation
-    ind <- names(w) != x$package
+summary.cranly_dependence_tree <- function(object, ...) {
+    w <- with(object, 1/rowSums(summaries[c("n_imported_by", "n_depended_by", "n_linked_by")]))
+    g <- object$nodes$generation
+    ind <- names(w) != object$package
     dependence_index <- weighted.mean(-g[ind], w[ind]) - 1
-    list(generation_depth = -min(x$nodes$generation),
-         parents = x$nodes$package[x$nodes$generation == -1],
+    list(n_generations = -min(object$nodes$generation),
+         parents = with(object, nodes$package[nodes$generation == -1]),
          dependence_index = dependence_index)
 }
 
