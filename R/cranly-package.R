@@ -64,6 +64,7 @@ NULL
 #' author_of(package_network, package = "brglm2", exact = TRUE)
 #' ## Find all authors with Ioannis in their name
 #' author_with(package_network, name = "Ioannis", exact = TRUE)
+#' ## File all packages that package Rcpp suggests
 #'
 #' ## Using an author collaboration network
 #' author_network <- build_network(cran_sample, perspective = "author")

@@ -7,6 +7,7 @@
 
 ## New functionality
 * `clean_CRAN_db` now accepts the matrix from `available.packages`
+* new extractors for `cranly_network` objects: `suggests`, `depends`, `linking_to`, `imports`
 * `compute_dependence_tree` is a recursion to compute all generations of a package (i.e. what else is installed)
 * `build_dependence_tree` and a plot method for extracting the dependence tree fo a package
 * `summary` method for `cranly_dependence_tree` tree objects, reporting package dependence index, parents and depth
