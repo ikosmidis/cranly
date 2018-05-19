@@ -64,7 +64,12 @@ NULL
 #' author_of(package_network, package = "brglm2", exact = TRUE)
 #' ## Find all authors with Ioannis in their name
 #' author_with(package_network, name = "Ioannis", exact = TRUE)
-#' ## File all packages that package Rcpp suggests
+#' ## Find all packages that package Rcpp suggests
+#' suggests(package_network, package = "Rcpp", exact = TRUE)
+#' ## Find all packages that package Rcpp imports
+#' imports(package_network, package = "Rcpp", exact = TRUE)
+#' ## Find all packages that package RcppArmadillo is linking to
+#' linking_to(package_network, package = "RcppArmadillo", exact = TRUE)
 #'
 #' ## Using an author collaboration network
 #' author_network <- build_network(cran_sample, perspective = "author")
@@ -101,6 +106,32 @@ author_with <- function(x, name = NULL, exact = FALSE) {
 author_of <- function(x, package = NULL, exact = FALSE) {
     UseMethod("author_of")
 }
+
+#' @rdname package_by
+#' @export
+suggests <- function(x, package = NULL, exact = FALSE) {
+    UseMethod("suggests")
+}
+
+#' @rdname package_by
+#' @export
+imports <- function(x, package = NULL, exact = FALSE) {
+    UseMethod("imports")
+}
+
+#' @rdname package_by
+#' @export
+depends <- function(x, package = NULL, exact = FALSE) {
+    UseMethod("depends")
+}
+
+#' @rdname package_by
+#' @export
+linking_to <- function(x, package = NULL, exact = FALSE) {
+    UseMethod("linking_to")
+}
+
+
 
 #' \code{build_network} method for an object
 #'

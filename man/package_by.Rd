@@ -9,6 +9,7 @@
 \alias{package_with.cranly_network}
 \alias{author_of.cranly_network}
 \alias{author_with.cranly_network}
+\alias{suggests}
 \alias{imports}
 \alias{depends}
 \alias{linking_to}
@@ -29,6 +30,8 @@ author_of(x, package = NULL, exact = FALSE)
 \method{author_of}{cranly_network}(x, package = NULL, exact = FALSE)
 
 \method{author_with}{cranly_network}(x, name = NULL, exact = FALSE)
+
+suggests(x, package = NULL, exact = FALSE)
 
 imports(x, package = NULL, exact = FALSE)
 
@@ -65,6 +68,12 @@ package_with(package_network, name = "rglm", exact = FALSE)
 author_of(package_network, package = "brglm2", exact = TRUE)
 ## Find all authors with Ioannis in their name
 author_with(package_network, name = "Ioannis", exact = TRUE)
+## Find all packages that package Rcpp suggests
+suggests(package_network, package = "Rcpp", exact = TRUE)
+## Find all packages that package Rcpp imports
+imports(package_network, package = "Rcpp", exact = TRUE)
+## Find all packages that package RcppArmadillo is linking to
+linking_to(package_network, package = "RcppArmadillo", exact = TRUE)
 
 ## Using an author collaboration network
 author_network <- build_network(cran_sample, perspective = "author")

@@ -121,7 +121,7 @@ author_with.cranly_network <- function(x, name = NULL, exact = FALSE) {
 
 #' @rdname package_by
 #' @export
-suggests <- function(x, package = NULL, exact = FALSE) {
+suggests.cranly_network <- function(x, package = NULL, exact = FALSE) {
     if (is.null(package)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
@@ -152,7 +152,7 @@ suggests <- function(x, package = NULL, exact = FALSE) {
 
 #' @rdname package_by
 #' @export
-imports <- function(x, package = NULL, exact = FALSE) {
+imports.cranly_network <- function(x, package = NULL, exact = FALSE) {
     if (is.null(package)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
@@ -182,7 +182,7 @@ imports <- function(x, package = NULL, exact = FALSE) {
 
 #' @rdname package_by
 #' @export
-depends <- function(x, package = NULL, exact = FALSE) {
+depends.cranly_network <- function(x, package = NULL, exact = FALSE) {
     if (is.null(package)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
@@ -213,7 +213,7 @@ depends <- function(x, package = NULL, exact = FALSE) {
 
 #' @rdname package_by
 #' @export
-linking_to <- function(x, package = NULL, exact = FALSE) {
+linking_to.cranly_network <- function(x, package = NULL, exact = FALSE) {
     if (is.null(package)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
