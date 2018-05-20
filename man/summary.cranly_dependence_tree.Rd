@@ -2,7 +2,7 @@
 % Please edit documentation in R/dependence_tree.R
 \name{summary.cranly_dependence_tree}
 \alias{summary.cranly_dependence_tree}
-\title{Hard-dependence summaries for R packages from a \code{\link{cranly_dependence_tree}} object}
+\title{summary method for \code{\link{cranly_dependence_tree}} objects}
 \usage{
 \method{summary}{cranly_dependence_tree}(object, ...)
 }

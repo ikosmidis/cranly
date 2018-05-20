@@ -34,16 +34,16 @@ all methods in \code{cranly}.
 }
 \examples{
 \dontrun{
-data("cran_sample", package = "cranly")
+cran_db <- clean_CRAN_db()
 ## Package directives network
-package_network <- build_network(object = cran_sample, perspective = "package")
+package_network <- build_network(object = cran_db, perspective = "package")
 head(package_network$edges)
 head(package_network$nodes)
 attr(package_network, "timestamp")
 class(package_network)
 
 ## Author collaboration network
-author_network <- build_network(object = cran_sample, perspective = "author")
+author_network <- build_network(object = cran_db, perspective = "author")
 head(author_network$edges)
 head(author_network$nodes)
 attr(author_network, "timestamp")

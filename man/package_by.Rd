@@ -5,14 +5,18 @@
 \alias{package_with}
 \alias{author_with}
 \alias{author_of}
-\alias{package_by.cranly_network}
-\alias{package_with.cranly_network}
-\alias{author_of.cranly_network}
-\alias{author_with.cranly_network}
 \alias{suggests}
 \alias{imports}
 \alias{depends}
 \alias{linking_to}
+\alias{package_by.cranly_network}
+\alias{package_with.cranly_network}
+\alias{author_of.cranly_network}
+\alias{author_with.cranly_network}
+\alias{suggests.cranly_network}
+\alias{imports.cranly_network}
+\alias{depends.cranly_network}
+\alias{linking_to.cranly_network}
 \title{Find packages and authors by authors or packages with names matching a specific string}
 \usage{
 package_by(x, author = NULL, exact = FALSE)
@@ -23,6 +27,14 @@ author_with(x, name = NULL, exact = FALSE)
 
 author_of(x, package = NULL, exact = FALSE)
 
+suggests(x, package = NULL, exact = FALSE)
+
+imports(x, package = NULL, exact = FALSE)
+
+depends(x, package = NULL, exact = FALSE)
+
+linking_to(x, package = NULL, exact = FALSE)
+
 \method{package_by}{cranly_network}(x, author = NULL, exact = FALSE)
 
 \method{package_with}{cranly_network}(x, name = NULL, exact = FALSE)
@@ -31,13 +43,13 @@ author_of(x, package = NULL, exact = FALSE)
 
 \method{author_with}{cranly_network}(x, name = NULL, exact = FALSE)
 
-suggests(x, package = NULL, exact = FALSE)
+\method{suggests}{cranly_network}(x, package = NULL, exact = FALSE)
 
-imports(x, package = NULL, exact = FALSE)
+\method{imports}{cranly_network}(x, package = NULL, exact = FALSE)
 
-depends(x, package = NULL, exact = FALSE)
+\method{depends}{cranly_network}(x, package = NULL, exact = FALSE)
 
-linking_to(x, package = NULL, exact = FALSE)
+\method{linking_to}{cranly_network}(x, package = NULL, exact = FALSE)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
