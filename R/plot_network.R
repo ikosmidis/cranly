@@ -159,6 +159,7 @@ x
 
         if (title) {
             main <- paste(
+                paste0("cranly collaboration network<br>"),
                 paste0("CRAN database version<br>", format(timestamp, format = "%a, %d %b %Y, %H:%M"), collapse = ""),
                 "<br>",
                 if (!is.null(author)) paste0("Author names with<br> \"", paste(author, collapse = "\", \""), "\"", collapse = ""),
