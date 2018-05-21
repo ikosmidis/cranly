@@ -100,7 +100,9 @@ plot.cranly_dependence_tree <- function(x,
         visNetwork::visExport(name = export_name, label = "PNG snapshot", style = "")
 
     if (plot) {
-        print(res %>% visNetwork::visHierarchicalLayout(levelSeparation = 50))
+        return(res %>% visNetwork::visHierarchicalLayout(levelSeparation = 50))
     }
-    invisible(res)
+    else {
+        return(invisible(res))
+    }
 }

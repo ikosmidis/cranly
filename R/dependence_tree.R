@@ -110,7 +110,7 @@ build_dependence_tree.cranly_network <- function(x,
 #' parents of the R package(s) (\code{parents}), and a dependence
 #' index \code{dependence_index} defined as
 #' \deqn{
-#' \frac{\sum_{i \in C_p; i \ne p} \frac{1}{N_i} g_i}{\sum_{i \in C_p; i \ne p} \frac{1}{N_i}}
+#' -\frac{\sum_{i \in C_p; i \ne p} \frac{1}{N_i} g_i}{\sum_{i \in C_p; i \ne p} \frac{1}{N_i}}
 #' }
 #'
 #' where \eqn{C_p} is the dependence tree for the package(s) \eqn{p},
@@ -118,8 +118,8 @@ build_dependence_tree.cranly_network <- function(x,
 #' import package \eqn{i}, and \eqn{g_i} is the generation that
 #' package \eqn{i} appears in the dependence tree of package(s)
 #' \eqn{p}. The generation takes values on the non-positive integers,
-#' with the package(s) \eqn{p} being at the \code{0} generation, the
-#' packages that \eqn{p} links to, depends or imports are generation
+#' with the package(s) \eqn{p} being placed at generation \code{0}, the
+#' packages that \eqn{p} links to, depends or imports at generation
 #' \code{-1} and so on.
 #'
 #' A dependence index of zero means that the \eqn{p} only has

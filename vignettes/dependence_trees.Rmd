@@ -1,0 +1,76 @@
+---
+title: "R package dependence trees"
+author: "[Ioannis Kosmidis](http://www.ucl.ac.uk/~ucakiko/)"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{R package dependence trees}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6,
+  fig.height = 6
+)
+```
+
+# **cranly** dependence trees
+
+Since version 0.2 **cranly** includes functions for constructing and working with package dependence tree objects. Specifically, the packages that are requirements for a specified package (i.e. appear in `Depends`, `Imports` or `LinkingTo`) are found, then the requirements for those packages are found, and so on. In essence, a package's dependence tree shows what else needs to be installed with the package in an empty package library, and hence it can
++ help developers remove unnecessary dependencies that "drag" with them all sorts of other packages
++ help the R core team identify packages that are heavy for the CRAN mirrors
++ produce some near visuals for the packages
+
+# Constructing `cranly_dependence_tree` objects
+
+Constructing `cranly_dependence_tree` objects is straightforward once a package directives network has been derived.
+
+Let's download, clean and organise today's CRAN database, and build the package directives network
+```{r}
+cran_db <- clean_CRAN_db()
+package_network <- build_network(cran_db, perspective = "package")
+```
+
+We can then compute dependence trees for any package in CRAN using the function `compute_dependence_tree` on the package directives network. For example the dependence tree of **brglm2** is
+```{r}
+ compute_dependence_tree(package_network, "brglm2")
+```
+and of **tibble** is
+```{r}
+compute_dependence_tree(package_network, "tibble")
+```
+The resulting data frame, includes package names and a generation index. The generation of the named package is by default 0 and as we move back through the required packages and the requirements of those the generation index decreases by 1. I had **loads of fun** implementing `compute_dependence_tree`, because the tree construction can be neatly and cleanly written as a recursion (see source code of `compute_dependence_tree`), leveraging the advantages of functional programming (that's a different and long discussion, though).
+
+The method `build_dependence_tree` uses `compute_dependence_tree` to construct and edge list for the dependence tree, that we can the visualise. For example for **cranly**
+```{r}
+cranly_tree <- build_dependence_tree(package_network, "cranly")
+plot(cranly_tree)
+```
+
+# Package dependence index
+The *package dependence index* is a rough measure of how much "baggage" an R package carries. The package dependence index is defined as the weighted average that averages across the generation index of the packages in the tree, with weights that are inversely proportional to the popularity of each package in terms of how many other packages depend on, link to or import it. Mathematically, the package dependence index is defined as
+$$
+-\frac{\sum_{i \in C_p; i \ne p} \frac{1}{N_i} g_i}{\sum_{i \in C_p; i \ne p} \frac{1}{N_i}}
+$$
+where $C_p$ is the dependence tree for the package(s) $p$,
+$N_i$ is the total number of packages that depend, link or
+import package $i$, and $g_i$ is the generation that
+package $i$ appears in the dependence tree of package(s)
+$p$. The generation takes values on the non-positive integers,
+with the package(s) $p$ being placed at generation $0$, the
+packages that $p$ links to, depends or imports at generation
+$-1$ and so on.
+```{r, cache = TRUE}
+cranly_dep_index <- sapply(cranly_tree$nodes$package, function(package) {
+    tree <- build_dependence_tree(package_network, package = package)
+    s <- summary(tree)
+    s$dependence_index
+})
+sort(cranly_dep_index)
+```
+
