@@ -10,3 +10,4 @@ vignettes/cranly.html
 vignettes/glms.html
 vignettes/historical.Rmd
 vignettes/tree_analysis.Rmd
+tests/
