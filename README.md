@@ -51,7 +51,7 @@ The CRAN database we use is from
 
 ``` r
 attr(package_db, "timestamp")
-#> [1] "2018-04-12 14:27:31 BST"
+#> [1] "2018-05-21 10:06:58 BST"
 ```
 
 #### Package directives networks
@@ -142,6 +142,46 @@ plot(author_summaries, according_to = "page_rank", top = 20)
 ![](README_files/README-unnamed-chunk-10-3.png)
 
 Well, the usual suspects…
+
+#### Package dependence trees
+
+Since version 0.2 **cranly** includes functions for constructing and
+working with package dependence tree objects. A package’s dependence
+tree shows what else needs to be installed with the package in an empty
+package library with the package, and hence it can be used to + remove
+unnecessary dependencies that “drag” with them all sorts of other
+packages + identify packages that are heavy for the CRAN mirrors +
+produced some neat visuals for the package
+
+For example, the dependence tree of the **PlackettLuce** R package I am
+co-authoring is
+
+``` r
+PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
+plot(PL_dependence_tree)
+```
+
+![](README_files/README-unnamed-chunk-11-1.png)
+
+**cranly** also implements a *package dependence index* (see
+?summary.cranly\_dependence\_tree for mathematical details). The closer
+that is to 0 the “lighter” the package is
+
+``` r
+summary(PL_dependence_tree)
+#> $package
+#> [1] "PlackettLuce"
+#> 
+#> $n_generations
+#> [1] 3
+#> 
+#> $parents
+#> [1] "igraph"      "MASS"        "Matrix"      "partykit"    "psychotools"
+#> [6] "psychotree"  "qvcalc"      "rARPACK"     "sandwich"   
+#> 
+#> $dependence_index
+#> [1] 0.4177529
+```
 
 Check the package vignettes for a more comprehensive tour of the package
 and for network visualisations on authors with orders of magnitude

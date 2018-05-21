@@ -21,10 +21,10 @@ knitr::opts_chunk$set(
 
 # **cranly** dependence trees
 
-Since version 0.2 **cranly** includes functions for constructing and working with package dependence tree objects. Specifically, the packages that are requirements for a specified package (i.e. appear in `Depends`, `Imports` or `LinkingTo`) are found, then the requirements for those packages are found, and so on. In essence, a package's dependence tree shows what else needs to be installed with the package in an empty package library, and hence it can
-+ help developers remove unnecessary dependencies that "drag" with them all sorts of other packages
-+ help the R core team identify packages that are heavy for the CRAN mirrors
-+ produce some near visuals for the packages
+Since version 0.2 **cranly** includes functions for constructing and working with package dependence tree objects. Specifically, the packages that are requirements for a specified package (i.e. appear in `Depends`, `Imports` or `LinkingTo`) are found, then the requirements for those packages are found, and so on. In essence, a package's dependence tree shows what else needs to be installed with the package in an empty package library with the package, and hence it can be used to
++ remove unnecessary dependencies that "drag" with them all sorts of other packages
++ identify packages that are heavy for the CRAN mirrors
++ produced some neat visuals for the package
 
 # Constructing `cranly_dependence_tree` objects
 
