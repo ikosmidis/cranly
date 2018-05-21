@@ -9,6 +9,7 @@
 \alias{imports}
 \alias{depends}
 \alias{linking_to}
+\alias{enhances}
 \alias{package_by.cranly_network}
 \alias{package_with.cranly_network}
 \alias{author_of.cranly_network}
@@ -17,6 +18,7 @@
 \alias{imports.cranly_network}
 \alias{depends.cranly_network}
 \alias{linking_to.cranly_network}
+\alias{enhances.cranly_network}
 \title{Find packages and authors by authors or packages with names matching a specific string}
 \usage{
 package_by(x, author = NULL, exact = FALSE)
@@ -35,6 +37,8 @@ depends(x, package = NULL, exact = FALSE)
 
 linking_to(x, package = NULL, exact = FALSE)
 
+enhances(x, package = NULL, exact = FALSE)
+
 \method{package_by}{cranly_network}(x, author = NULL, exact = FALSE)
 
 \method{package_with}{cranly_network}(x, name = NULL, exact = FALSE)
@@ -50,6 +54,8 @@ linking_to(x, package = NULL, exact = FALSE)
 \method{depends}{cranly_network}(x, package = NULL, exact = FALSE)
 
 \method{linking_to}{cranly_network}(x, package = NULL, exact = FALSE)
+
+\method{enhances}{cranly_network}(x, package = NULL, exact = FALSE)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
@@ -67,9 +73,9 @@ Find packages and authors by authors or packages with names matching a specific 
 }
 \examples{
 \dontrun{
-data("cran_sample", package = "cranly")
+cran_db <- clean_CRAN_db()
 ## Using a package directives network
-package_network <- build_network(cran_sample)
+package_network <- build_network(cran_db)
 ## Find all packages containing glm in their name
 package_with(package_network, name = "glm")
 ## Find all authors of packages containing brglm in their name
@@ -88,7 +94,7 @@ imports(package_network, package = "Rcpp", exact = TRUE)
 linking_to(package_network, package = "RcppArmadillo", exact = TRUE)
 
 ## Using an author collaboration network
-author_network <- build_network(cran_sample, perspective = "author")
+author_network <- build_network(cran_db, perspective = "author")
 ## Find all packages containing glm in their name
 package_with(author_network, name = "glm")
 ## Find all authors of packages containing brglm in their name

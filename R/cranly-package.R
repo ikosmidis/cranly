@@ -131,6 +131,11 @@ linking_to <- function(x, package = NULL, exact = FALSE) {
     UseMethod("linking_to")
 }
 
+#' @rdname package_by
+#' @export
+enhances <- function(x, package = NULL, exact = FALSE) {
+    UseMethod("enhances")
+}
 
 
 #' \code{build_network} method for an object
