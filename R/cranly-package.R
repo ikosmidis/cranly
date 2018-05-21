@@ -51,9 +51,9 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' data("cran_sample", package = "cranly")
+#' cran_db <- clean_CRAN_db()
 #' ## Using a package directives network
-#' package_network <- build_network(cran_sample)
+#' package_network <- build_network(cran_db)
 #' ## Find all packages containing glm in their name
 #' package_with(package_network, name = "glm")
 #' ## Find all authors of packages containing brglm in their name
@@ -72,7 +72,7 @@ NULL
 #' linking_to(package_network, package = "RcppArmadillo", exact = TRUE)
 #'
 #' ## Using an author collaboration network
-#' author_network <- build_network(cran_sample, perspective = "author")
+#' author_network <- build_network(cran_db, perspective = "author")
 #' ## Find all packages containing glm in their name
 #' package_with(author_network, name = "glm")
 #' ## Find all authors of packages containing brglm in their name

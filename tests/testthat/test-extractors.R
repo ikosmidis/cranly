@@ -1,8 +1,8 @@
 context("Test extractor functions")
 
-data("cran_sample", package = "cranly")
-package_network <- build_network(object = cran_sample)
-author_network <- build_network(object = cran_sample, perspective = "author")
+cran_db <- clean_CRAN_db()
+package_network <- build_network(object = cran_db)
+author_network <- build_network(object = cran_db, perspective = "author")
 
 test_that("author_of returnes same value when applied to a package network and when applied to an author network",
           expect_equal(sort(author_of(package_network, "MASS")),
