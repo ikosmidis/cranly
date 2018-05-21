@@ -96,6 +96,7 @@ plot(author_summaries, according_to = "page_rank", top = 20)
 
 Well, the usual suspects...
 
+
 #### Package dependence trees
 Since version 0.2 **cranly** includes functions for constructing and
 working with package dependence tree objects. A package's dependence tree shows what else needs to be installed with the package in an empty package library with the package, and hence it can be used to

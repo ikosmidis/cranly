@@ -65,7 +65,7 @@ $p$. The generation takes values on the non-positive integers,
 with the package(s) $p$ being placed at generation $0$, the
 packages that $p$ links to, depends or imports at generation
 $-1$ and so on.
-```{r, cache = TRUE}
+```{r}
 cranly_dep_index <- sapply(cranly_tree$nodes$package, function(package) {
     tree <- build_dependence_tree(package_network, package = package)
     s <- summary(tree)
