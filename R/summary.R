@@ -5,7 +5,7 @@
 #' @aliases summary_cranly_network
 #'
 #' @param object a \code{\link{cranly_network}} object
-#' @param advanced logical. If \code{FALSE} (default) only basic network statistics are computed; if \code{TRUE} advanced statstics are also included in the computation (see Details).
+#' @param advanced logical. If \code{FALSE} (default) only basic network statistics are computed; if \code{TRUE} advanced statistics are also included in the computation (see Details).
 #' @param ... currently not used
 #'
 #' @return

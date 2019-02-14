@@ -8,7 +8,7 @@
 #'
 #' @details
 #'
-#' Implements a recursion that computes the full dependende tree of a
+#' Implements a recursion that computes the full dependence tree of a
 #' \code{package} from \code{x}. Specifically, the packages that are
 #' requirements for \code{package} (\code{Depends}, \code{Imports} or
 #' \code{LinkingTo}) are found, then the requirements for those

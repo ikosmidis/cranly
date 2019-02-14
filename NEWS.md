@@ -1,21 +1,14 @@
-# cranly 0.4
-
-## Bug fixes
-* Minor hack to prevent errors with duplicated base packages
-
-## New functionality
-
-## Other improvements, updates and addition
-
 # cranly 0.3
 
 ## Bug fixes
+* Fixed a minor bug that may return duplicated base packages
 
 ## New functionality
 
 ## Other improvements, updates and addition
 * Improved vignettes and fixed check erorrs that resulted in archiving on 2019-01-23
-* Removed **testthat** and **rmarkdown** from Suggests in DESCRIPTION
+* Improved documentsation
+* Removed **testthat** from Suggests in DESCRIPTION
 
 # cranly 0.2
 

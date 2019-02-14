@@ -10,7 +10,7 @@
 \arguments{
 \item{object}{a \code{\link{cranly_network}} object}
 
-\item{advanced}{logical. If \code{FALSE} (default) only basic network statistics are computed; if \code{TRUE} advanced statstics are also included in the computation (see Details).}
+\item{advanced}{logical. If \code{FALSE} (default) only basic network statistics are computed; if \code{TRUE} advanced statistics are also included in the computation (see Details).}
 
 \item{...}{currently not used}
 }

@@ -1,6 +1,6 @@
 Package: cranly
 Title: Package Directives and Collaboration Networks in CRAN
-Version: 0.3.900
+Version: 0.3
 Authors@R: c(person(given = "Ioannis", family = "Kosmidis",
                     role = c("aut", "cre"),
 	            email = "ioannis.kosmidis@warwick.ac.uk",
