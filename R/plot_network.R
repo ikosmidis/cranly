@@ -9,8 +9,8 @@
 #' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is \code{TRUE}
 #' @param dragView logical. Should the user be able to drag the view around? Default is \code{TRUE}
 #' @param zoomView logical. Should the user be able to zoom in? Default is \code{TRUE}
-#' @param legend logical. Should a legend be added on the resulting visualization? Default is \code{FALSE}
-#' @param title logical. Should a title be added on the resulting visualization? Default is \code{FALSE}
+#' @param legend logical. Should a legend be added on the resulting visualization? Default is \code{TRUE}
+#' @param title logical. Should a title be added on the resulting visualization? Default is \code{TRUE}
 #' @param global locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}
 #' @param plot logical. Should the visualisation be returned? Default is \code{TRUE}
 #' @param ... currently not used

@@ -5,11 +5,11 @@
 \title{Interactive visualization of a package or author \code{\link{cranly_network}}}
 \usage{
 \method{plot}{cranly_network}(x, package = Inf, author = Inf,
-  directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
-  base = TRUE, recommended = TRUE, exact = TRUE, global = TRUE,
-  physics_threshold = 200, height = NULL, width = NULL,
-  dragNodes = TRUE, dragView = TRUE, zoomView = TRUE, legend = TRUE,
-  title = TRUE, plot = TRUE, ...)
+  directive = c("imports", "suggests", "enhances", "depends",
+  "linkingto"), base = TRUE, recommended = TRUE, exact = TRUE,
+  global = TRUE, physics_threshold = 200, height = NULL,
+  width = NULL, dragNodes = TRUE, dragView = TRUE, zoomView = TRUE,
+  legend = TRUE, title = TRUE, plot = TRUE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
@@ -40,9 +40,9 @@
 
 \item{zoomView}{logical. Should the user be able to zoom in? Default is \code{TRUE}}
 
-\item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{FALSE}}
+\item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{TRUE}}
 
-\item{title}{logical. Should a title be added on the resulting visualization? Default is \code{FALSE}}
+\item{title}{logical. Should a title be added on the resulting visualization? Default is \code{TRUE}}
 
 \item{plot}{logical. Should the visualisation be returned? Default is \code{TRUE}}
 

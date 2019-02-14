@@ -6,7 +6,8 @@
 \title{Clean and organise package and author names in the output of \code{tools::CRAN_package_db()}}
 \usage{
 clean_CRAN_db(packages_db = tools::CRAN_package_db(),
-  clean_directives = clean_up_directives, clean_author = clean_up_author)
+  clean_directives = clean_up_directives,
+  clean_author = clean_up_author)
 }
 \arguments{
 \item{packages_db}{a \code{\link{data.frame}} with the same

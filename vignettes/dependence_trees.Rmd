@@ -32,24 +32,25 @@ Constructing `cranly_dependence_tree` objects is straightforward once a package 
 
 Let's download, clean and organise today's CRAN database, and build the package directives network
 ```{r}
+library("cranly")
 cran_db <- clean_CRAN_db()
 package_network <- build_network(cran_db, perspective = "package")
 ```
 
-We can then compute dependence trees for any package in CRAN using the function `compute_dependence_tree` on the package directives network. For example the dependence tree of **brglm2** is
+We can then compute dependence trees for any package in CRAN using the function `compute_dependence_tree` on the package directives network. For example the dependence tree of [**brglm2**](https://cran.r-project.org/package=brglm2) is
 ```{r}
  compute_dependence_tree(package_network, "brglm2")
 ```
-and of **tibble** is
+and of [**tibble**]((https://cran.r-project.org/package=tibble)) is
 ```{r}
 compute_dependence_tree(package_network, "tibble")
 ```
 The resulting data frame, includes package names and a generation index. The generation of the named package is by default 0 and as we move back through the required packages and the requirements of those the generation index decreases by 1. I had **loads of fun** implementing `compute_dependence_tree`, because the tree construction can be neatly and cleanly written as a recursion (see source code of `compute_dependence_tree`), leveraging the advantages of functional programming (that's a different and long discussion, though).
 
-The method `build_dependence_tree` uses `compute_dependence_tree` to construct and edge list for the dependence tree, that we can the visualise. For example for **cranly**
+The method `build_dependence_tree` uses `compute_dependence_tree` to construct and edge list for the dependence tree, that we can the visualise. For example for [**tibble**](https://cran.r-project.org/package=tibble)
 ```{r}
-cranly_tree <- build_dependence_tree(package_network, "cranly")
-plot(cranly_tree)
+tibble_tree <- build_dependence_tree(package_network, "tibble")
+plot(tibble_tree)
 ```
 
 # Package dependence index
@@ -65,12 +66,15 @@ $p$. The generation takes values on the non-positive integers,
 with the package(s) $p$ being placed at generation $0$, the
 packages that $p$ links to, depends or imports at generation
 $-1$ and so on.
+
+For example, the package dependence index for all packages in the dependence tree of [**betareg**](https://cran.r-project.org/package=betareg)
 ```{r}
-cranly_dep_index <- sapply(cranly_tree$nodes$package, function(package) {
+betareg_tree <- build_dependence_tree(package_network, "betareg")
+betareg_dep_index <- sapply(betareg_tree$nodes$package, function(package) {
     tree <- build_dependence_tree(package_network, package = package)
     s <- summary(tree)
     s$dependence_index
 })
-sort(cranly_dep_index)
+sort(betareg_dep_index)
 ```
 

@@ -1,3 +1,7 @@
+^\.gitignore
+^\._*
+^.*\.Rproj$
+^\.Rproj\.user$
 ^README\.Rmd$
 ^\.travis\.yml$
 ^codecov\.yml$
@@ -6,8 +10,13 @@ README.md
 README_files/.*\.png$
 README_files
 README.html
-vignettes/cranly.html
-vignettes/glms.html
+tests/
+inst/presentations/
+inst/scratch/
+inst/todo.org
 vignettes/historical.Rmd
 vignettes/tree_analysis.Rmd
-tests/
+vignettes/cranly.html
+vignettes/glms.html
+vignettes/cranly.pdf
+vignettes/cranly.html

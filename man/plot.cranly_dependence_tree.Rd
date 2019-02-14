@@ -23,9 +23,9 @@
 
 \item{zoomView}{logical. Should the user be able to zoom in? Default is \code{TRUE}}
 
-\item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{FALSE}}
+\item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{TRUE}}
 
-\item{title}{logical. Should a title be added on the resulting visualization? Default is \code{FALSE}}
+\item{title}{logical. Should a title be added on the resulting visualization? Default is \code{TRUE}}
 
 \item{plot}{logical. Should the visualisation be returned? Default is \code{TRUE}}
 

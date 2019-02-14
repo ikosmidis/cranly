@@ -5,8 +5,9 @@
 \title{Subset a \code{\link{cranly_network}} according to author, package and/or directive}
 \usage{
 \method{subset}{cranly_network}(x, package = Inf, author = Inf,
-  directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
-  base = TRUE, recommended = TRUE, exact = TRUE, only = FALSE, ...)
+  directive = c("imports", "suggests", "enhances", "depends",
+  "linkingto"), base = TRUE, recommended = TRUE, exact = TRUE,
+  only = FALSE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}

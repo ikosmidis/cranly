@@ -68,7 +68,7 @@ package_network <- build_network(package_db)
 ``` r
 my_packages <- package_by(package_network, "Ioannis Kosmidis")
 my_packages
-#> [1] "betareg"      "brglm"        "brglm2"       "cranly"      
+#> [1] "betareg"      "brglm"        "brglm2"       "cranly"
 #> [5] "enrichwith"   "PlackettLuce" "profileModel" "trackeR"
 ```
 
@@ -171,14 +171,14 @@ that is to 0 the “lighter” the package is
 summary(PL_dependence_tree)
 #> $package
 #> [1] "PlackettLuce"
-#> 
+#>
 #> $n_generations
 #> [1] 3
-#> 
+#>
 #> $parents
 #> [1] "igraph"      "MASS"        "Matrix"      "partykit"    "psychotools"
-#> [6] "psychotree"  "qvcalc"      "rARPACK"     "sandwich"   
-#> 
+#> [6] "psychotree"  "qvcalc"      "rARPACK"     "sandwich"
+#>
 #> $dependence_index
 #> [1] 0.4177529
 ```
