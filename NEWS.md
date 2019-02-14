@@ -3,8 +3,6 @@
 ## Bug fixes
 * Fixed a minor bug that may return duplicated base packages
 
-## New functionality
-
 ## Other improvements, updates and addition
 * Improved vignettes and fixed check erorrs that resulted in archiving on 2019-01-23
 * Improved documentsation
