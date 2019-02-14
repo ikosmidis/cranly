@@ -1,3 +1,12 @@
+# cranly 0.4
+
+## Bug fixes
+* Minor hack to prevent errors with duplicated base packages
+
+## New functionality
+
+## Other improvements, updates and addition
+
 # cranly 0.3
 
 ## Bug fixes
