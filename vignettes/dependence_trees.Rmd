@@ -41,7 +41,7 @@ We can then compute dependence trees for any package in CRAN using the function 
 ```{r}
  compute_dependence_tree(package_network, "brglm2")
 ```
-and of [**tibble**]((https://cran.r-project.org/package=tibble)) is
+and of [**tibble**](https://cran.r-project.org/package=tibble) is
 ```{r}
 compute_dependence_tree(package_network, "tibble")
 ```
