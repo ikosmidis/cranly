@@ -51,7 +51,7 @@ The CRAN database we use is from
 
 ``` r
 attr(package_db, "timestamp")
-#> [1] "2018-05-21 10:14:23 BST"
+#> [1] "2019-06-29 13:46:16 BST"
 ```
 
 #### Package directives networks
@@ -68,8 +68,9 @@ package_network <- build_network(package_db)
 ``` r
 my_packages <- package_by(package_network, "Ioannis Kosmidis")
 my_packages
-#> [1] "betareg"      "brglm"        "brglm2"       "cranly"
-#> [5] "enrichwith"   "PlackettLuce" "profileModel" "trackeR"
+#> [1] "betareg"      "brglm"        "brglm2"       "cranly"      
+#> [5] "enrichwith"   "PlackettLuce" "profileModel" "trackeR"     
+#> [9] "trackeRapp"
 ```
 
 and their sub-network of directives can be summarized in an interactive
@@ -79,7 +80,7 @@ visualization, a shapshot of which is below
 plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```
 
-![](README_files/README-unnamed-chunk-6-1.png)
+![](inst/README_files/README-unnamed-chunk-6-1.png)
 
 We can also compute package summaries and plot “Top-n” lists according
 to the various summaries
@@ -91,13 +92,13 @@ package_summaries <- summary(package_network)
 plot(package_summaries, according_to = "n_imported_by", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-7-1.png)
+![](inst/README_files/README-unnamed-chunk-7-1.png)
 
 ``` r
 plot(package_summaries, according_to = "page_rank", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-7-2.png)
+![](inst/README_files/README-unnamed-chunk-7-2.png)
 
 #### Collaboration networks
 
@@ -115,7 +116,7 @@ summarized as an interactive visualization, a shapshot of which is below
 plot(author_network, author = "Ioannis Kosmidis")
 ```
 
-![](README_files/README-unnamed-chunk-9-1.png)
+![](inst/README_files/README-unnamed-chunk-9-1.png)
 
 “Top-n” collaborators according to various summaries can again be
 computed
@@ -127,19 +128,19 @@ author_summaries <- summary(author_network)
 plot(author_summaries, according_to = "n_collaborators", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-10-1.png)
+![](inst/README_files/README-unnamed-chunk-10-1.png)
 
 ``` r
 plot(author_summaries, according_to = "n_packages", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-10-2.png)
+![](inst/README_files/README-unnamed-chunk-10-2.png)
 
 ``` r
 plot(author_summaries, according_to = "page_rank", top = 20)
 ```
 
-![](README_files/README-unnamed-chunk-10-3.png)
+![](inst/README_files/README-unnamed-chunk-10-3.png)
 
 Well, the usual suspects…
 
@@ -161,7 +162,7 @@ PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
 plot(PL_dependence_tree)
 ```
 
-![](README_files/README-unnamed-chunk-11-1.png)
+![](inst/README_files/README-unnamed-chunk-11-1.png)
 
 **cranly** also implements a *package dependence index* (see
 ?summary.cranly\_dependence\_tree for mathematical details). The closer
@@ -171,16 +172,16 @@ that is to 0 the “lighter” the package is
 summary(PL_dependence_tree)
 #> $package
 #> [1] "PlackettLuce"
-#>
+#> 
 #> $n_generations
 #> [1] 3
-#>
+#> 
 #> $parents
-#> [1] "igraph"      "MASS"        "Matrix"      "partykit"    "psychotools"
-#> [6] "psychotree"  "qvcalc"      "rARPACK"     "sandwich"
-#>
+#> [1] "igraph"      "Matrix"      "partykit"    "psychotools" "psychotree" 
+#> [6] "qvcalc"      "rARPACK"     "sandwich"   
+#> 
 #> $dependence_index
-#> [1] 0.4177529
+#> [1] 0.3835101
 ```
 
 Check the package vignettes for a more comprehensive tour of the package
