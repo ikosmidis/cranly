@@ -7,8 +7,8 @@
 ^codecov\.yml$
 ^CONDUCT\.md$
 README.md
-README_files/.*\.png$
-README_files
+inst/README_files/.*\.png$
+inst/README_files
 README.html
 tests/
 inst/presentations/
