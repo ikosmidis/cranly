@@ -67,8 +67,28 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
         ## Edges
         edges <- rbind(im, su, en, de, li)
 
+
         nodes <- merge(data.frame(package = unique(c(edges$from, edges$to)), stringsAsFactors=FALSE),
                        object, by = "package", all.x = TRUE)
+
+        ## NA in enhances, imports etc indicates that no information
+        ## is available about that package (e.g being from
+        ## bioconductor). character(0) on the other hand means that
+        ## there is no package in enhances, imports, etc.
+
+        ## Split name and emails of maintainers
+        maintainers <- lapply(strsplit(nodes$maintainer, "<"), function(x) {
+            gsub(">", "", x)
+        })
+
+        ## Extract and clean white space
+        nodes$maintainer <- sapply(maintainers, "[", 1) %>%
+            str_replace_all("^\\s+|\\s+$|\\s+(?=\\s)", "") %>%
+            clean_up_author()
+
+        nodes$email <- sapply(maintainers, "[", 2) %>%
+            str_replace_all("^\\s+|\\s+$|\\s+(?=\\s)", "")
+
 
         base_packages <- utils::installed.packages(priority = "high")
         base_package_names <- unique(base_packages[, "Package"])

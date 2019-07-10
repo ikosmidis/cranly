@@ -142,7 +142,8 @@ clean_up_directives <- function(variable) {
         str_split(",") %>%
         lapply(function(x) {
             out <- str_replace_all(x, ",|^\\s+|\\s+$", "")
-            out[!(out == "")]
+            out <- out[!(out == "")]
+            if (all(is.na(out))) character(0) else out
         })## eliminate remaining commas and leading and trailing whitespaces
 }
 

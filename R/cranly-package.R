@@ -44,10 +44,13 @@
 #'
 NULL
 
-#' Find packages and authors by authors or packages with names matching a specific string
+#' Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string
 #'
 #' @inheritParams subset.cranly_network
 #' @param name a vector of character strings with the names to be matched. If \code{Inf} all available names in \code{x} are returned. If \code{NULL} (default) nothing is matched
+#' @param flat if \code{TRUE} (default) then the results is an unnamed character vector. See Details for what each function returns when \code{flat = FALSE}.
+#'
+#' @details
 #'
 #' @examples
 #' \dontrun{
@@ -136,6 +139,20 @@ linking_to <- function(x, package = NULL, exact = FALSE) {
 enhances <- function(x, package = NULL, exact = FALSE) {
     UseMethod("enhances")
 }
+
+#' @rdname package_by
+#' @export
+maintainer_of <- function(x, package = NULL, exact = FALSE) {
+    UseMethod("maintainer_of")
+}
+
+
+#' @rdname package_by
+#' @export
+maintained_by <- function(x, name = NULL, exact = FALSE) {
+    UseMethod("maintained_by")
+}
+
 
 
 #' \code{build_network} method for an object
