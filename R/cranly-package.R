@@ -48,9 +48,12 @@ NULL
 #'
 #' @inheritParams subset.cranly_network
 #' @param name a vector of character strings with the names to be matched. If \code{Inf} all available names in \code{x} are returned. If \code{NULL} (default) nothing is matched
-#' @param flat if \code{TRUE} (default) then the results is an unnamed character vector. See Details for what each function returns when \code{flat = FALSE}.
+#' @param flat if \code{TRUE} (default) then the result is an unnamed character vector. See Details for what each function returns when \code{flat = FALSE}.
 #'
 #' @details
+#'
+#' If \code{flat = TRUE} 
+#' 
 #'
 #' @examples
 #' \donttest{
