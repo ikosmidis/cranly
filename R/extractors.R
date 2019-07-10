@@ -334,7 +334,7 @@ maintainer_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat 
     }
     else {
         out <- unique(x$nodes[inds, c("package", "maintainer")])
-        out <- structure(out$maintainer, names = out$package)
+        out <- structure(out$maintainer, names = out$package)        
     }
     if (all(is.na(out)) | !length(out)) {
         return(character(0))
@@ -368,7 +368,7 @@ maintained_by.cranly_network <- function(x, author = NULL, exact = FALSE, flat =
         out <- unique(unlist(x$nodes[inds, "package"]))
     }
     else {
-        out <- unique(x$nodes[inds, c("package", "maintainer")])
+        out <- unique(x$nodes[inds, c("package", "maintainer")])        
         out <- structure(out$package, names = out$maintainer)
     }
     if (all(is.na(out)) | !length(out)) {
@@ -584,6 +584,43 @@ version_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
         out <- unique(x$nodes[inds, c("package", "version")])
         out <- structure(out$version, names = out$package)
     }
+    if (all(is.na(out)) | !length(out)) {
+        return(character(0))
+    }
+    else {
+        return(out[!is.na(out)])
+    }
+}
+
+
+#' @export
+release_date_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    if (attr(x, "perspective") == "author") {
+        stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
+    }
+    if (is.null(package)) {
+        return(character(0))
+    }
+    if (any(is.infinite(package))) {
+        return(unlist(x$nodes$published))
+    }
+    package <- gsub("\\.", "\\\\.", package)
+    if (exact) {
+        str <- paste(package, collapse = "$(?!\\.)|^")
+        str <- paste0("^", str, "$(?!\\.)")
+    }
+    else {
+        str <- paste(package, collapse = "|")
+    }
+    inds <- sapply(x$nodes$package, function(z) any(grepl(str, z, ignore.case = !exact, perl = TRUE)))
+    if (flat) {
+        out <- unlist(x$nodes[inds, "published"])
+    }
+    else {
+        out <- x$nodes[inds, c("package", "published")]
+        out <- structure(out$published, names = out$package)
+    }
+    
     if (all(is.na(out)) | !length(out)) {
         return(character(0))
     }

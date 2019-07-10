@@ -111,6 +111,8 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
         enhances <- clean_directives(enhances)
         linkingto <- clean_directives(linkingto)
         author <- clean_author(author)
+        date <- as.Date(date)
+        published <- as.Date(published)
     })
 
     attr(packages_db, "timestamp") <- Sys.time()

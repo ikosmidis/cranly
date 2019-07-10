@@ -48,11 +48,25 @@ NULL
 #'
 #' @inheritParams subset.cranly_network
 #' @param name a vector of character strings with the names to be matched. If `Inf` all available names in `x` are returned. If `NULL` (default) nothing is matched
-#' @param flat if `TRUE` (default) then the result is an unnamed character vector. See Details for what each function returns when `flat = FALSE`.
+#' @param flat if `TRUE` (default) then the result is an unnamed character vector. See Value for what each function returns when `flat = FALSE`.
 #'
-#' @details
+#' @return
 #'
-#' If `flat = TRUE` 
+#' The result of `package_with` and `author_with` is an unnamed vector of character strings regardless of the value  of `flat`. If `flat = TRUE` the the result of the other extractor function is as follows:
+#' - `package_by`:  vector of package names named by maintainer
+#' - `author_of`: list of vectors of author names named by package
+#' - `suggests`:  list of vectors of package names named by package
+#' - `depends`: list of vectors of package names named by package
+#' - `imports`: list of vectors of package names named by package
+#' - `linking_to`: list of vectors of package names named by package
+#' - `maintainer_of`: vector of maintainers named by package
+#' - `maintained_by`: named vector of packages
+#' - `email_of`: named vector of emails
+#' - `email_with`: named vector of emails
+#' - `description_of`: named vector of descriptions
+#' - `title_of`: named vector of titles
+#' - `license_of`: named vector of license strings
+#' - `version_of`: named vector of version numbers
 #' 
 #'
 #' @examples
@@ -194,6 +208,14 @@ license_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
 version_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("version_of")
 }
+
+
+#' @rdname package_by
+#' @export
+release_date_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("release_date_of")
+}
+
 
 
 

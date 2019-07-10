@@ -18,6 +18,7 @@
 \alias{title_of}
 \alias{license_of}
 \alias{version_of}
+\alias{release_date_of}
 \title{Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string}
 \usage{
 package_by(x, author = NULL, exact = FALSE, flat = TRUE)
@@ -53,6 +54,8 @@ title_of(x, package = NULL, exact = FALSE, flat = TRUE)
 license_of(x, package = NULL, exact = FALSE, flat = TRUE)
 
 version_of(x, package = NULL, exact = FALSE, flat = TRUE)
+
+release_date_of(x, package = NULL, exact = FALSE, flat = TRUE)
 }
 \arguments{
 \item{x}{a \code{\link[=cranly_network]{cranly_network()}} object}
@@ -61,17 +64,33 @@ version_of(x, package = NULL, exact = FALSE, flat = TRUE)
 
 \item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
 
-\item{flat}{if \code{TRUE} (default) then the result is an unnamed character vector. See Details for what each function returns when \code{flat = FALSE}.}
+\item{flat}{if \code{TRUE} (default) then the result is an unnamed character vector. See Value for what each function returns when \code{flat = FALSE}.}
 
 \item{name}{a vector of character strings with the names to be matched. If \code{Inf} all available names in \code{x} are returned. If \code{NULL} (default) nothing is matched}
 
 \item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
 }
+\value{
+The result of \code{package_with} and \code{author_with} is an unnamed vector of character strings regardless of the value  of \code{flat}. If \code{flat = TRUE} the the result of the other extractor function is as follows:
+\itemize{
+\item \code{package_by}:  vector of package names named by maintainer
+\item \code{author_of}: list of vectors of author names named by package
+\item \code{suggests}:  list of vectors of package names named by package
+\item \code{depends}: list of vectors of package names named by package
+\item \code{imports}: list of vectors of package names named by package
+\item \code{linking_to}: list of vectors of package names named by package
+\item \code{maintainer_of}: vector of maintainers named by package
+\item \code{maintained_by}: named vector of packages
+\item \code{email_of}: named vector of emails
+\item \code{email_with}: named vector of emails
+\item \code{description_of}: named vector of descriptions
+\item \code{title_of}: named vector of titles
+\item \code{license_of}: named vector of license strings
+\item \code{version_of}: named vector of version numbers
+}
+}
 \description{
 Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string
-}
-\details{
-If \code{flat = TRUE}
 }
 \examples{
 \donttest{
