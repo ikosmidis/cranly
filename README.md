@@ -46,7 +46,7 @@ package and author names in the data frame that results from a call to
 The CRAN database we use is from
 
     attr(package_db, "timestamp")
-    #> [1] "2019-07-10 23:02:11 BST"
+    #> [1] "2019-07-10 23:08:51 BST"
 
 #### Package directives networks
 

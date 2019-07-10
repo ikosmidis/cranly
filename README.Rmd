@@ -35,7 +35,6 @@ Install the development version from github:
 devtools::install_github("ikosmidis/cranly")
 ```
 
-
 ### Collaboration and package directives networks in CRAN
 
 The first step in the **cranly** workflow is to try and
