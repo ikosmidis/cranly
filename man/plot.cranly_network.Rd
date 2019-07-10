@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_network.R
 \name{plot.cranly_network}
 \alias{plot.cranly_network}
-\title{Interactive visualization of a package or author \code{\link{cranly_network}}}
+\title{Interactive visualization of a package or author \code{\link[=cranly_network]{cranly_network()}}}
 \usage{
 \method{plot}{cranly_network}(x, package = Inf, author = Inf,
   directive = c("imports", "suggests", "enhances", "depends",
@@ -12,7 +12,7 @@
   legend = TRUE, title = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{x}{a \code{\link{cranly_network}} object}
+\item{x}{a \code{\link[=cranly_network]{cranly_network()}} object}
 
 \item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
 
@@ -28,7 +28,7 @@
 
 \item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}}
 
-\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork]{visEdges}}}
+\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork:visEdges]{visNetwork::visEdges()}}}
 
 \item{height}{: Height (optional, defaults to automatic sizing)}
 
@@ -49,7 +49,7 @@
 \item{...}{currently not used}
 }
 \description{
-Interactive visualization of a package or author \code{\link{cranly_network}}
+Interactive visualization of a package or author \code{\link[=cranly_network]{cranly_network()}}
 }
 \examples{
 \dontrun{

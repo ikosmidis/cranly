@@ -9,7 +9,7 @@
   trace = FALSE, perspective = "package", ...)
 }
 \arguments{
-\item{object}{a \code{\link{cranly_db}} object}
+\item{object}{a \code{\link[=cranly_db]{cranly_db()}} object}
 
 \item{trace}{logical. Print progress information? Default is \code{FALSE}}
 
@@ -18,14 +18,14 @@
 \item{...}{Currently not used}
 }
 \value{
-A list of 2 \code{\link{data.frame}s} with the \code{edges} and
+A list of 2 \code{[data.frame]s} with the \code{edges} and
 \code{nodes} of the network
 }
 \description{
 Compute edges and nodes of package directives and collaboration networks
 }
 \details{
-The convention for a \code{\link{cranly_network}} object with
+The convention for a \code{\link[=cranly_network]{cranly_network()}} object with
 \code{perspective = "package"} is that the direction of an edge is
 from the package that is imported by, suggested by, enhances or is
 a dependency of another package, to the latter package. The author

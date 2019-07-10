@@ -2,10 +2,10 @@
 
 #' Top-n package or author barplots according to a range of network statistics
 #'
-#' @param x a \code{\link{summary_cranly_network}} object
-#' @param top integer. How may top packages or authors should be plotted? Default is \code{20}
-#' @param according_to the statistic according to which the top-\code{top} list is produced. See \code{\link{summary.cranly_network}} for available statistics
-#' @param scale logical. Should the statistics be scaled to lie between \code{0} and \code{1} before plotting? Default is \code{FALSE}
+#' @param x a [summary_cranly_network()] object
+#' @param top integer. How may top packages or authors should be plotted? Default is `20`
+#' @param according_to the statistic according to which the top-`top` list is produced. See [summary.cranly_network()] for available statistics
+#' @param scale logical. Should the statistics be scaled to lie between `0` and `1` before plotting? Default is `FALSE`
 #' @param ... currently not used
 #'
 #' @examples

@@ -9,9 +9,9 @@
 #' @details
 #'
 #' Implements a recursion that computes the full dependence tree of a
-#' \code{package} from \code{x}. Specifically, the packages that are
-#' requirements for \code{package} (\code{Depends}, \code{Imports} or
-#' \code{LinkingTo}) are found, then the requirements for those
+#' `package` from `x`. Specifically, the packages that are
+#' requirements for `package` (`Depends`, `Imports` or
+#' `LinkingTo`) are found, then the requirements for those
 #' packages are found, and so on.
 #'
 #' @export
@@ -32,7 +32,7 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
     }
 }
 
-#' Construct a \code{\link{cranly_dependence_tree}} object
+#' Construct a [cranly_dependence_tree()] object
 #'
 #' @aliases cranly_dependence_tree
 #' @inheritParams  plot.cranly_network
@@ -90,25 +90,25 @@ build_dependence_tree.cranly_network <- function(x,
     x
 }
 
-#' summary method for \code{\link{cranly_dependence_tree}} objects
+#' summary method for [cranly_dependence_tree()] objects
 #'
-#' Hard-dependence summaries for R packages from a \code{\link{cranly_dependence_tree}} object
+#' Hard-dependence summaries for R packages from a [cranly_dependence_tree()] object
 #'
-#' @param object a \code{\link{cranly_dependence_tree}} object
+#' @param object a [cranly_dependence_tree()] object
 #' @param ... currently not used
 #'
 #' @return
 #'
-#' A list with components \code{n_generations}, \code{parents}, and
-#' \code{dependence_index}.
+#' A list with components `n_generations`, `parents`, and
+#' `dependence_index`.
 #'
 #' @details
 #'
-#' The summary method for a \code{\link{cranly_dependence_tree}}
+#' The summary method for a [cranly_dependence_tree()]
 #' object returns the number of generations the R package(s) in the
-#' object inherit from (\code{n_generations}), the immediate
-#' parents of the R package(s) (\code{parents}), and a dependence
-#' index \code{dependence_index} defined as
+#' object inherit from (`n_generations`), the immediate
+#' parents of the R package(s) (`parents`), and a dependence
+#' index `dependence_index` defined as
 #' \deqn{
 #' -\frac{\sum_{i \in C_p; i \ne p} \frac{1}{N_i} g_i}{\sum_{i \in C_p; i \ne p} \frac{1}{N_i}}
 #' }
@@ -118,9 +118,9 @@ build_dependence_tree.cranly_network <- function(x,
 #' import package \eqn{i}, and \eqn{g_i} is the generation that
 #' package \eqn{i} appears in the dependence tree of package(s)
 #' \eqn{p}. The generation takes values on the non-positive integers,
-#' with the package(s) \eqn{p} being placed at generation \code{0}, the
+#' with the package(s) \eqn{p} being placed at generation `0`, the
 #' packages that \eqn{p} links to, depends or imports at generation
-#' \code{-1} and so on.
+#' `-1` and so on.
 #'
 #' A dependence index of zero means that the \eqn{p} only has
 #' immediate parents. The dependence index weights the dependencies

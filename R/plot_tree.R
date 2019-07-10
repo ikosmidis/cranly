@@ -1,7 +1,7 @@
-#' Interactive visualization of package(s) dependence tree from a \code{\link{cranly_network}}
+#' Interactive visualization of package(s) dependence tree from a [cranly_network()]
 #'
 #' @inheritParams plot.cranly_network
-#' @param x a \code{\link{cranly_dependence_tree}} object
+#' @param x a [cranly_dependence_tree()] object
 #'
 #' @seealso compute_dependence_tree dependence_tree
 #'

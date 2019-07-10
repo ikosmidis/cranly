@@ -1,23 +1,23 @@
 # Copyright (C) 2018 Ioannis Kosmidis
 
-#' Coerce a \code{\link{cranly_network}} to an \code{\link[igraph]{graph}} object
+#' Coerce a [cranly_network()] to an [igraph::graph()] object
 #'
-#' @param x a \code{\link{cranly_network}} object
-#' @param reverse logical. Should the direction of the edges be reversed? See details. Default is \code{TRUE}
+#' @param x a [cranly_network()] object
+#' @param reverse logical. Should the direction of the edges be reversed? See details. Default is `TRUE`
 #' @param ... currently not used
 #'
 #' @details
 #'
-#' The convention for a \code{\link{cranly_network}} object with
-#' \code{perspective = "package"} is that the direction of an edge is
+#' The convention for a [cranly_network()] object with
+#' `perspective = "package"` is that the direction of an edge is
 #' from the package that is imported by, suggested by, enhances or is
 #' a dependency of another package, to the latter
-#' package. \code{reverse} reverses that direction to correctly
+#' package. `reverse` reverses that direction to correctly
 #' compute relevant network summaries (see
-#' \code{summary.cranly_network}). \code{reverse} is only relevant
-#' when the \code{attr(x, "perspective")} is "package" and is ignored
-#' when \code{attr(x, "perspective")} is "author", in which case the
-#' resulting \code{\link[igraph]{graph}} object represents an
+#' `summary.cranly_network`). `reverse` is only relevant
+#' when the `attr(x, "perspective")` is "package" and is ignored
+#' when `attr(x, "perspective")` is "author", in which case the
+#' resulting [igraph::graph()] object represents an
 #' undirected network of authors.
 #'
 #' @examples

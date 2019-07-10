@@ -55,15 +55,15 @@ license_of(x, package = NULL, exact = FALSE, flat = TRUE)
 version_of(x, package = NULL, exact = FALSE, flat = TRUE)
 }
 \arguments{
-\item{x}{a \code{\link{cranly_network}} object}
+\item{x}{a \code{\link[=cranly_network]{cranly_network()}} object}
 
 \item{author}{a vector of character strings with the author names to be matched. Default is \code{Inf} which returns all available author in \code{x} for further subsetting}
 
 \item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
 
-\item{flat}{if `TRUE` (default) then the result is an unnamed character vector. See Details for what each function returns when `flat = FALSE`.}
+\item{flat}{if \code{TRUE} (default) then the result is an unnamed character vector. See Details for what each function returns when \code{flat = FALSE}.}
 
-\item{name}{a vector of character strings with the names to be matched. If `Inf` all available names in `x` are returned. If `NULL` (default) nothing is matched}
+\item{name}{a vector of character strings with the names to be matched. If \code{Inf} all available names in \code{x} are returned. If \code{NULL} (default) nothing is matched}
 
 \item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
 }
@@ -71,7 +71,7 @@ version_of(x, package = NULL, exact = FALSE, flat = TRUE)
 Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string
 }
 \details{
-If `flat = TRUE`
+If \code{flat = TRUE}
 }
 \examples{
 \donttest{

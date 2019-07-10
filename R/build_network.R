@@ -2,26 +2,26 @@
 
 #' Compute edges and nodes of package directives and collaboration networks
 #'
-#' @param object a \code{\link{cranly_db}} object
-#' @param trace logical. Print progress information? Default is \code{FALSE}
-#' @param perspective character. Build a \code{"package"} (default )or an \code{"author"} network?
+#' @param object a [cranly_db()] object
+#' @param trace logical. Print progress information? Default is `FALSE`
+#' @param perspective character. Build a `"package"` (default )or an `"author"` network?
 #' @param ... Currently not used
 #'
 #' @aliases cranly_network
 #'
 #' @return
 #'
-#' A list of 2 \code{\link{data.frame}s} with the \code{edges} and
-#' \code{nodes} of the network
+#' A list of 2 `[data.frame]s` with the `edges` and
+#' `nodes` of the network
 #'
 #' @details
 #'
-#' The convention for a \code{\link{cranly_network}} object with
-#' \code{perspective = "package"} is that the direction of an edge is
+#' The convention for a [cranly_network()] object with
+#' `perspective = "package"` is that the direction of an edge is
 #' from the package that is imported by, suggested by, enhances or is
 #' a dependency of another package, to the latter package. The author
 #' collaboration network is analysed and visualised as undirected by
-#' all methods in \code{cranly}.
+#' all methods in `cranly`.
 #'
 #' @examples
 #' \dontrun{

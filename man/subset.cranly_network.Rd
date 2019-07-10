@@ -2,7 +2,7 @@
 % Please edit documentation in R/subset.R
 \name{subset.cranly_network}
 \alias{subset.cranly_network}
-\title{Subset a \code{\link{cranly_network}} according to author, package and/or directive}
+\title{Subset a \code{\link[=cranly_network]{cranly_network()}} according to author, package and/or directive}
 \usage{
 \method{subset}{cranly_network}(x, package = Inf, author = Inf,
   directive = c("imports", "suggests", "enhances", "depends",
@@ -10,7 +10,7 @@
   only = FALSE, ...)
 }
 \arguments{
-\item{x}{a \code{\link{cranly_network}} object}
+\item{x}{a \code{\link[=cranly_network]{cranly_network()}} object}
 
 \item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
 
@@ -29,5 +29,5 @@
 \item{...}{currently not used}
 }
 \description{
-Subset a \code{\link{cranly_network}} according to author, package and/or directive
+Subset a \code{\link[=cranly_network]{cranly_network()}} according to author, package and/or directive
 }

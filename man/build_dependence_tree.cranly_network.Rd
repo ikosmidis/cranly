@@ -3,13 +3,13 @@
 \name{build_dependence_tree.cranly_network}
 \alias{build_dependence_tree.cranly_network}
 \alias{cranly_dependence_tree}
-\title{Construct a \code{\link{cranly_dependence_tree}} object}
+\title{Construct a \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}} object}
 \usage{
 \method{build_dependence_tree}{cranly_network}(x, package = Inf,
   base = FALSE, recommended = TRUE, global = TRUE, ...)
 }
 \arguments{
-\item{x}{a \code{\link{cranly_network}} object}
+\item{x}{a \code{\link[=cranly_network]{cranly_network()}} object}
 
 \item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
 
@@ -22,7 +22,7 @@
 \item{...}{currently not used}
 }
 \description{
-Construct a \code{\link{cranly_dependence_tree}} object
+Construct a \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}} object
 }
 \examples{
 \dontrun{

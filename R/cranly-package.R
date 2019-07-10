@@ -23,15 +23,15 @@
 #' networks, and for computing summaries and producing interactive
 #' visualisations from the resulting networks. Network visualisation
 #' is through the \pkg{visNetwork}
-#' (\url{https://CRAN.R-project.org/package=visNetwork}) package. The
+#' (<https://CRAN.R-project.org/package=visNetwork>) package. The
 #' package also provides functions to coerce the networks to
-#' \pkg{igraph} \url{https://CRAN.R-project.org/package=igraph}
+#' \pkg{igraph} <https://CRAN.R-project.org/package=igraph>
 #' objects for further analyses and modelling.
 #'
 #' @section Acknowledgements:
 #' \itemize{
 #'
-#' \item David Selby (\url{http://selbydavid.com}) experimented with
+#' \item David Selby (<http://selbydavid.com>) experimented with
 #' and provided helpful comments and feedback on a pre-release version
 #' of \pkg{cranly}. His help is gratefully acknowledged.
 #'
@@ -47,12 +47,12 @@ NULL
 #' Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string
 #'
 #' @inheritParams subset.cranly_network
-#' @param name a vector of character strings with the names to be matched. If \code{Inf} all available names in \code{x} are returned. If \code{NULL} (default) nothing is matched
-#' @param flat if \code{TRUE} (default) then the result is an unnamed character vector. See Details for what each function returns when \code{flat = FALSE}.
+#' @param name a vector of character strings with the names to be matched. If `Inf` all available names in `x` are returned. If `NULL` (default) nothing is matched
+#' @param flat if `TRUE` (default) then the result is an unnamed character vector. See Details for what each function returns when `flat = FALSE`.
 #'
 #' @details
 #'
-#' If \code{flat = TRUE} 
+#' If `flat = TRUE` 
 #' 
 #'
 #' @examples
@@ -197,7 +197,7 @@ version_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
 
 
 
-#' \code{build_network} method for an object
+#' `build_network` method for an object
 #'
 #' @param object an object to use for building a network
 #' @param ... other arguments to be passed to the method
@@ -209,7 +209,7 @@ build_network <- function(object, ...) {
     UseMethod("build_network")
 }
 
-#' \code{build_dependence_tree} method for an object
+#' `build_dependence_tree` method for an object
 #'
 #' @param x an object to use for building a dependence tree
 #' @param ... other arguments to be passed to the method

@@ -7,7 +7,7 @@
 compute_dependence_tree(x, package = NULL, generation = 0)
 }
 \arguments{
-\item{x}{a \code{\link{cranly_network}} object}
+\item{x}{a \code{\link[=cranly_network]{cranly_network()}} object}
 
 \item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
 

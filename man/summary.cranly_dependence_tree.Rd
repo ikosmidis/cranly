@@ -2,12 +2,12 @@
 % Please edit documentation in R/dependence_tree.R
 \name{summary.cranly_dependence_tree}
 \alias{summary.cranly_dependence_tree}
-\title{summary method for \code{\link{cranly_dependence_tree}} objects}
+\title{summary method for \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}} objects}
 \usage{
 \method{summary}{cranly_dependence_tree}(object, ...)
 }
 \arguments{
-\item{object}{a \code{\link{cranly_dependence_tree}} object}
+\item{object}{a \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}} object}
 
 \item{...}{currently not used}
 }
@@ -16,10 +16,10 @@ A list with components \code{n_generations}, \code{parents}, and
 \code{dependence_index}.
 }
 \description{
-Hard-dependence summaries for R packages from a \code{\link{cranly_dependence_tree}} object
+Hard-dependence summaries for R packages from a \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}} object
 }
 \details{
-The summary method for a \code{\link{cranly_dependence_tree}}
+The summary method for a \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}}
 object returns the number of generations the R package(s) in the
 object inherit from (\code{n_generations}), the immediate
 parents of the R package(s) (\code{parents}), and a dependence

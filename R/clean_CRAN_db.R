@@ -1,50 +1,50 @@
 # Copyright (C) 2018 Ioannis Kosmidis
 
-#' Clean and organise package and author names in the output of \code{tools::CRAN_package_db()}
+#' Clean and organise package and author names in the output of `tools::CRAN_package_db()`
 #'
 #' @aliases cranly_db
 #'
-#' @param packages_db a \code{\link{data.frame}} with the same
-#'     structure to the output of \code{\link[tools]{CRAN_package_db}}
-#'     (default) or \code{\link[utils]{available.packages}}
+#' @param packages_db a [data.frame] with the same
+#'     structure to the output of [tools::CRAN_package_db()]
+#'     (default) or [utils::available.packages()]
 #' @param clean_directives a function that transforms the contents of
 #'     the various directives in the package descriptions to vectors
-#'     of package names. Default is \code{\link{clean_up_directives}}.
+#'     of package names. Default is [clean_up_directives()].
 #' @param clean_author a function that transforms the contents of
-#'     \code{Author} to vectors of package authors. Default is
-#'     \code{\link{clean_up_author}}.
+#'     `Author` to vectors of package authors. Default is
+#'     [clean_up_author()].
 #'
 #' @details
 #'
-#' \code{clean_CRAN_db} uses \code{clean_up_directives} and
-#' \code{clean_up_authors} to clean up the author names and package
-#' names in the various directives (like \code{Imports},
-#' \code{Depends}, \code{Suggests}, \code{Enhances}, \code{LinkingTo})
-#' as in the \code{data.frame} that results from
-#' \code{\link[tools]{CRAN_package_db}}) and return an organised
-#' \code{data.frame} of class \code{cranly_db} that can be used for
+#' `clean_CRAN_db` uses `clean_up_directives` and
+#' `clean_up_authors` to clean up the author names and package
+#' names in the various directives (like `Imports`,
+#' `Depends`, `Suggests`, `Enhances`, `LinkingTo`)
+#' as in the `data.frame` that results from
+#' [tools::CRAN_package_db()]) and return an organised
+#' `data.frame` of class `cranly_db` that can be used for
 #' further analysis.
 #'
 #'
 #' The function tries hard to identify and eliminate mistakes in the
 #' Author field of the description file, and extract a clean list of
 #' only author names. The relevant operations are coded in the
-#' \code{\link{clean_up_author}} function. Specifically, some
+#' [clean_up_author()] function. Specifically, some
 #' references to copyright holders had to go because they were
 #' contaminating the list of authors (most are not necessary anyway,
 #' but that is a different story...). The current version of
-#' \code{\link{clean_up_author}} is far from best practice in using
+#' [clean_up_author()] is far from best practice in using
 #' regex but it currently does a fair job in cleaning up messy Author
 #' fields. It will be improving in future versions.
 #'
 #' Custom clean-up functions can also be supplied via the
-#' \code{clean_directives} and \code{clean_author} arguments.
+#' `clean_directives` and `clean_author` arguments.
 #'
 #' @return
 #'
-#' An \code{\link{data.frame}} with the same variables as
-#' \code{packaged_db} (but with lower case names), a \code{timestamp}
-#' attribute and also inheriting from \code{class_db}.
+#' An [data.frame()] with the same variables as
+#' `packaged_db` (but with lower case names), a `timestamp`
+#' attribute and also inheriting from `class_db`.
 #'
 #' @examples
 #' \dontrun{

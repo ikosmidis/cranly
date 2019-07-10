@@ -1,15 +1,15 @@
 # Copyright (C) 2018 Ioannis Kosmidis
 
-#' Subset a \code{\link{cranly_network}} according to author, package and/or directive
+#' Subset a [cranly_network()] according to author, package and/or directive
 #'
-#' @param x a \code{\link{cranly_network}} object
-#' @param package a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting
-#' @param author a vector of character strings with the author names to be matched. Default is \code{Inf} which returns all available author in \code{x} for further subsetting
-#' @param directive a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}
-#' @param base logical. Should we include base packages in the subset? Default is \code{TRUE}
-#' @param recommended  logical. Should we include recommended packages in the subset? Default is \code{TRUE}
-#' @param exact logical. Should we use exact matching? Default is \code{TRUE}
-#' @param only logical. If \code{TRUE} the subset includes only the edges between packages named in \code{package} and/or authors named in \code{author}. If \code{FALSE} (default) edges to and from all other packages and/or authors that are linked to \code{package} and/or \code{author} are included in the subset
+#' @param x a [cranly_network()] object
+#' @param package a vector of character strings with the package names to be matched. Default is `Inf` which returns all available packages in `x` for further subsetting
+#' @param author a vector of character strings with the author names to be matched. Default is `Inf` which returns all available author in `x` for further subsetting
+#' @param directive a vector of at least one of `"Imports"`, `"Suggests"`, `"Enhances"`, `"Depends"`
+#' @param base logical. Should we include base packages in the subset? Default is `TRUE`
+#' @param recommended  logical. Should we include recommended packages in the subset? Default is `TRUE`
+#' @param exact logical. Should we use exact matching? Default is `TRUE`
+#' @param only logical. If `TRUE` the subset includes only the edges between packages named in `package` and/or authors named in `author`. If `FALSE` (default) edges to and from all other packages and/or authors that are linked to `package` and/or `author` are included in the subset
 #' @param ... currently not used
 #'
 #' @export

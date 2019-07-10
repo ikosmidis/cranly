@@ -1,18 +1,18 @@
 # Copyright (C) 2018 Ioannis Kosmidis
 
-#' Interactive visualization of a package or author \code{\link{cranly_network}}
+#' Interactive visualization of a package or author [cranly_network()]
 #'
 #' @inheritParams subset.cranly_network
 #' @inheritParams summary.cranly_network
 #' @inheritParams visNetwork::visNetwork
-#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork]{visEdges}}
-#' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is \code{TRUE}
-#' @param dragView logical. Should the user be able to drag the view around? Default is \code{TRUE}
-#' @param zoomView logical. Should the user be able to zoom in? Default is \code{TRUE}
-#' @param legend logical. Should a legend be added on the resulting visualization? Default is \code{TRUE}
-#' @param title logical. Should a title be added on the resulting visualization? Default is \code{TRUE}
-#' @param global locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}
-#' @param plot logical. Should the visualisation be returned? Default is \code{TRUE}
+#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is `200`. See, also [visNetwork::visEdges()]
+#' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is `TRUE`
+#' @param dragView logical. Should the user be able to drag the view around? Default is `TRUE`
+#' @param zoomView logical. Should the user be able to zoom in? Default is `TRUE`
+#' @param legend logical. Should a legend be added on the resulting visualization? Default is `TRUE`
+#' @param title logical. Should a title be added on the resulting visualization? Default is `TRUE`
+#' @param global locical. If `TRUE` (default) the network summary statistics are computed on `object`, otherwise, on the subset of `object` according to `package`, `author`, `directive`, `base`, `recommended`
+#' @param plot logical. Should the visualisation be returned? Default is `TRUE`
 #' @param ... currently not used
 #'
 #' @examples

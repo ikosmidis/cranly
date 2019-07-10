@@ -8,11 +8,11 @@
   scale = FALSE, ...)
 }
 \arguments{
-\item{x}{a \code{\link{summary_cranly_network}} object}
+\item{x}{a \code{\link[=summary_cranly_network]{summary_cranly_network()}} object}
 
 \item{top}{integer. How may top packages or authors should be plotted? Default is \code{20}}
 
-\item{according_to}{the statistic according to which the top-\code{top} list is produced. See \code{\link{summary.cranly_network}} for available statistics}
+\item{according_to}{the statistic according to which the top-\code{top} list is produced. See \code{\link[=summary.cranly_network]{summary.cranly_network()}} for available statistics}
 
 \item{scale}{logical. Should the statistics be scaled to lie between \code{0} and \code{1} before plotting? Default is \code{FALSE}}
 
