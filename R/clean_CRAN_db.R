@@ -1,67 +1,62 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
-#' Clean and organise package and author names in the output of `tools::CRAN_package_db()`
+#' Clean and organise package and author names in the output of [`tools::CRAN_package_db()`]
 #'
 #' @aliases cranly_db
 #'
-#' @param packages_db a [data.frame] with the same
-#'     structure to the output of [tools::CRAN_package_db()]
-#'     (default) or [utils::available.packages()]
+#' @param packages_db a [`data.frame`] with the same structure to the
+#'     output of [`tools::CRAN_package_db`] (default) or
+#'     [`utils::available.packages`].
 #' @param clean_directives a function that transforms the contents of
 #'     the various directives in the package descriptions to vectors
-#'     of package names. Default is [clean_up_directives()].
+#'     of package names. Default is [`clean_up_directives`].
 #' @param clean_author a function that transforms the contents of
 #'     `Author` to vectors of package authors. Default is
-#'     [clean_up_author()].
+#'     [`clean_up_author`].
 #'
 #' @details
 #'
-#' `clean_CRAN_db` uses `clean_up_directives` and
-#' `clean_up_authors` to clean up the author names and package
-#' names in the various directives (like `Imports`,
-#' `Depends`, `Suggests`, `Enhances`, `LinkingTo`)
-#' as in the `data.frame` that results from
-#' [tools::CRAN_package_db()] and return an organised
-#' `data.frame` of class [`cranly_db`] that can be used for
-#' further analysis.
-#'
+#' [`clean_CRAN_db`] uses [`clean_up_directives`] and
+#' [`clean_up_author`] to clean up the author names and package names
+#' in the various directives (like `Imports`, `Depends`, `Suggests`,
+#' `Enhances`, `LinkingTo`) as in the [`data.frame`] that results from
+#' [`tools::CRAN_package_db`]  return an organised `data.frame` of
+#' class [`cranly_db`] that can be used for further analysis.
 #'
 #' The function tries hard to identify and eliminate mistakes in the
 #' Author field of the description file, and extract a clean list of
 #' only author names. The relevant operations are coded in the
-#' [clean_up_author()] function. Specifically, some
-#' references to copyright holders had to go because they were
-#' contaminating the list of authors (most are not necessary anyway,
-#' but that is a different story...). The current version of
-#' [clean_up_author()] is far from best practice in using
-#' regex but it currently does a fair job in cleaning up messy Author
-#' fields. It will be improving in future versions.
+#' [`clean_up_author`] function. Specifically, some references to
+#' copyright holders had to go because they were contaminating the
+#' list of authors (most are not necessary anyway, but that is a
+#' different story...). The current version of [`clean_up_author`] is
+#' far from best practice in using regex but it currently does a fair
+#' job in cleaning up messy Author fields. It will be improving in
+#' future versions.
 #'
 #' Custom clean-up functions can also be supplied via the
 #' `clean_directives` and `clean_author` arguments.
 #'
 #' @return
 #'
-#' An [data.frame()] with the same variables as
-#' `packaged_db` (but with lower case names), a `timestamp`
-#' attribute and also inheriting from `class_db`.
+#' A [`data.frame`] with the same variables as `package_db` (but with
+#' lower case names), that also inherits from `class_db`, and has a
+#' `timestamp` attribute.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## Before cleaning
 #' cran_db <- tools::CRAN_package_db()
 #' cran_db[cran_db$Package == "weights", "Author"]
 #'
 #' ## After clean up
 #' package_db <- clean_CRAN_db(cran_db)
-#' package_db[package_db$Package == "weights", "Author"]
+#' package_db[package_db$package == "weights", "author"]
 #' }
 #' @export
 clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
                           clean_directives = clean_up_directives,
                           clean_author = clean_up_author) {
-
-
 
     if (is.matrix(packages_db)) {
         packages_db <- as.data.frame(packages_db)
@@ -123,11 +118,11 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
 
 #' Clean up package directives
 #'
-#' @param variable a character string
+#' @param variable a character string.
 #'
 #' @return
 #'
-#' A list of one vector of character strings
+#' A list of one vector of character strings.
 #'
 #' @examples
 #' clean_up_directives("R (234)\n stats (>0.01),     base\n graphics")
@@ -151,11 +146,11 @@ clean_up_directives <- function(variable) {
 
 #' Clean up author names
 #'
-#' @param variable a character string
+#' @param variable a character string.
 #'
 #' @return
 #'
-#' A list of one vector of character strings
+#' A list of one vector of character strings.
 #'
 #' @examples
 #' clean_up_author(paste("The R Core team, Brian & with some assistance from Achim, Hadley;",

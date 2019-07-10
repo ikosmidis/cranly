@@ -7,10 +7,10 @@
 clean_up_directives(variable)
 }
 \arguments{
-\item{variable}{a character string}
+\item{variable}{a character string.}
 }
 \value{
-A list of one vector of character strings
+A list of one vector of character strings.
 }
 \description{
 Clean up package directives

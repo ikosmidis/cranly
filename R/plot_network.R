@@ -1,22 +1,22 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
 #' Interactive visualization of a package or author [cranly_network()]
 #'
 #' @inheritParams subset.cranly_network
 #' @inheritParams summary.cranly_network
 #' @inheritParams visNetwork::visNetwork
-#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is `200`. See, also [visNetwork::visEdges()]
-#' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is `TRUE`
-#' @param dragView logical. Should the user be able to drag the view around? Default is `TRUE`
-#' @param zoomView logical. Should the user be able to zoom in? Default is `TRUE`
-#' @param legend logical. Should a legend be added on the resulting visualization? Default is `TRUE`
-#' @param title logical. Should a title be added on the resulting visualization? Default is `TRUE`
-#' @param global locical. If `TRUE` (default) the network summary statistics are computed on `object`, otherwise, on the subset of `object` according to `package`, `author`, `directive`, `base`, `recommended`
-#' @param plot logical. Should the visualisation be returned? Default is `TRUE`
-#' @param ... currently not used
+#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is `200`. See, also [`visNetwork::visEdges`].
+#' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is [`TRUE`].
+#' @param dragView logical. Should the user be able to drag the view around? Default is [`TRUE`].
+#' @param zoomView logical. Should the user be able to zoom in? Default is [`TRUE`].
+#' @param legend logical. Should a legend be added on the resulting visualization? Default is [`TRUE`].
+#' @param title logical. Should a title be added on the resulting visualization? Default is [`TRUE`].
+#' @param global locical. If `TRUE` (default) the network summary statistics are computed on `object`, otherwise, on the subset of `object` according to `package`, `author`, `directive`, `base`, `recommended`.
+#' @param plot logical. Should the visualisation be returned? Default is [`TRUE`].
+#' @param ... currently not used.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' cran_db <- clean_CRAN_db()
 #' package_network <- build_network(cran_db)
 #' ## The package directives network of all users with Ioannis in

@@ -7,26 +7,23 @@
 \method{summary}{cranly_dependence_tree}(object, ...)
 }
 \arguments{
-\item{object}{a \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}} object}
+\item{object}{a \code{\link{cranly_dependence_tree}} object.}
 
-\item{...}{currently not used}
+\item{...}{currently not used.}
 }
 \value{
-A list with components \code{n_generations}, \code{parents}, and
-\code{dependence_index}.
+A list with components \code{n_generations}, \code{parents}, and \code{dependence_index}.
 }
 \description{
-Hard-dependence summaries for R packages from a \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}} object
+Hard dependence summaries for R packages from a \code{\link{cranly_dependence_tree}} object
 }
 \details{
-The summary method for a \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}}
-object returns the number of generations the R package(s) in the
-object inherit from (\code{n_generations}), the immediate
-parents of the R package(s) (\code{parents}), and a dependence
-index \code{dependence_index} defined as
-\deqn{
--\frac{\sum_{i \in C_p; i \ne p} \frac{1}{N_i} g_i}{\sum_{i \in C_p; i \ne p} \frac{1}{N_i}}
-}
+The summary method for a \code{\link{cranly_dependence_tree}} object returns
+the number of generations the R package(s) in the object inherit
+from (\code{n_generations}), the immediate parents of the R package(s)
+(\code{parents}), and a dependence index \code{dependence_index} defined as
+\deqn{ -\frac{\sum_{i \in C_p; i \ne p} \frac{1}{N_i} g_i}{\sum_{i
+\in C_p; i \ne p} \frac{1}{N_i}} }
 
 where \eqn{C_p} is the dependence tree for the package(s) \eqn{p},
 \eqn{N_i} is the total number of packages that depend, link or
@@ -46,7 +43,7 @@ carries, and the maintainers may want to remove any dependencies
 that are not necessary.
 }
 \examples{
-\dontrun{
+\donttest{
 cran_db <- clean_CRAN_db()
 package_network <- build_network(object = cran_db)
 
@@ -65,5 +62,5 @@ summary(dep_tree)
 
 }
 \seealso{
-build_dependence_tree compute_dependence_tree
+\link{'build_dependence_tree'} \link{'compute_dependence_tree'}
 }

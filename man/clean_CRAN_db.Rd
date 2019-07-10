@@ -3,65 +3,63 @@
 \name{clean_CRAN_db}
 \alias{clean_CRAN_db}
 \alias{cranly_db}
-\title{Clean and organise package and author names in the output of \code{tools::CRAN_package_db()}}
+\title{Clean and organise package and author names in the output of \code{\link[tools:CRAN_package_db]{tools::CRAN_package_db()}}}
 \usage{
 clean_CRAN_db(packages_db = tools::CRAN_package_db(),
   clean_directives = clean_up_directives,
   clean_author = clean_up_author)
 }
 \arguments{
-\item{packages_db}{a \link{data.frame} with the same
-structure to the output of \code{\link[tools:CRAN_package_db]{tools::CRAN_package_db()}}
-(default) or \code{\link[utils:available.packages]{utils::available.packages()}}}
+\item{packages_db}{a \code{\link{data.frame}} with the same structure to the
+output of \code{\link[tools:CRAN_package_db]{tools::CRAN_package_db}} (default) or
+\code{\link[utils:available.packages]{utils::available.packages}}.}
 
 \item{clean_directives}{a function that transforms the contents of
 the various directives in the package descriptions to vectors
-of package names. Default is \code{\link[=clean_up_directives]{clean_up_directives()}}.}
+of package names. Default is \code{\link{clean_up_directives}}.}
 
 \item{clean_author}{a function that transforms the contents of
 \code{Author} to vectors of package authors. Default is
-\code{\link[=clean_up_author]{clean_up_author()}}.}
+\code{\link{clean_up_author}}.}
 }
 \value{
-An \code{\link[=data.frame]{data.frame()}} with the same variables as
-\code{packaged_db} (but with lower case names), a \code{timestamp}
-attribute and also inheriting from \code{class_db}.
+A \code{\link{data.frame}} with the same variables as \code{package_db} (but with
+lower case names), that also inherits from \code{class_db}, and has a
+\code{timestamp} attribute.
 }
 \description{
-Clean and organise package and author names in the output of \code{tools::CRAN_package_db()}
+Clean and organise package and author names in the output of \code{\link[tools:CRAN_package_db]{tools::CRAN_package_db()}}
 }
 \details{
-\code{clean_CRAN_db} uses \code{clean_up_directives} and
-\code{clean_up_authors} to clean up the author names and package
-names in the various directives (like \code{Imports},
-\code{Depends}, \code{Suggests}, \code{Enhances}, \code{LinkingTo})
-as in the \code{data.frame} that results from
-\code{\link[tools:CRAN_package_db]{tools::CRAN_package_db()}} and return an organised
-\code{data.frame} of class \code{\link{cranly_db}} that can be used for
-further analysis.
+\code{\link{clean_CRAN_db}} uses \code{\link{clean_up_directives}} and
+\code{\link{clean_up_author}} to clean up the author names and package names
+in the various directives (like \code{Imports}, \code{Depends}, \code{Suggests},
+\code{Enhances}, \code{LinkingTo}) as in the \code{\link{data.frame}} that results from
+\code{\link[tools:CRAN_package_db]{tools::CRAN_package_db}}  return an organised \code{data.frame} of
+class \code{\link{cranly_db}} that can be used for further analysis.
 
 The function tries hard to identify and eliminate mistakes in the
 Author field of the description file, and extract a clean list of
 only author names. The relevant operations are coded in the
-\code{\link[=clean_up_author]{clean_up_author()}} function. Specifically, some
-references to copyright holders had to go because they were
-contaminating the list of authors (most are not necessary anyway,
-but that is a different story...). The current version of
-\code{\link[=clean_up_author]{clean_up_author()}} is far from best practice in using
-regex but it currently does a fair job in cleaning up messy Author
-fields. It will be improving in future versions.
+\code{\link{clean_up_author}} function. Specifically, some references to
+copyright holders had to go because they were contaminating the
+list of authors (most are not necessary anyway, but that is a
+different story...). The current version of \code{\link{clean_up_author}} is
+far from best practice in using regex but it currently does a fair
+job in cleaning up messy Author fields. It will be improving in
+future versions.
 
 Custom clean-up functions can also be supplied via the
 \code{clean_directives} and \code{clean_author} arguments.
 }
 \examples{
-\dontrun{
+\donttest{
 ## Before cleaning
 cran_db <- tools::CRAN_package_db()
 cran_db[cran_db$Package == "weights", "Author"]
 
 ## After clean up
 package_db <- clean_CRAN_db(cran_db)
-package_db[package_db$Package == "weights", "Author"]
+package_db[package_db$package == "weights", "author"]
 }
 }

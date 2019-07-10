@@ -1,9 +1,9 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
 #' Subset a [`cranly_network`] according to author, package and/or directive
 #'
 #' @param x a  [`cranly_network`] object.
-#' @param package a vector of character strings with the package names to be matched. Default is `Inf` which returns all available packages in `x` for further subsetting.
+#' @param package a vector of character strings with the package names to be matched. Default is [`Inf`] which returns all available packages in `x` for further subsetting.
 #' @param author a vector of character strings with the author names to be matched. Default is `Inf` which returns all available author in `x` for further subsetting.
 #' @param directive a vector of at least one of `"Imports"`, `"Suggests"`, `"Enhances"`, `"Depends"`.
 #' @param base logical. Should we include base packages in the subset? Default is `TRUE`.
@@ -12,6 +12,9 @@
 #' @param only logical. If `TRUE` the subset includes only the edges between packages named in `package` and/or authors named in `author`. If `FALSE` (default) edges to and from all other packages and/or authors that are linked to `package` and/or `author` are included in the subset.
 #' @param ... currently not used.
 #'
+#' @return
+#' A [`cranly_network`] object that is the subject of `x`.
+#' 
 #' @export
 subset.cranly_network <- function(x,
                                   package = Inf,

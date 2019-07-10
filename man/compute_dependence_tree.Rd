@@ -24,5 +24,5 @@ requirements for \code{package} (\code{Depends}, \code{Imports} or
 packages are found, and so on.
 }
 \seealso{
-build_dependence_tree
+\code{\link{build_dependence_tree}}
 }

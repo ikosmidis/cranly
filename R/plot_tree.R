@@ -1,9 +1,9 @@
-#' Interactive visualization of package(s) dependence tree from a [cranly_network()]
+#' Interactive visualization of package(s) dependence tree from a [`cranly_network`]
 #'
 #' @inheritParams plot.cranly_network
-#' @param x a [cranly_dependence_tree()] object
+#' @param x a [`cranly_dependence_tree`] object.
 #'
-#' @seealso compute_dependence_tree dependence_tree
+#' @seealso [`compute_dependence_tree`] [`dependence_tree`]
 #'
 #' @export
 plot.cranly_dependence_tree <- function(x,

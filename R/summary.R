@@ -1,16 +1,16 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
 #' Compute a range of package directives and collaboration network statistics
 #'
 #' @aliases summary_cranly_network
 #'
-#' @param object a [cranly_network()] object
-#' @param advanced logical. If `FALSE` (default) only basic network statistics are computed; if `TRUE` advanced statistics are also included in the computation (see Details).
-#' @param ... currently not used
+#' @param object a [`cranly_network`] object.
+#' @param advanced logical. If [`FALSE`] (default) only basic network statistics are computed; if [`TRUE`] advanced statistics are also included in the computation (see Details).
+#' @param ... currently not used`
 #'
 #' @return
 #'
-#' A [data.frame()] of various statistics for the author collaboration
+#' A [`data.frame`] of various statistics for the author collaboration
 #' network or the package directives network, depending on whether
 #' `attr(object, "perspective")` is `"author"` or
 #' `"package"`, respectively. See Details for the current list of

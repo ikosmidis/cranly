@@ -2,38 +2,38 @@
 % Please edit documentation in R/plot_tree.R
 \name{plot.cranly_dependence_tree}
 \alias{plot.cranly_dependence_tree}
-\title{Interactive visualization of package(s) dependence tree from a \code{\link[=cranly_network]{cranly_network()}}}
+\title{Interactive visualization of package(s) dependence tree from a \code{\link{cranly_network}}}
 \usage{
 \method{plot}{cranly_dependence_tree}(x, physics_threshold = 200,
   height = NULL, width = NULL, dragNodes = TRUE, dragView = TRUE,
   zoomView = TRUE, legend = TRUE, title = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{x}{a \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}} object}
+\item{x}{a \code{\link{cranly_dependence_tree}} object.}
 
-\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork:visEdges]{visNetwork::visEdges()}}}
+\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork:visEdges]{visNetwork::visEdges}}.}
 
 \item{height}{: Height (optional, defaults to automatic sizing)}
 
 \item{width}{: Width (optional, defaults to automatic sizing)}
 
-\item{dragNodes}{logical. Should the user be able to drag the nodes that are not fixed? Default is \code{TRUE}}
+\item{dragNodes}{logical. Should the user be able to drag the nodes that are not fixed? Default is \code{\link{TRUE}}.}
 
-\item{dragView}{logical. Should the user be able to drag the view around? Default is \code{TRUE}}
+\item{dragView}{logical. Should the user be able to drag the view around? Default is \code{\link{TRUE}}.}
 
-\item{zoomView}{logical. Should the user be able to zoom in? Default is \code{TRUE}}
+\item{zoomView}{logical. Should the user be able to zoom in? Default is \code{\link{TRUE}}.}
 
-\item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{TRUE}}
+\item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{\link{TRUE}}.}
 
-\item{title}{logical. Should a title be added on the resulting visualization? Default is \code{TRUE}}
+\item{title}{logical. Should a title be added on the resulting visualization? Default is \code{\link{TRUE}}.}
 
-\item{plot}{logical. Should the visualisation be returned? Default is \code{TRUE}}
+\item{plot}{logical. Should the visualisation be returned? Default is \code{\link{TRUE}}.}
 
-\item{...}{currently not used}
+\item{...}{currently not used.}
 }
 \description{
-Interactive visualization of package(s) dependence tree from a \code{\link[=cranly_network]{cranly_network()}}
+Interactive visualization of package(s) dependence tree from a \code{\link{cranly_network}}
 }
 \seealso{
-compute_dependence_tree dependence_tree
+\code{\link{compute_dependence_tree}} \code{\link{dependence_tree}}
 }

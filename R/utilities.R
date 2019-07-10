@@ -1,4 +1,4 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
 ## firstup <- function(x) {
 ##     stri_trans_totitle(x, opts_brkiter = stri_opts_brkiter(type = "sentence"))

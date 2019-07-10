@@ -8,14 +8,14 @@
 \method{summary}{cranly_network}(object, advanced = TRUE, ...)
 }
 \arguments{
-\item{object}{a \code{\link[=cranly_network]{cranly_network()}} object}
+\item{object}{a \code{\link{cranly_network}} object.}
 
-\item{advanced}{logical. If \code{FALSE} (default) only basic network statistics are computed; if \code{TRUE} advanced statistics are also included in the computation (see Details).}
+\item{advanced}{logical. If \code{\link{FALSE}} (default) only basic network statistics are computed; if \code{\link{TRUE}} advanced statistics are also included in the computation (see Details).}
 
-\item{...}{currently not used}
+\item{...}{currently not used`}
 }
 \value{
-A \code{\link[=data.frame]{data.frame()}} of various statistics for the author collaboration
+A \code{\link{data.frame}} of various statistics for the author collaboration
 network or the package directives network, depending on whether
 \code{attr(object, "perspective")} is \code{"author"} or
 \code{"package"}, respectively. See Details for the current list of
