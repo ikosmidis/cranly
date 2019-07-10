@@ -12,29 +12,47 @@
 \alias{enhances}
 \alias{maintainer_of}
 \alias{maintained_by}
+\alias{email_of}
+\alias{email_with}
+\alias{description_of}
+\alias{title_of}
+\alias{license_of}
+\alias{version_of}
 \title{Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string}
 \usage{
-package_by(x, author = NULL, exact = FALSE)
+package_by(x, author = NULL, exact = FALSE, flat = TRUE)
 
-package_with(x, name = NULL, exact = FALSE)
+package_with(x, name = NULL, exact = FALSE, flat = TRUE)
 
-author_with(x, name = NULL, exact = FALSE)
+author_with(x, name = NULL, exact = FALSE, flat = TRUE)
 
-author_of(x, package = NULL, exact = FALSE)
+author_of(x, package = NULL, exact = FALSE, flat = TRUE)
 
-suggests(x, package = NULL, exact = FALSE)
+suggests(x, package = NULL, exact = FALSE, flat = TRUE)
 
-imports(x, package = NULL, exact = FALSE)
+imports(x, package = NULL, exact = FALSE, flat = TRUE)
 
-depends(x, package = NULL, exact = FALSE)
+depends(x, package = NULL, exact = FALSE, flat = TRUE)
 
-linking_to(x, package = NULL, exact = FALSE)
+linking_to(x, package = NULL, exact = FALSE, flat = TRUE)
 
-enhances(x, package = NULL, exact = FALSE)
+enhances(x, package = NULL, exact = FALSE, flat = TRUE)
 
-maintainer_of(x, package = NULL, exact = FALSE)
+maintainer_of(x, package = NULL, exact = FALSE, flat = TRUE)
 
-maintained_by(x, name = NULL, exact = FALSE)
+maintained_by(x, author = NULL, exact = FALSE, flat = TRUE)
+
+email_of(x, author = NULL, exact = FALSE, flat = TRUE)
+
+email_with(x, name = NULL, exact = FALSE, flat = TRUE)
+
+description_of(x, package = NULL, exact = FALSE, flat = TRUE)
+
+title_of(x, package = NULL, exact = FALSE, flat = TRUE)
+
+license_of(x, package = NULL, exact = FALSE, flat = TRUE)
+
+version_of(x, package = NULL, exact = FALSE, flat = TRUE)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_network}} object}
@@ -43,11 +61,11 @@ maintained_by(x, name = NULL, exact = FALSE)
 
 \item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
 
+\item{flat}{if \code{TRUE} (default) then the results is an unnamed character vector. See Details for what each function returns when \code{flat = FALSE}.}
+
 \item{name}{a vector of character strings with the names to be matched. If \code{Inf} all available names in \code{x} are returned. If \code{NULL} (default) nothing is matched}
 
 \item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
-
-\item{flat}{if \code{TRUE} (default) then the results is an unnamed character vector. See Details for what each function returns when \code{flat = FALSE}.}
 }
 \description{
 Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string
@@ -56,38 +74,37 @@ Find packages, authors, maintainers, license, versions etc by authors, packages 
 
 }
 \examples{
-\dontrun{
-cran_db <- clean_CRAN_db()
-## Using a package directives network
-package_network <- build_network(cran_db)
+\donttest{
+# Using a package directives network
+data("pkg_net_20190710", package = "cranly")
 ## Find all packages containing glm in their name
-package_with(package_network, name = "glm")
+package_with(pkg_net_20190710, name = "glm")
 ## Find all authors of packages containing brglm in their name
-author_of(package_network, package = "rglm", exact = FALSE)
+author_of(pkg_net_20190710, package = "rglm", exact = FALSE)
 ## Find all packages with brglm in their name
-package_with(package_network, name = "rglm", exact = FALSE)
+package_with(pkg_net_20190710, name = "rglm", exact = FALSE)
 ## Find all authors of the package brglm2
-author_of(package_network, package = "brglm2", exact = TRUE)
+author_of(pkg_net_20190710, package = "brglm2", exact = TRUE)
 ## Find all authors with Ioannis in their name
-author_with(package_network, name = "Ioannis", exact = TRUE)
+author_with(pkg_net_20190710, name = "Ioannis", exact = FALSE)
 ## Find all packages that package Rcpp suggests
-suggests(package_network, package = "Rcpp", exact = TRUE)
+suggests(pkg_net_20190710, package = "Rcpp", exact = TRUE)
 ## Find all packages that package Rcpp imports
-imports(package_network, package = "Rcpp", exact = TRUE)
+imports(pkg_net_20190710, package = "Rcpp", exact = TRUE)
 ## Find all packages that package RcppArmadillo is linking to
-linking_to(package_network, package = "RcppArmadillo", exact = TRUE)
+linking_to(pkg_net_20190710, package = "RcppArmadillo", exact = TRUE)
 
 ## Using an author collaboration network
-author_network <- build_network(cran_db, perspective = "author")
+data("aut_net_20190710", package = "cranly")
 ## Find all packages containing glm in their name
-package_with(author_network, name = "glm")
+package_with(aut_net_20190710, name = "glm")
 ## Find all authors of packages containing brglm in their name
-author_of(author_network, package = "rglm", exact = FALSE)
+author_of(aut_net_20190710, package = "rglm", exact = FALSE)
 ## Find all packages with brglm in their name
-package_with(author_network, name = "rglm", exact = FALSE)
+package_with(aut_net_20190710, name = "rglm", exact = FALSE)
 ## Find all authors of the package brglm2
-author_of(author_network, package = "brglm2", exact = TRUE)
+author_of(aut_net_20190710, package = "brglm2", exact = TRUE)
 ## Find all authors with Ioannis in their name
-author_with(author_network, name = "Ioannis", exact = TRUE)
+author_with(aut_net_20190710, name = "Ioannis", exact = FALSE)
 }
 }

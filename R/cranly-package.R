@@ -53,104 +53,143 @@ NULL
 #' @details
 #'
 #' @examples
-#' \dontrun{
-#' cran_db <- clean_CRAN_db()
-#' ## Using a package directives network
-#' package_network <- build_network(cran_db)
+#' \donttest{
+#' # Using a package directives network
+#' data("pkg_net_20190710", package = "cranly")
 #' ## Find all packages containing glm in their name
-#' package_with(package_network, name = "glm")
+#' package_with(pkg_net_20190710, name = "glm")
 #' ## Find all authors of packages containing brglm in their name
-#' author_of(package_network, package = "rglm", exact = FALSE)
+#' author_of(pkg_net_20190710, package = "rglm", exact = FALSE)
 #' ## Find all packages with brglm in their name
-#' package_with(package_network, name = "rglm", exact = FALSE)
+#' package_with(pkg_net_20190710, name = "rglm", exact = FALSE)
 #' ## Find all authors of the package brglm2
-#' author_of(package_network, package = "brglm2", exact = TRUE)
+#' author_of(pkg_net_20190710, package = "brglm2", exact = TRUE)
 #' ## Find all authors with Ioannis in their name
-#' author_with(package_network, name = "Ioannis", exact = TRUE)
+#' author_with(pkg_net_20190710, name = "Ioannis", exact = FALSE)
 #' ## Find all packages that package Rcpp suggests
-#' suggests(package_network, package = "Rcpp", exact = TRUE)
+#' suggests(pkg_net_20190710, package = "Rcpp", exact = TRUE)
 #' ## Find all packages that package Rcpp imports
-#' imports(package_network, package = "Rcpp", exact = TRUE)
+#' imports(pkg_net_20190710, package = "Rcpp", exact = TRUE)
 #' ## Find all packages that package RcppArmadillo is linking to
-#' linking_to(package_network, package = "RcppArmadillo", exact = TRUE)
+#' linking_to(pkg_net_20190710, package = "RcppArmadillo", exact = TRUE)
 #'
 #' ## Using an author collaboration network
-#' author_network <- build_network(cran_db, perspective = "author")
+#' data("aut_net_20190710", package = "cranly")
 #' ## Find all packages containing glm in their name
-#' package_with(author_network, name = "glm")
+#' package_with(aut_net_20190710, name = "glm")
 #' ## Find all authors of packages containing brglm in their name
-#' author_of(author_network, package = "rglm", exact = FALSE)
+#' author_of(aut_net_20190710, package = "rglm", exact = FALSE)
 #' ## Find all packages with brglm in their name
-#' package_with(author_network, name = "rglm", exact = FALSE)
+#' package_with(aut_net_20190710, name = "rglm", exact = FALSE)
 #' ## Find all authors of the package brglm2
-#' author_of(author_network, package = "brglm2", exact = TRUE)
+#' author_of(aut_net_20190710, package = "brglm2", exact = TRUE)
 #' ## Find all authors with Ioannis in their name
-#' author_with(author_network, name = "Ioannis", exact = TRUE)
+#' author_with(aut_net_20190710, name = "Ioannis", exact = FALSE)
 #' }
 #' @export
-package_by <- function(x, author = NULL, exact = FALSE) {
+package_by <- function(x, author = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("package_by")
 }
 
 #' @rdname package_by
 #' @export
-package_with <- function(x, name = NULL, exact = FALSE) {
+package_with <- function(x, name = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("package_with")
 }
 
 #' @rdname package_by
 #' @export
-author_with <- function(x, name = NULL, exact = FALSE) {
+author_with <- function(x, name = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("author_with")
 }
 
 #' @rdname package_by
 #' @export
-author_of <- function(x, package = NULL, exact = FALSE) {
+author_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("author_of")
 }
 
 #' @rdname package_by
 #' @export
-suggests <- function(x, package = NULL, exact = FALSE) {
+suggests <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("suggests")
 }
 
 #' @rdname package_by
 #' @export
-imports <- function(x, package = NULL, exact = FALSE) {
+imports <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("imports")
 }
 
 #' @rdname package_by
 #' @export
-depends <- function(x, package = NULL, exact = FALSE) {
+depends <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("depends")
 }
 
 #' @rdname package_by
 #' @export
-linking_to <- function(x, package = NULL, exact = FALSE) {
+linking_to <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("linking_to")
 }
 
 #' @rdname package_by
 #' @export
-enhances <- function(x, package = NULL, exact = FALSE) {
+enhances <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("enhances")
 }
 
 #' @rdname package_by
 #' @export
-maintainer_of <- function(x, package = NULL, exact = FALSE) {
+maintainer_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("maintainer_of")
 }
 
 
 #' @rdname package_by
 #' @export
-maintained_by <- function(x, name = NULL, exact = FALSE) {
+maintained_by <- function(x, author = NULL, exact = FALSE, flat = TRUE) {
     UseMethod("maintained_by")
+}
+
+#' @rdname package_by
+#' @export
+email_of <- function(x, author = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("email_of")
+}
+
+#' @rdname package_by
+#' @export
+email_with <- function(x, name = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("email_with")
+}
+
+
+#' @rdname package_by
+#' @export
+description_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("description_of")
+}
+
+
+#' @rdname package_by
+#' @export
+title_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("title_of")
+}
+
+
+#' @rdname package_by
+#' @export
+license_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("license_of")
+}
+
+
+#' @rdname package_by
+#' @export
+version_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("version_of")
 }
 
 
