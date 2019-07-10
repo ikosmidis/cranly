@@ -1,7 +1,5 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -36,6 +34,7 @@ Install the development version from github:
 # install.packages("devtools")
 devtools::install_github("ikosmidis/cranly")
 ```
+
 
 ### Collaboration and package directives networks in CRAN
 

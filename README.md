@@ -31,10 +31,8 @@ analyses and modelling.
 
 Install the development version from github:
 
-``` r
-# install.packages("devtools")
-devtools::install_github("ikosmidis/cranly")
-```
+    # install.packages("devtools")
+    devtools::install_github("ikosmidis/cranly")
 
 ### Collaboration and package directives networks in CRAN
 
@@ -42,61 +40,47 @@ The first step in the **cranly** workflow is to try and “clean-up” the
 package and author names in the data frame that results from a call to
 `tools::CRAN_package_db()`
 
-``` r
-p_db <- tools::CRAN_package_db()
-package_db <- clean_CRAN_db(p_db)
-```
+    p_db <- tools::CRAN_package_db()
+    package_db <- clean_CRAN_db(p_db)
 
 The CRAN database we use is from
 
-``` r
-attr(package_db, "timestamp")
-#> [1] "2019-06-29 13:46:16 BST"
-```
+    attr(package_db, "timestamp")
+    #> [1] "2019-07-10 23:02:11 BST"
 
 #### Package directives networks
 
 The package directives network can then be built using
 
-``` r
-package_network <- build_network(package_db)
-```
+    package_network <- build_network(package_db)
 
 `package_network` can then be interrogated using extractor methods (see,
 `?package_by`). For example, my packages can be extracted as follows
 
-``` r
-my_packages <- package_by(package_network, "Ioannis Kosmidis")
-my_packages
-#> [1] "betareg"      "brglm"        "brglm2"       "cranly"      
-#> [5] "enrichwith"   "PlackettLuce" "profileModel" "trackeR"     
-#> [9] "trackeRapp"
-```
+    my_packages <- package_by(package_network, "Ioannis Kosmidis")
+    my_packages
+    #>  [1] "betareg"      "brglm"        "brglm2"       "cranly"      
+    #>  [5] "enrichwith"   "PlackettLuce" "profileModel" "semnar"      
+    #>  [9] "trackeR"      "trackeRapp"
 
 and their sub-network of directives can be summarized in an interactive
 visualization, a shapshot of which is below
 
-``` r
-plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
-```
+    plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 
 ![](inst/README_files/README-unnamed-chunk-6-1.png)
 
 We can also compute package summaries and plot “Top-n” lists according
 to the various summaries
 
-``` r
-package_summaries <- summary(package_network)
-#> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
-#> 2784 :closeness centrality is not well-defined for disconnected graphs
-plot(package_summaries, according_to = "n_imported_by", top = 20)
-```
+    package_summaries <- summary(package_network)
+    #> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
+    #> 2784 :closeness centrality is not well-defined for disconnected graphs
+    plot(package_summaries, according_to = "n_imported_by", top = 20)
 
 ![](inst/README_files/README-unnamed-chunk-7-1.png)
 
-``` r
-plot(package_summaries, according_to = "page_rank", top = 20)
-```
+    plot(package_summaries, according_to = "page_rank", top = 20)
 
 ![](inst/README_files/README-unnamed-chunk-7-2.png)
 
@@ -104,41 +88,31 @@ plot(package_summaries, according_to = "page_rank", top = 20)
 
 The collaboration network can also be built using a similar call
 
-``` r
-author_network <- build_network(package_db, perspective = "author")
-```
+    author_network <- build_network(package_db, perspective = "author")
 
 and the extractor functions work exactly as they did for the package
 directives network. For example, my collaboration network results can be
 summarized as an interactive visualization, a shapshot of which is below
 
-``` r
-plot(author_network, author = "Ioannis Kosmidis")
-```
+    plot(author_network, author = "Ioannis Kosmidis")
 
 ![](inst/README_files/README-unnamed-chunk-9-1.png)
 
 “Top-n” collaborators according to various summaries can again be
 computed
 
-``` r
-author_summaries <- summary(author_network)
-#> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
-#> 2784 :closeness centrality is not well-defined for disconnected graphs
-plot(author_summaries, according_to = "n_collaborators", top = 20)
-```
+    author_summaries <- summary(author_network)
+    #> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
+    #> 2784 :closeness centrality is not well-defined for disconnected graphs
+    plot(author_summaries, according_to = "n_collaborators", top = 20)
 
 ![](inst/README_files/README-unnamed-chunk-10-1.png)
 
-``` r
-plot(author_summaries, according_to = "n_packages", top = 20)
-```
+    plot(author_summaries, according_to = "n_packages", top = 20)
 
 ![](inst/README_files/README-unnamed-chunk-10-2.png)
 
-``` r
-plot(author_summaries, according_to = "page_rank", top = 20)
-```
+    plot(author_summaries, according_to = "page_rank", top = 20)
 
 ![](inst/README_files/README-unnamed-chunk-10-3.png)
 
@@ -157,10 +131,8 @@ produced some neat visuals for the package
 For example, the dependence tree of the **PlackettLuce** R package I am
 co-authoring is
 
-``` r
-PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
-plot(PL_dependence_tree)
-```
+    PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
+    plot(PL_dependence_tree)
 
 ![](inst/README_files/README-unnamed-chunk-11-1.png)
 
@@ -168,21 +140,19 @@ plot(PL_dependence_tree)
 ?summary.cranly\_dependence\_tree for mathematical details). The closer
 that is to 0 the “lighter” the package is
 
-``` r
-summary(PL_dependence_tree)
-#> $package
-#> [1] "PlackettLuce"
-#> 
-#> $n_generations
-#> [1] 3
-#> 
-#> $parents
-#> [1] "igraph"      "Matrix"      "partykit"    "psychotools" "psychotree" 
-#> [6] "qvcalc"      "rARPACK"     "sandwich"   
-#> 
-#> $dependence_index
-#> [1] 0.3835101
-```
+    summary(PL_dependence_tree)
+    #> $package
+    #> [1] "PlackettLuce"
+    #> 
+    #> $n_generations
+    #> [1] 3
+    #> 
+    #> $parents
+    #> [1] "igraph"      "Matrix"      "partykit"    "psychotools" "psychotree" 
+    #> [6] "qvcalc"      "rARPACK"     "sandwich"   
+    #> 
+    #> $dependence_index
+    #> [1] 0.385751
 
 Check the package vignettes for a more comprehensive tour of the package
 and for network visualisations on authors with orders of magnitude

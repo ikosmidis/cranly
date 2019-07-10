@@ -1,3 +1,16 @@
+# cranly 0.5
+
+## Other improvements, updates and addition
+* Moved to roxygen2 with rmarkdown
+* Major documentation updates
+* New improved codebased for extractor functions (see `?extractor-functions`)
+* `date` and `published` in `cranly_db` objects are now of class `Date`
+* `cranly_network_objects` with `perspective = "package` carry maintainer and maintainer email information
+
+
+## New functionality
+* New extractor functions: `maintainer_of`, `maintained_by`, `email_of`, `email_with`, `description_of`, `title_of`, `license_of`, `version_of`, `release_date_of` (see `?extractor-functions`)
+
 # cranly 0.3
 
 ## Bug fixes
