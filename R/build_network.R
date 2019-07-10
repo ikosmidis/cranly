@@ -1,27 +1,30 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
 #' Compute edges and nodes of package directives and collaboration networks
+#' 
+#' @param object a [`cranly_db`] object.
+#' @param trace logical. Print progress information? Default is [`FALSE`].
+#' @param perspective character. Should a `"package"` (default) or an `"author"` network be built?
+#' @param ... Currently not used.
 #'
-#' @param object a [cranly_db()] object
-#' @param trace logical. Print progress information? Default is `FALSE`
-#' @param perspective character. Build a `"package"` (default )or an `"author"` network?
-#' @param ... Currently not used
-#'
-#' @aliases cranly_network
+#' @aliases cranly_network build_network
 #'
 #' @return
 #'
-#' A list of 2 `[data.frame]s` with the `edges` and
-#' `nodes` of the network
+#' A list of 2 [`data.frame`] objects with the `edges` and `nodes` of the network.
 #'
 #' @details
 #'
-#' The convention for a [cranly_network()] object with
+#' The convention for a [`cranly_network`] object with
 #' `perspective = "package"` is that the direction of an edge is
 #' from the package that is imported by, suggested by, enhances or is
 #' a dependency of another package, to the latter package. The author
 #' collaboration network is analysed and visualised as undirected by
 #' all methods in `cranly`.
+#'
+#' 
+#' @seealso
+#' [`clean_CRAN_db`] [`subset.cranly_network`] [`plot.cranly_network`] [`extractor-functions`]
 #'
 #' @examples
 #' \dontrun{

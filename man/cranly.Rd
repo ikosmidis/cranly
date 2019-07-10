@@ -32,7 +32,7 @@ of \pkg{cranly}. His help is gratefully acknowledged.
 
 \item This work has been partially supported by the Alan Turing
 Institute under the EPSRC grant EP/N510129/1 (Turing award number
-TU/B/000082)
+TU/B/000082).
 
 }
 }

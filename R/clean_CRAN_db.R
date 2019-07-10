@@ -21,8 +21,8 @@
 #' names in the various directives (like `Imports`,
 #' `Depends`, `Suggests`, `Enhances`, `LinkingTo`)
 #' as in the `data.frame` that results from
-#' [tools::CRAN_package_db()]) and return an organised
-#' `data.frame` of class `cranly_db` that can be used for
+#' [tools::CRAN_package_db()] and return an organised
+#' `data.frame` of class [`cranly_db`] that can be used for
 #' further analysis.
 #'
 #'

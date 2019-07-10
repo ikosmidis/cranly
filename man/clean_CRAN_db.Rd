@@ -36,8 +36,8 @@ Clean and organise package and author names in the output of \code{tools::CRAN_p
 names in the various directives (like \code{Imports},
 \code{Depends}, \code{Suggests}, \code{Enhances}, \code{LinkingTo})
 as in the \code{data.frame} that results from
-\code{\link[tools:CRAN_package_db]{tools::CRAN_package_db()}}) and return an organised
-\code{data.frame} of class \code{cranly_db} that can be used for
+\code{\link[tools:CRAN_package_db]{tools::CRAN_package_db()}} and return an organised
+\code{data.frame} of class \code{\link{cranly_db}} that can be used for
 further analysis.
 
 The function tries hard to identify and eliminate mistakes in the

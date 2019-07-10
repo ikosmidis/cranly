@@ -2,7 +2,7 @@
 
 #' Computes the dependence tree of a package
 #'
-#' @inheritParams package_by
+#' @inheritParams extractor-functions
 #' @param generation integer. The original generation for the package.
 #' @seealso build_dependence_tree
 #'
