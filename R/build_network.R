@@ -72,8 +72,8 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
 
 
         nodes <- merge(data.frame(package = unique(c(edges$from, edges$to)), stringsAsFactors=FALSE),
-                       object, by = "package", all.x = TRUE)
-
+                       object, by = "package", all = TRUE) ## all.x in previous version
+        
         ## NA in enhances, imports etc indicates that no information
         ## is available about that package (e.g being from
         ## bioconductor). character(0) on the other hand means that
