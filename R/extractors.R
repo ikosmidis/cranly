@@ -22,44 +22,49 @@
 #' returned.
 #' 
 #' @seealso
-#' [`build_network.cran_db`] [`subset.cranly_network`] [`plot.cranly_network`]
+#' [`build_network.cranly_db`] [`subset.cranly_network`] [`plot.cranly_network`]
 #'
 #' 
 #' @examples
 #' \donttest{
 #' # Using a package directives network
-#' data("pkg_net_20190710", package = "cranly")
+#' cran_db <- clean_CRAN_db()
+#' pkg_net <- build_network(cran_db, perspective = "package")
 #' ## Find all packages containing glm in their name
-#' package_with(pkg_net_20190710, name = "glm")
+#' package_with(pkg_net, name = "glm")
 #' ## Find all authors of packages containing brglm in their name
-#' author_of(pkg_net_20190710, package = "rglm", exact = FALSE)
+#' author_of(pkg_net, package = "rglm", exact = FALSE)
 #' ## Find all packages with brglm in their name
-#' package_with(pkg_net_20190710, name = "rglm", exact = FALSE)
+#' package_with(pkg_net, name = "rglm", exact = FALSE)
 #' ## Find all authors of the package brglm2
-#' author_of(pkg_net_20190710, package = "brglm2", exact = TRUE)
+#' author_of(pkg_net, package = "brglm2", exact = TRUE)
 #' ## Find all authors with Ioannis in their name
-#' author_with(pkg_net_20190710, name = "Ioannis", exact = FALSE)
+#' author_with(pkg_net, name = "Ioannis", exact = FALSE)
 #' ## Find all packages that package Rcpp suggests
-#' suggests(pkg_net_20190710, package = "Rcpp", exact = TRUE)
+#' suggests(pkg_net, package = "Rcpp", exact = TRUE)
 #' ## Find all packages that package Rcpp imports
-#' imports(pkg_net_20190710, package = "Rcpp", exact = TRUE)
+#' imports(pkg_net, package = "Rcpp", exact = TRUE)
 #' ## Find all packages that package RcppArmadillo is linking to
-#' linking_to(pkg_net_20190710, package = "RcppArmadillo", exact = TRUE)
-#' release_date_of(pkg_net_20190710, package = "RcppArmadillo", exact = TRUE)
-#' release_date_of(pkg_net_20190710, package = "brglm", exact = FALSE)
+#' linking_to(pkg_net, package = "RcppArmadillo", exact = TRUE)
+#' ## Find the release data of RcppArmadillo
+#' release_date_of(pkg_net, package = "RcppArmadillo", exact = TRUE)
+#' ## Find the release data of all packages with "brglm" in their name
+#' release_date_of(pkg_net, package = "brglm", exact = FALSE)
+#' ## More information about packages with "brglm" in their name
+#' release_date_of(pkg_net, package = "brglm", exact = FALSE, flat = FALSE)[c("package", "version")]
 #'
 #' ## Using an author collaboration network
-#' data("aut_net_20190710", package = "cranly")
+#' aut_net <- build_network(cran_db, perspective = "author")
 #' ## Find all packages containing glm in their name
-#' package_with(aut_net_20190710, name = "glm")
+#' package_with(aut_net, name = "glm")
 #' ## Find all authors of packages containing brglm in their name
-#' author_of(aut_net_20190710, package = "rglm", exact = FALSE)
+#' author_of(aut_net, package = "rglm", exact = FALSE)
 #' ## Find all packages with brglm in their name
-#' package_with(aut_net_20190710, name = "rglm", exact = FALSE)
+#' package_with(aut_net, name = "rglm", exact = FALSE)
 #' ## Find all authors of the package brglm2
-#' author_of(aut_net_20190710, package = "brglm2", exact = TRUE)
+#' author_of(aut_net, package = "brglm2", exact = TRUE)
 #' ## Find all authors with Ioannis in their name
-#' author_with(aut_net_20190710, name = "Ioannis", exact = FALSE)
+#' author_with(aut_net, name = "Ioannis", exact = FALSE)
 #' }
 #'
 #' 

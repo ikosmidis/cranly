@@ -5,7 +5,7 @@
 #' @inheritParams extractor-functions
 #' @param generation integer. The original generation for the package.
 #'
-#' @seealso [`build_dependence_tree`]
+#' @seealso [`build_dependence_tree.cranly_network`]
 #'
 #' @details
 #'
@@ -40,7 +40,7 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
 #'
 #' 
 #' @seealso [`compute_dependence_tree`] [`plot.cranly_dependence_tree`] [`summary.cranly_dependence_tree`]
-#'
+#' 
 #' @examples
 #' \donttest{
 #' cran_db <- clean_CRAN_db()
@@ -93,7 +93,7 @@ build_dependence_tree.cranly_network <- function(x,
     x
 }
 
-#' summary method for [cranly_dependence_tree()] objects
+#' summary method for [`cranly_dependence_tree`] objects
 #'
 #' Hard dependence summaries for R packages from a [`cranly_dependence_tree`] object
 #'
@@ -130,7 +130,7 @@ build_dependence_tree.cranly_network <- function(x,
 #' carries, and the maintainers may want to remove any dependencies
 #' that are not necessary.
 #'
-#' @seealso ['build_dependence_tree'] ['compute_dependence_tree']
+#' @seealso [`build_dependence_tree.cranly_network`] [`compute_dependence_tree`]
 #'
 #' @examples
 #' \donttest{

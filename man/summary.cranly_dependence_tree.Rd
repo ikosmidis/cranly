@@ -2,7 +2,7 @@
 % Please edit documentation in R/dependence_tree.R
 \name{summary.cranly_dependence_tree}
 \alias{summary.cranly_dependence_tree}
-\title{summary method for \code{\link[=cranly_dependence_tree]{cranly_dependence_tree()}} objects}
+\title{summary method for \code{\link{cranly_dependence_tree}} objects}
 \usage{
 \method{summary}{cranly_dependence_tree}(object, ...)
 }
@@ -62,5 +62,5 @@ summary(dep_tree)
 
 }
 \seealso{
-\link{'build_dependence_tree'} \link{'compute_dependence_tree'}
+\code{\link{build_dependence_tree.cranly_network}} \code{\link{compute_dependence_tree}}
 }

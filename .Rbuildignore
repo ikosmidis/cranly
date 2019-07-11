@@ -11,6 +11,7 @@ inst/README_files/.*\.png$
 inst/README_files
 README.html
 tests/
+data/
 inst/presentations/
 inst/scratch/
 inst/todo.org

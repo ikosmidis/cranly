@@ -3,7 +3,7 @@
 #' @inheritParams plot.cranly_network
 #' @param x a [`cranly_dependence_tree`] object.
 #'
-#' @seealso [`compute_dependence_tree`] [`dependence_tree`]
+#' @seealso [`compute_dependence_tree`] [`build_dependence_tree.cranly_network`]
 #'
 #' @export
 plot.cranly_dependence_tree <- function(x,

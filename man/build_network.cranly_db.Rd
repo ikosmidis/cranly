@@ -33,7 +33,7 @@ collaboration network is analysed and visualised as undirected by
 all methods in \code{cranly}.
 }
 \examples{
-\dontrun{
+\donttest{
 cran_db <- clean_CRAN_db()
 ## Package directives network
 package_network <- build_network(object = cran_db, perspective = "package")

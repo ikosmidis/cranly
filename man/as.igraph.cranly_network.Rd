@@ -30,13 +30,13 @@ authors.
 \examples{
 \donttest{
 
-data("cran_db_20190710", package = "cranly")
+cran_db <- clean_CRAN_db()
 # Package directives network
-package_network <- build_network(object = cran_db_20190710, perspective = "package")
+package_network <- build_network(object = cran_db, perspective = "package")
 igraph::as.igraph(package_network)
 
 ## Author collaboration network
-author_network <- build_network(object = cran_db_20190710, perspective = "author")
+author_network <- build_network(object = cran_db, perspective = "author")
 igraph::as.igraph(author_network)
 
 }

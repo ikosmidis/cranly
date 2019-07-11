@@ -35,5 +35,5 @@
 Interactive visualization of package(s) dependence tree from a \code{\link{cranly_network}}
 }
 \seealso{
-\code{\link{compute_dependence_tree}} \code{\link{dependence_tree}}
+\code{\link{compute_dependence_tree}} \code{\link{build_dependence_tree.cranly_network}}
 }
