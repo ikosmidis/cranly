@@ -17,6 +17,9 @@
 #' `data.frame`, which is the subset of `x$nodes` matching `author`,
 #' `name` or `package` (according to the value of `exact`). If `flat =
 #' FALSE` then the results is a vector.
+#'
+#' When `flat = TRUE` any [`NA`]s are removed before the result is
+#' returned.
 #' 
 #' @seealso
 #' [`build_network.cran_db`] [`subset.cranly_network`] [`plot.cranly_network`]
@@ -112,7 +115,7 @@ package_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TR
         return(character(0)) #return(unlist(x$nodes$Author))
     }
     if (any(is.infinite(name))) {
-        inds <- rep(TRUE, nrow(x$nodes))
+        inds <- inds_row <- rep(TRUE, nrow(x$nodes))
     }
     else {
         name <- gsub("\\.", "\\\\.", name)
@@ -123,10 +126,15 @@ package_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TR
         else {
             str <- paste(name, collapse = "|")
         }
-        inds <- sapply(x$nodes$package, function(z) any(grepl(str, z, ignore.case = !exact, perl = TRUE)))
+        inds <- sapply(x$nodes$package, function(z) grepl(str, z, ignore.case = !exact, perl = TRUE))
+        inds_row <- sapply(inds, any)
     }
+    
     if (flat) {
-        out <- unique(unlist(x$nodes[inds, "package"]))
+        out <- x$nodes[inds_row, "package"]
+        inds <- inds[inds_row]
+        out <- unique(unlist(lapply(seq.int(out), function(j) out[[j]][inds[[j]]])))
+       
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
@@ -135,7 +143,7 @@ package_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TR
         }
     }
     else {
-        out <- x$nodes[inds, ]
+        out <- x$nodes[inds_row, ]
     }
     out
 }
@@ -182,7 +190,7 @@ author_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TRU
         return(character(0))
     }
     if (any(is.infinite(name))) {
-        inds <- rep(TRUE, nrow(x$nodes))
+        inds <- inds_row <- rep(TRUE, nrow(x$nodes))
     }
     else {
         if (exact) {
@@ -192,12 +200,13 @@ author_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TRU
         else {
             str <- paste(name, collapse = "|")
         }
-        inds <- sapply(x$nodes$author, function(z) any(grepl(str, z, ignore.case = !exact)))
+        inds <- sapply(x$nodes$author, function(z) grepl(str, z, ignore.case = !exact))
+        inds_row <- sapply(inds, any)
     }
-    if (flat) { 
-        out <- unique(unlist(x$nodes$author[inds]))
-        inds <- sapply(out, function(z) any(grepl(str, z, ignore.case = !exact)))
-        out <- out[inds]
+    if (flat) {        
+        out <- x$nodes[inds_row, "author"]
+        inds <- inds[inds_row]
+        out <- unique(unlist(lapply(seq.int(out), function(j) out[[j]][inds[[j]]])))
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
@@ -206,7 +215,7 @@ author_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TRU
         }
     }
     else {
-        out <- x$nodes[inds, ]
+        out <- x$nodes[inds_row, ]
     }
     out
 }
@@ -690,6 +699,7 @@ version_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
         inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     }
     if (flat) {
+        print(x$nodes[inds, "package"])
         out <- unique(unlist(x$nodes[inds, "version"]))
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)

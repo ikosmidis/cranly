@@ -29,12 +29,34 @@ test_that("package_by with exact = TRUE returns correct results", {
 })
 
 test_that("package_with with exact = FALSE returns correct results", {
-  expect_true(all(c("biglm", "brglm", "brglm2") %in% package_with(package_network, "glm", exact = FALSE)))
+    expect_true(all(c("biglm", "brglm", "brglm2") %in% package_with(package_network, "glm", exact = FALSE)))
+    expect_true(all(package_with(author_network, "brglm", exact = FALSE) %in% c("brglm", "mbrglm", "brglm2")))
+    expect_true(all(package_with(package_network, "brglm", exact = FALSE) %in% c("brglm", "mbrglm", "brglm2")))
+    expect_identical(length(package_with(package_network, Inf, exact = FALSE, flat = TRUE)), 14995L)
+    expect_identical(dim(package_with(package_network, Inf, exact = FALSE, flat = FALSE)), c(14995L, 65L))
+    expect_identical(dim(package_with(author_network, Inf, exact = FALSE, flat = FALSE)), c(20373L, 2L))
 })
 
 
 test_that("author_of with exact = TRUE returns correct results", {
-  expect_true("Ioannis Kosmidis" %in% author_of(package_network, "PlackettLuce", exact = TRUE))
+    expect_true("Ioannis Kosmidis" %in% author_of(package_network, "PlackettLuce", exact = TRUE))
+})
+
+test_that("author_with returns correct resuts", {
+    expect_true(all(
+        author_with(package_network, "Ioan") %in%
+        c("Alex Ioannides", "Ioannis N Athanasiadis", "Ioannis Tsamardinos",
+          "Ioanna Manolopoulou", "Lazaros Ioannidis", "Ioannis Kosmidis",
+          "Eleni Ioanna Delatola", "Ioana-Elena Oana")))
+    expect_true(all(
+        author_with(author_network, "Ioan") %in%
+        c("Alex Ioannides", "Ioannis N Athanasiadis", "Ioannis Tsamardinos",
+          "Ioanna Manolopoulou", "Lazaros Ioannidis", "Ioannis Kosmidis",
+          "Eleni Ioanna Delatola", "Ioana-Elena Oana")))
+    expect_identical(length(author_with(package_network, Inf)), 20373L)
+    expect_identical(length(author_with(author_network, Inf)), 20373L)
+    expect_identical(dim(author_with(author_network, Inf, flat = FALSE)), c(20373L, 2L))
+    expect_identical(dim(author_with(package_network, Inf, flat = FALSE)), c(14995L, 65L))
 })
 
 test_that("suggets, imports, linking_to works", {
@@ -82,7 +104,7 @@ test_that("email_of and email_with work", {
 test_that("version_of and release_date_of", {
   expect_identical(version_of(package_network, "brglm2"), "0.5.1")
   expect_true(all(version_of(package_network, c("brglm2", "MASS")) %in%
-    c("2.1.1", "1.0.3", "0.5.1", "1.0", "7.3-51.4", "1.1.0", "0.5-3")))
+    c("2.1.1", "1.0.3", "0.5.1", "1.0", "7.3-51.4", "1.1.0", "1.3", "0.5-3")))
 })
 
 test_that("title_of works as expected", {

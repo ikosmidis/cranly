@@ -111,6 +111,9 @@
 If \code{flat = TRUE} then the result of the extraction function is a
 \code{data.frame}, which is the subset of \code{x$nodes} matching \code{author},
 \code{name} or \code{package} (according to the value of \code{exact}). If \code{flat = FALSE} then the results is a vector.
+
+When \code{flat = TRUE} any \code{\link{NA}}s are removed before the result is
+returned.
 }
 \description{
 Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string
