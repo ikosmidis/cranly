@@ -1,5 +1,8 @@
 # cranly 0.5
 
+## Bug fixed
+* Fixed a bug where packages with no directives were removed from the network when `perspective = "package"` 
+
 ## Other improvements, updates and addition
 * Moved to roxygen2 with rmarkdown
 * Major documentation updates
