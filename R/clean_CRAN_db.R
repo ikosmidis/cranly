@@ -105,10 +105,21 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
         suggests <- clean_directives(suggests)
         enhances <- clean_directives(enhances)
         linkingto <- clean_directives(linkingto)
+        reverse_imports <- clean_directives(`reverse imports`)
+        reverse_depends <- clean_directives(`reverse depends`)
+        reverse_suggests <- clean_directives(`reverse suggests`)
+        reverse_enhances <- clean_directives(`reverse enhances`)
+        reverse_linking_to <- clean_directives(`reverse linking to`)
         author <- clean_author(author)
         date <- as.Date(date)
         published <- as.Date(published)
     })
+
+    ## Clean up
+    packages_db["reverse depends"] <- packages_db["reverse imports"] <-
+        packages_db["reverse suggests"] <- packages_db["reverse enhances"] <-
+        packages_db["reverse linking to"] <- NULL
+    
 
     attr(packages_db, "timestamp") <- Sys.time()
 
