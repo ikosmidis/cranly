@@ -704,7 +704,6 @@ version_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
         inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     }
     if (flat) {
-        print(x$nodes[inds, "package"])
         out <- unique(unlist(x$nodes[inds, "version"]))
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
