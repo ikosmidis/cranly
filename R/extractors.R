@@ -11,6 +11,22 @@
 #' @param flat if `TRUE` (default) then the result is an unnamed character vector. See Value for more details of what is returned.
 #' @param exact logical. Should we use exact matching? Default is `TRUE`.
 #'
+#' @details
+#'
+#' The extractor functions should be thought of as resulting `y` in the statement
+#'
+#' `y` is [the] `extractor-function` a `package`/`author`.
+#'
+#' For example,
+#'
+#' - "`y` is the package by `"Kurt Hornik"`": `package_by(x, "Kurt Hornik")`
+#'
+#' - "`y` is the author of a package with a name matching `"MASS"`": `author_of(x, "MASS")`
+#'
+#' - "`y` is the package enhanced by the `"prediction"` package: `enhanced_by(x, "prediction", exact = TRUE)`
+#'
+#' - "`y` is the package linking to `"Rcpp"`: `linking_to(x, "Rcpp", exact = TRUE)`
+#' 
 #' @return
 #'
 #' If `flat = TRUE` then the result of the extraction function is a
@@ -40,13 +56,15 @@
 #' author_of(pkg_net, package = "brglm2", exact = TRUE)
 #' ## Find all authors with Ioannis in their name
 #' author_with(pkg_net, name = "Ioannis", exact = FALSE)
-#' ## Find all packages that package Rcpp suggests
-#' suggests(pkg_net, package = "Rcpp", exact = TRUE)
-#' ## Find all packages that package Rcpp imports
-#' imports(pkg_net, package = "Rcpp", exact = TRUE)
-#' ## Find all packages that package RcppArmadillo is linking to
+#' ## Find all packages suggested by Rcpp
+#' suggested_by(pkg_net, package = "Rcpp", exact = TRUE)
+#' ## Find all packages imported by Rcpp 
+#' imported_by(pkg_net, package = "Rcpp", exact = TRUE)
+#' ## Find all packages enhacing brglm
+#' enhancing(pkg_net, package = "brglm", exact - TRUE)
+#' ## Find all packages linking to RcppArmadillo
 #' linking_to(pkg_net, package = "RcppArmadillo", exact = TRUE)
-#' ## Find the release data of RcppArmadillo
+#' ## Find the release date of RcppArmadillo
 #' release_date_of(pkg_net, package = "RcppArmadillo", exact = TRUE)
 #' ## Find the release data of all packages with "brglm" in their name
 #' release_date_of(pkg_net, package = "brglm", exact = FALSE)

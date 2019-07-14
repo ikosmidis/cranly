@@ -65,18 +65,18 @@ author_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
 }
 
 #' @export
-suggests <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
-    UseMethod("suggests")
+suggesting <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("suggesting")
 }
 
 #' @export
-imports <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
-    UseMethod("imports")
+importing <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("importing")
 }
 
 #' @export
-depends <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
-    UseMethod("depends")
+depending_on <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("depending")
 }
 
 #' @export
@@ -85,9 +85,35 @@ linking_to <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
 }
 
 #' @export
-enhances <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
-    UseMethod("enhances")
+enhancing <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("enhancing")
 }
+
+#' @export
+enhanced_by <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("enhanced_by")
+}
+
+#' @export
+imported_by <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("imported_by")
+}
+
+#' @export
+suggested_by <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("suggested_by")
+}
+
+#' @export
+dependency_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("dependency_of")
+}
+
+#' @export
+linked_by <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    UseMethod("linked_by")
+}
+
 
 #' @export
 maintainer_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {

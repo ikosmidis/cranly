@@ -6,11 +6,15 @@
 \alias{package_with}
 \alias{author_with}
 \alias{author_of}
-\alias{suggests}
-\alias{imports}
-\alias{depends}
+\alias{suggested_by}
+\alias{imported_by}
+\alias{dependency_of}
+\alias{linked_by}
+\alias{enhanced_by}
+\alias{suggesting}
+\alias{importing}
 \alias{linking_to}
-\alias{enhances}
+\alias{enhancing}
 \alias{maintainer_of}
 \alias{maintained_by}
 \alias{email_of}
@@ -57,34 +61,34 @@
 \method{author_with}{cranly_network}(x, name = NULL, exact = FALSE,
   flat = TRUE)
 
-suggested_by.cranly_network(x, package = NULL, exact = FALSE,
+\method{suggested_by}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-suggesting.cranly_network(x, package = NULL, exact = FALSE,
+\method{suggesting}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-imported_by.cranly_network(x, package = NULL, exact = FALSE,
+\method{imported_by}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-importing.cranly_network(x, package = NULL, exact = FALSE,
+\method{importing}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-dependency_of.cranly_network(x, package = NULL, exact = FALSE,
+\method{dependency_of}{cranly_network}(x, package = NULL,
+  exact = FALSE, flat = TRUE)
+
+\method{depending_on}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-depending_on.cranly_network(x, package = NULL, exact = FALSE,
-  flat = TRUE)
-
-linked_by.cranly_network(x, package = NULL, exact = FALSE,
+\method{linked_by}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
 \method{linking_to}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-enhanced_by.cranly_network(x, package = NULL, exact = FALSE,
+\method{enhanced_by}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-enhancing.cranly_network(x, package = NULL, exact = FALSE,
+\method{enhancing}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
 \method{maintainer_of}{cranly_network}(x, package = NULL,
@@ -138,6 +142,19 @@ returned.
 \description{
 Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string
 }
+\details{
+The extractor functions should be thought of as resulting \code{y} in the statement
+
+\code{y} is \link{the} \code{extractor-function} a \code{package}/\code{author}.
+
+For example,
+\itemize{
+\item "\code{y} is the package by \code{"Kurt Hornik"}": \code{package_by(x, "Kurt Hornik")}
+\item "\code{y} is the author of a package with a name matching \code{"MASS"}": \code{author_of(x, "MASS")}
+\item "\code{y} is the package enhanced by the \code{"prediction"} package: \code{enhanced_by(x, "prediction", exact = TRUE)}
+\item "\code{y} is the package linking to \code{"Rcpp"}: \code{linking_to(x, "Rcpp", exact = TRUE)}
+}
+}
 \examples{
 \donttest{
 # Using a package directives network
@@ -153,13 +170,15 @@ package_with(pkg_net, name = "rglm", exact = FALSE)
 author_of(pkg_net, package = "brglm2", exact = TRUE)
 ## Find all authors with Ioannis in their name
 author_with(pkg_net, name = "Ioannis", exact = FALSE)
-## Find all packages that package Rcpp suggests
-suggests(pkg_net, package = "Rcpp", exact = TRUE)
-## Find all packages that package Rcpp imports
-imports(pkg_net, package = "Rcpp", exact = TRUE)
-## Find all packages that package RcppArmadillo is linking to
+## Find all packages suggested by Rcpp
+suggested_by(pkg_net, package = "Rcpp", exact = TRUE)
+## Find all packages imported by Rcpp 
+imported_by(pkg_net, package = "Rcpp", exact = TRUE)
+## Find all packages enhacing brglm
+enhancing(pkg_net, package = "brglm", exact - TRUE)
+## Find all packages linking to RcppArmadillo
 linking_to(pkg_net, package = "RcppArmadillo", exact = TRUE)
-## Find the release data of RcppArmadillo
+## Find the release date of RcppArmadillo
 release_date_of(pkg_net, package = "RcppArmadillo", exact = TRUE)
 ## Find the release data of all packages with "brglm" in their name
 release_date_of(pkg_net, package = "brglm", exact = FALSE)
