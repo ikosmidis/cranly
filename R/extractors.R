@@ -13,19 +13,19 @@
 #'
 #' @details
 #'
-#' The extractor functions should be thought of as resulting `y` in the statement
+#' The extractor functions all try to figure out what `y` is in the statement
 #'
 #' `y` is [the] `extractor-function` a `package`/`author`.
 #'
-#' For example,
+#' For example, for
 #'
-#' - "`y` is the package by `"Kurt Hornik"`": `package_by(x, "Kurt Hornik")`
+#' - "`y` is the package by `"Kurt Hornik"`" we do `package_by(x, "Kurt Hornik")`
 #'
-#' - "`y` is the author of a package with a name matching `"MASS"`": `author_of(x, "MASS")`
+#' - "`y` is the author of a package with a name matching `"MASS"`" we do `author_of(x, "MASS")`
 #'
-#' - "`y` is the package enhanced by the `"prediction"` package: `enhanced_by(x, "prediction", exact = TRUE)`
+#' - "`y` is the package enhanced by the `"prediction"` package we do `enhanced_by(x, "prediction", exact = TRUE)`
 #'
-#' - "`y` is the package linking to `"Rcpp"`: `linking_to(x, "Rcpp", exact = TRUE)`
+#' - "`y` is the package linking to `"Rcpp"` we do `linking_to(x, "Rcpp", exact = TRUE)`
 #' 
 #' @return
 #'

@@ -143,16 +143,16 @@ returned.
 Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string
 }
 \details{
-The extractor functions should be thought of as resulting \code{y} in the statement
+The extractor functions all try to figure out what \code{y} is in the statement
 
 \code{y} is \link{the} \code{extractor-function} a \code{package}/\code{author}.
 
-For example,
+For example, for
 \itemize{
-\item "\code{y} is the package by \code{"Kurt Hornik"}": \code{package_by(x, "Kurt Hornik")}
-\item "\code{y} is the author of a package with a name matching \code{"MASS"}": \code{author_of(x, "MASS")}
-\item "\code{y} is the package enhanced by the \code{"prediction"} package: \code{enhanced_by(x, "prediction", exact = TRUE)}
-\item "\code{y} is the package linking to \code{"Rcpp"}: \code{linking_to(x, "Rcpp", exact = TRUE)}
+\item "\code{y} is the package by \code{"Kurt Hornik"}" we do \code{package_by(x, "Kurt Hornik")}
+\item "\code{y} is the author of a package with a name matching \code{"MASS"}" we do \code{author_of(x, "MASS")}
+\item "\code{y} is the package enhanced by the \code{"prediction"} package we do \code{enhanced_by(x, "prediction", exact = TRUE)}
+\item "\code{y} is the package linking to \code{"Rcpp"} we do \code{linking_to(x, "Rcpp", exact = TRUE)}
 }
 }
 \examples{
