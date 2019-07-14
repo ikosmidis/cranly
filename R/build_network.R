@@ -65,7 +65,7 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
         su <- compute_edges(what = "suggests")
         en <- compute_edges(what = "enhances", rev = TRUE)
         de <- compute_edges(what = "depends")
-        li <- compute_edges(what = "linkingto")
+        li <- compute_edges(what = "linking_to")
 
         ## Edges
         edges <- rbind(im, su, en, de, li)
@@ -116,7 +116,7 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
                 d[["suggests"]] <- unname(x["suggests"])
                 d[["enhances"]] <- unname(x["enhances"])
                 d[["depends"]] <- unname(x["depends"])
-                d[["linkingto"]] <- unname(x["linkingto"])
+                d[["linking_to"]] <- unname(x["linking_to"])
                 d[["version"]] <- x$version
                 d[["maintainer"]] <- x$maintainer
                 d

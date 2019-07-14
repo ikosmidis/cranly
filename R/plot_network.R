@@ -32,7 +32,7 @@
 plot.cranly_network <- function(x,
                                 package = Inf,
                                 author = Inf,
-                                directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
+                                directive = c("imports", "suggests", "enhances", "depends", "linking_to"),
                                 base = TRUE,
                                 recommended = TRUE,
                                 exact = TRUE,
@@ -79,14 +79,14 @@ plot.cranly_network <- function(x,
                                        "depends" = colors[10],
                                        "suggests" = colors[4],
                                        "enhances" = colors[4],
-                                       "linkingto" = colors[7]))
+                                       "linking_to" = colors[7]))
             dashes <- ifelse(type %in% c("imports", "depends", "suggests"), FALSE, TRUE)
             title <- str_replace_all(type,
                                      c("imports" = "is imported by",
                                        "depends" = "is dependency of",
                                        "suggests" = "is suggested by",
                                        "enhances" = "enhances",
-                                       "linkingto" = "is linked by"))
+                                       "linking_to" = "is linked by"))
         })
         summaries <- summaries[nodes_subset$package, ]
         nodes_subset <- within(nodes_subset, {
@@ -99,7 +99,7 @@ plot.cranly_network <- function(x,
                             "depends/is dependency of:", summaries$n_depends, "/", summaries$n_depended_by, "<br>",
                             "suggests/suggested by:", summaries$n_suggests, "/", summaries$n_suggested_by, "<br>",
                             "enhances/enhaced by:", summaries$n_enhances, "/", summaries$n_enhanced_by, "<br>",
-                            "linkingto/linked by:", summaries$n_linking, "/", summaries$n_linked_by, "<br>",
+                            "linking_to/linked by:", summaries$n_linking, "/", summaries$n_linked_by, "<br>",
                             "<img src=https://cranlogs.r-pkg.org/badges/", package, "?color=969696>")
         })
 

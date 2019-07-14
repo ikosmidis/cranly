@@ -19,7 +19,7 @@
 subset.cranly_network <- function(x,
                                   package = Inf,
                                   author = Inf,
-                                  directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
+                                  directive = c("imports", "suggests", "enhances", "depends", "linking_to"),
                                   base = TRUE,
                                   recommended = TRUE,
                                   exact = TRUE,

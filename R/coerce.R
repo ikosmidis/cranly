@@ -54,7 +54,7 @@ as.igraph.cranly_network <- function(x, reverse = FALSE, ...) {
         E(g)$depends <- edges$depends
         E(g)$suggests <- edges$suggests
         E(g)$enhances <- edges$enhances
-        E(g)$linkingto <- edges$linkingto
+        E(g)$linking_to <- edges$linking_to
         E(g)$version <- edges$version
     }
     g

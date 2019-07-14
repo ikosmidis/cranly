@@ -84,7 +84,7 @@ summary.cranly_network <- function(object, advanced = TRUE, ...) {
                              delete.vertices = FALSE)
         n_enhanced_by <- degree(gr, mode = "out")
         n_enhances <- degree(gr, mode = "in")
-        gr <- subgraph.edges(graph = cranly_graph, eids = which(E(cranly_graph)$type == "linkingto"),
+        gr <- subgraph.edges(graph = cranly_graph, eids = which(E(cranly_graph)$type == "linking_to"),
                              delete.vertices = FALSE)
         n_linking_to <- degree(gr, mode = "out")
         n_linked_by <- degree(gr, mode = "in")

@@ -70,7 +70,7 @@ build_dependence_tree.cranly_network <- function(x,
     package <- unique(d_tree$package)
 
     x <- subset(x, package = package, author = Inf,
-                directive = c("imports", "depends", "linkingto"),
+                directive = c("imports", "depends", "linking_to"),
                 exact = TRUE, only = TRUE,
                 base = base, recommended = recommended)
 

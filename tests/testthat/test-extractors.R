@@ -5,12 +5,12 @@ context("Test extractor functions")
 # package_network <- build_network(object = cran_db)
 # author_network <- build_network(object = cran_db, perspective = "author")
 
-# data("cran_db_20190710", package = "cranly")
-data("pkg_net_20190710", package = "cranly")
-data("aut_net_20190710", package = "cranly")
+# data("cran_db_today", package = "cranly")
+data("pkg_net_today", package = "cranly")
+data("aut_net_today", package = "cranly")
 
-package_network <- pkg_net_20190710
-author_network <- aut_net_20190710
+package_network <- pkg_net_today
+author_network <- aut_net_today
 
 
 test_that("author_of returns same value when applied to a package network and when applied to an author network", {

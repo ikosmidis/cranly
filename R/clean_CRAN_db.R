@@ -104,7 +104,7 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
         depends <- clean_directives(depends)
         suggests <- clean_directives(suggests)
         enhances <- clean_directives(enhances)
-        linkingto <- clean_directives(linkingto)
+        linking_to <- clean_directives(linkingto)
         reverse_imports <- clean_directives(`reverse imports`)
         reverse_depends <- clean_directives(`reverse depends`)
         reverse_suggests <- clean_directives(`reverse suggests`)
@@ -118,7 +118,7 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
     ## Clean up
     packages_db["reverse depends"] <- packages_db["reverse imports"] <-
         packages_db["reverse suggests"] <- packages_db["reverse enhances"] <-
-        packages_db["reverse linking to"] <- NULL
+        packages_db["reverse linking to"] <- packages_db["linkingto"] <- NULL
     
 
     attr(packages_db, "timestamp") <- Sys.time()

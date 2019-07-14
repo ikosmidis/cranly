@@ -6,7 +6,7 @@
 \usage{
 \method{subset}{cranly_network}(x, package = Inf, author = Inf,
   directive = c("imports", "suggests", "enhances", "depends",
-  "linkingto"), base = TRUE, recommended = TRUE, exact = TRUE,
+  "linking_to"), base = TRUE, recommended = TRUE, exact = TRUE,
   only = FALSE, ...)
 }
 \arguments{

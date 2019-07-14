@@ -6,7 +6,7 @@
 \usage{
 \method{plot}{cranly_network}(x, package = Inf, author = Inf,
   directive = c("imports", "suggests", "enhances", "depends",
-  "linkingto"), base = TRUE, recommended = TRUE, exact = TRUE,
+  "linking_to"), base = TRUE, recommended = TRUE, exact = TRUE,
   global = TRUE, physics_threshold = 200, height = NULL,
   width = NULL, dragNodes = TRUE, dragView = TRUE, zoomView = TRUE,
   legend = TRUE, title = TRUE, plot = TRUE, ...)

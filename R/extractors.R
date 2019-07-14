@@ -69,7 +69,7 @@
 #'
 #' 
 #' @name extractor-functions
-#' @aliases package_by package_with author_with author_of suggests imports depends linking_to enhances maintainer_of maintained_by email_of email_with description_of title_of license_of version_of release_date_of 
+#' @aliases package_by package_with author_with author_of suggested_by imported_by dependency_of linked_by enhanced_by suggesting importing linking_to enhancing maintainer_of maintained_by email_of email_with description_of title_of license_of version_of release_date_of 
 NULL
 
 
@@ -227,7 +227,7 @@ author_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TRU
 
 #' @rdname extractor-functions
 #' @export
-suggests.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+suggested_by.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     if (attr(x, "perspective") == "author") {
         stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
     }
@@ -263,9 +263,50 @@ suggests.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRU
     out
 }
 
+
 #' @rdname extractor-functions
 #' @export
-imports.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+suggesting.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    if (attr(x, "perspective") == "author") {
+        stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
+    }
+    if (is.null(package)) {
+        return(character(0))
+    }
+    if (any(is.infinite(package))) {
+        inds <- rep(TRUE, nrow(x$nodes))
+    }
+    else {
+        package <- gsub("\\.", "\\\\.", package)
+        if (exact) {
+            str <- paste(package, collapse = "$(?!\\.)|^")
+            str <- paste0("^", str, "$(?!\\.)")
+        }
+        else {
+            str <- paste(package, collapse = "|")
+        }
+        inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
+    }
+    if (flat) {
+        out <- unique(unlist(x$nodes[inds, "reverse_suggests"]))
+        if (all(is.na(out)) | !length(out)) {
+            out <- character(0)
+        }
+        else {
+            out <- out[!is.na(out)]
+        }
+    }
+    else {
+        out <- x$nodes[inds, ]
+    }    
+    out
+}
+
+
+
+#' @rdname extractor-functions
+#' @export
+imported_by.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     if (attr(x, "perspective") == "author") {
         stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
     }
@@ -303,7 +344,46 @@ imports.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE
 
 #' @rdname extractor-functions
 #' @export
-depends.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+importing.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    if (attr(x, "perspective") == "author") {
+        stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
+    }
+    if (is.null(package)) {
+        return(character(0))
+    }
+    if (any(is.infinite(package))) {
+        inds <- rep(TRUE, nrow(x$nodes))
+    }
+    else {
+        package <- gsub("\\.", "\\\\.", package)
+        if (exact) {
+            str <- paste(package, collapse = "$(?!\\.)|^")
+            str <- paste0("^", str, "$(?!\\.)")
+        }
+        else {
+            str <- paste(package, collapse = "|")
+        }
+        inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
+    }
+    if (flat) {
+        out <- unique(unlist(x$nodes[inds, "reverse_imports"]))
+        if (all(is.na(out)) | !length(out)) {
+            out <- character(0)
+        }
+        else {
+            out <- out[!is.na(out)]
+        }
+    }
+    else {
+        out <- x$nodes[inds, ]
+    }    
+    out
+}
+
+
+#' @rdname extractor-functions
+#' @export
+dependency_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     if (attr(x, "perspective") == "author") {
         stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
     }
@@ -326,6 +406,84 @@ depends.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE
     }
     if (flat) {
         out <- unique(unlist(x$nodes[inds, "depends"]))
+        if (all(is.na(out)) | !length(out)) {
+            out <- character(0)
+        }
+        else {
+            out <- out[!is.na(out)]
+        }
+    }
+    else {
+        out <- x$nodes[inds, ]
+    }    
+    out
+}
+
+
+#' @rdname extractor-functions
+#' @export
+depending_on.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    if (attr(x, "perspective") == "author") {
+        stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
+    }
+    if (is.null(package)) {
+        return(character(0))
+    }
+    if (any(is.infinite(package))) {
+        inds <- rep(TRUE, nrow(x$nodes))
+    }
+    else {
+        package <- gsub("\\.", "\\\\.", package)
+        if (exact) {
+            str <- paste(package, collapse = "$(?!\\.)|^")
+            str <- paste0("^", str, "$(?!\\.)")
+        }
+        else {
+            str <- paste(package, collapse = "|")
+        }
+        inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
+    }
+    if (flat) {
+        out <- unique(unlist(x$nodes[inds, "reverse_depends"]))
+        if (all(is.na(out)) | !length(out)) {
+            out <- character(0)
+        }
+        else {
+            out <- out[!is.na(out)]
+        }
+    }
+    else {
+        out <- x$nodes[inds, ]
+    }    
+    out
+}
+
+
+#' @rdname extractor-functions
+#' @export
+linked_by.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    if (attr(x, "perspective") == "author") {
+        stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
+    }
+    if (is.null(package)) {
+        return(character(0))
+    }
+    if (any(is.infinite(package))) {
+        inds <- rep(TRUE, nrow(x$nodes))
+    }
+    else {
+        package <- gsub("\\.", "\\\\.", package)
+        if (exact) {
+            str <- paste(package, collapse = "$(?!\\.)|^")
+            str <- paste0("^", str, "$(?!\\.)")
+        }
+        else {
+            str <- paste(package, collapse = "|")
+        }
+        inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
+    }
+    if (flat) {
+        out <- unique(unlist(x$nodes[inds, "linking_to"]))
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
@@ -363,7 +521,7 @@ linking_to.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
         inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     }
     if (flat) {
-        out <- unique(unlist(x$nodes[inds, "linkingto"]))
+        out <- unique(unlist(x$nodes[inds, "reverse_linking_to"]))
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
@@ -377,9 +535,10 @@ linking_to.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
     out
 }
 
+
 #' @rdname extractor-functions
 #' @export
-enhances.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+enhanced_by.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
     if (attr(x, "perspective") == "author") {
         stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
     }
@@ -414,6 +573,49 @@ enhances.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRU
     }    
     out
 }
+
+
+
+#' @rdname extractor-functions
+#' @export
+enhancing.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
+    if (attr(x, "perspective") == "author") {
+        stop(match.call()[[1]], " is designed for cranly_network objects with perspective = 'package'")
+    }
+    if (is.null(package)) {
+        return(character(0))
+    }
+    if (any(is.infinite(package))) {
+        inds <- rep(TRUE, nrow(x$nodes))
+    }
+    else {
+        package <- gsub("\\.", "\\\\.", package)
+        if (exact) {
+            str <- paste(package, collapse = "$(?!\\.)|^")
+            str <- paste0("^", str, "$(?!\\.)")
+        }
+        else {
+            str <- paste(package, collapse = "|")
+        }
+        inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
+    }
+    if (flat) {
+        out <- unique(unlist(x$nodes[inds, "reverse_enhances"]))
+        if (all(is.na(out)) | !length(out)) {
+            out <- character(0)
+        }
+        else {
+            out <- out[!is.na(out)]
+        }
+    }
+    else {
+        out <- x$nodes[inds, ]
+    }    
+    out
+}
+
+
+
 
 #' @rdname extractor-functions
 #' @export

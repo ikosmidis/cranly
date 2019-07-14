@@ -24,11 +24,16 @@
 \alias{package_with.cranly_network}
 \alias{author_of.cranly_network}
 \alias{author_with.cranly_network}
-\alias{suggests.cranly_network}
-\alias{imports.cranly_network}
-\alias{depends.cranly_network}
+\alias{suggested_by.cranly_network}
+\alias{suggesting.cranly_network}
+\alias{imported_by.cranly_network}
+\alias{importing.cranly_network}
+\alias{dependency_of.cranly_network}
+\alias{depending_on.cranly_network}
+\alias{linked_by.cranly_network}
 \alias{linking_to.cranly_network}
-\alias{enhances.cranly_network}
+\alias{enhanced_by.cranly_network}
+\alias{enhancing.cranly_network}
 \alias{maintainer_of.cranly_network}
 \alias{maintained_by.cranly_network}
 \alias{email_of.cranly_network}
@@ -52,19 +57,34 @@
 \method{author_with}{cranly_network}(x, name = NULL, exact = FALSE,
   flat = TRUE)
 
-\method{suggests}{cranly_network}(x, package = NULL, exact = FALSE,
+suggested_by.cranly_network(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-\method{imports}{cranly_network}(x, package = NULL, exact = FALSE,
+suggesting.cranly_network(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-\method{depends}{cranly_network}(x, package = NULL, exact = FALSE,
+imported_by.cranly_network(x, package = NULL, exact = FALSE,
+  flat = TRUE)
+
+importing.cranly_network(x, package = NULL, exact = FALSE,
+  flat = TRUE)
+
+dependency_of.cranly_network(x, package = NULL, exact = FALSE,
+  flat = TRUE)
+
+depending_on.cranly_network(x, package = NULL, exact = FALSE,
+  flat = TRUE)
+
+linked_by.cranly_network(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
 \method{linking_to}{cranly_network}(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
-\method{enhances}{cranly_network}(x, package = NULL, exact = FALSE,
+enhanced_by.cranly_network(x, package = NULL, exact = FALSE,
+  flat = TRUE)
+
+enhancing.cranly_network(x, package = NULL, exact = FALSE,
   flat = TRUE)
 
 \method{maintainer_of}{cranly_network}(x, package = NULL,
