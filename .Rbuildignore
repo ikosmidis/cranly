@@ -9,6 +9,8 @@
 README.md
 inst/README_files/.*\.png$
 inst/README_files
+inst/README_cache/.*
+inst/README_cache
 README.html
 tests/
 data/
