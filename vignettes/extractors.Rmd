@@ -28,7 +28,7 @@ Since version 0.3, **cranly** includes functions for extracting information from
 
 
 Let's download, clean and organize today's CRAN database, and build the package and author directives networks
-```{r eval = FALSE}
+```{r}
 library("cranly")
 library("magrittr")
 cran_db <- clean_CRAN_db()
@@ -94,7 +94,7 @@ package_network %>% maintained_by("Helen")
 
 #### All available info, on packages maintained by everyone with "Helen" in their name
 ```{r}
-package_network %>% maintained_by("Helen", flat = FALSE)
+package_network %>% maintained_by("Helen", flat = FALSE) %>% dim()
 ```
 
 #### The maintainer of [`data.table`](https://cran.r-project.org/package=data.table)

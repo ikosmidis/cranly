@@ -9,6 +9,7 @@
 ## Bug fixes
 * Fixed a bug where packages with no directives were removed from the network when `perspective = "package"` 
 * Fixed extractor bugs and improved documentation
+* `build_network` now works without explicitly supplying any arguments
 
 ## Other improvements, updates and additions
 * Moved to [roxygen2 with rmarkdown](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html)
