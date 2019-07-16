@@ -21,9 +21,7 @@ knitr::opts_chunk$set(
 
 # cranly
 
-
 [**cranly**](https://github.com/ikosmidis/cranly) provides core visualizations and summaries for the CRAN package database. It is aimed mainly as an analytics tool for developers to keep track of their CRAN packages and profiles, as well as those of others, which, at least for me, is proving harder and harder with the rapid growth of the [CRAN](https://cran.r-project.org) ecosystem.
-
 
 The package provides methods for cleaning up and organizing the information in the CRAN package database, for building package directives networks (depends, imports, suggests, enhances, linking to) and collaboration networks, and for computing summaries and producing interactive visualizations from the resulting networks. Network visualization is through the [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package. The package also provides functions to coerce the networks to [igraph](https://CRAN.R-project.org/package=igraph) objects for further analyses and modelling.
 
@@ -64,6 +62,7 @@ my_packages
 and their sub-network of directives can be summarized in an interactive visualization, a shapshot of which is below
 ```{r}
 plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
+Sys.sleep(3)
 ```
 
 We can also compute package summaries and plot "Top-n" lists according to the various summaries
@@ -85,7 +84,7 @@ plot(author_network, author = "Ioannis Kosmidis")
 
 
 "Top-n" collaborators according to various summaries can again be computed
-```{r}
+```{r, warning = FALSE}
 author_summaries <- summary(author_network)
 plot(author_summaries, according_to = "n_collaborators", top = 20)
 plot(author_summaries, according_to = "n_packages", top = 20)
