@@ -61,6 +61,7 @@ word_cloud.cranly_network <- function(x,
                                      random_order = FALSE,
                                      ignore_words = c("www.jstor.org", "www.arxiv.org",
                                                       "arxiv.org", "provides", "https"),
+                                     stem = FALSE,
                                      colors = rev(colorspace::heat_hcl(10)),
                                      ...) {
 
@@ -68,22 +69,28 @@ word_cloud.cranly_network <- function(x,
     
     x <- subset(x, base = base, recommended = recommended)
 
-    if (perspective == "author") {
-        a1 <- author_with(x, name = author, exact = exact)
-        a2 <- author_of(x, package = package, exact = exact)
-        authors <- intersect(a1, a2)
-        if (!is.infinite(maintainer)) {
-            a3 <- maintainer_of(x, package = package, exact = exact)
-            authors <- intersect(authors, a3)
-        }
+    if (all(is.infinite(package)) & all(is.infinite(author)) & all(is.infinite(maintainer))) {
+        packages <- Inf
+        authors <- authors_of(x, Inf)
     }
     else {
-        p1 <- package_with(x, name = package, exact = exact)
-        p2 <- package_by(x, author = author, exact = exact)
-        packages <- intersect(p1, p2)
-        if (!is.infinite(maintainer)) {
-            p3 <- maintained_by(x, author = maintainer, exact = exact)
-            packages <- intersect(packages, p3)
+        if (perspective == "author") {
+            a1 <- author_with(x, name = author, exact = exact)
+            a2 <- author_of(x, package = package, exact = exact)
+            authors <- intersect(a1, a2)
+            if (!is.infinite(maintainer)) {
+                a3 <- maintainer_of(x, package = package, exact = exact)
+                authors <- intersect(authors, a3)
+            }
+        }
+        else {
+            p1 <- package_with(x, name = package, exact = exact)
+            p2 <- package_by(x, author = author, exact = exact)
+            packages <- intersect(p1, p2)
+            if (!is.infinite(maintainer)) {
+                p3 <- maintained_by(x, author = maintainer, exact = exact)
+                packages <- intersect(packages, p3)
+            }
         }
     }
     
@@ -92,7 +99,7 @@ word_cloud.cranly_network <- function(x,
                   "title" = title_of(x, package = packages, exact = TRUE),
                   "description" = description_of(x, package = packages, exact = TRUE))
     
-    term_freq <- compute_term_frequency(txt, ignore_words = ignore_words)
+    term_freq <- compute_term_frequency(txt, ignore_words = ignore_words, stem = stem)
     term_freq <- sort(term_freq)    
 
     word_cloud.numeric(term_freq, random_order = random_order, colors = colors, ...)

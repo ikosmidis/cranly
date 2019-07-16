@@ -10,7 +10,8 @@
   maintainer = Inf, base = TRUE, recommended = TRUE, exact = TRUE,
   perspective = "description", random_order = FALSE,
   ignore_words = c("www.jstor.org", "www.arxiv.org", "arxiv.org",
-  "provides", "https"), colors = rev(colorspace::heat_hcl(10)), ...)
+  "provides", "https"), stem = FALSE,
+  colors = rev(colorspace::heat_hcl(10)), ...)
 
 \method{word_cloud}{numeric}(x, random_order = FALSE,
   colors = rev(colorspace::heat_hcl(10)), ...)
@@ -35,6 +36,8 @@
 \item{random_order}{should words be plotted in random order? If \code{FALSE} (default) words are plotted in decreasing frequency.}
 
 \item{ignore_words}{a vector of words to be ignored when forming the corpus.}
+
+\item{stem}{should words be stemmed using Porter's stemming algorithm? Default is \code{FALSE}. See \link[tm:stemDocument]{tm::stemDocument}.}
 
 \item{colors}{color words from least to most frequent}
 
