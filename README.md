@@ -36,6 +36,10 @@ Install the development version from github:
 
 ### Collaboration and package directives networks in CRAN
 
+Load **cranly** as
+
+    library("cranly")
+
 The first step in the **cranly** workflow is to try and “clean-up” the
 package and author names in the data frame that results from a call to
 `tools::CRAN_package_db()`
@@ -46,7 +50,7 @@ package and author names in the data frame that results from a call to
 The CRAN database we use is from
 
     attr(package_db, "timestamp")
-    #> [1] "2019-07-16 12:33:03 BST"
+    #> [1] "2019-07-16 14:19:20 BST"
 
 #### Package directives networks
 
@@ -68,7 +72,7 @@ visualization, a shapshot of which is below
 
     plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 
-![](inst/README_files/README-unnamed-chunk-6-1.png)
+![](inst/README_files/README-my_pkgs-1.png)
 
 We can also compute package summaries and plot “Top-n” lists according
 to the various summaries
@@ -78,11 +82,11 @@ to the various summaries
     #> 2784 :closeness centrality is not well-defined for disconnected graphs
     plot(package_summaries, according_to = "n_imported_by", top = 20)
 
-![](inst/README_files/README-unnamed-chunk-7-1.png)
+![](inst/README_files/README-pkg_summaries-1.png)
 
     plot(package_summaries, according_to = "page_rank", top = 20)
 
-![](inst/README_files/README-unnamed-chunk-7-2.png)
+![](inst/README_files/README-pkg_summaries-2.png)
 
 #### Collaboration networks
 
@@ -96,25 +100,23 @@ summarized as an interactive visualization, a shapshot of which is below
 
     plot(author_network, author = "Ioannis Kosmidis")
 
-![](inst/README_files/README-unnamed-chunk-9-1.png)
+![](inst/README_files/README-my_aut-1.png)
 
 “Top-n” collaborators according to various summaries can again be
 computed
 
     author_summaries <- summary(author_network)
-    #> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
-    #> 2784 :closeness centrality is not well-defined for disconnected graphs
     plot(author_summaries, according_to = "n_collaborators", top = 20)
 
-![](inst/README_files/README-unnamed-chunk-10-1.png)
+![](inst/README_files/README-aut_summaries-1.png)
 
     plot(author_summaries, according_to = "n_packages", top = 20)
 
-![](inst/README_files/README-unnamed-chunk-10-2.png)
+![](inst/README_files/README-aut_summaries-2.png)
 
     plot(author_summaries, according_to = "page_rank", top = 20)
 
-![](inst/README_files/README-unnamed-chunk-10-3.png)
+![](inst/README_files/README-aut_summaries-3.png)
 
 Well, the usual suspects…
 
@@ -134,7 +136,7 @@ co-authoring is
     PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
     plot(PL_dependence_tree)
 
-![](inst/README_files/README-unnamed-chunk-11-1.png)
+![](inst/README_files/README-dep_tree-1.png)
 
 **cranly** also implements a *package dependence index* (see
 ?summary.cranly\_dependence\_tree for mathematical details). The closer

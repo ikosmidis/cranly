@@ -56,7 +56,7 @@ attr(package_db, "timestamp")
 #### Package directives networks
 
 The package directives network can then be built using
-```{r}
+```{r cache = TRUE}
 package_network <- build_network(package_db)
 ```
 `package_network` can then be interrogated using extractor methods
@@ -66,13 +66,12 @@ my_packages <- package_by(package_network, "Ioannis Kosmidis")
 my_packages
 ```
 and their sub-network of directives can be summarized in an interactive visualization, a shapshot of which is below
-```{r}
+```{r my_pkgs}
 plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
-Sys.sleep(3)
 ```
 
 We can also compute package summaries and plot "Top-n" lists according to the various summaries
-```{r}
+```{r pkg_summaries}
 package_summaries <- summary(package_network)
 plot(package_summaries, according_to = "n_imported_by", top = 20)
 plot(package_summaries, according_to = "page_rank", top = 20)
@@ -80,17 +79,17 @@ plot(package_summaries, according_to = "page_rank", top = 20)
 
 #### Collaboration networks
 The collaboration network can also be built using a similar call
-```{r}
+```{r cache = TRUE}
 author_network <- build_network(package_db, perspective = "author")
 ```
 and the extractor functions work exactly as they did for the package directives network. For example, my collaboration network results can be summarized as an interactive visualization, a shapshot of which is below
-```{r}
+```{r my_aut}
 plot(author_network, author = "Ioannis Kosmidis")
 ```
 
 
 "Top-n" collaborators according to various summaries can again be computed
-```{r, warning = FALSE}
+```{r aut_summaries, warning = FALSE}
 author_summaries <- summary(author_network)
 plot(author_summaries, according_to = "n_collaborators", top = 20)
 plot(author_summaries, according_to = "n_packages", top = 20)
@@ -107,8 +106,9 @@ working with package dependence tree objects. A package's dependence tree shows 
 + identify packages that are heavy for the CRAN mirrors
 + produced some neat visuals for the package
 
+
 For example, the dependence tree of the **PlackettLuce** R package I am co-authoring is
-```{r}
+```{r dep_tree}
 PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
 plot(PL_dependence_tree)
 ```
