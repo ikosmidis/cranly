@@ -6,11 +6,11 @@
 \alias{build_network}
 \title{Compute edges and nodes of package directives and collaboration networks}
 \usage{
-\method{build_network}{cranly_db}(object = clean_CRAN_db(),
-  trace = FALSE, perspective = "package", ...)
+\method{build_network}{cranly_db}(object, trace = FALSE,
+  perspective = "package", ...)
 }
 \arguments{
-\item{object}{a \code{\link{cranly_db}} object.}
+\item{object}{a \code{\link{cranly_db}} object. If missing (default) a call to \code{\link{clean_CRAN_db}} is issued.}
 
 \item{trace}{logical. Print progress information? Default is \code{\link{FALSE}}.}
 

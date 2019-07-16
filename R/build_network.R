@@ -2,7 +2,7 @@
 
 #' Compute edges and nodes of package directives and collaboration networks
 #' 
-#' @param object a [`cranly_db`] object.
+#' @param object a [`cranly_db`] object. If missing (default) a call to [`clean_CRAN_db`] is issued.
 #' @param trace logical. Print progress information? Default is [`FALSE`].
 #' @param perspective character. Should a `"package"` (default) or an `"author"` network be built?
 #' @param ... Currently not used.
@@ -45,11 +45,15 @@
 #' }
 #'
 #' @export
-build_network.cranly_db <- function(object = clean_CRAN_db(),
+build_network.cranly_db <- function(object,
                                     trace = FALSE, perspective = "package", ...) {
 
     perspective <- match.arg(perspective, c("package", "author"))
 
+    if (missing(object)) {
+        object <- clean_CRAN_db()
+    }
+    
     if (perspective == "package") {
         compute_edges <- function(what = "imports", rev = FALSE) {
             out <- object[[what]]
@@ -146,3 +150,6 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
     out
 
 }
+
+
+build_network.NULL <- build_network.cranly_db
