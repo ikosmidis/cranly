@@ -1,6 +1,6 @@
 ---
 title: "R package dependence trees"
-author: "[Ioannis Kosmidis](http://www.ucl.ac.uk/~ucakiko/)"
+author: "[Ioannis Kosmidis](http://www.ikosmidis.com)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -30,7 +30,7 @@ Since version 0.2 **cranly** includes functions for constructing and working wit
 
 Constructing `cranly_dependence_tree` objects is straightforward once a package directives network has been derived.
 
-Let's download, clean and organise today's CRAN database, and build the package directives network
+Let's download, clean and organize today's CRAN database, and build the package directives network
 ```{r}
 library("cranly")
 cran_db <- clean_CRAN_db()
@@ -47,7 +47,7 @@ compute_dependence_tree(package_network, "tibble")
 ```
 The resulting data frame, includes package names and a generation index. The generation of the named package is by default 0 and as we move back through the required packages and the requirements of those the generation index decreases by 1. I had **loads of fun** implementing `compute_dependence_tree`, because the tree construction can be neatly and cleanly written as a recursion (see source code of `compute_dependence_tree`), leveraging the advantages of functional programming (that's a different and long discussion, though).
 
-The method `build_dependence_tree` uses `compute_dependence_tree` to construct and edge list for the dependence tree, that we can the visualise. For example for [**tibble**](https://cran.r-project.org/package=tibble)
+The method `build_dependence_tree` uses `compute_dependence_tree` to construct and edge list for the dependence tree, that we can the visualize. For example for [**tibble**](https://cran.r-project.org/package=tibble)
 ```{r}
 tibble_tree <- build_dependence_tree(package_network, "tibble")
 plot(tibble_tree)

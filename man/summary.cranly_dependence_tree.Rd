@@ -37,7 +37,7 @@ packages that \eqn{p} links to, depends or imports at generation
 A dependence index of zero means that the \eqn{p} only has
 immediate parents. The dependence index weights the dependencies
 based on how popular these are, in the sense that the index is
-not penalised if the package depends on popular packages. The
+not penalized if the package depends on popular packages. The
 greatest the dependence index is the more baggage the package
 carries, and the maintainers may want to remove any dependencies
 that are not necessary.

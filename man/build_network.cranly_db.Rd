@@ -29,7 +29,7 @@ The convention for a \code{\link{cranly_network}} object with
 \code{perspective = "package"} is that the direction of an edge is
 from the package that is imported by, suggested by, enhances or is
 a dependency of another package, to the latter package. The author
-collaboration network is analysed and visualised as undirected by
+collaboration network is analyzed and visualized as undirected by
 all methods in \code{cranly}.
 }
 \examples{

@@ -5,6 +5,7 @@
 #' @param x a  [`cranly_network`] object.
 #' @param package a vector of character strings with the package names to be matched. Default is [`Inf`] which returns all available packages in `x` for further subsetting.
 #' @param author a vector of character strings with the author names to be matched. Default is `Inf` which returns all available author in `x` for further subsetting.
+#' @param maintainer a vector of character strings with the maintainer names to be matched. Default is `Inf` which returns all available maintainers in `x` for further subsetting.
 #' @param directive a vector of at least one of `"Imports"`, `"Suggests"`, `"Enhances"`, `"Depends"`.
 #' @param base logical. Should we include base packages in the subset? Default is `TRUE`.
 #' @param recommended  logical. Should we include recommended packages in the subset? Default is `TRUE`.
@@ -19,6 +20,7 @@
 subset.cranly_network <- function(x,
                                   package = Inf,
                                   author = Inf,
+                                  maintainer = Inf,
                                   directive = c("imports", "suggests", "enhances", "depends", "linking_to"),
                                   base = TRUE,
                                   recommended = TRUE,
@@ -34,8 +36,14 @@ subset.cranly_network <- function(x,
         base_packages <- subset(x$nodes, priority == "base")$package
         recommended_packages <- subset(x$nodes, priority == "recommended")$package
 
-        ## keep <- unique(c(p1, p2))
         keep <- intersect(p1, p2)
+        
+        if (!is.infinite(maintainer)) {
+            p3 <- maintained_by(x, author = maintainer, exact = exact)
+            keep <- intersect(keep, p3)
+        }
+
+        
         
         if (only) {
             inds <- with(x$edges, (to %in% keep & from %in% keep) &
@@ -58,8 +66,13 @@ subset.cranly_network <- function(x,
         a1 <- author_with(x, name = author, exact = exact)
         a2 <- author_of(x, package = package, exact = exact)
         
-        ## keep <- unique(c(a1, a2))
         keep <- intersect(a1, a2)
+
+        if (!is.infinite(maintainer)) {
+            a3 <- maintainer_of(x, package = package, exact = exact)
+            keep <- intersect(keep, a3)
+        }
+
 
         if (only) {
             edges_subset <- subset(x$edges, (to %in% keep & from %in% keep))

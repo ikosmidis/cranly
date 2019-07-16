@@ -15,7 +15,7 @@
 #'
 #' The extractor functions all try to figure out what `y` is in the statement
 #'
-#' `y` is [the] `extractor-function` a `package`/`author`.
+#' `y` is (the) `extractor-function` a `package`/`author`.
 #'
 #' For example, for
 #'
@@ -61,7 +61,7 @@
 #' ## Find all packages imported by Rcpp 
 #' imported_by(pkg_net, package = "Rcpp", exact = TRUE)
 #' ## Find all packages enhacing brglm
-#' enhancing(pkg_net, package = "brglm", exact - TRUE)
+#' enhancing(pkg_net, package = "brglm", exact = TRUE)
 #' ## Find all packages linking to RcppArmadillo
 #' linking_to(pkg_net, package = "RcppArmadillo", exact = TRUE)
 #' ## Find the release date of RcppArmadillo
@@ -87,7 +87,7 @@
 #'
 #' 
 #' @name extractor-functions
-#' @aliases package_by package_with author_with author_of suggested_by imported_by dependency_of linked_by enhanced_by suggesting importing linking_to enhancing maintainer_of maintained_by email_of email_with description_of title_of license_of version_of release_date_of 
+#' @aliases package_by package_with author_with author_of suggested_by imported_by dependency_of linked_by enhanced_by suggesting importing depending_on linking_to enhancing maintainer_of maintained_by email_of email_with description_of title_of license_of version_of release_date_of 
 NULL
 
 

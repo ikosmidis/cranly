@@ -10,18 +10,18 @@ cranly
 ======
 
 [**cranly**](https://github.com/ikosmidis/cranly) provides core
-visualisations and summaries for the CRAN package database. It is aimed
+visualizations and summaries for the CRAN package database. It is aimed
 mainly as an analytics tool for developers to keep track of their CRAN
 packages and profiles, as well as those of others, which, at least for
 me, is proving harder and harder with the rapid growth of the
 [CRAN](https://cran.r-project.org) ecosystem.
 
-The package provides methods for cleaning up and organising the
+The package provides methods for cleaning up and organizing the
 information in the CRAN package database, for building package
 directives networks (depends, imports, suggests, enhances, linking to)
 and collaboration networks, and for computing summaries and producing
-interactive visualisations from the resulting networks. Network
-visualisation is through the
+interactive visualizations from the resulting networks. Network
+visualization is through the
 [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package.
 The package also provides functions to coerce the networks to
 [igraph](https://CRAN.R-project.org/package=igraph) objects for further
@@ -46,7 +46,7 @@ package and author names in the data frame that results from a call to
 The CRAN database we use is from
 
     attr(package_db, "timestamp")
-    #> [1] "2019-07-10 23:08:51 BST"
+    #> [1] "2019-07-16 12:33:03 BST"
 
 #### Package directives networks
 
@@ -152,10 +152,10 @@ that is to 0 the “lighter” the package is
     #> [6] "qvcalc"      "rARPACK"     "sandwich"   
     #> 
     #> $dependence_index
-    #> [1] 0.385751
+    #> [1] 0.3857451
 
 Check the package vignettes for a more comprehensive tour of the package
-and for network visualisations on authors with orders of magnitude
+and for network visualizations on authors with orders of magnitude
 larger collaboration networks than mine.
 
 ### Code of Conduct

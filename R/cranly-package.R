@@ -1,27 +1,29 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
 #' cranly: CRAN package database analytics and visualizations
 #'
 #' @docType package
 #' @name cranly
-#' @import igraph
 #' @importFrom magrittr %>%
 #' @importFrom stringr str_replace_all str_split
 #' @importFrom utils combn stack head installed.packages
 #' @importFrom stats na.omit
-#' @import countrycode
+#' @importFrom wordcloud wordcloud
 #' @importFrom ggplot2 ggplot geom_bar theme_minimal labs coord_flip
 #' @importFrom stats weighted.mean
+#' @import igraph
+#' @import countrycode
+#' @import tm
 #'
 #' @details
 #'
-#' \pkg{cranly} provides core visualisations and summaries for the
+#' \pkg{cranly} provides core visualizations and summaries for the
 #' CRAN package database. The package provides comprehensive methods
-#' for cleaning up and organising the information in the CRAN package
+#' for cleaning up and organizing the information in the CRAN package
 #' database, for building package directives networks (depends,
 #' imports, suggests, enhances, linking to) and collaboration
 #' networks, and for computing summaries and producing interactive
-#' visualisations from the resulting networks. Network visualisation
+#' visualizations from the resulting networks. Network visualization
 #' is through the \pkg{visNetwork}
 #' (<https://CRAN.R-project.org/package=visNetwork>) package. The
 #' package also provides functions to coerce the networks to
@@ -76,7 +78,7 @@ importing <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
 
 #' @export
 depending_on <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
-    UseMethod("depending")
+    UseMethod("depending_on")
 }
 
 #' @export
@@ -165,6 +167,12 @@ build_network <- function(object, trace, perspective, ...) {
     UseMethod("build_network")
 }
 
+#' @export
+word_cloud <- function(x, ...) {
+    UseMethod("word_cloud")
+}
+
+
 #' `build_dependence_tree` method for an object
 #'
 #' @param x an object to use for building a dependence tree
@@ -178,7 +186,7 @@ build_dependence_tree <- function(x, ...) {
 }
 
 if(getRversion() >= "2.15.1")  {
-    utils::globalVariables(c("author", "package", "version", "from", "n_depended_by", "n_depends", "n_enhanced_by", "n_enhances", "n_imported_by", "n_imports", "n_suggested_by", "n_suggests", "to", "type", "n_collaborators", "maintainer", "n_linking_to", "n_linked_by", "generation", "priority"))
+    utils::globalVariables(c("author", "package", "version", "from", "n_depended_by", "n_depends", "n_enhanced_by", "n_enhances", "n_imported_by", "n_imports", "n_suggested_by", "n_suggests", "to", "type", "n_collaborators", "maintainer", "n_linking_to", "n_linked_by", "generation", "priority", "linkingto", "reverse imports", "reverse depends", "reverse suggests", "reverse enhances", "reverse linking to"))
 }
 
 

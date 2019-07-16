@@ -20,9 +20,10 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
     if (is.null(package)) {
         return(NULL) # return(unlist(x$nodes$Package))
     }
-    im <- imports(x, package = package, exact = TRUE)
-    de <- depends(x, package = package, exact = TRUE)
-    li <- linking_to(x, package = package, exact = TRUE)
+    im <- imported_by(x, package = package, exact = TRUE)
+    de <- dependency_of(x, package = package, exact = TRUE)
+    li <- linked_by(x, package = package, exact = TRUE)
+    
     pack <- na.omit(c(im, de, li))
     if (all(pack %in% package)) {
         data.frame(package = unique(package), generation = generation, stringsAsFactors = FALSE)
@@ -125,7 +126,7 @@ build_dependence_tree.cranly_network <- function(x,
 #' A dependence index of zero means that the \eqn{p} only has
 #' immediate parents. The dependence index weights the dependencies
 #' based on how popular these are, in the sense that the index is
-#' not penalised if the package depends on popular packages. The
+#' not penalized if the package depends on popular packages. The
 #' greatest the dependence index is the more baggage the package
 #' carries, and the maintainers may want to remove any dependencies
 #' that are not necessary.

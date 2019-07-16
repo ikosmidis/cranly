@@ -1,6 +1,6 @@
 # Copyright (C) 2018- Ioannis Kosmidis
 
-#' Clean and organise package and author names in the output of [`tools::CRAN_package_db()`]
+#' Clean and organize package and author names in the output of [`tools::CRAN_package_db()`]
 #'
 #' @aliases cranly_db
 #'
@@ -20,7 +20,7 @@
 #' [`clean_up_author`] to clean up the author names and package names
 #' in the various directives (like `Imports`, `Depends`, `Suggests`,
 #' `Enhances`, `LinkingTo`) as in the [`data.frame`] that results from
-#' [`tools::CRAN_package_db`]  return an organised `data.frame` of
+#' [`tools::CRAN_package_db`]  return an organized `data.frame` of
 #' class [`cranly_db`] that can be used for further analysis.
 #'
 #' The function tries hard to identify and eliminate mistakes in the

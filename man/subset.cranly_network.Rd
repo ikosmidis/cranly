@@ -5,9 +5,9 @@
 \title{Subset a \code{\link{cranly_network}} according to author, package and/or directive}
 \usage{
 \method{subset}{cranly_network}(x, package = Inf, author = Inf,
-  directive = c("imports", "suggests", "enhances", "depends",
-  "linking_to"), base = TRUE, recommended = TRUE, exact = TRUE,
-  only = FALSE, ...)
+  maintainer = Inf, directive = c("imports", "suggests", "enhances",
+  "depends", "linking_to"), base = TRUE, recommended = TRUE,
+  exact = TRUE, only = FALSE, ...)
 }
 \arguments{
 \item{x}{a  \code{\link{cranly_network}} object.}
@@ -15,6 +15,8 @@
 \item{package}{a vector of character strings with the package names to be matched. Default is \code{\link{Inf}} which returns all available packages in \code{x} for further subsetting.}
 
 \item{author}{a vector of character strings with the author names to be matched. Default is \code{Inf} which returns all available author in \code{x} for further subsetting.}
+
+\item{maintainer}{a vector of character strings with the maintainer names to be matched. Default is \code{Inf} which returns all available maintainers in \code{x} for further subsetting.}
 
 \item{directive}{a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}.}
 

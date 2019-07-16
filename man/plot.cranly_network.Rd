@@ -44,7 +44,7 @@
 
 \item{title}{logical. Should a title be added on the resulting visualization? Default is \code{\link{TRUE}}.}
 
-\item{plot}{logical. Should the visualisation be returned? Default is \code{\link{TRUE}}.}
+\item{plot}{logical. Should the visualization be returned? Default is \code{\link{TRUE}}.}
 
 \item{...}{currently not used.}
 }
