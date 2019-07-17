@@ -53,7 +53,7 @@ package_network %>% package_by("Ioannis")
 author_network %>% package_with("glm")
 ```
 
-#### Authors of the [`lubridate`](https://cran-r-project.org/package=lubridate) package
+#### Authors of the [`lubridate`](https://cran.r-project.org/package=lubridate) package
 ```{r}
 package_network %>% author_of("lubridate", exact = TRUE)
 ```

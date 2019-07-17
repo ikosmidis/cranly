@@ -12,7 +12,7 @@
 * `build_network` now works without explicitly supplying any arguments
 
 ## Other improvements, updates and additions
-* Moved to [roxygen2 with rmarkdown](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html)
+* Moved to [roxygen2 with rmarkdown](https://cran.r-project.org/package=roxygen2/vignettes/markdown.html)
 * Major documentation updates
 * New improved codebase for extractor functions (see `?extractor-functions`)
 * `date` and `published` in `cranly_db` objects are now of class `Date`
