@@ -1,7 +1,5 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -10,7 +8,8 @@ output:
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README_files/README-",
+  fig.path = "inst/README_files/README-",
+  cache.path = "inst/README_cache/README-",
   fig.width = 7,
   fig.height = 7
 )
@@ -23,11 +22,9 @@ knitr::opts_chunk$set(
 
 # cranly
 
+[**cranly**](https://github.com/ikosmidis/cranly) provides core visualizations and summaries for the CRAN package database. It is aimed mainly as an analytics tool for developers to keep track of their CRAN packages and profiles, as well as those of others, which, at least for me, is proving harder and harder with the rapid growth of the [CRAN](https://cran.r-project.org) ecosystem.
 
-[**cranly**](https://github.com/ikosmidis/cranly) provides core visualisations and summaries for the CRAN package database. It is aimed mainly as an analytics tool for developers to keep track of their CRAN packages and profiles, as well as those of others, which, at least for me, is proving harder and harder with the rapid growth of the [CRAN](https://cran.r-project.org) ecosystem.
-
-
-The package provides methods for cleaning up and organising the information in the CRAN package database, for building package directives networks (depends, imports, suggests, enhances, linking to) and collaboration networks, and for computing summaries and producing interactive visualisations from the resulting networks. Network visualisation is through the [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package. The package also provides functions to coerce the networks to [igraph](https://CRAN.R-project.org/package=igraph) objects for further analyses and modelling.
+The package provides methods for cleaning up and organizing the information in the CRAN package database, for building package directives networks (depends, imports, suggests, enhances, linking to) and collaboration networks, and for computing summaries and producing interactive visualizations from the resulting networks. Network visualization is through the [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package. The package also provides functions to coerce the networks to [igraph](https://CRAN.R-project.org/package=igraph) objects for further analyses and modelling.
 
 ### Installation
 
@@ -39,10 +36,15 @@ devtools::install_github("ikosmidis/cranly")
 
 ### Collaboration and package directives networks in CRAN
 
+Load **cranly** as
+```{r}
+library("cranly")
+```
+
 The first step in the **cranly** workflow is to try and
 "clean-up" the package and author names in the data frame that results
 from a call to `tools::CRAN_package_db()`
-```{r}
+```{r cache = TRUE}
 p_db <- tools::CRAN_package_db()
 package_db <- clean_CRAN_db(p_db)
 ```
@@ -54,7 +56,7 @@ attr(package_db, "timestamp")
 #### Package directives networks
 
 The package directives network can then be built using
-```{r}
+```{r cache = TRUE}
 package_network <- build_network(package_db)
 ```
 `package_network` can then be interrogated using extractor methods
@@ -64,12 +66,12 @@ my_packages <- package_by(package_network, "Ioannis Kosmidis")
 my_packages
 ```
 and their sub-network of directives can be summarized in an interactive visualization, a shapshot of which is below
-```{r}
+```{r my_pkgs}
 plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```
 
 We can also compute package summaries and plot "Top-n" lists according to the various summaries
-```{r}
+```{r pkg_summaries}
 package_summaries <- summary(package_network)
 plot(package_summaries, according_to = "n_imported_by", top = 20)
 plot(package_summaries, according_to = "page_rank", top = 20)
@@ -77,17 +79,17 @@ plot(package_summaries, according_to = "page_rank", top = 20)
 
 #### Collaboration networks
 The collaboration network can also be built using a similar call
-```{r}
+```{r cache = TRUE}
 author_network <- build_network(package_db, perspective = "author")
 ```
 and the extractor functions work exactly as they did for the package directives network. For example, my collaboration network results can be summarized as an interactive visualization, a shapshot of which is below
-```{r}
+```{r my_aut}
 plot(author_network, author = "Ioannis Kosmidis")
 ```
 
 
 "Top-n" collaborators according to various summaries can again be computed
-```{r}
+```{r aut_summaries, warning = FALSE}
 author_summaries <- summary(author_network)
 plot(author_summaries, according_to = "n_collaborators", top = 20)
 plot(author_summaries, according_to = "n_packages", top = 20)
@@ -104,8 +106,9 @@ working with package dependence tree objects. A package's dependence tree shows 
 + identify packages that are heavy for the CRAN mirrors
 + produced some neat visuals for the package
 
+
 For example, the dependence tree of the **PlackettLuce** R package I am co-authoring is
-```{r}
+```{r dep_tree}
 PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
 plot(PL_dependence_tree)
 ```
@@ -115,7 +118,7 @@ plot(PL_dependence_tree)
 summary(PL_dependence_tree)
 ```
 
-Check the package vignettes for a more comprehensive tour of the package and for network visualisations on authors with orders of magnitude larger collaboration networks than mine.
+Check the package vignettes for a more comprehensive tour of the package and for network visualizations on authors with orders of magnitude larger collaboration networks than mine.
 
 ### Code of Conduct
 

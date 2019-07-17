@@ -8,11 +8,11 @@
 \method{summary}{cranly_network}(object, advanced = TRUE, ...)
 }
 \arguments{
-\item{object}{a \code{\link{cranly_network}} object}
+\item{object}{a \code{\link{cranly_network}} object.}
 
-\item{advanced}{logical. If \code{FALSE} (default) only basic network statistics are computed; if \code{TRUE} advanced statistics are also included in the computation (see Details).}
+\item{advanced}{logical. If \code{\link{FALSE}} (default) only basic network statistics are computed; if \code{\link{TRUE}} advanced statistics are also included in the computation (see Details).}
 
-\item{...}{currently not used}
+\item{...}{currently not used`}
 }
 \value{
 A \code{\link{data.frame}} of various statistics for the author collaboration
@@ -40,11 +40,11 @@ resulting \code{data.frame} will have the following variables:
 \item n_enhanced_by (basic). number of packages the package is enhanced by
 \item n_linking_to (basic). number of packages the package links to
 \item n_linked_by (basic). number of packages the package is linked by
-\item betweenness (advanced). the package betweenness in the package network; as computed by \code{\link[igraph]{betweenness}}
-\item closeness (advanced). the closeness centrality of the package in the package network; as computed by \code{\link[igraph]{closeness}}
-\item page_rank (advanced). the Google PageRank of the package in the package network; as computed by \code{\link[igraph]{page_rank}}
-\item degree (advanced). the degree of the package in the package network;  as computed by \code{\link[igraph]{degree}}
-\item eigen_centrality (advanced). the eigenvector centrality score of the package in the package network; as computed by \code{\link[igraph]{eigen_centrality}}
+\item betweenness (advanced). the package betweenness in the package network; as computed by \code{\link[igraph:betweenness]{igraph::betweenness()}}
+\item closeness (advanced). the closeness centrality of the package in the package network; as computed by \code{\link[igraph:closeness]{igraph::closeness()}}
+\item page_rank (advanced). the Google PageRank of the package in the package network; as computed by \code{\link[igraph:page_rank]{igraph::page_rank()}}
+\item degree (advanced). the degree of the package in the package network;  as computed by \code{\link[igraph:degree]{igraph::degree()}}
+\item eigen_centrality (advanced). the eigenvector centrality score of the package in the package network; as computed by \code{\link[igraph:eigen_centrality]{igraph::eigen_centrality()}}
 }
 
 If \code{attr(object, "perspective")} is \code{"author"} then the
@@ -53,10 +53,10 @@ resulting \code{data.frame} will have the following variables:
 \item author. author name
 \item n_packages (basic). number of packages the author appears in the package authors
 \item n_collaborators (basic). total number of co-authors the author has in CRAN
-\item betweenness (advanced). the author betweenness in the author network; as computed by \code{\link[igraph]{betweenness}}
-\item closeness (advanced). the closeness centrality of the author in the author network; as computed by \code{\link[igraph]{closeness}}
-\item page_rank (advanced). the Google PageRank of the author in the author network; as computed by \code{\link[igraph]{page_rank}}
-\item degree (advanced). the degree of the author in the author network;  as computed by \code{\link[igraph]{degree}}; same as n_collaborators
-\item eigen_centrality (advanced). the eigenvector centrality score of the author in the author network; as computed by \code{\link[igraph]{eigen_centrality}}
+\item betweenness (advanced). the author betweenness in the author network; as computed by \code{\link[igraph:betweenness]{igraph::betweenness()}}
+\item closeness (advanced). the closeness centrality of the author in the author network; as computed by \code{\link[igraph:closeness]{igraph::closeness()}}
+\item page_rank (advanced). the Google PageRank of the author in the author network; as computed by \code{\link[igraph:page_rank]{igraph::page_rank()}}
+\item degree (advanced). the degree of the author in the author network;  as computed by \code{\link[igraph:degree]{igraph::degree()}}; same as n_collaborators
+\item eigen_centrality (advanced). the eigenvector centrality score of the author in the author network; as computed by \code{\link[igraph:eigen_centrality]{igraph::eigen_centrality()}}
 }
 }

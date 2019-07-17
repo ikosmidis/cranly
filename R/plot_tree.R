@@ -1,9 +1,9 @@
-#' Interactive visualization of package(s) dependence tree from a \code{\link{cranly_network}}
+#' Interactive visualization of package(s) dependence tree from a [`cranly_network`]
 #'
 #' @inheritParams plot.cranly_network
-#' @param x a \code{\link{cranly_dependence_tree}} object
+#' @param x a [`cranly_dependence_tree`] object.
 #'
-#' @seealso compute_dependence_tree dependence_tree
+#' @seealso [`compute_dependence_tree`] [`build_dependence_tree.cranly_network`]
 #'
 #' @export
 plot.cranly_dependence_tree <- function(x,
@@ -40,14 +40,14 @@ plot.cranly_dependence_tree <- function(x,
                                    "depends" = "#D33F6A",
                                    "suggests" = "#C7CEF5",
                                    "enhances" = "#C7CEF5",
-                                   "linkingto" = "#F9C2CB"))
+                                   "linking_to" = "#F9C2CB"))
         dashes <- ifelse(type %in% c("imports", "depends", "suggests"), FALSE, TRUE)
         title <- str_replace_all(type,
                                  c("imports" = "is imported by",
                                    "depends" = "is dependency of",
                                    "suggests" = "is suggested by",
                                    "enhances" = "enhances",
-                                   "linkingto" = "is linked by"))
+                                   "linking_to" = "is linked by"))
     })
     summaries <- summaries[nodes$package, ]
 
@@ -62,7 +62,7 @@ plot.cranly_dependence_tree <- function(x,
                         "depends/is dependency of:", summaries$n_depends, "/", summaries$n_depended_by, "<br>",
                         "suggests/suggested by:", summaries$n_suggests, "/", summaries$n_suggested_by, "<br>",
                         "enhances/enhaced by:", summaries$n_enhances, "/", summaries$n_enhanced_by, "<br>",
-                        "linkingto/linked by:", summaries$n_linking, "/", summaries$n_linked_by, "<br>",
+                        "linking to/linked by:", summaries$n_linking, "/", summaries$n_linked_by, "<br>",
                         "<img src=https://cranlogs.r-pkg.org/badges/", package, "?color=969696>")
     })
 

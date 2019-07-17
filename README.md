@@ -10,18 +10,18 @@ cranly
 ======
 
 [**cranly**](https://github.com/ikosmidis/cranly) provides core
-visualisations and summaries for the CRAN package database. It is aimed
+visualizations and summaries for the CRAN package database. It is aimed
 mainly as an analytics tool for developers to keep track of their CRAN
 packages and profiles, as well as those of others, which, at least for
 me, is proving harder and harder with the rapid growth of the
 [CRAN](https://cran.r-project.org) ecosystem.
 
-The package provides methods for cleaning up and organising the
+The package provides methods for cleaning up and organizing the
 information in the CRAN package database, for building package
 directives networks (depends, imports, suggests, enhances, linking to)
 and collaboration networks, and for computing summaries and producing
-interactive visualisations from the resulting networks. Network
-visualisation is through the
+interactive visualizations from the resulting networks. Network
+visualization is through the
 [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package.
 The package also provides functions to coerce the networks to
 [igraph](https://CRAN.R-project.org/package=igraph) objects for further
@@ -31,115 +31,92 @@ analyses and modelling.
 
 Install the development version from github:
 
-``` r
-# install.packages("devtools")
-devtools::install_github("ikosmidis/cranly")
-```
+    # install.packages("devtools")
+    devtools::install_github("ikosmidis/cranly")
 
 ### Collaboration and package directives networks in CRAN
+
+Load **cranly** as
+
+    library("cranly")
 
 The first step in the **cranly** workflow is to try and “clean-up” the
 package and author names in the data frame that results from a call to
 `tools::CRAN_package_db()`
 
-``` r
-p_db <- tools::CRAN_package_db()
-package_db <- clean_CRAN_db(p_db)
-```
+    p_db <- tools::CRAN_package_db()
+    package_db <- clean_CRAN_db(p_db)
 
 The CRAN database we use is from
 
-``` r
-attr(package_db, "timestamp")
-#> [1] "2018-05-21 10:14:23 BST"
-```
+    attr(package_db, "timestamp")
+    #> [1] "2019-07-16 14:19:20 BST"
 
 #### Package directives networks
 
 The package directives network can then be built using
 
-``` r
-package_network <- build_network(package_db)
-```
+    package_network <- build_network(package_db)
 
 `package_network` can then be interrogated using extractor methods (see,
 `?package_by`). For example, my packages can be extracted as follows
 
-``` r
-my_packages <- package_by(package_network, "Ioannis Kosmidis")
-my_packages
-#> [1] "betareg"      "brglm"        "brglm2"       "cranly"
-#> [5] "enrichwith"   "PlackettLuce" "profileModel" "trackeR"
-```
+    my_packages <- package_by(package_network, "Ioannis Kosmidis")
+    my_packages
+    #>  [1] "betareg"      "brglm"        "brglm2"       "cranly"      
+    #>  [5] "enrichwith"   "PlackettLuce" "profileModel" "semnar"      
+    #>  [9] "trackeR"      "trackeRapp"
 
 and their sub-network of directives can be summarized in an interactive
 visualization, a shapshot of which is below
 
-``` r
-plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
-```
+    plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 
-![](README_files/README-unnamed-chunk-6-1.png)
+![](inst/README_files/README-my_pkgs-1.png)
 
 We can also compute package summaries and plot “Top-n” lists according
 to the various summaries
 
-``` r
-package_summaries <- summary(package_network)
-#> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
-#> 2784 :closeness centrality is not well-defined for disconnected graphs
-plot(package_summaries, according_to = "n_imported_by", top = 20)
-```
+    package_summaries <- summary(package_network)
+    #> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
+    #> 2784 :closeness centrality is not well-defined for disconnected graphs
+    plot(package_summaries, according_to = "n_imported_by", top = 20)
 
-![](README_files/README-unnamed-chunk-7-1.png)
+![](inst/README_files/README-pkg_summaries-1.png)
 
-``` r
-plot(package_summaries, according_to = "page_rank", top = 20)
-```
+    plot(package_summaries, according_to = "page_rank", top = 20)
 
-![](README_files/README-unnamed-chunk-7-2.png)
+![](inst/README_files/README-pkg_summaries-2.png)
 
 #### Collaboration networks
 
 The collaboration network can also be built using a similar call
 
-``` r
-author_network <- build_network(package_db, perspective = "author")
-```
+    author_network <- build_network(package_db, perspective = "author")
 
 and the extractor functions work exactly as they did for the package
 directives network. For example, my collaboration network results can be
 summarized as an interactive visualization, a shapshot of which is below
 
-``` r
-plot(author_network, author = "Ioannis Kosmidis")
-```
+    plot(author_network, author = "Ioannis Kosmidis")
 
-![](README_files/README-unnamed-chunk-9-1.png)
+![](inst/README_files/README-my_aut-1.png)
 
 “Top-n” collaborators according to various summaries can again be
 computed
 
-``` r
-author_summaries <- summary(author_network)
-#> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
-#> 2784 :closeness centrality is not well-defined for disconnected graphs
-plot(author_summaries, according_to = "n_collaborators", top = 20)
-```
+    author_summaries <- summary(author_network)
+    plot(author_summaries, according_to = "n_collaborators", top = 20)
 
-![](README_files/README-unnamed-chunk-10-1.png)
+![](inst/README_files/README-aut_summaries-1.png)
 
-``` r
-plot(author_summaries, according_to = "n_packages", top = 20)
-```
+    plot(author_summaries, according_to = "n_packages", top = 20)
 
-![](README_files/README-unnamed-chunk-10-2.png)
+![](inst/README_files/README-aut_summaries-2.png)
 
-``` r
-plot(author_summaries, according_to = "page_rank", top = 20)
-```
+    plot(author_summaries, according_to = "page_rank", top = 20)
 
-![](README_files/README-unnamed-chunk-10-3.png)
+![](inst/README_files/README-aut_summaries-3.png)
 
 Well, the usual suspects…
 
@@ -156,35 +133,31 @@ produced some neat visuals for the package
 For example, the dependence tree of the **PlackettLuce** R package I am
 co-authoring is
 
-``` r
-PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
-plot(PL_dependence_tree)
-```
+    PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
+    plot(PL_dependence_tree)
 
-![](README_files/README-unnamed-chunk-11-1.png)
+![](inst/README_files/README-dep_tree-1.png)
 
 **cranly** also implements a *package dependence index* (see
 ?summary.cranly\_dependence\_tree for mathematical details). The closer
 that is to 0 the “lighter” the package is
 
-``` r
-summary(PL_dependence_tree)
-#> $package
-#> [1] "PlackettLuce"
-#>
-#> $n_generations
-#> [1] 3
-#>
-#> $parents
-#> [1] "igraph"      "MASS"        "Matrix"      "partykit"    "psychotools"
-#> [6] "psychotree"  "qvcalc"      "rARPACK"     "sandwich"
-#>
-#> $dependence_index
-#> [1] 0.4177529
-```
+    summary(PL_dependence_tree)
+    #> $package
+    #> [1] "PlackettLuce"
+    #> 
+    #> $n_generations
+    #> [1] 3
+    #> 
+    #> $parents
+    #> [1] "igraph"      "Matrix"      "partykit"    "psychotools" "psychotree" 
+    #> [6] "qvcalc"      "rARPACK"     "sandwich"   
+    #> 
+    #> $dependence_index
+    #> [1] 0.3857451
 
 Check the package vignettes for a more comprehensive tour of the package
-and for network visualisations on authors with orders of magnitude
+and for network visualizations on authors with orders of magnitude
 larger collaboration networks than mine.
 
 ### Code of Conduct

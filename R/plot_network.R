@@ -1,22 +1,22 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
-#' Interactive visualization of a package or author \code{\link{cranly_network}}
+#' Interactive visualization of a package or author [cranly_network()]
 #'
 #' @inheritParams subset.cranly_network
 #' @inheritParams summary.cranly_network
 #' @inheritParams visNetwork::visNetwork
-#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork]{visEdges}}
-#' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is \code{TRUE}
-#' @param dragView logical. Should the user be able to drag the view around? Default is \code{TRUE}
-#' @param zoomView logical. Should the user be able to zoom in? Default is \code{TRUE}
-#' @param legend logical. Should a legend be added on the resulting visualization? Default is \code{TRUE}
-#' @param title logical. Should a title be added on the resulting visualization? Default is \code{TRUE}
-#' @param global locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}
-#' @param plot logical. Should the visualisation be returned? Default is \code{TRUE}
-#' @param ... currently not used
+#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is `200`. See, also [`visNetwork::visEdges`].
+#' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is [`TRUE`].
+#' @param dragView logical. Should the user be able to drag the view around? Default is [`TRUE`].
+#' @param zoomView logical. Should the user be able to zoom in? Default is [`TRUE`].
+#' @param legend logical. Should a legend be added on the resulting visualization? Default is [`TRUE`].
+#' @param title logical. Should a title be added on the resulting visualization? Default is [`TRUE`].
+#' @param global locical. If `TRUE` (default) the network summary statistics are computed on `object`, otherwise, on the subset of `object` according to `package`, `author`, `directive`, `base`, `recommended`.
+#' @param plot logical. Should the visualization be returned? Default is [`TRUE`].
+#' @param ... currently not used.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' cran_db <- clean_CRAN_db()
 #' package_network <- build_network(cran_db)
 #' ## The package directives network of all users with Ioannis in
@@ -32,7 +32,7 @@
 plot.cranly_network <- function(x,
                                 package = Inf,
                                 author = Inf,
-                                directive = c("imports", "suggests", "enhances", "depends", "linkingto"),
+                                directive = c("imports", "suggests", "enhances", "depends", "linking_to"),
                                 base = TRUE,
                                 recommended = TRUE,
                                 exact = TRUE,
@@ -79,14 +79,14 @@ plot.cranly_network <- function(x,
                                        "depends" = colors[10],
                                        "suggests" = colors[4],
                                        "enhances" = colors[4],
-                                       "linkingto" = colors[7]))
+                                       "linking_to" = colors[7]))
             dashes <- ifelse(type %in% c("imports", "depends", "suggests"), FALSE, TRUE)
             title <- str_replace_all(type,
                                      c("imports" = "is imported by",
                                        "depends" = "is dependency of",
                                        "suggests" = "is suggested by",
                                        "enhances" = "enhances",
-                                       "linkingto" = "is linked by"))
+                                       "linking_to" = "is linked by"))
         })
         summaries <- summaries[nodes_subset$package, ]
         nodes_subset <- within(nodes_subset, {
@@ -99,7 +99,7 @@ plot.cranly_network <- function(x,
                             "depends/is dependency of:", summaries$n_depends, "/", summaries$n_depended_by, "<br>",
                             "suggests/suggested by:", summaries$n_suggests, "/", summaries$n_suggested_by, "<br>",
                             "enhances/enhaced by:", summaries$n_enhances, "/", summaries$n_enhanced_by, "<br>",
-                            "linkingto/linked by:", summaries$n_linking, "/", summaries$n_linked_by, "<br>",
+                            "linking_to/linked by:", summaries$n_linking, "/", summaries$n_linked_by, "<br>",
                             "<img src=https://cranlogs.r-pkg.org/badges/", package, "?color=969696>")
         })
 

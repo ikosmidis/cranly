@@ -1,25 +1,25 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
 #' Compute a range of package directives and collaboration network statistics
 #'
 #' @aliases summary_cranly_network
 #'
-#' @param object a \code{\link{cranly_network}} object
-#' @param advanced logical. If \code{FALSE} (default) only basic network statistics are computed; if \code{TRUE} advanced statistics are also included in the computation (see Details).
-#' @param ... currently not used
+#' @param object a [`cranly_network`] object.
+#' @param advanced logical. If [`FALSE`] (default) only basic network statistics are computed; if [`TRUE`] advanced statistics are also included in the computation (see Details).
+#' @param ... currently not used`
 #'
 #' @return
 #'
-#' A \code{\link{data.frame}} of various statistics for the author collaboration
+#' A [`data.frame`] of various statistics for the author collaboration
 #' network or the package directives network, depending on whether
-#' \code{attr(object, "perspective")} is \code{"author"} or
-#' \code{"package"}, respectively. See Details for the current list of
+#' `attr(object, "perspective")` is `"author"` or
+#' `"package"`, respectively. See Details for the current list of
 #' statistics returned.
 #'
 #' @details
 #'
-#' If \code{attr(object, "perspective")} is \code{"package"} then the
-#' resulting \code{data.frame} will have the following variables:
+#' If `attr(object, "perspective")` is `"package"` then the
+#' resulting `data.frame` will have the following variables:
 #' \itemize{
 #' \item package. package name
 #' \item n_authors (basic). number of authors for the package
@@ -33,24 +33,24 @@
 #' \item n_enhanced_by (basic). number of packages the package is enhanced by
 #' \item n_linking_to (basic). number of packages the package links to
 #' \item n_linked_by (basic). number of packages the package is linked by
-#' \item betweenness (advanced). the package betweenness in the package network; as computed by \code{\link[igraph]{betweenness}}
-#' \item closeness (advanced). the closeness centrality of the package in the package network; as computed by \code{\link[igraph]{closeness}}
-#' \item page_rank (advanced). the Google PageRank of the package in the package network; as computed by \code{\link[igraph]{page_rank}}
-#' \item degree (advanced). the degree of the package in the package network;  as computed by \code{\link[igraph]{degree}}
-#' \item eigen_centrality (advanced). the eigenvector centrality score of the package in the package network; as computed by \code{\link[igraph]{eigen_centrality}}
+#' \item betweenness (advanced). the package betweenness in the package network; as computed by [igraph::betweenness()]
+#' \item closeness (advanced). the closeness centrality of the package in the package network; as computed by [igraph::closeness()]
+#' \item page_rank (advanced). the Google PageRank of the package in the package network; as computed by [igraph::page_rank()]
+#' \item degree (advanced). the degree of the package in the package network;  as computed by [igraph::degree()]
+#' \item eigen_centrality (advanced). the eigenvector centrality score of the package in the package network; as computed by [igraph::eigen_centrality()]
 #' }
 #'
-#' If \code{attr(object, "perspective")} is \code{"author"} then the
-#' resulting \code{data.frame} will have the following variables:
+#' If `attr(object, "perspective")` is `"author"` then the
+#' resulting `data.frame` will have the following variables:
 #' \itemize{
 #' \item author. author name
 #' \item n_packages (basic). number of packages the author appears in the package authors
 #' \item n_collaborators (basic). total number of co-authors the author has in CRAN
-#' \item betweenness (advanced). the author betweenness in the author network; as computed by \code{\link[igraph]{betweenness}}
-#' \item closeness (advanced). the closeness centrality of the author in the author network; as computed by \code{\link[igraph]{closeness}}
-#' \item page_rank (advanced). the Google PageRank of the author in the author network; as computed by \code{\link[igraph]{page_rank}}
-#' \item degree (advanced). the degree of the author in the author network;  as computed by \code{\link[igraph]{degree}}; same as n_collaborators
-#' \item eigen_centrality (advanced). the eigenvector centrality score of the author in the author network; as computed by \code{\link[igraph]{eigen_centrality}}
+#' \item betweenness (advanced). the author betweenness in the author network; as computed by [igraph::betweenness()]
+#' \item closeness (advanced). the closeness centrality of the author in the author network; as computed by [igraph::closeness()]
+#' \item page_rank (advanced). the Google PageRank of the author in the author network; as computed by [igraph::page_rank()]
+#' \item degree (advanced). the degree of the author in the author network;  as computed by [igraph::degree()]; same as n_collaborators
+#' \item eigen_centrality (advanced). the eigenvector centrality score of the author in the author network; as computed by [igraph::eigen_centrality()]
 #' }
 #' @export
 summary.cranly_network <- function(object, advanced = TRUE, ...) {
@@ -84,7 +84,7 @@ summary.cranly_network <- function(object, advanced = TRUE, ...) {
                              delete.vertices = FALSE)
         n_enhanced_by <- degree(gr, mode = "out")
         n_enhances <- degree(gr, mode = "in")
-        gr <- subgraph.edges(graph = cranly_graph, eids = which(E(cranly_graph)$type == "linkingto"),
+        gr <- subgraph.edges(graph = cranly_graph, eids = which(E(cranly_graph)$type == "linking_to"),
                              delete.vertices = FALSE)
         n_linking_to <- degree(gr, mode = "out")
         n_linked_by <- degree(gr, mode = "in")

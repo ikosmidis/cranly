@@ -2,57 +2,57 @@
 % Please edit documentation in R/plot_network.R
 \name{plot.cranly_network}
 \alias{plot.cranly_network}
-\title{Interactive visualization of a package or author \code{\link{cranly_network}}}
+\title{Interactive visualization of a package or author \code{\link[=cranly_network]{cranly_network()}}}
 \usage{
 \method{plot}{cranly_network}(x, package = Inf, author = Inf,
   directive = c("imports", "suggests", "enhances", "depends",
-  "linkingto"), base = TRUE, recommended = TRUE, exact = TRUE,
+  "linking_to"), base = TRUE, recommended = TRUE, exact = TRUE,
   global = TRUE, physics_threshold = 200, height = NULL,
   width = NULL, dragNodes = TRUE, dragView = TRUE, zoomView = TRUE,
   legend = TRUE, title = TRUE, plot = TRUE, ...)
 }
 \arguments{
-\item{x}{a \code{\link{cranly_network}} object}
+\item{x}{a  \code{\link{cranly_network}} object.}
 
-\item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
+\item{package}{a vector of character strings with the package names to be matched. Default is \code{\link{Inf}} which returns all available packages in \code{x} for further subsetting.}
 
-\item{author}{a vector of character strings with the author names to be matched. Default is \code{Inf} which returns all available author in \code{x} for further subsetting}
+\item{author}{a vector of character strings with the author names to be matched. Default is \code{Inf} which returns all available author in \code{x} for further subsetting.}
 
-\item{directive}{a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}}
+\item{directive}{a vector of at least one of \code{"Imports"}, \code{"Suggests"}, \code{"Enhances"}, \code{"Depends"}.}
 
-\item{base}{logical. Should we include base packages in the subset? Default is \code{TRUE}}
+\item{base}{logical. Should we include base packages in the subset? Default is \code{TRUE}.}
 
-\item{recommended}{logical. Should we include recommended packages in the subset? Default is \code{TRUE}}
+\item{recommended}{logical. Should we include recommended packages in the subset? Default is \code{TRUE}.}
 
-\item{exact}{logical. Should we use exact matching? Default is \code{TRUE}}
+\item{exact}{logical. Should we use exact matching? Default is \code{TRUE}.}
 
-\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}}
+\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}.}
 
-\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork]{visEdges}}}
+\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork:visEdges]{visNetwork::visEdges}}.}
 
 \item{height}{: Height (optional, defaults to automatic sizing)}
 
 \item{width}{: Width (optional, defaults to automatic sizing)}
 
-\item{dragNodes}{logical. Should the user be able to drag the nodes that are not fixed? Default is \code{TRUE}}
+\item{dragNodes}{logical. Should the user be able to drag the nodes that are not fixed? Default is \code{\link{TRUE}}.}
 
-\item{dragView}{logical. Should the user be able to drag the view around? Default is \code{TRUE}}
+\item{dragView}{logical. Should the user be able to drag the view around? Default is \code{\link{TRUE}}.}
 
-\item{zoomView}{logical. Should the user be able to zoom in? Default is \code{TRUE}}
+\item{zoomView}{logical. Should the user be able to zoom in? Default is \code{\link{TRUE}}.}
 
-\item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{TRUE}}
+\item{legend}{logical. Should a legend be added on the resulting visualization? Default is \code{\link{TRUE}}.}
 
-\item{title}{logical. Should a title be added on the resulting visualization? Default is \code{TRUE}}
+\item{title}{logical. Should a title be added on the resulting visualization? Default is \code{\link{TRUE}}.}
 
-\item{plot}{logical. Should the visualisation be returned? Default is \code{TRUE}}
+\item{plot}{logical. Should the visualization be returned? Default is \code{\link{TRUE}}.}
 
-\item{...}{currently not used}
+\item{...}{currently not used.}
 }
 \description{
-Interactive visualization of a package or author \code{\link{cranly_network}}
+Interactive visualization of a package or author \code{\link[=cranly_network]{cranly_network()}}
 }
 \examples{
-\dontrun{
+\donttest{
 cran_db <- clean_CRAN_db()
 package_network <- build_network(cran_db)
 ## The package directives network of all users with Ioannis in

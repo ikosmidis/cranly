@@ -1,30 +1,29 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
-#' Coerce a \code{\link{cranly_network}} to an \code{\link[igraph]{graph}} object
+#' Coerce a [`cranly_network`] to an [`igraph::graph`] object
 #'
-#' @param x a \code{\link{cranly_network}} object
-#' @param reverse logical. Should the direction of the edges be reversed? See details. Default is \code{TRUE}
-#' @param ... currently not used
+#' @param x a [`cranly_network`] object.
+#' @param reverse logical. Should the direction of the edges be reversed? See details. Default is [`TRUE`].
+#' @param ... currently not used.
 #'
 #' @details
 #'
-#' The convention for a \code{\link{cranly_network}} object with
-#' \code{perspective = "package"} is that the direction of an edge is
-#' from the package that is imported by, suggested by, enhances or is
-#' a dependency of another package, to the latter
-#' package. \code{reverse} reverses that direction to correctly
-#' compute relevant network summaries (see
-#' \code{summary.cranly_network}). \code{reverse} is only relevant
-#' when the \code{attr(x, "perspective")} is "package" and is ignored
-#' when \code{attr(x, "perspective")} is "author", in which case the
-#' resulting \code{\link[igraph]{graph}} object represents an
-#' undirected network of authors.
+#' The convention for a [`cranly_network`] object with `perspective =
+#' "package"` is that the direction of an edge is from the package
+#' that is imported by, suggested by, enhances or is a dependency of
+#' another package, to the latter package. `reverse` reverses that
+#' direction to correctly compute relevant network summaries (see
+#' `summary.cranly_network`). `reverse` is only relevant when the
+#' `attr(x, "perspective")` is `"package"` and is ignored when
+#' `attr(x, "perspective")` is `"author"`, in which case the resulting
+#' [`igraph::graph`] object represents an undirected network of
+#' authors.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'
-#' #' cran_db <- clean_CRAN_db()
-#' ## Package directives network
+#' cran_db <- clean_CRAN_db()
+#' # Package directives network
 #' package_network <- build_network(object = cran_db, perspective = "package")
 #' igraph::as.igraph(package_network)
 #'
@@ -55,7 +54,7 @@ as.igraph.cranly_network <- function(x, reverse = FALSE, ...) {
         E(g)$depends <- edges$depends
         E(g)$suggests <- edges$suggests
         E(g)$enhances <- edges$enhances
-        E(g)$linkingto <- edges$linkingto
+        E(g)$linking_to <- edges$linking_to
         E(g)$version <- edges$version
     }
     g

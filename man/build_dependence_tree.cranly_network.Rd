@@ -9,23 +9,23 @@
   base = FALSE, recommended = TRUE, global = TRUE, ...)
 }
 \arguments{
-\item{x}{a \code{\link{cranly_network}} object}
+\item{x}{a  \code{\link{cranly_network}} object.}
 
-\item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
+\item{package}{a vector of character strings with the package names to be matched. Default is \code{\link{Inf}} which returns all available packages in \code{x} for further subsetting.}
 
-\item{base}{logical. Should we include base packages in the subset? Default is \code{TRUE}}
+\item{base}{logical. Should we include base packages in the subset? Default is \code{TRUE}.}
 
-\item{recommended}{logical. Should we include recommended packages in the subset? Default is \code{TRUE}}
+\item{recommended}{logical. Should we include recommended packages in the subset? Default is \code{TRUE}.}
 
-\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}}
+\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}.}
 
-\item{...}{currently not used}
+\item{...}{currently not used.}
 }
 \description{
 Construct a \code{\link{cranly_dependence_tree}} object
 }
 \examples{
-\dontrun{
+\donttest{
 cran_db <- clean_CRAN_db()
 package_network <- build_network(object = cran_db)
 dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
@@ -34,5 +34,5 @@ plot(dep_tree)
 
 }
 \seealso{
-compute_dependence_tree
+\code{\link{compute_dependence_tree}} \code{\link{plot.cranly_dependence_tree}} \code{\link{summary.cranly_dependence_tree}}
 }

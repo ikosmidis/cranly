@@ -1,30 +1,33 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
 #' Compute edges and nodes of package directives and collaboration networks
+#' 
+#' @param object a [`cranly_db`] object. If missing (default) a call to [`clean_CRAN_db`] is issued.
+#' @param trace logical. Print progress information? Default is [`FALSE`].
+#' @param perspective character. Should a `"package"` (default) or an `"author"` network be built?
+#' @param ... Currently not used.
 #'
-#' @param object a \code{\link{cranly_db}} object
-#' @param trace logical. Print progress information? Default is \code{FALSE}
-#' @param perspective character. Build a \code{"package"} (default )or an \code{"author"} network?
-#' @param ... Currently not used
-#'
-#' @aliases cranly_network
+#' @aliases cranly_network build_network
 #'
 #' @return
 #'
-#' A list of 2 \code{\link{data.frame}s} with the \code{edges} and
-#' \code{nodes} of the network
+#' A list of 2 [`data.frame`] objects with the `edges` and `nodes` of the network.
 #'
 #' @details
 #'
-#' The convention for a \code{\link{cranly_network}} object with
-#' \code{perspective = "package"} is that the direction of an edge is
+#' The convention for a [`cranly_network`] object with
+#' `perspective = "package"` is that the direction of an edge is
 #' from the package that is imported by, suggested by, enhances or is
 #' a dependency of another package, to the latter package. The author
-#' collaboration network is analysed and visualised as undirected by
-#' all methods in \code{cranly}.
+#' collaboration network is analyzed and visualized as undirected by
+#' all methods in `cranly`.
+#'
+#' 
+#' @seealso
+#' [`clean_CRAN_db`] [`subset.cranly_network`] [`plot.cranly_network`] [`extractor-functions`]
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' cran_db <- clean_CRAN_db()
 #' ## Package directives network
 #' package_network <- build_network(object = cran_db, perspective = "package")
@@ -42,11 +45,15 @@
 #' }
 #'
 #' @export
-build_network.cranly_db <- function(object = clean_CRAN_db(),
+build_network.cranly_db <- function(object,
                                     trace = FALSE, perspective = "package", ...) {
 
     perspective <- match.arg(perspective, c("package", "author"))
 
+    if (missing(object)) {
+        object <- clean_CRAN_db()
+    }
+    
     if (perspective == "package") {
         compute_edges <- function(what = "imports", rev = FALSE) {
             out <- object[[what]]
@@ -62,13 +69,33 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
         su <- compute_edges(what = "suggests")
         en <- compute_edges(what = "enhances", rev = TRUE)
         de <- compute_edges(what = "depends")
-        li <- compute_edges(what = "linkingto")
+        li <- compute_edges(what = "linking_to")
 
         ## Edges
         edges <- rbind(im, su, en, de, li)
 
+
         nodes <- merge(data.frame(package = unique(c(edges$from, edges$to)), stringsAsFactors=FALSE),
-                       object, by = "package", all.x = TRUE)
+                       object, by = "package", all = TRUE) ## all.x in previous version
+        
+        ## NA in enhances, imports etc indicates that no information
+        ## is available about that package (e.g being from
+        ## bioconductor). character(0) on the other hand means that
+        ## there is no package in enhances, imports, etc.
+
+        ## Split name and emails of maintainers
+        maintainers <- lapply(strsplit(nodes$maintainer, "<"), function(x) {
+            gsub(">", "", x)
+        })       
+        
+        ## Extract and clean white space
+        nodes$maintainer <- sapply(maintainers, "[", 1) %>%
+            str_replace_all("^\\s+|\\s+$|\\s+(?=\\s)", "") %>%
+            clean_up_author()        
+        
+        nodes$email <- sapply(maintainers, "[", 2) %>%
+            str_replace_all("^\\s+|\\s+$|\\s+(?=\\s)", "")
+
 
         base_packages <- utils::installed.packages(priority = "high")
         base_package_names <- unique(base_packages[, "Package"])
@@ -93,7 +120,7 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
                 d[["suggests"]] <- unname(x["suggests"])
                 d[["enhances"]] <- unname(x["enhances"])
                 d[["depends"]] <- unname(x["depends"])
-                d[["linkingto"]] <- unname(x["linkingto"])
+                d[["linking_to"]] <- unname(x["linking_to"])
                 d[["version"]] <- x$version
                 d[["maintainer"]] <- x$maintainer
                 d
@@ -123,3 +150,6 @@ build_network.cranly_db <- function(object = clean_CRAN_db(),
     out
 
 }
+
+
+build_network.NULL <- build_network.cranly_db

@@ -1,6 +1,6 @@
 ---
 title: "CRAN top 20s and interactive R package directives and collaboration networks"
-author: "[Ioannis Kosmidis](http://www.ucl.ac.uk/~ucakiko/)"
+author: "[Ioannis Kosmidis](http://www.ikosmidis.com)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -20,9 +20,9 @@ knitr::opts_chunk$set(
 
 
 # **cranly**
-[**cranly**](https://github.com/ikosmidis/cranly) provides core visualisations and summaries for the CRAN package database. It is aimed mainly as an analytics tool for developers to keep track of their CRAN packages and profiles, as well as those of others, which, at least for me, is proving harder and harder as the CRAN ecosystem grows.
+[**cranly**](https://github.com/ikosmidis/cranly) provides core visualizations and summaries for the CRAN package database. It is aimed mainly as an analytics tool for developers to keep track of their CRAN packages and profiles, as well as those of others, which, at least for me, is proving harder and harder as the CRAN ecosystem grows.
 
-The package provides comprehensive methods for cleaning up and organising the information in the CRAN package database, for building package directives networks (depends, imports, suggests, enhances) and collaboration networks, and for computing summaries and producing interactive visualisations from the resulting networks. Network visualisation is through the [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package. The package also provides functions to coerce the networks to igraph <https://CRAN.R-project.org/package=igraph> objects for further analyses and modelling.
+The package provides comprehensive methods for cleaning up and organizing the information in the CRAN package database, for building package directives networks (depends, imports, suggests, enhances) and collaboration networks, and for computing summaries and producing interactive visualizations from the resulting networks. Network visualization is through the [**visNetwork**](https://CRAN.R-project.org/package=visNetwork) package. The package also provides functions to coerce the networks to igraph <https://CRAN.R-project.org/package=igraph> objects for further analyses and modelling.
 
 This vignette is a tour to the current capabilities in [**cranly**](https://github.com/ikosmidis/cranly).
 
@@ -34,12 +34,12 @@ library("cranly")
 p_db <- tools::CRAN_package_db()
 ```
 
-Next we need to clean and organise author names, depends, imports, suggests, enhances
+Next we need to clean and organize author names, depends, imports, suggests, enhances
 ```{r}
 package_db <- clean_CRAN_db(p_db)
 ```
 
-The resulting dataset carries the timestamp of when it was put together, which helps keeping track of when the data import has taken place and will be helpful in future versions when dynamic analyses and visualisation methods are implemented.
+The resulting dataset carries the timestamp of when it was put together, which helps keeping track of when the data import has taken place and will be helpful in future versions when dynamic analyses and visualization methods are implemented.
 ```{r}
 attr(package_db, "timestamp")
 ```
@@ -72,7 +72,7 @@ The sub-network for my packages can be found using the extractor function `packa
 my_packages <- package_by(package_network, "Ioannis Kosmidis")
 my_packages
 ```
-We can now get an interactive visualisation of the sub-network for my packages using
+We can now get an interactive visualization of the sub-network for my packages using
 ```{r}
 plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```

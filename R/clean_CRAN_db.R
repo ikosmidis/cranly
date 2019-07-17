@@ -1,67 +1,62 @@
-# Copyright (C) 2018 Ioannis Kosmidis
+# Copyright (C) 2018- Ioannis Kosmidis
 
-#' Clean and organise package and author names in the output of \code{tools::CRAN_package_db()}
+#' Clean and organize package and author names in the output of [`tools::CRAN_package_db()`]
 #'
 #' @aliases cranly_db
 #'
-#' @param packages_db a \code{\link{data.frame}} with the same
-#'     structure to the output of \code{\link[tools]{CRAN_package_db}}
-#'     (default) or \code{\link[utils]{available.packages}}
+#' @param packages_db a [`data.frame`] with the same structure to the
+#'     output of [`tools::CRAN_package_db`] (default) or
+#'     [`utils::available.packages`].
 #' @param clean_directives a function that transforms the contents of
 #'     the various directives in the package descriptions to vectors
-#'     of package names. Default is \code{\link{clean_up_directives}}.
+#'     of package names. Default is [`clean_up_directives`].
 #' @param clean_author a function that transforms the contents of
-#'     \code{Author} to vectors of package authors. Default is
-#'     \code{\link{clean_up_author}}.
+#'     `Author` to vectors of package authors. Default is
+#'     [`clean_up_author`].
 #'
 #' @details
 #'
-#' \code{clean_CRAN_db} uses \code{clean_up_directives} and
-#' \code{clean_up_authors} to clean up the author names and package
-#' names in the various directives (like \code{Imports},
-#' \code{Depends}, \code{Suggests}, \code{Enhances}, \code{LinkingTo})
-#' as in the \code{data.frame} that results from
-#' \code{\link[tools]{CRAN_package_db}}) and return an organised
-#' \code{data.frame} of class \code{cranly_db} that can be used for
-#' further analysis.
-#'
+#' [`clean_CRAN_db`] uses [`clean_up_directives`] and
+#' [`clean_up_author`] to clean up the author names and package names
+#' in the various directives (like `Imports`, `Depends`, `Suggests`,
+#' `Enhances`, `LinkingTo`) as in the [`data.frame`] that results from
+#' [`tools::CRAN_package_db`]  return an organized `data.frame` of
+#' class [`cranly_db`] that can be used for further analysis.
 #'
 #' The function tries hard to identify and eliminate mistakes in the
 #' Author field of the description file, and extract a clean list of
 #' only author names. The relevant operations are coded in the
-#' \code{\link{clean_up_author}} function. Specifically, some
-#' references to copyright holders had to go because they were
-#' contaminating the list of authors (most are not necessary anyway,
-#' but that is a different story...). The current version of
-#' \code{\link{clean_up_author}} is far from best practice in using
-#' regex but it currently does a fair job in cleaning up messy Author
-#' fields. It will be improving in future versions.
+#' [`clean_up_author`] function. Specifically, some references to
+#' copyright holders had to go because they were contaminating the
+#' list of authors (most are not necessary anyway, but that is a
+#' different story...). The current version of [`clean_up_author`] is
+#' far from best practice in using regex but it currently does a fair
+#' job in cleaning up messy Author fields. It will be improving in
+#' future versions.
 #'
 #' Custom clean-up functions can also be supplied via the
-#' \code{clean_directives} and \code{clean_author} arguments.
+#' `clean_directives` and `clean_author` arguments.
 #'
 #' @return
 #'
-#' An \code{\link{data.frame}} with the same variables as
-#' \code{packaged_db} (but with lower case names), a \code{timestamp}
-#' attribute and also inheriting from \code{class_db}.
+#' A [`data.frame`] with the same variables as `package_db` (but with
+#' lower case names), that also inherits from `class_db`, and has a
+#' `timestamp` attribute.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## Before cleaning
 #' cran_db <- tools::CRAN_package_db()
 #' cran_db[cran_db$Package == "weights", "Author"]
 #'
 #' ## After clean up
 #' package_db <- clean_CRAN_db(cran_db)
-#' package_db[package_db$Package == "weights", "Author"]
+#' package_db[package_db$package == "weights", "author"]
 #' }
 #' @export
 clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
                           clean_directives = clean_up_directives,
                           clean_author = clean_up_author) {
-
-
 
     if (is.matrix(packages_db)) {
         packages_db <- as.data.frame(packages_db)
@@ -109,9 +104,22 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
         depends <- clean_directives(depends)
         suggests <- clean_directives(suggests)
         enhances <- clean_directives(enhances)
-        linkingto <- clean_directives(linkingto)
+        linking_to <- clean_directives(linkingto)
+        reverse_imports <- clean_directives(`reverse imports`)
+        reverse_depends <- clean_directives(`reverse depends`)
+        reverse_suggests <- clean_directives(`reverse suggests`)
+        reverse_enhances <- clean_directives(`reverse enhances`)
+        reverse_linking_to <- clean_directives(`reverse linking to`)
         author <- clean_author(author)
+        date <- as.Date(date)
+        published <- as.Date(published)
     })
+
+    ## Clean up
+    packages_db["reverse depends"] <- packages_db["reverse imports"] <-
+        packages_db["reverse suggests"] <- packages_db["reverse enhances"] <-
+        packages_db["reverse linking to"] <- packages_db["linkingto"] <- NULL
+    
 
     attr(packages_db, "timestamp") <- Sys.time()
 
@@ -121,11 +129,11 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
 
 #' Clean up package directives
 #'
-#' @param variable a character string
+#' @param variable a character string.
 #'
 #' @return
 #'
-#' A list of one vector of character strings
+#' A list of one vector of character strings.
 #'
 #' @examples
 #' clean_up_directives("R (234)\n stats (>0.01),     base\n graphics")
@@ -142,17 +150,18 @@ clean_up_directives <- function(variable) {
         str_split(",") %>%
         lapply(function(x) {
             out <- str_replace_all(x, ",|^\\s+|\\s+$", "")
-            out[!(out == "")]
+            out <- out[!(out == "")]
+            if (all(is.na(out))) character(0) else out
         })## eliminate remaining commas and leading and trailing whitespaces
 }
 
 #' Clean up author names
 #'
-#' @param variable a character string
+#' @param variable a character string.
 #'
 #' @return
 #'
-#' A list of one vector of character strings
+#' A list of one vector of character strings.
 #'
 #' @examples
 #' clean_up_author(paste("The R Core team, Brian & with some assistance from Achim, Hadley;",

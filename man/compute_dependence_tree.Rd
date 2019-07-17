@@ -7,9 +7,9 @@
 compute_dependence_tree(x, package = NULL, generation = 0)
 }
 \arguments{
-\item{x}{a \code{\link{cranly_network}} object}
+\item{x}{a  \code{\link{cranly_network}} object.}
 
-\item{package}{a vector of character strings with the package names to be matched. Default is \code{Inf} which returns all available packages in \code{x} for further subsetting}
+\item{package}{a vector of character strings with the package names to be matched. If \code{Inf} all available packages in \code{x} are returned. If \code{NULL} (default) nothing is matched.}
 
 \item{generation}{integer. The original generation for the package.}
 }
@@ -24,5 +24,5 @@ requirements for \code{package} (\code{Depends}, \code{Imports} or
 packages are found, and so on.
 }
 \seealso{
-build_dependence_tree
+\code{\link{build_dependence_tree.cranly_network}}
 }
