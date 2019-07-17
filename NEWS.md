@@ -1,4 +1,8 @@
-# cranly 0.5
+# cranly 0.6
+
+* Fixed typos in news
+
+# cranly 0.5.2
 
 ## New functionality
 * New extractor functions `suggested_by`, `imported_by`, `dependency_of`, `linked_by`, `enhanced_by`, `suggesting`, `importing`, `linking_to`, `enhancing`, `maintainer_of`, `maintained_by`, `email_of`, `email_with`, `description_of`, `title_of`, `license_of`, `version_of`, `release_date_of`
@@ -20,10 +24,6 @@
 * `cranly_network_objects` with `perspective = "package` carry maintainer and maintainer email information
 * New vignette on extractor functions and word clouds
 * Updated DESCRIPTION file
-
-
-## New functionality
-* New extractor functions: `maintainer_of`, `maintained_by`, `email_of`, `email_with`, `description_of`, `title_of`, `license_of`, `version_of`, `release_date_of` (see `?extractor-functions`)
 
 # cranly 0.3
 
