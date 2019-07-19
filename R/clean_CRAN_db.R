@@ -78,24 +78,17 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
     ## Remove duplicated packages
     packages_db <- packages_db[is.na(packages_db$Package) | !duplicated(packages_db$Package), ]
 
-    if (is.null(packages_db$Author)) {
-        warning("no author information found in package_db")
-        packages_db$Author <- NA
+    info_check <- c("Author", "Date", "URL", "Maintainer", "Date", "Published",
+                    paste("Reverse", c("depends", "imports", "suggests", "enhances", "linking to")))
+    
+    for (v in info_check) {
+        if (is.null(packages_db[[v]])) {
+            warning("no information about ", v, " has been found in package_db")
+            packages_db[[v]] <- NA
+        }
     }
-    if (is.null(packages_db$Date)) {
-        warning("no date information found in package_db")
-        packages_db$Date <- NA
-    }
-    if (is.null(packages_db$URL)) {
-        warning("no url information found in package_db")
-        packages_db$URL <- NA
-    }
-    if (is.null(packages_db$Maintainer)) {
-        warning("no Maintainer information found in package_db")
-        packages_db$Maintainer <- NA
-    }
-
-
+    
+    
     ## Coerce variable names to lower case
     names(packages_db) <- tolower(names(packages_db))
 
@@ -104,7 +97,7 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
         depends <- clean_directives(depends)
         suggests <- clean_directives(suggests)
         enhances <- clean_directives(enhances)
-        linking_to <- clean_directives(linkingto)
+        linking_to <- clean_directives(linkingto)        
         reverse_imports <- clean_directives(`reverse imports`)
         reverse_depends <- clean_directives(`reverse depends`)
         reverse_suggests <- clean_directives(`reverse suggests`)
@@ -124,6 +117,7 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
     attr(packages_db, "timestamp") <- Sys.time()
 
     class(packages_db) <- c("cranly_db", class(packages_db))
+    
     packages_db
 }
 
