@@ -13,6 +13,9 @@
 #' @param clean_author a function that transforms the contents of
 #'     `Author` to vectors of package authors. Default is
 #'     [`clean_up_author`].
+#' @param clean_maintainer a function that transforms the contents of
+#'     `Maintainer` to vectors of of maintainer names. Default is
+#'     [`standardize_whitespace`].
 #'
 #' @details
 #'
@@ -56,7 +59,8 @@
 #' @export
 clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
                           clean_directives = clean_up_directives,
-                          clean_author = clean_up_author) {
+                          clean_author = clean_up_author,
+                          clean_maintainer = standardize_whitespace) {
 
     if (is.matrix(packages_db)) {
         packages_db <- as.data.frame(packages_db)
@@ -107,7 +111,13 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
         date <- as.Date(date)
         published <- as.Date(published)
     })
-
+    
+    ## Maintainers
+    maintainer <- strsplit(packages_db$maintainer, "<")
+    packages_db$email <- str_replace_all(sapply(maintainer, "[", 2), "^\\s+|\\s+$|\\s+(?=\\s)|>", "")
+    maintainer <- sapply(maintainer, "[", 1)
+    packages_db$maintainer <- clean_maintainer(maintainer)
+    
     ## Clean up
     packages_db["reverse depends"] <- packages_db["reverse imports"] <-
         packages_db["reverse suggests"] <- packages_db["reverse enhances"] <-
@@ -120,6 +130,23 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
     
     packages_db
 }
+
+#' Standardize whitespace in strings
+#'
+#' @param variable a character string.
+#'  
+#' @return
+#'
+#' A list of one vector of character strings.
+#'
+#' @examples
+#' standardize_whitespace("  My spacebar         key is      broken.             ")
+#' 
+#' @export
+standardize_whitespace <- function(variable) {
+    str_replace_all(variable, "^\\s+|\\s+$|\\s+(?=\\s)", "")
+}
+
 
 #' Clean up package directives
 #'
