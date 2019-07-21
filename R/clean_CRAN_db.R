@@ -113,10 +113,12 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
     })
     
     ## Maintainers
-    maintainer <- strsplit(packages_db$maintainer, "<")
-    packages_db$email <- str_replace_all(sapply(maintainer, "[", 2), "^\\s+|\\s+$|\\s+(?=\\s)|>", "")
-    maintainer <- sapply(maintainer, "[", 1)
-    packages_db$maintainer <- clean_maintainer(maintainer)
+    if (!all(is.na(packages_db$maintainer))) {
+        maintainer <- strsplit(packages_db$maintainer, "<")
+        packages_db$email <- str_replace_all(sapply(maintainer, "[", 2), "^\\s+|\\s+$|\\s+(?=\\s)|>", "")
+        maintainer <- sapply(maintainer, "[", 1)
+        packages_db$maintainer <- clean_maintainer(maintainer)
+    }
     
     ## Clean up
     packages_db["reverse depends"] <- packages_db["reverse imports"] <-

@@ -86,6 +86,7 @@ build_network.cranly_db <- function(object,
         base_package_names <- unique(base_packages[, "Package"])
 
         inds <- which(base_package_names %in% nodes$package)
+        nodes$priority <- as.character(nodes$priority)
         nodes[nodes$package %in% base_package_names, "priority"] <- base_packages[inds, "Priority"]
 
     }
@@ -131,7 +132,7 @@ build_network.cranly_db <- function(object,
     out <- list(edges = edges, nodes = nodes)
     class(out) <- c("cranly_network", class(out))
     attr(out, "timestamp") <- attr(object, "timestamp")
-    attr(out, "perspective") <- perspective
+    attr(out, "perspective") <- perspective    
     out
 
 }
