@@ -1,6 +1,13 @@
-# cranly 0.6
+# cranly 0.5.3
 
+## Bug fixes
+* Fixed a bug that would not allow `clean_CRAN_db` to work with the output of `utils::available.packages`
+* Fixed a bug that would cause a warning about invalid factor levels in `build_network`
+
+## Other improvements, updates and additions
 * Fixed typos in news
+* Improved the computational efficiency of `build_network`
+* Improved the variables checks in `clean_CRAN_db`
 
 # cranly 0.5.2
 
