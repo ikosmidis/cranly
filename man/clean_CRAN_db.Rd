@@ -7,7 +7,8 @@
 \usage{
 clean_CRAN_db(packages_db = tools::CRAN_package_db(),
   clean_directives = clean_up_directives,
-  clean_author = clean_up_author)
+  clean_author = clean_up_author,
+  clean_maintainer = standardize_whitespace)
 }
 \arguments{
 \item{packages_db}{a \code{\link{data.frame}} with the same structure to the
@@ -21,6 +22,10 @@ of package names. Default is \code{\link{clean_up_directives}}.}
 \item{clean_author}{a function that transforms the contents of
 \code{Author} to vectors of package authors. Default is
 \code{\link{clean_up_author}}.}
+
+\item{clean_maintainer}{a function that transforms the contents of
+\code{Maintainer} to vectors of of maintainer names. Default is
+\code{\link{standardize_whitespace}}.}
 }
 \value{
 A \code{\link{data.frame}} with the same variables as \code{package_db} (but with

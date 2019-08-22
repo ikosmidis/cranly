@@ -13,6 +13,9 @@
 #' @param clean_author a function that transforms the contents of
 #'     `Author` to vectors of package authors. Default is
 #'     [`clean_up_author`].
+#' @param clean_maintainer a function that transforms the contents of
+#'     `Maintainer` to vectors of of maintainer names. Default is
+#'     [`standardize_whitespace`].
 #'
 #' @details
 #'
@@ -56,7 +59,8 @@
 #' @export
 clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
                           clean_directives = clean_up_directives,
-                          clean_author = clean_up_author) {
+                          clean_author = clean_up_author,
+                          clean_maintainer = standardize_whitespace) {
 
     if (is.matrix(packages_db)) {
         packages_db <- as.data.frame(packages_db)
@@ -78,24 +82,17 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
     ## Remove duplicated packages
     packages_db <- packages_db[is.na(packages_db$Package) | !duplicated(packages_db$Package), ]
 
-    if (is.null(packages_db$Author)) {
-        warning("no author information found in package_db")
-        packages_db$Author <- NA
+    info_check <- c("Author", "Date", "URL", "Maintainer", "Date", "Published",
+                    paste("Reverse", c("depends", "imports", "suggests", "enhances", "linking to")))
+    
+    for (v in info_check) {
+        if (is.null(packages_db[[v]])) {
+            warning("no information about ", v, " has been found in package_db")
+            packages_db[[v]] <- NA
+        }
     }
-    if (is.null(packages_db$Date)) {
-        warning("no date information found in package_db")
-        packages_db$Date <- NA
-    }
-    if (is.null(packages_db$URL)) {
-        warning("no url information found in package_db")
-        packages_db$URL <- NA
-    }
-    if (is.null(packages_db$Maintainer)) {
-        warning("no Maintainer information found in package_db")
-        packages_db$Maintainer <- NA
-    }
-
-
+    
+    
     ## Coerce variable names to lower case
     names(packages_db) <- tolower(names(packages_db))
 
@@ -104,7 +101,7 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
         depends <- clean_directives(depends)
         suggests <- clean_directives(suggests)
         enhances <- clean_directives(enhances)
-        linking_to <- clean_directives(linkingto)
+        linking_to <- clean_directives(linkingto)        
         reverse_imports <- clean_directives(`reverse imports`)
         reverse_depends <- clean_directives(`reverse depends`)
         reverse_suggests <- clean_directives(`reverse suggests`)
@@ -114,7 +111,15 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
         date <- as.Date(date)
         published <- as.Date(published)
     })
-
+    
+    ## Maintainers
+    if (!all(is.na(packages_db$maintainer))) {
+        maintainer <- strsplit(packages_db$maintainer, "<")
+        packages_db$email <- str_replace_all(sapply(maintainer, "[", 2), "^\\s+|\\s+$|\\s+(?=\\s)|>", "")
+        maintainer <- sapply(maintainer, "[", 1)
+        packages_db$maintainer <- clean_maintainer(maintainer)
+    }
+    
     ## Clean up
     packages_db["reverse depends"] <- packages_db["reverse imports"] <-
         packages_db["reverse suggests"] <- packages_db["reverse enhances"] <-
@@ -124,8 +129,26 @@ clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
     attr(packages_db, "timestamp") <- Sys.time()
 
     class(packages_db) <- c("cranly_db", class(packages_db))
+    
     packages_db
 }
+
+#' Standardize whitespace in strings
+#'
+#' @param variable a character string.
+#'  
+#' @return
+#'
+#' A list of one vector of character strings.
+#'
+#' @examples
+#' standardize_whitespace("  My spacebar         key is      broken.             ")
+#' 
+#' @export
+standardize_whitespace <- function(variable) {
+    str_replace_all(variable, "^\\s+|\\s+$|\\s+(?=\\s)", "")
+}
+
 
 #' Clean up package directives
 #'

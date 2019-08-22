@@ -61,7 +61,7 @@ plot.cranly_network <- function(x,
     timestamp <- attr(x, "timestamp")
 
     if (nrow(x$nodes) == 0) {
-            message("Nothing to plot")
+            message("Nothing to plot [exact = ", exact, "]")
             return(invisible(NULL))
     }
 
