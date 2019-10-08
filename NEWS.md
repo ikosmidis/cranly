@@ -1,3 +1,6 @@
+# cranly 0.5.4
+* Fixed a bug in `release_date_of`, `version_of`, `license_of`, `title_of`, `description_of`, where if `package = Inf` the results would be `unique`'d before returning
+
 # cranly 0.5.3
 
 ## Bug fixes
