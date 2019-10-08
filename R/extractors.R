@@ -810,7 +810,7 @@ description_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat
         inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     }
     if (flat) {
-        out <- unique(unlist(x$nodes[inds, "description"]))
+        out <- unlist(x$nodes[inds, "description"])
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
@@ -848,7 +848,7 @@ title_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRU
         inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     }
     if (flat) {
-        out <- unique(unlist(x$nodes[inds, "title"]))
+        out <- unlist(x$nodes[inds, "title"])
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
@@ -886,16 +886,16 @@ license_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
         inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     }
     if (flat) {
-        out <- unique(unlist(x$nodes[inds, "license"]))
+        out <- unlist(x$nodes[inds, "license"])
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
         else {
             out <- out[!is.na(out)]
-        }
+        }        
     }
     else {
-        out <- x$nodes[inds, ]
+        out <- x$nodes[inds, ]        
     }    
     out
 }
@@ -924,7 +924,7 @@ version_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
         inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     }
     if (flat) {
-        out <- unique(unlist(x$nodes[inds, "version"]))
+        out <- unlist(x$nodes[inds, "version"])
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
@@ -962,7 +962,7 @@ release_date_of.cranly_network <- function(x, package = NULL, exact = FALSE, fla
         inds <- grep(str, x$nodes$package, ignore.case = !exact, perl = TRUE)
     }
     if (flat) {
-        out <- unique(unlist(x$nodes[inds, "published"]))
+        out <- unlist(x$nodes[inds, "published"])
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
