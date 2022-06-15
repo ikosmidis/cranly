@@ -5,8 +5,14 @@
 \alias{cranly_dependence_tree}
 \title{Construct a \code{\link{cranly_dependence_tree}} object}
 \usage{
-\method{build_dependence_tree}{cranly_network}(x, package = Inf,
-  base = FALSE, recommended = TRUE, global = TRUE, ...)
+\method{build_dependence_tree}{cranly_network}(
+  x,
+  package = Inf,
+  base = FALSE,
+  recommended = TRUE,
+  global = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a  \code{\link{cranly_network}} object.}

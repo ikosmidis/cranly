@@ -3,16 +3,18 @@
 \name{clean_CRAN_db}
 \alias{clean_CRAN_db}
 \alias{cranly_db}
-\title{Clean and organize package and author names in the output of \code{\link[tools:CRAN_package_db]{tools::CRAN_package_db()}}}
+\title{Clean and organize package and author names in the output of \code{\link[tools:CRANtools]{tools::CRAN_package_db()}}}
 \usage{
-clean_CRAN_db(packages_db = tools::CRAN_package_db(),
+clean_CRAN_db(
+  packages_db,
   clean_directives = clean_up_directives,
   clean_author = clean_up_author,
-  clean_maintainer = standardize_whitespace)
+  clean_maintainer = standardize_whitespace
+)
 }
 \arguments{
 \item{packages_db}{a \code{\link{data.frame}} with the same structure to the
-output of \code{\link[tools:CRAN_package_db]{tools::CRAN_package_db}} (default) or
+output of \code{\link[tools:CRANtools]{tools::CRAN_package_db}} (default) or
 \code{\link[utils:available.packages]{utils::available.packages}}.}
 
 \item{clean_directives}{a function that transforms the contents of
@@ -33,14 +35,14 @@ lower case names), that also inherits from \code{class_db}, and has a
 \code{timestamp} attribute.
 }
 \description{
-Clean and organize package and author names in the output of \code{\link[tools:CRAN_package_db]{tools::CRAN_package_db()}}
+Clean and organize package and author names in the output of \code{\link[tools:CRANtools]{tools::CRAN_package_db()}}
 }
 \details{
 \code{\link{clean_CRAN_db}} uses \code{\link{clean_up_directives}} and
 \code{\link{clean_up_author}} to clean up the author names and package names
 in the various directives (like \code{Imports}, \code{Depends}, \code{Suggests},
 \code{Enhances}, \code{LinkingTo}) as in the \code{\link{data.frame}} that results from
-\code{\link[tools:CRAN_package_db]{tools::CRAN_package_db}}  return an organized \code{data.frame} of
+\code{\link[tools:CRANtools]{tools::CRAN_package_db}}  return an organized \code{data.frame} of
 class \code{\link{cranly_db}} that can be used for further analysis.
 
 The function tries hard to identify and eliminate mistakes in the

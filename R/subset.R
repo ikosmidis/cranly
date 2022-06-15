@@ -15,7 +15,7 @@
 #'
 #' @return
 #' A [`cranly_network`] object that is the subject of `x`.
-#' 
+#'
 #' @export
 subset.cranly_network <- function(x,
                                   package = Inf,
@@ -27,6 +27,9 @@ subset.cranly_network <- function(x,
                                   exact = TRUE,
                                   only = FALSE,
                                   ...) {
+
+    if (!has_usable_data(x)) return(invisible(NULL))
+
     perspective <- attr(x, "perspective")
     if (perspective == "package") {
 
@@ -37,14 +40,14 @@ subset.cranly_network <- function(x,
         recommended_packages <- subset(x$nodes, priority == "recommended")$package
 
         keep <- intersect(p1, p2)
-        
+
         if (!is.infinite(maintainer)) {
             p3 <- maintained_by(x, author = maintainer, exact = exact)
             keep <- intersect(keep, p3)
         }
 
-        
-        
+
+
         if (only) {
             inds <- with(x$edges, (to %in% keep & from %in% keep) &
                                   (type %in% directive))
@@ -62,10 +65,10 @@ subset.cranly_network <- function(x,
         node_names <- unique(c(as.character(edges_subset$from), as.character(edges_subset$to), keep))
         nodes_subset <- subset(x$nodes, package %in% node_names)
     }
-    else {        
+    else {
         a1 <- author_with(x, name = author, exact = exact)
         a2 <- author_of(x, package = package, exact = exact)
-        
+
         keep <- intersect(a1, a2)
 
         if (!is.infinite(maintainer)) {

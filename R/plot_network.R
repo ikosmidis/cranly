@@ -47,6 +47,10 @@ plot.cranly_network <- function(x,
                                 title = TRUE,
                                 plot = TRUE,
                                 ...) {
+    if (!has_usable_data(x)) {
+        message("The supplied object has no package or author information. Nothing to plot")
+        return(invisible(NULL))
+    }
 
     if (global) {
         summaries <- summary(x, advanced = FALSE)
@@ -175,12 +179,12 @@ x
     edges_subset <- edges_subset[match(c("from", "to", "color", "title", "dashes"), names(edges_subset), nomatch = 0)]
     res <- visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width,
                            main = list(text = main,
-                                       style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) %>%
+                                       style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) |>
         visNetwork::visEdges(arrows = if (perspective == "author") NULL else list(to = list(enabled = TRUE, scaleFactor = 0.5)),
-                             physics = nrow(nodes_subset) < physics_threshold) %>%
-            visNetwork::visOptions(highlightNearest = TRUE) %>%
-            visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) %>%
-            visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) %>%
+                             physics = nrow(nodes_subset) < physics_threshold) |>
+            visNetwork::visOptions(highlightNearest = TRUE) |>
+            visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) |>
+            visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) |>
             visNetwork::visExport(name = export_name, label = "PNG snapshot", style = "")
     if (plot) {
         return(res)

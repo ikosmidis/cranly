@@ -55,6 +55,11 @@
 #' @export
 summary.cranly_network <- function(object, advanced = TRUE, ...) {
 
+    if (!has_usable_data(object)) {
+        message("The supplied object has no package or author information.")
+        return(invisible(NULL))
+    }
+
     perspective <- attr(object, "perspective")
     cranly_graph <- as.igraph.cranly_network(object, reverse = TRUE)
 

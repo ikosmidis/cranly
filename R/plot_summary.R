@@ -29,6 +29,10 @@
 #'
 #' @export
 plot.summary_cranly_network <- function(x, top = 20, according_to = NULL, scale = FALSE, ...) {
+    if (is.null(x)) {
+        message("The supplied object has no package or author information. Nothing to plot.")
+        return(invisible(NULL))
+    }
     perspective <- attr(x, "perspective")
     if (perspective == "package") {
         what <- "package"

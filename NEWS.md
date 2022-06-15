@@ -1,4 +1,12 @@
+# cranly 0.6.0
+## Other improvements, updates and additions
+
+* Methods fail gracefully with an informative message if access to CRAN mirrors is not possible, or if objects with no package or author information are passed.
+* Base pipe `|>` is now used internally instead of `%>%`.
+
 # cranly 0.5.4
+
+## Bug fixes
 * Fixed a bug in `release_date_of`, `version_of`, `license_of`, `title_of`, `description_of`, where if `package = Inf` the results would be `unique`'d before returning
 
 # cranly 0.5.3

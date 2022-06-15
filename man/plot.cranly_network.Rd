@@ -4,12 +4,26 @@
 \alias{plot.cranly_network}
 \title{Interactive visualization of a package or author \code{\link[=cranly_network]{cranly_network()}}}
 \usage{
-\method{plot}{cranly_network}(x, package = Inf, author = Inf,
-  directive = c("imports", "suggests", "enhances", "depends",
-  "linking_to"), base = TRUE, recommended = TRUE, exact = TRUE,
-  global = TRUE, physics_threshold = 200, height = NULL,
-  width = NULL, dragNodes = TRUE, dragView = TRUE, zoomView = TRUE,
-  legend = TRUE, title = TRUE, plot = TRUE, ...)
+\method{plot}{cranly_network}(
+  x,
+  package = Inf,
+  author = Inf,
+  directive = c("imports", "suggests", "enhances", "depends", "linking_to"),
+  base = TRUE,
+  recommended = TRUE,
+  exact = TRUE,
+  global = TRUE,
+  physics_threshold = 200,
+  height = NULL,
+  width = NULL,
+  dragNodes = TRUE,
+  dragView = TRUE,
+  zoomView = TRUE,
+  legend = TRUE,
+  title = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a  \code{\link{cranly_network}} object.}

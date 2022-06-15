@@ -6,15 +6,28 @@
 \alias{word_cloud.numeric}
 \title{wordcloud of author names, package descriptions, and package titles}
 \usage{
-\method{word_cloud}{cranly_network}(x, package = Inf, author = Inf,
-  maintainer = Inf, base = TRUE, recommended = TRUE, exact = TRUE,
-  perspective = "description", random_order = FALSE,
-  ignore_words = c("www.jstor.org", "www.arxiv.org", "arxiv.org",
-  "provides", "https"), stem = FALSE,
-  colors = rev(colorspace::heat_hcl(10)), ...)
+\method{word_cloud}{cranly_network}(
+  x,
+  package = Inf,
+  author = Inf,
+  maintainer = Inf,
+  base = TRUE,
+  recommended = TRUE,
+  exact = TRUE,
+  perspective = "description",
+  random_order = FALSE,
+  ignore_words = c("www.jstor.org", "www.arxiv.org", "arxiv.org", "provides", "https"),
+  stem = FALSE,
+  colors = rev(colorspace::heat_hcl(10)),
+  ...
+)
 
-\method{word_cloud}{numeric}(x, random_order = FALSE,
-  colors = rev(colorspace::heat_hcl(10)), ...)
+\method{word_cloud}{numeric}(
+  x,
+  random_order = FALSE,
+  colors = rev(colorspace::heat_hcl(10)),
+  ...
+)
 }
 \arguments{
 \item{x}{either a  \code{\link{cranly_network}} object or a named vector of term frequencies (typically the output of \code{\link{compute_term_frequency}} with \code{frequency = "term"}.}

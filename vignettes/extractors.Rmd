@@ -30,99 +30,98 @@ Since version 0.3, **cranly** includes functions for extracting information from
 Let's download, clean and organize today's CRAN database, and build the package and author directives networks
 ```{r}
 library("cranly")
-library("magrittr")
 cran_db <- clean_CRAN_db()
-package_network <- cran_db %>% build_network(perspective = "package")
-author_network <- cran_db %>% build_network(perspective = "author")
+package_network <- cran_db |> build_network(perspective = "package")
+author_network <- cran_db |> build_network(perspective = "author")
 ```
 
 # Example queries
 
 #### Packages by Kurt Hornik
 ```{r}
-package_network %>% package_by("Kurt Hornik", exact = TRUE)
+package_network |> package_by("Kurt Hornik", exact = TRUE)
 ```
 
 #### Packages by people named "Ioannis"
 ```{r}
-package_network %>% package_by("Ioannis")
+package_network |> package_by("Ioannis")
 ```
 
 #### Packages with "glm" in their name
 ```{r}
-author_network %>% package_with("glm")
+author_network |> package_with("glm")
 ```
 
 #### Authors of the [`lubridate`](https://cran.r-project.org/package=lubridate) package
 ```{r}
-package_network %>% author_of("lubridate", exact = TRUE)
+package_network |> author_of("lubridate", exact = TRUE)
 ```
 
 #### Authors with "Ioan" in their name
 ```{r}
-package_network %>% author_with("Ioan")
+package_network |> author_with("Ioan")
 ```
 
 #### Packages suggested by, imported by and enhanced by the [`sf`](https://cran.r-project.org/package=sf) package
 ```{r}
-package_network %>% suggested_by("sf", exact = TRUE)
-package_network %>% imported_by("sf", exact = TRUE)
-package_network %>% enhanced_by("sf", exact = TRUE)
+package_network |> suggested_by("sf", exact = TRUE)
+package_network |> imported_by("sf", exact = TRUE)
+package_network |> enhanced_by("sf", exact = TRUE)
 ```
 
 #### Packages that are suggesting, importing, enhancing the [`sf`](https://cran.r-project.org/package=sf) package
 ```{r}
-package_network %>% suggesting("sf", exact = TRUE)
-package_network %>% importing("sf", exact = TRUE)
-package_network %>% enhancing("sf", exact = TRUE)
+package_network |> suggesting("sf", exact = TRUE)
+package_network |> importing("sf", exact = TRUE)
+package_network |> enhancing("sf", exact = TRUE)
 ```
 
 #### Packages that depend on the [`sf`](https://cran.r-project.org/package=sf) package
 ```{r}
-package_network %>% depending_on("sf", exact = TRUE)
+package_network |> depending_on("sf", exact = TRUE)
 ```
 
 #### Packages that are dependencies of the [`sf`](https://cran.r-project.org/package=sf) package
 ```{r}
-package_network %>% dependency_of("sf", exact = TRUE)
+package_network |> dependency_of("sf", exact = TRUE)
 ```
 
 #### Packages maintained by everyone with "Helen" in their name
 ```{r}
-package_network %>% maintained_by("Helen")
+package_network |> maintained_by("Helen")
 ```
 
 #### All available info, on packages maintained by everyone with "Helen" in their name
 ```{r}
-package_network %>% maintained_by("Helen", flat = FALSE) %>% dim()
+package_network |> maintained_by("Helen", flat = FALSE) |> dim()
 ```
 
 #### The maintainer of [`data.table`](https://cran.r-project.org/package=data.table)
 ```{r}
-package_network %>% maintainer_of("data.table", exact = TRUE)
+package_network |> maintainer_of("data.table", exact = TRUE)
 ```
 
 #### The email of the maintainer of [`trackeRapp`](https://cran.r-project.org/package=trackeRapp)
 ```{r}
-trackeRapp_maintainer <- package_network %>% maintainer_of("trackeRapp", exact = TRUE)
-package_network %>% email_of(trackeRapp_maintainer, exact = TRUE)
+trackeRapp_maintainer <- package_network |> maintainer_of("trackeRapp", exact = TRUE)
+package_network |> email_of(trackeRapp_maintainer, exact = TRUE)
 ```
 
 #### All emails of maintainers using an email address from University of Warwick
 ```{r}
-package_network %>% email_with("warwick.ac.uk")
+package_network |> email_with("warwick.ac.uk")
 ```
 
 #### The title, the description, the version and the license of the [`semnar`](https://cran.r-project.org/package=semnar) package
 ```{r}
-package_network %>% title_of("semnar", exact = TRUE)
-package_network %>% description_of("semnar", exact = TRUE)
-package_network %>% version_of("semnar", exact = TRUE)
+package_network |> title_of("semnar", exact = TRUE)
+package_network |> description_of("semnar", exact = TRUE)
+package_network |> version_of("semnar", exact = TRUE)
 ```
 
 #### Distribution of the release dates of all packages in CRAN
 ```{r}
-package_network %>% release_date_of(Inf) %>%
+package_network |> release_date_of(Inf) |>
     hist(breaks = 50, main = "", xlab = "date", freq = TRUE)
 ```
 
@@ -146,9 +145,9 @@ word_cloud(package_network, maintainer = "Edzer Pebesma", perspective = "title",
 
 More complex queries can be achieved by using the extractor functions and computing the term frequencies manually. For example, the word cloud of all packages maintained by people with "warwick.ac.uk" in their email is
 ```{r warning = FALSE}
-warwick_emails <- package_network %>% email_with("warwick.ac.uk", flat = FALSE)
+warwick_emails <- package_network |> email_with("warwick.ac.uk", flat = FALSE)
 warwick_pkgs  <- warwick_emails$package
-descriptions <- package_network %>% description_of(warwick_pkgs, exact = FALSE)
+descriptions <- package_network |> description_of(warwick_pkgs, exact = FALSE)
 term_frequency <- compute_term_frequency(descriptions)
 word_cloud(term_frequency, min.freq = 1)
 ```

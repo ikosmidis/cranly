@@ -4,10 +4,18 @@
 \alias{subset.cranly_network}
 \title{Subset a \code{\link{cranly_network}} according to author, package and/or directive}
 \usage{
-\method{subset}{cranly_network}(x, package = Inf, author = Inf,
-  maintainer = Inf, directive = c("imports", "suggests", "enhances",
-  "depends", "linking_to"), base = TRUE, recommended = TRUE,
-  exact = TRUE, only = FALSE, ...)
+\method{subset}{cranly_network}(
+  x,
+  package = Inf,
+  author = Inf,
+  maintainer = Inf,
+  directive = c("imports", "suggests", "enhances", "depends", "linking_to"),
+  base = TRUE,
+  recommended = TRUE,
+  exact = TRUE,
+  only = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{a  \code{\link{cranly_network}} object.}

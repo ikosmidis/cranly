@@ -1,6 +1,6 @@
 Package: cranly
 Title: Package Directives and Collaboration Networks in CRAN
-Version: 0.5.4.900
+Version: 0.6.0
 Authors@R: c(person(given = "Ioannis", family = "Kosmidis",
                     role = c("aut", "cre"),
 	            email = "ioannis.kosmidis@warwick.ac.uk",
@@ -9,11 +9,11 @@ Description: Core visualizations and summaries for the CRAN package database. Th
 URL: https://github.com/ikosmidis/cranly
 BugReports: https://github.com/ikosmidis/cranly/issues
 Depends: R (>= 3.4.0)
-Imports: visNetwork, colorspace, igraph, magrittr, stringr, ggplot2, countrycode, wordcloud, tm
+Imports: visNetwork, colorspace, igraph, stringr, ggplot2, countrycode, wordcloud, tm
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.2
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

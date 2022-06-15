@@ -4,8 +4,7 @@
 \alias{plot.summary_cranly_network}
 \title{Top-n package or author barplots according to a range of network statistics}
 \usage{
-\method{plot}{summary_cranly_network}(x, top = 20, according_to = NULL,
-  scale = FALSE, ...)
+\method{plot}{summary_cranly_network}(x, top = 20, according_to = NULL, scale = FALSE, ...)
 }
 \arguments{
 \item{x}{a \code{\link{summary_cranly_network}} object.}

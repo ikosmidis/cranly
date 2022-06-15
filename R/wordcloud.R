@@ -28,9 +28,9 @@
 #' @return
 #'
 #' A word cloud.
-#' 
+#'
 #' @seealso [`compute_term_frequency`]
-#' 
+#'
 #' @examples
 #' \donttest{
 #' cran_db <- clean_CRAN_db()
@@ -40,7 +40,7 @@
 #' tidyverse <- imported_by(package_network, "tidyverse", exact = TRUE)
 #' set.seed(123)
 #' word_cloud(package_network, package = tidyverse, exact = TRUE, min.freq = 2)
-#' 
+#'
 #'
 #' ## or by manually creating the term frequencies from descriptions
 #' descriptions <- descriptions_of(package_network, tidyverse, exact = TRUE)
@@ -48,7 +48,7 @@
 #' set.seed(123)
 #' word_cloud(term_freq, min.freq = 2)
 #' }
-#' 
+#'
 #' @export
 word_cloud.cranly_network <- function(x,
                                      package = Inf,
@@ -65,8 +65,13 @@ word_cloud.cranly_network <- function(x,
                                      colors = rev(colorspace::heat_hcl(10)),
                                      ...) {
 
+    if (!has_usable_data(x)) {
+        message("Nothing to plot")
+        return(invisible(NULL))
+    }
+
     perspective <- match.arg(perspective, c("title", "description", "author"))
-    
+
     x <- subset(x, base = base, recommended = recommended)
 
     if (all(is.infinite(package)) & all(is.infinite(author)) & all(is.infinite(maintainer))) {
@@ -93,14 +98,14 @@ word_cloud.cranly_network <- function(x,
             }
         }
     }
-    
+
     txt <- switch(perspective,
                   "author" = authors,
                   "title" = title_of(x, package = packages, exact = TRUE),
                   "description" = description_of(x, package = packages, exact = TRUE))
-    
+
     term_freq <- compute_term_frequency(txt, ignore_words = ignore_words, stem = stem)
-    term_freq <- sort(term_freq)    
+    term_freq <- sort(term_freq)
 
     word_cloud.numeric(term_freq, random_order = random_order, colors = colors, ...)
 
@@ -137,7 +142,7 @@ word_cloud.numeric <- function(x, random_order = FALSE, colors = rev(colorspace:
 #'
 #' @return
 #' Either a named numeric vector (`frequency = "term"`), or an object of class [tm::DocumentTermMatrix] (`frequency = "document-term"`), or or an object of class [`tm::TermDocumentMatrix`] (`frequency = "term-document"`).
-#' 
+#'
 #' @details
 #'
 #' If `txt` is a named vector then the names are used as document id's
@@ -154,12 +159,12 @@ compute_term_frequency <- function(txt,
                                    remove_stopwords = TRUE,
                                    remove_numbers = TRUE,
                                    to_lower = TRUE,
-                                   frequency = "term") {     
+                                   frequency = "term") {
     frequency <- match.arg(frequency, c("term", "document-term", "term-document"))
     doc_id <- if (is.null(names(txt))) seq_along(txt) else names(txt)
     txt <- data.frame(doc_id = doc_id, text = txt, stringsAsFactors = FALSE)
     corpa <- Corpus(DataframeSource(txt))
-    to_space <- content_transformer(function (x, p) str_replace_all(x, p, " "))    
+    to_space <- content_transformer(function (x, p) str_replace_all(x, p, " "))
     corpa <- tm_map(corpa, to_space, "/")
     corpa <- tm_map(corpa, to_space, "@")
     corpa <- tm_map(corpa, to_space, "\\|")

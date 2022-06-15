@@ -16,5 +16,5 @@ A list of one vector of character strings.
 Clean up package directives
 }
 \examples{
-clean_up_directives("R (234)\\n stats (>0.01),     base\\n graphics")
+clean_up_directives("R (234)\n stats (>0.01),     base\n graphics")
 }

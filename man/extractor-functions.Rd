@@ -61,74 +61,51 @@
 \alias{versions_of}
 \title{Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string}
 \usage{
-\method{package_by}{cranly_network}(x, author = NULL, exact = FALSE,
-  flat = TRUE)
+\method{package_by}{cranly_network}(x, author = NULL, exact = FALSE, flat = TRUE)
 
-\method{package_with}{cranly_network}(x, name = NULL, exact = FALSE,
-  flat = TRUE)
+\method{package_with}{cranly_network}(x, name = NULL, exact = FALSE, flat = TRUE)
 
-\method{author_of}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{author_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{author_with}{cranly_network}(x, name = NULL, exact = FALSE,
-  flat = TRUE)
+\method{author_with}{cranly_network}(x, name = NULL, exact = FALSE, flat = TRUE)
 
-\method{suggested_by}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{suggested_by}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{suggesting}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{suggesting}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{imported_by}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{imported_by}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{importing}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{importing}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{dependency_of}{cranly_network}(x, package = NULL,
-  exact = FALSE, flat = TRUE)
+\method{dependency_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{depending_on}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{depending_on}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{linked_by}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{linked_by}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{linking_to}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{linking_to}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{enhanced_by}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{enhanced_by}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{enhancing}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{enhancing}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{maintainer_of}{cranly_network}(x, package = NULL,
-  exact = FALSE, flat = TRUE)
+\method{maintainer_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{maintained_by}{cranly_network}(x, author = NULL, exact = FALSE,
-  flat = TRUE)
+\method{maintained_by}{cranly_network}(x, author = NULL, exact = FALSE, flat = TRUE)
 
-\method{email_of}{cranly_network}(x, author = NULL, exact = FALSE,
-  flat = TRUE)
+\method{email_of}{cranly_network}(x, author = NULL, exact = FALSE, flat = TRUE)
 
-\method{email_with}{cranly_network}(x, name = NULL, exact = FALSE,
-  flat = TRUE)
+\method{email_with}{cranly_network}(x, name = NULL, exact = FALSE, flat = TRUE)
 
-\method{description_of}{cranly_network}(x, package = NULL,
-  exact = FALSE, flat = TRUE)
+\method{description_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{title_of}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{title_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{license_of}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{license_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{version_of}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{version_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{release_date_of}{cranly_network}(x, package = NULL,
-  exact = FALSE, flat = TRUE)
+\method{release_date_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
 packages_by(x, author, exact, flat)
 
@@ -179,7 +156,7 @@ Find packages, authors, maintainers, license, versions etc by authors, packages 
 \details{
 The extractor functions all try to figure out what \code{y} is in the statement
 
-\code{y} is (the) \code{extractor-function} a \code{package}/\code{author}.
+\code{y} is (the) \verb{extractor-function} a \code{package}/\code{author}.
 
 For example, for
 \itemize{

@@ -19,9 +19,9 @@ plot.cranly_dependence_tree <- function(x,
                                         ...) {
 
 
-    if (nrow(x$nodes) == 0) {
-            message("Nothing to plot")
-            return(invisible(NULL))
+    if (is.null(x) | isTRUE(nrow(x$nodes) == 0)) {
+        message("The supplied object has no package or author information. Nothing to plot.")
+        return(invisible(NULL))
     }
 
     timestamp <- attr(x, "timestamp")
@@ -91,16 +91,16 @@ plot.cranly_dependence_tree <- function(x,
 
     res <- visNetwork::visNetwork(nodes, edges, height = height, width = width,
                                   main = list(text = main,
-                                              style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) %>%
+                                              style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) |>
         visNetwork::visEdges(arrows = list(to = list(enabled = TRUE, scaleFactor = 0.5)),
-                             physics = nrow(nodes) < physics_threshold) %>%
-        visNetwork::visOptions(highlightNearest = TRUE) %>%
-        visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) %>%
-        visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) %>%
+                             physics = nrow(nodes) < physics_threshold) |>
+        visNetwork::visOptions(highlightNearest = TRUE) |>
+        visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) |>
+        visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) |>
         visNetwork::visExport(name = export_name, label = "PNG snapshot", style = "")
 
     if (plot) {
-        return(res %>% visNetwork::visHierarchicalLayout(levelSeparation = 50))
+        return(res |> visNetwork::visHierarchicalLayout(levelSeparation = 50))
     }
     else {
         return(invisible(res))

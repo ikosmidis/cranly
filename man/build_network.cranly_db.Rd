@@ -6,8 +6,7 @@
 \alias{build_network}
 \title{Compute edges and nodes of package directives and collaboration networks}
 \usage{
-\method{build_network}{cranly_db}(object, trace = FALSE,
-  perspective = "package", ...)
+\method{build_network}{cranly_db}(object, trace = FALSE, perspective = "package", ...)
 }
 \arguments{
 \item{object}{a \code{\link{cranly_db}} object. If missing (default) a call to \code{\link{clean_CRAN_db}} is issued.}
@@ -16,7 +15,7 @@
 
 \item{perspective}{character. Should a \code{"package"} (default) or an \code{"author"} network be built?}
 
-\item{...}{Currently not used.}
+\item{...}{Other arguments passed in \code{\link{clean_CRAN_db}} when \code{object} is \code{NULL}.}
 }
 \value{
 A list of 2 \code{\link{data.frame}} objects with the \code{edges} and \code{nodes} of the network.

@@ -23,7 +23,7 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
     im <- imported_by(x, package = package, exact = TRUE)
     de <- dependency_of(x, package = package, exact = TRUE)
     li <- linked_by(x, package = package, exact = TRUE)
-    
+
     pack <- na.omit(c(im, de, li))
     if (all(pack %in% package)) {
         data.frame(package = unique(package), generation = generation, stringsAsFactors = FALSE)
@@ -39,9 +39,9 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
 #' @aliases cranly_dependence_tree
 #' @inheritParams  plot.cranly_network
 #'
-#' 
+#'
 #' @seealso [`compute_dependence_tree`] [`plot.cranly_dependence_tree`] [`summary.cranly_dependence_tree`]
-#' 
+#'
 #' @examples
 #' \donttest{
 #' cran_db <- clean_CRAN_db()
@@ -57,6 +57,11 @@ build_dependence_tree.cranly_network <- function(x,
                                                  recommended = TRUE,
                                                  global = TRUE,
                                                  ...) {
+
+    if (!has_usable_data(x)) {
+        message("The supplied object has no package or author information.")
+        return(invisible(NULL))
+    }
 
     if (any(is.infinite(package))) {
         stop("Please specify package")

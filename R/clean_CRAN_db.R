@@ -57,93 +57,108 @@
 #' package_db[package_db$package == "weights", "author"]
 #' }
 #' @export
-clean_CRAN_db <- function(packages_db = tools::CRAN_package_db(),
+clean_CRAN_db <- function(packages_db,
                           clean_directives = clean_up_directives,
                           clean_author = clean_up_author,
                           clean_maintainer = standardize_whitespace) {
 
-    if (is.matrix(packages_db)) {
-        packages_db <- as.data.frame(packages_db)
+    if (missing(packages_db)) {
+        msg <- "It has not been possible to retrieve information about current packages in the CRAN package repository"
+        packages_db <- tryCatch(tools::CRAN_package_db(),
+                                error = function(e) {
+                                     message(msg)
+        },
+        warning = function(w) {
+            message(msg)
+        })
     }
 
-    md5 <- grepl("MD5sum", names(packages_db))
-    if (any(md5)) {
-        ## Remove redundant MD5 sum
-        ind <- which(md5)
-        if (length(ind) > 1) {
-            packages_db <- packages_db[-ind[1]]
-        }
+    ## If null then retrieval failed
+    if (is.null(packages_db)) {
+        packages_db <- data.frame()
     }
     else {
-        warning("no MD5sum information found in package_db")
-        packages_db$MD5sum <- NA
-    }
-
-    ## Remove duplicated packages
-    packages_db <- packages_db[is.na(packages_db$Package) | !duplicated(packages_db$Package), ]
-
-    info_check <- c("Author", "Date", "URL", "Maintainer", "Date", "Published",
-                    paste("Reverse", c("depends", "imports", "suggests", "enhances", "linking to")))
-    
-    for (v in info_check) {
-        if (is.null(packages_db[[v]])) {
-            warning("no information about ", v, " has been found in package_db")
-            packages_db[[v]] <- NA
+        if (is.matrix(packages_db)) {
+            packages_db <- as.data.frame(packages_db)
         }
-    }
-    
-    
-    ## Coerce variable names to lower case
-    names(packages_db) <- tolower(names(packages_db))
 
-    packages_db <- within(packages_db, {
-        imports <- clean_directives(imports)
-        depends <- clean_directives(depends)
-        suggests <- clean_directives(suggests)
-        enhances <- clean_directives(enhances)
-        linking_to <- clean_directives(linkingto)        
-        reverse_imports <- clean_directives(`reverse imports`)
-        reverse_depends <- clean_directives(`reverse depends`)
-        reverse_suggests <- clean_directives(`reverse suggests`)
-        reverse_enhances <- clean_directives(`reverse enhances`)
-        reverse_linking_to <- clean_directives(`reverse linking to`)
-        author <- clean_author(author)
-        date <- as.Date(date)
-        published <- as.Date(published)
-    })
-    
-    ## Maintainers
-    if (!all(is.na(packages_db$maintainer))) {
-        maintainer <- strsplit(packages_db$maintainer, "<")
-        packages_db$email <- str_replace_all(sapply(maintainer, "[", 2), "^\\s+|\\s+$|\\s+(?=\\s)|>", "")
-        maintainer <- sapply(maintainer, "[", 1)
-        packages_db$maintainer <- clean_maintainer(maintainer)
+        md5 <- grepl("MD5sum", names(packages_db))
+        if (any(md5)) {
+            ## Remove redundant MD5 sum
+            ind <- which(md5)
+            if (length(ind) > 1) {
+                packages_db <- packages_db[-ind[1]]
+            }
+        }
+        else {
+            warning("no MD5sum information found in package_db")
+            packages_db$MD5sum <- NA
+        }
+
+        ## Remove duplicated packages
+        packages_db <- packages_db[is.na(packages_db$Package) | !duplicated(packages_db$Package), ]
+
+        info_check <- c("Author", "Date", "URL", "Maintainer", "Date", "Published",
+                        paste("Reverse", c("depends", "imports", "suggests", "enhances", "linking to")))
+
+        for (v in info_check) {
+            if (is.null(packages_db[[v]])) {
+                warning("no information about ", v, " has been found in package_db")
+                packages_db[[v]] <- NA
+            }
+        }
+
+
+        ## Coerce variable names to lower case
+        names(packages_db) <- tolower(names(packages_db))
+
+        packages_db <- within(packages_db, {
+            imports <- clean_directives(imports)
+            depends <- clean_directives(depends)
+            suggests <- clean_directives(suggests)
+            enhances <- clean_directives(enhances)
+            linking_to <- clean_directives(linkingto)
+            reverse_imports <- clean_directives(`reverse imports`)
+            reverse_depends <- clean_directives(`reverse depends`)
+            reverse_suggests <- clean_directives(`reverse suggests`)
+            reverse_enhances <- clean_directives(`reverse enhances`)
+            reverse_linking_to <- clean_directives(`reverse linking to`)
+            author <- clean_author(author)
+            date <- as.Date(date)
+            published <- as.Date(published)
+        })
+
+        ## Maintainers
+        if (!all(is.na(packages_db$maintainer))) {
+            maintainer <- strsplit(packages_db$maintainer, "<")
+            packages_db$email <- str_replace_all(sapply(maintainer, "[", 2), "^\\s+|\\s+$|\\s+(?=\\s)|>", "")
+            maintainer <- sapply(maintainer, "[", 1)
+            packages_db$maintainer <- clean_maintainer(maintainer)
+        }
+
+        ## Clean up
+        packages_db["reverse depends"] <- packages_db["reverse imports"] <-
+            packages_db["reverse suggests"] <- packages_db["reverse enhances"] <-
+            packages_db["reverse linking to"] <- packages_db["linkingto"] <- NULL
     }
-    
-    ## Clean up
-    packages_db["reverse depends"] <- packages_db["reverse imports"] <-
-        packages_db["reverse suggests"] <- packages_db["reverse enhances"] <-
-        packages_db["reverse linking to"] <- packages_db["linkingto"] <- NULL
-    
 
     attr(packages_db, "timestamp") <- Sys.time()
-
     class(packages_db) <- c("cranly_db", class(packages_db))
-    
+
     packages_db
 }
 
 #' Standardize whitespace in strings
 #'
 #' @param variable a character string.
-#'  
+#'
 #' @return
 #'
 #' A list of one vector of character strings.
 #'
 #' @examples
 #' standardize_whitespace("  My spacebar         key is      broken.             ")
-#' 
+#'
 #' @export
 standardize_whitespace <- function(variable) {
     str_replace_all(variable, "^\\s+|\\s+$|\\s+(?=\\s)", "")
@@ -162,15 +177,15 @@ standardize_whitespace <- function(variable) {
 #' clean_up_directives("R (234)\n stats (>0.01),     base\n graphics")
 #' @export
 clean_up_directives <- function(variable) {
-    variable %>%
-        str_replace_all("\n", ",") %>%
-        str_replace_all("\\([^()]*\\)", "") %>%
-        str_replace_all(" ", "") %>%
+    variable |>
+        str_replace_all("\n", ",") |>
+        str_replace_all("\\([^()]*\\)", "") |>
+        str_replace_all(" ", "") |>
         ## Eliminate R from dependencies
-        str_replace_all("\\bR,\\b", "") %>%
-        str_replace_all("\\b,R\\b", "") %>%
-        str_replace_all("^R$", "") %>%
-        str_split(",") %>%
+        str_replace_all("\\bR,\\b", "") |>
+        str_replace_all("\\b,R\\b", "") |>
+        str_replace_all("^R$", "") |>
+        str_split(",") |>
         lapply(function(x) {
             out <- str_replace_all(x, ",|^\\s+|\\s+$", "")
             out <- out[!(out == "")]
@@ -188,7 +203,7 @@ clean_up_directives <- function(variable) {
 #'
 #' @examples
 #' clean_up_author(paste("The R Core team, Brian & with some assistance from Achim, Hadley;",
-#'                       "Kurt\n Portugal; Ireland; Italy; Greece; Spain"))
+#'                            "Kurt\n Portugal; Ireland; Italy; Greece; Spain"))
 #' @export
 clean_up_author <- function(variable) {
 
@@ -500,55 +515,55 @@ clean_up_author <- function(variable) {
     countries <- countrycode::codelist$country.name.en
     countries <- countries[-which(countries %in% c("Jordan"))] ## exclude country names here
 
-    variable %>%
-        split_and_replace(repl000, "", fixed_word = FALSE) %>%
-        str_replace_all(", Inc", " Inc") %>%
-        str_replace_all(", Ltd", " Ltd") %>%
-        str_replace_all(", LLC", " LLC") %>%
-        str_replace_all("\\[(.|\n)*?\\]", "") %>% ## remove all [aut, ctb etc]
-        str_replace_all("\\((.|\n)*?\\)", "") %>% ## remove anything in parenthesis; assuming that author names are NOT in parentheses
-        str_replace_all("\\<(.|\n)*?\\>", "") %>% ## remove anything in <>
-        str_replace_all("\\.", " ") %>%
-        str_replace_all("\n", " ") %>%
-        str_replace_all("\t+", " ") %>%
-        str_replace_all("R\\s+Core\\s+Deveopment\\s+Team|R(-|\\s+)[Cc]ore\\s+[Tt]eam|R\\s+[Dd]evelopment\\s+[Tt]eam|R(-|\\s+)[Cc]ore\\s+[Dd]evelopment\\s+[Tt]eam|R\\s+core|R(-|\\s+)[Cc]ore|R(-|\\s+)[Dd]evelopment\\s+[Cc]ore\\s+[Tt]eam", "R Core") %>%
-        split_and_replace(repl_lists0, "") %>%
-        str_replace_all(paste(repl_symbols0, collapse = "|"), ",") %>%
-        str_replace_all(paste(repl_symbols1, collapse = "|"), "") %>%
-        ## str_replace_all(paste0("(?i)\\b", letters, "\\b", collapse = "|"), "") %>%
-        str_replace_all("^\\s+|\\s+$|\\s+(?=\\s)", "") %>% ## eliminate white space
-        split_and_replace(repl_replacements0, ",") %>%
-        split_and_replace(repl_replacements1, "") %>%
-        split_and_replace(repl_software0, "") %>%
-        split_and_replace(repl_proglang0, "") %>%
-        str_replace_all("C\\+\\+", "") %>%
-        str_replace_all("\\+", ",") %>%
-        split_and_replace(repl_other_words0, ",") %>%
-        split_and_replace(repl_other_words1, "") %>%
-        str_replace_all("\\ba\\b|\\ban\\b", "") %>% # replace a but not A
-        split_and_replace(repl_nouns0, "") %>%
-        split_and_replace(repl_nouns1, "") %>%
-        split_and_replace(repl_adjectives0, "") %>%
-        split_and_replace(repl_verbs0, "") %>%
-        split_and_replace(repl_verbs1, "") %>%
-        split_and_replace(repl_verbs2, "") %>%
-        split_and_replace(repl_verbs3, "") %>%
-        split_and_replace(repl_technical0, "") %>%
-        split_and_replace(repl_adverbs0, "") %>%
-        split_and_replace(countries, "") %>%
-        str_replace_all("\\d{4}-\\d{4}", "") %>%
-        str_replace_all("\\d{4}", "") %>%
-        str_replace_all("\\d{3}", "") %>%
-        str_replace_all("\\d{2}", "") %>%
-        str_replace_all("[Cc][Rr][Aa][Nn] [Tt]eam", "CRAN Team") %>%
-        str_replace_all("R[ sS]tudio|R[ sS]tudio Inc", "RStudio") %>%
-        str_replace_all("^H2O ai team$|^H2O ai$", "H2O.ai") %>%
+    variable |>
+        split_and_replace(repl000, "", fixed_word = FALSE) |>
+        str_replace_all(", Inc", " Inc") |>
+        str_replace_all(", Ltd", " Ltd") |>
+        str_replace_all(", LLC", " LLC") |>
+        str_replace_all("\\[(.|\n)*?\\]", "") |> ## remove all [aut, ctb etc]
+        str_replace_all("\\((.|\n)*?\\)", "") |> ## remove anything in parenthesis; assuming that author names are NOT in parentheses
+        str_replace_all("\\<(.|\n)*?\\>", "") |> ## remove anything in <>
+        str_replace_all("\\.", " ") |>
+        str_replace_all("\n", " ") |>
+        str_replace_all("\t+", " ") |>
+        str_replace_all("R\\s+Core\\s+Deveopment\\s+Team|R(-|\\s+)[Cc]ore\\s+[Tt]eam|R\\s+[Dd]evelopment\\s+[Tt]eam|R(-|\\s+)[Cc]ore\\s+[Dd]evelopment\\s+[Tt]eam|R\\s+core|R(-|\\s+)[Cc]ore|R(-|\\s+)[Dd]evelopment\\s+[Cc]ore\\s+[Tt]eam", "R Core") |>
+        split_and_replace(repl_lists0, "") |>
+        str_replace_all(paste(repl_symbols0, collapse = "|"), ",") |>
+        str_replace_all(paste(repl_symbols1, collapse = "|"), "") |>
+        ## str_replace_all(paste0("(?i)\\b", letters, "\\b", collapse = "|"), "") |>
+        str_replace_all("^\\s+|\\s+$|\\s+(?=\\s)", "") |> ## eliminate white space
+        split_and_replace(repl_replacements0, ",") |>
+        split_and_replace(repl_replacements1, "") |>
+        split_and_replace(repl_software0, "") |>
+        split_and_replace(repl_proglang0, "") |>
+        str_replace_all("C\\+\\+", "") |>
+        str_replace_all("\\+", ",") |>
+        split_and_replace(repl_other_words0, ",") |>
+        split_and_replace(repl_other_words1, "") |>
+        str_replace_all("\\ba\\b|\\ban\\b", "") |> # replace a but not A
+        split_and_replace(repl_nouns0, "") |>
+        split_and_replace(repl_nouns1, "") |>
+        split_and_replace(repl_adjectives0, "") |>
+        split_and_replace(repl_verbs0, "") |>
+        split_and_replace(repl_verbs1, "") |>
+        split_and_replace(repl_verbs2, "") |>
+        split_and_replace(repl_verbs3, "") |>
+        split_and_replace(repl_technical0, "") |>
+        split_and_replace(repl_adverbs0, "") |>
+        split_and_replace(countries, "") |>
+        str_replace_all("\\d{4}-\\d{4}", "") |>
+        str_replace_all("\\d{4}", "") |>
+        str_replace_all("\\d{3}", "") |>
+        str_replace_all("\\d{2}", "") |>
+        str_replace_all("[Cc][Rr][Aa][Nn] [Tt]eam", "CRAN Team") |>
+        str_replace_all("R[ sS]tudio|R[ sS]tudio Inc", "RStudio") |>
+        str_replace_all("^H2O ai team$|^H2O ai$", "H2O.ai") |>
         ## Special people
-        str_replace_all("Wickham Hadley|Hadley Wickham function", "Hadley Wickham") %>%
-        str_replace_all("Yihui Xie function", "Yihui Xie") %>%
-        str_replace_all("B D Ripley|Brian D Ripley", "Brian Ripley") %>%
-        ## iconv(from = "UTF8", to = "ASCII//TRANSLIT") %>%
-        str_split(",") %>%
+        str_replace_all("Wickham Hadley|Hadley Wickham function", "Hadley Wickham") |>
+        str_replace_all("Yihui Xie function", "Yihui Xie") |>
+        str_replace_all("B D Ripley|Brian D Ripley", "Brian Ripley") |>
+        ## iconv(from = "UTF8", to = "ASCII//TRANSLIT") |>
+        str_split(",") |>
         lapply(function(x) {
             x <- str_replace_all(x, ",|^\\s+|\\s+$|\\s+(?=\\s)", "")
             unique(x[!(x == "" | x == " " | x %in% letters | x %in% LETTERS | x == "-")])
@@ -556,11 +571,11 @@ clean_up_author <- function(variable) {
 
 }
 
+
+
 ## if it starts with A do not remove A
 ## If it ends with R, S, A remove R
 ## If there is a programmer named "R", "S", "A" remove
 ## Remove single letters
 ## Clean sequences of single letters (e.g. "Martell-Juarez, D.A. & Nieto-Barajas, L.E.")
 ##\n replace with , or ""? "J.A. e.g. "Torres-Matallana [aut, cre]\n    K. Klepiszewski [aut, cre]\n    U. Leopold [ctb]\n    G. Schutz [ctb]\n    G.B.M. Heuvelink [ctb]"
-
-

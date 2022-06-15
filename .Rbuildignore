@@ -24,3 +24,4 @@ vignettes/glms.html
 vignettes/cranly.pdf
 vignettes/cranly.html
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$
