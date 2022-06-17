@@ -23,7 +23,7 @@
 
 \item{recommended}{logical. Should we include recommended packages in the subset? Default is \code{TRUE}.}
 
-\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}.}
+\item{global}{logical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}.}
 
 \item{...}{currently not used.}
 }

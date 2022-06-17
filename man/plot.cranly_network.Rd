@@ -40,7 +40,7 @@
 
 \item{exact}{logical. Should we use exact matching? Default is \code{TRUE}.}
 
-\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}.}
+\item{global}{logical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}.}
 
 \item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork:visEdges]{visNetwork::visEdges}}.}
 

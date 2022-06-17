@@ -1,6 +1,6 @@
 ---
 title: "Extracting information from cranly package networks: extractors and word clouds"
-author: "[Ioannis Kosmidis](http://www.ikosmidis.com)"
+author: "[Ioannis Kosmidis](https://www.ikosmidis.com)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >

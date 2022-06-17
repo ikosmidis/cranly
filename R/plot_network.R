@@ -11,7 +11,7 @@
 #' @param zoomView logical. Should the user be able to zoom in? Default is [`TRUE`].
 #' @param legend logical. Should a legend be added on the resulting visualization? Default is [`TRUE`].
 #' @param title logical. Should a title be added on the resulting visualization? Default is [`TRUE`].
-#' @param global locical. If `TRUE` (default) the network summary statistics are computed on `object`, otherwise, on the subset of `object` according to `package`, `author`, `directive`, `base`, `recommended`.
+#' @param global logical. If `TRUE` (default) the network summary statistics are computed on `object`, otherwise, on the subset of `object` according to `package`, `author`, `directive`, `base`, `recommended`.
 #' @param plot logical. Should the visualization be returned? Default is [`TRUE`].
 #' @param ... currently not used.
 #'

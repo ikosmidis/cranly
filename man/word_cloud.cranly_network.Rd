@@ -70,7 +70,7 @@ of \code{\link{author_of}} and \code{\link{author_with}}) or according to packag
 \code{\link{package_by}}).
 
 For handling more complex queries, one can manually extract the #'
-term frequencies froom a supplied vector of character strings (see
+term frequencies from a supplied vector of character strings (see
 \code{\link{compute_term_frequency}}), and use \code{word_cloud} on them. See the
 examples.
 }

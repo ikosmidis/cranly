@@ -1,6 +1,6 @@
 ---
 title: "CRAN packages for generalized linear models and with related methods"
-author: "[Ioannis Kosmidis](http://www.ikosmidis.com)"
+author: "[Ioannis Kosmidis](https://www.ikosmidis.com)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >

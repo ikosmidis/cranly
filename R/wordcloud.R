@@ -21,7 +21,7 @@
 #' [`package_by`]).
 #'
 #' For handling more complex queries, one can manually extract the #'
-#' term frequencies froom a supplied vector of character strings (see
+#' term frequencies from a supplied vector of character strings (see
 #' [`compute_term_frequency`]), and use `word_cloud` on them. See the
 #' examples.
 #'
