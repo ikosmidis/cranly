@@ -30,9 +30,9 @@ Since version 0.3, **cranly** includes functions for extracting information from
 Let's download, clean and organize today's CRAN database, and build the package and author directives networks
 ```{r}
 library("cranly")
-cran_db <- clean_CRAN_db()
-package_network <- cran_db |> build_network(perspective = "package")
-author_network <- cran_db |> build_network(perspective = "author")
+package_db <- clean_CRAN_db()
+package_network <- package_db |> build_network(perspective = "package")
+author_network <- package_db |> build_network(perspective = "author")
 ```
 
 # Example queries
