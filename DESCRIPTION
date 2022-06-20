@@ -8,7 +8,7 @@ Authors@R: c(person(given = "Ioannis", family = "Kosmidis",
 Description: Core visualizations and summaries for the CRAN package database. The package provides comprehensive methods for cleaning up and organizing the information in the CRAN package database, for building package directives networks (depends, imports, suggests, enhances, linking to) and collaboration networks, producing package dependence trees, and for computing useful summaries and producing interactive visualizations from the resulting networks and summaries. The resulting networks can be coerced to 'igraph' <https://CRAN.R-project.org/package=igraph> objects for further analyses and modelling.
 URL: https://github.com/ikosmidis/cranly
 BugReports: https://github.com/ikosmidis/cranly/issues
-Depends: R (>= 3.4.0)
+Depends: R (>= 4.1.0)
 Imports: visNetwork, colorspace, igraph, stringr, ggplot2, countrycode, wordcloud, tm
 License: GPL-3
 Encoding: UTF-8
