@@ -13,7 +13,6 @@ inst/README_cache/.*
 inst/README_cache
 README.html
 tests/
-data/
 inst/presentations/
 inst/scratch/
 inst/todo.org

@@ -1,11 +1,11 @@
 # Copyright (C) 2018- Ioannis Kosmidis
 
-#' Interactive visualization of a package or author [cranly_network()]
+#' Interactive visualization of a package or author [`cranly_network`]
 #'
 #' @inheritParams subset.cranly_network
 #' @inheritParams summary.cranly_network
 #' @inheritParams visNetwork::visNetwork
-#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is `200`. See, also [`visNetwork::visEdges`].
+#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is `200`. See, also [visNetwork::visEdges()].
 #' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is [`TRUE`].
 #' @param dragView logical. Should the user be able to drag the view around? Default is [`TRUE`].
 #' @param zoomView logical. Should the user be able to zoom in? Default is [`TRUE`].
@@ -17,16 +17,16 @@
 #'
 #' @examples
 #' \donttest{
-#' cran_db <- clean_CRAN_db()
-#' package_network <- build_network(cran_db)
+#' data("crandb", package = "cranly")
+#' package_network <- build_network(crandb)
 #' ## The package directives network of all users with Ioannis in
-#' ## their name from the CRAN database subset cran_db
-#' plot(package_network, author = "Ioannis")
+#' ## their name from the CRAN database subset crandb
+#' plot(package_network, author = "Ioannis", exact = FALSE)
 #' ## The package directives network of "Achim Zeileis"
 #' plot(package_network, author = "Achim Zeileis")
 #'
-#' author_network <- build_network(cran_db, perspective = "author")
-#' plot(author_network, author = "Ioannis", title = TRUE)
+#' author_network <- build_network(crandb, perspective = "author")
+#' plot(author_network, author = "Ioannis", exact = FALSE, title = TRUE)
 #' }
 #' @export
 plot.cranly_network <- function(x,

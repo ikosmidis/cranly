@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_network.R
 \name{plot.cranly_network}
 \alias{plot.cranly_network}
-\title{Interactive visualization of a package or author \code{\link[=cranly_network]{cranly_network()}}}
+\title{Interactive visualization of a package or author \code{\link{cranly_network}}}
 \usage{
 \method{plot}{cranly_network}(
   x,
@@ -42,7 +42,7 @@
 
 \item{global}{logical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}.}
 
-\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork:visEdges]{visNetwork::visEdges}}.}
+\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork:visEdges]{visNetwork::visEdges()}}.}
 
 \item{height}{: Height (optional, defaults to automatic sizing)}
 
@@ -63,19 +63,19 @@
 \item{...}{currently not used.}
 }
 \description{
-Interactive visualization of a package or author \code{\link[=cranly_network]{cranly_network()}}
+Interactive visualization of a package or author \code{\link{cranly_network}}
 }
 \examples{
 \donttest{
-cran_db <- clean_CRAN_db()
-package_network <- build_network(cran_db)
+data("crandb", package = "cranly")
+package_network <- build_network(crandb)
 ## The package directives network of all users with Ioannis in
-## their name from the CRAN database subset cran_db
-plot(package_network, author = "Ioannis")
+## their name from the CRAN database subset crandb
+plot(package_network, author = "Ioannis", exact = FALSE)
 ## The package directives network of "Achim Zeileis"
 plot(package_network, author = "Achim Zeileis")
 
-author_network <- build_network(cran_db, perspective = "author")
-plot(author_network, author = "Ioannis", title = TRUE)
+author_network <- build_network(crandb, perspective = "author")
+plot(author_network, author = "Ioannis", exact = FALSE, title = TRUE)
 }
 }

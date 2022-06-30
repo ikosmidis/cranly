@@ -30,11 +30,11 @@ Since version 0.2 **cranly** includes functions for constructing and working wit
 
 Constructing `cranly_dependence_tree` objects is straightforward once a package directives network has been derived.
 
-Let's download, clean and organize today's CRAN database, and build the package directives network
+Let's build the package directives network using CRAN's state on 20 June 2022
 ```{r}
 library("cranly")
-package_db <- clean_CRAN_db()
-package_network <- build_network(package_db, perspective = "package")
+data("crandb", package = "cranly")
+package_network <- build_network(crandb, perspective = "package")
 ```
 
 We can then compute dependence trees for any package in CRAN using the function `compute_dependence_tree` on the package directives network. For example the dependence tree of [**brglm2**](https://cran.r-project.org/package=brglm2) is

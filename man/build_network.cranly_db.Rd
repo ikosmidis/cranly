@@ -9,13 +9,13 @@
 \method{build_network}{cranly_db}(object, trace = FALSE, perspective = "package", ...)
 }
 \arguments{
-\item{object}{a \code{\link{cranly_db}} object. If missing (default) a call to \code{\link{clean_CRAN_db}} is issued.}
+\item{object}{a \code{\link{cranly_db}} object. If missing (default) a call to \code{\link[=clean_CRAN_db]{clean_CRAN_db()}} is issued.}
 
 \item{trace}{logical. Print progress information? Default is \code{\link{FALSE}}.}
 
 \item{perspective}{character. Should a \code{"package"} (default) or an \code{"author"} network be built?}
 
-\item{...}{Other arguments passed in \code{\link{clean_CRAN_db}} when \code{object} is \code{NULL}.}
+\item{...}{Other arguments passed in \code{\link[=clean_CRAN_db]{clean_CRAN_db()}} when \code{object} is \code{NULL}.}
 }
 \value{
 A list of 2 \code{\link{data.frame}} objects with the \code{edges} and \code{nodes} of the network.
@@ -51,5 +51,5 @@ class(author_network)
 
 }
 \seealso{
-\code{\link{clean_CRAN_db}} \code{\link{subset.cranly_network}} \code{\link{plot.cranly_network}} \code{\link{extractor-functions}}
+\code{\link[=clean_CRAN_db]{clean_CRAN_db()}} \code{\link[=subset.cranly_network]{subset.cranly_network()}} \code{\link[=plot.cranly_network]{plot.cranly_network()}} \code{\link{extractor-functions}}
 }

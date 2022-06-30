@@ -12,9 +12,9 @@
 #'
 #' A [`data.frame`] of various statistics for the author collaboration
 #' network or the package directives network, depending on whether
-#' `attr(object, "perspective")` is `"author"` or
-#' `"package"`, respectively. See Details for the current list of
-#' statistics returned.
+#' `attr(object, "perspective")` is `"author"` or `"package"`,
+#' respectively. See Details for the current list of statistics
+#' returned.
 #'
 #' @details
 #'

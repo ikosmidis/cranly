@@ -1,5 +1,5 @@
 ---
-title: "CRAN top 20s and interactive R package directives and collaboration networks"
+title: "CRAN top 20s and interactive package and collaboration networks"
 author: "[Ioannis Kosmidis](https://www.ikosmidis.com)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -32,7 +32,6 @@ Download today's CRAN database
 ```{r}
 library("cranly")
 p_db <- tools::CRAN_package_db()
-
 ```
 
 Next we need to clean and organize author names, depends, imports, suggests, enhances

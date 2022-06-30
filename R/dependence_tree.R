@@ -5,7 +5,7 @@
 #' @inheritParams extractor-functions
 #' @param generation integer. The original generation for the package.
 #'
-#' @seealso [`build_dependence_tree.cranly_network`]
+#' @seealso [`build_dependence_tree.cranly_network()`]
 #'
 #' @details
 #'
@@ -40,12 +40,12 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
 #' @inheritParams  plot.cranly_network
 #'
 #'
-#' @seealso [`compute_dependence_tree`] [`plot.cranly_dependence_tree`] [`summary.cranly_dependence_tree`]
+#' @seealso [compute_dependence_tree()] [plot.cranly_dependence_tree()] [summary.cranly_dependence_tree()]
 #'
 #' @examples
 #' \donttest{
-#' cran_db <- clean_CRAN_db()
-#' package_network <- build_network(object = cran_db)
+#' data("crandb", package = "cranly")
+#' package_network <- build_network(object = crandb)
 #' dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
 #' plot(dep_tree)
 #' }
@@ -136,12 +136,12 @@ build_dependence_tree.cranly_network <- function(x,
 #' carries, and the maintainers may want to remove any dependencies
 #' that are not necessary.
 #'
-#' @seealso [`build_dependence_tree.cranly_network`] [`compute_dependence_tree`]
+#' @seealso [build_dependence_tree.cranly_network()] [compute_dependence_tree()]
 #'
 #' @examples
 #' \donttest{
-#' cran_db <- clean_CRAN_db()
-#' package_network <- build_network(object = cran_db)
+#' data("crandb", package = "cranly")
+#' package_network <- build_network(object = crandb)
 #'
 #' ## Two light packages
 #' dep_tree <- build_dependence_tree(package_network, package = "brglm")

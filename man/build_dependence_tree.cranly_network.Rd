@@ -32,13 +32,13 @@ Construct a \code{\link{cranly_dependence_tree}} object
 }
 \examples{
 \donttest{
-cran_db <- clean_CRAN_db()
-package_network <- build_network(object = cran_db)
+data("crandb", package = "cranly")
+package_network <- build_network(object = crandb)
 dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
 plot(dep_tree)
 }
 
 }
 \seealso{
-\code{\link{compute_dependence_tree}} \code{\link{plot.cranly_dependence_tree}} \code{\link{summary.cranly_dependence_tree}}
+\code{\link[=compute_dependence_tree]{compute_dependence_tree()}} \code{\link[=plot.cranly_dependence_tree]{plot.cranly_dependence_tree()}} \code{\link[=summary.cranly_dependence_tree]{summary.cranly_dependence_tree()}}
 }

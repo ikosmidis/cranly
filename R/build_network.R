@@ -2,10 +2,10 @@
 
 #' Compute edges and nodes of package directives and collaboration networks
 #'
-#' @param object a [`cranly_db`] object. If missing (default) a call to [`clean_CRAN_db`] is issued.
+#' @param object a [`cranly_db`] object. If missing (default) a call to [clean_CRAN_db()] is issued.
 #' @param trace logical. Print progress information? Default is [`FALSE`].
 #' @param perspective character. Should a `"package"` (default) or an `"author"` network be built?
-#' @param ... Other arguments passed in [`clean_CRAN_db`] when `object` is `NULL`.
+#' @param ... Other arguments passed in [clean_CRAN_db()] when `object` is `NULL`.
 #'
 #' @aliases cranly_network build_network
 #'
@@ -24,7 +24,7 @@
 #'
 #'
 #' @seealso
-#' [`clean_CRAN_db`] [`subset.cranly_network`] [`plot.cranly_network`] [`extractor-functions`]
+#' [clean_CRAN_db()] [subset.cranly_network()] [plot.cranly_network()] [`extractor-functions`]
 #'
 #' @examples
 #' \donttest{

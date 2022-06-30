@@ -17,9 +17,9 @@
 \value{
 A \code{\link{data.frame}} of various statistics for the author collaboration
 network or the package directives network, depending on whether
-\code{attr(object, "perspective")} is \code{"author"} or
-\code{"package"}, respectively. See Details for the current list of
-statistics returned.
+\code{attr(object, "perspective")} is \code{"author"} or \code{"package"},
+respectively. See Details for the current list of statistics
+returned.
 }
 \description{
 Compute a range of package directives and collaboration network statistics

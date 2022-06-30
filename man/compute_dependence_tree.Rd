@@ -24,5 +24,5 @@ requirements for \code{package} (\code{Depends}, \code{Imports} or
 packages are found, and so on.
 }
 \seealso{
-\code{\link{build_dependence_tree.cranly_network}}
+\code{\link[=build_dependence_tree.cranly_network]{build_dependence_tree.cranly_network()}}
 }

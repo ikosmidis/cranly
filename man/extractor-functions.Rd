@@ -169,8 +169,8 @@ For example, for
 \examples{
 \donttest{
 # Using a package directives network
-cran_db <- clean_CRAN_db()
-pkg_net <- build_network(cran_db, perspective = "package")
+data("crandb", package = "cranly")
+pkg_net <- build_network(crandb, perspective = "package")
 ## Find all packages containing glm in their name
 package_with(pkg_net, name = "glm")
 ## Find all authors of packages containing brglm in their name
@@ -183,7 +183,7 @@ author_of(pkg_net, package = "brglm2", exact = TRUE)
 author_with(pkg_net, name = "Ioannis", exact = FALSE)
 ## Find all packages suggested by Rcpp
 suggested_by(pkg_net, package = "Rcpp", exact = TRUE)
-## Find all packages imported by Rcpp 
+## Find all packages imported by Rcpp
 imported_by(pkg_net, package = "Rcpp", exact = TRUE)
 ## Find all packages enhacing brglm
 enhancing(pkg_net, package = "brglm", exact = TRUE)
@@ -197,7 +197,7 @@ release_date_of(pkg_net, package = "brglm", exact = FALSE)
 release_date_of(pkg_net, package = "brglm", exact = FALSE, flat = FALSE)[c("package", "version")]
 
 ## Using an author collaboration network
-aut_net <- build_network(cran_db, perspective = "author")
+aut_net <- build_network(crandb, perspective = "author")
 ## Find all packages containing glm in their name
 package_with(aut_net, name = "glm")
 ## Find all authors of packages containing brglm in their name
@@ -213,5 +213,5 @@ author_with(aut_net, name = "Ioannis", exact = FALSE)
 
 }
 \seealso{
-\code{\link{build_network.cranly_db}} \code{\link{subset.cranly_network}} \code{\link{plot.cranly_network}}
+\code{\link[=build_network.cranly_db]{build_network.cranly_db()}} \code{\link[=subset.cranly_network]{subset.cranly_network()}} \code{\link[=plot.cranly_network]{plot.cranly_network()}}
 }

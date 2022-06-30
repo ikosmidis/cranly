@@ -3,7 +3,7 @@
 
 #' Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string
 #'
-#' 
+#'
 #' @inheritParams subset.cranly_network
 #' @param package a vector of character strings with the package names to be matched. If `Inf` all available packages in `x` are returned. If `NULL` (default) nothing is matched.
 #' @param author a vector of character strings with the author names to be matched. If `Inf` all available authors in `x` are returned. If `NULL` (default) nothing is matched.
@@ -26,7 +26,7 @@
 #' - "`y` is the package enhanced by the `"prediction"` package we do `enhanced_by(x, "prediction", exact = TRUE)`
 #'
 #' - "`y` is the package linking to `"Rcpp"` we do `linking_to(x, "Rcpp", exact = TRUE)`
-#' 
+#'
 #' @return
 #'
 #' If `flat = TRUE` then the result of the extraction function is a
@@ -36,16 +36,16 @@
 #'
 #' When `flat = TRUE` any [`NA`]s are removed before the result is
 #' returned.
-#' 
-#' @seealso
-#' [`build_network.cranly_db`] [`subset.cranly_network`] [`plot.cranly_network`]
 #'
-#' 
+#' @seealso
+#' [build_network.cranly_db()] [subset.cranly_network()] [plot.cranly_network()]
+#'
+#'
 #' @examples
 #' \donttest{
 #' # Using a package directives network
-#' cran_db <- clean_CRAN_db()
-#' pkg_net <- build_network(cran_db, perspective = "package")
+#' data("crandb", package = "cranly")
+#' pkg_net <- build_network(crandb, perspective = "package")
 #' ## Find all packages containing glm in their name
 #' package_with(pkg_net, name = "glm")
 #' ## Find all authors of packages containing brglm in their name
@@ -58,7 +58,7 @@
 #' author_with(pkg_net, name = "Ioannis", exact = FALSE)
 #' ## Find all packages suggested by Rcpp
 #' suggested_by(pkg_net, package = "Rcpp", exact = TRUE)
-#' ## Find all packages imported by Rcpp 
+#' ## Find all packages imported by Rcpp
 #' imported_by(pkg_net, package = "Rcpp", exact = TRUE)
 #' ## Find all packages enhacing brglm
 #' enhancing(pkg_net, package = "brglm", exact = TRUE)
@@ -72,7 +72,7 @@
 #' release_date_of(pkg_net, package = "brglm", exact = FALSE, flat = FALSE)[c("package", "version")]
 #'
 #' ## Using an author collaboration network
-#' aut_net <- build_network(cran_db, perspective = "author")
+#' aut_net <- build_network(crandb, perspective = "author")
 #' ## Find all packages containing glm in their name
 #' package_with(aut_net, name = "glm")
 #' ## Find all authors of packages containing brglm in their name
@@ -85,9 +85,9 @@
 #' author_with(aut_net, name = "Ioannis", exact = FALSE)
 #' }
 #'
-#' 
+#'
 #' @name extractor-functions
-#' @aliases package_by package_with author_with author_of suggested_by imported_by dependency_of linked_by enhanced_by suggesting importing depending_on linking_to enhancing maintainer_of maintained_by email_of email_with description_of title_of license_of version_of release_date_of 
+#' @aliases package_by package_with author_with author_of suggested_by imported_by dependency_of linked_by enhanced_by suggesting importing depending_on linking_to enhancing maintainer_of maintained_by email_of email_with description_of title_of license_of version_of release_date_of
 NULL
 
 
@@ -152,12 +152,12 @@ package_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TR
         inds <- sapply(x$nodes$package, function(z) grepl(str, z, ignore.case = !exact, perl = TRUE))
         inds_row <- sapply(inds, any)
     }
-    
+
     if (flat) {
         out <- x$nodes[inds_row, "package"]
         inds <- inds[inds_row]
         out <- unique(unlist(lapply(seq.int(out), function(j) out[[j]][inds[[j]]])))
-       
+
         if (all(is.na(out)) | !length(out)) {
             out <- character(0)
         }
@@ -226,7 +226,7 @@ author_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TRU
         inds <- sapply(x$nodes$author, function(z) grepl(str, z, ignore.case = !exact))
         inds_row <- sapply(inds, any)
     }
-    if (flat) {        
+    if (flat) {
         out <- x$nodes[inds_row, "author"]
         inds <- inds[inds_row]
         out <- unique(unlist(lapply(seq.int(out), function(j) out[[j]][inds[[j]]])))
@@ -277,7 +277,7 @@ suggested_by.cranly_network <- function(x, package = NULL, exact = FALSE, flat =
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -316,7 +316,7 @@ suggesting.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -356,7 +356,7 @@ imported_by.cranly_network <- function(x, package = NULL, exact = FALSE, flat = 
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -394,7 +394,7 @@ importing.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TR
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -433,7 +433,7 @@ dependency_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat 
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -472,7 +472,7 @@ depending_on.cranly_network <- function(x, package = NULL, exact = FALSE, flat =
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -511,7 +511,7 @@ linked_by.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TR
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -549,7 +549,7 @@ linking_to.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -588,7 +588,7 @@ enhanced_by.cranly_network <- function(x, package = NULL, exact = FALSE, flat = 
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -628,7 +628,7 @@ enhancing.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TR
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -669,7 +669,7 @@ maintainer_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat 
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -706,7 +706,7 @@ maintained_by.cranly_network <- function(x, author = NULL, exact = FALSE, flat =
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -743,7 +743,7 @@ email_of.cranly_network <- function(x, author = NULL, exact = FALSE, flat = TRUE
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -782,7 +782,7 @@ email_with.cranly_network <- function(x, name = NULL, exact = FALSE, flat = TRUE
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -820,7 +820,7 @@ description_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -858,7 +858,7 @@ title_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = TRU
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -892,11 +892,11 @@ license_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
         }
         else {
             out <- out[!is.na(out)]
-        }        
+        }
     }
     else {
-        out <- x$nodes[inds, ]        
-    }    
+        out <- x$nodes[inds, ]
+    }
     out
 }
 
@@ -934,7 +934,7 @@ version_of.cranly_network <- function(x, package = NULL, exact = FALSE, flat = T
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
@@ -972,7 +972,7 @@ release_date_of.cranly_network <- function(x, package = NULL, exact = FALSE, fla
     }
     else {
         out <- x$nodes[inds, ]
-    }    
+    }
     out
 }
 
