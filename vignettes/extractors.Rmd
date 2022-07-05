@@ -25,14 +25,16 @@ Since version 0.3, **cranly** includes functions for extracting information from
 
 `y` is [the] `extractor-function` a `package`/`author`
 
+### CRAN package directives and author collaboration networks
 
-
-Let's build the package and author directives networks using CRAN's state on 20 June 2022
+Let's attach **cranly**
 ```{r}
 library("cranly")
-data("crandb", package = "cranly")
-package_network <- crandb |> build_network(perspective = "package")
-author_network <- crandb |> build_network(perspective = "author")
+```
+and use the package directives and author collaboration networks from CRAN's state on `r format(attr(package_network, "timestamp"), usetz = TRUE)`
+```{r}
+data("package_network", package = "cranly")
+data("author_newtwork", package = "cranly")
 ```
 
 # Example queries

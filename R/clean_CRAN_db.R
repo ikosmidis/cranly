@@ -48,12 +48,14 @@
 #'
 #' @examples
 #' \donttest{
-#' ## Before cleaning
-#' cran_db <- tools::CRAN_package_db()
-#' cran_db[cran_db$Package == "weights", "Author"]
+#' ## Download today's CRAN package database
+#' crandb <- tools::CRAN_package_db()
+#'
+#' ## Before clean up
+#' crandb[cran_db$Package == "weights", "Author"]
 #'
 #' ## After clean up
-#' package_db <- clean_CRAN_db(cran_db)
+#' package_db <- clean_CRAN_db(crandb)
 #' package_db[package_db$package == "weights", "author"]
 #' }
 #' @export

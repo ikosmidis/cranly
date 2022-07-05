@@ -21,14 +21,16 @@ knitr::opts_chunk$set(
 ### Packages for glm's and associated methods
 The current vignette is a quick analysis of all CRAN packages that have "glm" in their name. The crude assumption we make here is that a package with "glm" in its name does something related to generalized linear models.
 
-### CRAN package database
+### CRAN package directives and author collaboration networks
 
-Let's build the package and author directives networks using CRAN's state on 20 June 2022
+Let's attach **cranly**
 ```{r}
 library("cranly")
-data("crandb", package = "cranly")
-package_network <- build_network(crandb)
-author_network <- build_network(crandb, perspective = "author")
+```
+and use the package directives and author collaboration networks from CRAN's state on `r format(attr(package_network, "timestamp"), usetz = TRUE)`
+```{r}
+data("package_network", package = "cranly")
+data("author_newtwork", package = "cranly")
 ```
 
 ### Packages for generalized linear models

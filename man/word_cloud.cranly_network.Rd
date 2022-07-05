@@ -76,14 +76,12 @@ examples.
 }
 \examples{
 \donttest{
-data("crandb", package = "cranly")
 ## Package directives network
-package_network <- build_network(object = crandb, perspective = "package")
+data("package_network", package = "cranly")
 ## Descriptions of all packages in tidyverse
 tidyverse <- imported_by(package_network, "tidyverse", exact = TRUE)
 set.seed(123)
 word_cloud(package_network, package = tidyverse, exact = TRUE, min.freq = 2)
-
 
 ## or by manually creating the term frequencies from descriptions
 descriptions <- descriptions_of(package_network, tidyverse, exact = TRUE)

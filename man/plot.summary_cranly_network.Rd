@@ -23,16 +23,14 @@ Top-n package or author barplots according to a range of network statistics
 \examples{
 
 \donttest{
-data("crandb", package = "cranly")
-## package network
-package_network <- build_network(crandb)
+data("package_network", package = "cranly")
 package_summaries <- summary(package_network)
 plot(package_summaries, according_to = "n_imported_by", top = 30)
 plot(package_summaries, according_to = "n_depended_by", top = 30)
 plot(package_summaries, according_to = "page_rank", top = 30)
 
 ## author network
-author_network <- build_network(crandb, perspective = "author")
+data("author_network", package = "cranly")
 author_summaries <- summary(author_network)
 plot(author_summaries, according_to = "n_collaborators", top = 30)
 plot(author_summaries, according_to = "n_packages", top = 30)

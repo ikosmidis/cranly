@@ -44,8 +44,8 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
 #'
 #' @examples
 #' \donttest{
-#' data("crandb", package = "cranly")
-#' package_network <- build_network(object = crandb)
+#' data("cran_db", package = "cranly")
+#' package_network <- build_network(object = cran_db)
 #' dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
 #' plot(dep_tree)
 #' }
@@ -140,8 +140,8 @@ build_dependence_tree.cranly_network <- function(x,
 #'
 #' @examples
 #' \donttest{
-#' data("crandb", package = "cranly")
-#' package_network <- build_network(object = crandb)
+#' data("cran_db", package = "cranly")
+#' package_network <- build_network(object = cran_db)
 #'
 #' ## Two light packages
 #' dep_tree <- build_dependence_tree(package_network, package = "brglm")
