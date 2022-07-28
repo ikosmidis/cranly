@@ -28,27 +28,34 @@ This vignette is a tour to the current capabilities in [**cranly**](https://gith
 
 # Preparing today's CRAN package database
 
-Download today's CRAN database
+Let's attach **cranly** 
 ```{r}
 library("cranly")
-p_db <- tools::CRAN_package_db()
+```
+and use the cleaned CRAN package database as of `r format(attr(cran_db, "timestamp"), usetz = TRUE)`
+```{r}
+data("cran_db", package = "cranly")
 ```
 
-Next we need to clean and organize author names, depends, imports, suggests, enhances
-```{r}
-package_db <- clean_CRAN_db(p_db)
+Alternatively, today's package directives and author collaboration networks can be constructed by doing 
+```{r eval = FALSE}
+p_db <- tools::CRAN_package_db()
+```
+and then we need to clean and organize author names, depends, imports, suggests, enhances
+```{r eval = FALSE}
+cran_db <- clean_CRAN_db(p_db)
 ```
 
 The resulting dataset carries the timestamp of when it was put together, which helps keeping track of when the data import has taken place and will be helpful in future versions when dynamic analyses and visualization methods are implemented.
 ```{r}
-attr(package_db, "timestamp")
+attr(cran_db, "timestamp")
 ```
 
 # Network of package directives
 
 We can now extract edges and nodes for the CRAN package directives network by simply doing
 ```{r}
-package_network <- build_network(package_db)
+package_network <- build_network(cran_db)
 ```
 and compute various statistics for the package network
 ```{r}
@@ -89,7 +96,7 @@ plot(optional_summary, top = 30, according_to = "n_imported_by")
 
 Next let's build the CRAN collaboration network
 ```{r}
-author_network <- build_network(object = package_db, perspective = "author")
+author_network <- build_network(object = cran_db, perspective = "author")
 ```
 
 Statistics for the collaboration network can be computed using the `summary` method as we did for package directives.

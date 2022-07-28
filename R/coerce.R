@@ -22,13 +22,12 @@
 #' @examples
 #' \donttest{
 #'
-#' data("cran_db", package = "cranly")
-#' # Package directives network
-#' package_network <- build_network(object = cran_db, perspective = "package")
+#' ## Package directives network
+#' data("package_network", package = "cranly")
 #' igraph::as.igraph(package_network)
 #'
 #' ## Author collaboration network
-#' author_network <- build_network(object = cran_db, perspective = "author")
+#' data("author_network", package = "cranly")
 #' igraph::as.igraph(author_network)
 #'
 #' }

@@ -34,9 +34,14 @@ Let's attach **cranly**
 ```{r}
 library("cranly")
 ```
-and use the package directives network from CRAN's state on `r format(attr(package_network, "timestamp"), usetz = TRUE)`
+and use the package directives network from CRAN's state on `r format(attr(package_network, "timestamp"), usetz = TRUE)`. 
 ```{r}
 data("package_network", package = "cranly")
+```
+Alternatively, today's package directives network can be constructed by doing 
+```{r eval = FALSE}
+cran_db <- clean_CRAN_db()
+package_network <- build_network(cran_db)
 ```
 
 We can compute dependence trees for any package in CRAN using the function `compute_dependence_tree` on the package directives network. For example the dependence tree of [**brglm2**](https://cran.r-project.org/package=brglm2) is

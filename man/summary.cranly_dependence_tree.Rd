@@ -44,8 +44,7 @@ that are not necessary.
 }
 \examples{
 \donttest{
-data("cran_db", package = "cranly")
-package_network <- build_network(object = cran_db)
+data("package_network", package = "cranly")
 
 ## Two light packages
 dep_tree <- build_dependence_tree(package_network, package = "brglm")

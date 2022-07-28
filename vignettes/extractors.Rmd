@@ -36,6 +36,12 @@ and use the package directives and author collaboration networks from CRAN's sta
 data("package_network", package = "cranly")
 data("author_newtwork", package = "cranly")
 ```
+Alternatively, today's package directives and author collaboration networks can be constructed by doing 
+```{r eval = FALSE}
+cran_db <- clean_CRAN_db()
+package_network <- build_network(cran_db)
+author_network <- build_network(cran_db, perspective = "author")
+```
 
 # Example queries
 
