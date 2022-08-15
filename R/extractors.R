@@ -42,7 +42,7 @@
 #'
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' # Using a package directives network
 #' data("package_network", package = "cranly")
 

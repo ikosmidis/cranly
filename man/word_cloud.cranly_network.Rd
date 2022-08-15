@@ -75,7 +75,7 @@ term frequencies from a supplied vector of character strings (see
 examples.
 }
 \examples{
-\donttest{
+\dontrun{
 ## Package directives network
 data("package_network", package = "cranly")
 ## Descriptions of all packages in tidyverse

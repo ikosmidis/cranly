@@ -28,7 +28,7 @@ direction to correctly compute relevant network summaries (see
 authors.
 }
 \examples{
-\donttest{
+\dontrun{
 
 ## Package directives network
 data("package_network", package = "cranly")

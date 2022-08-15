@@ -27,7 +27,7 @@
 #' [clean_CRAN_db()] [subset.cranly_network()] [plot.cranly_network()] [`extractor-functions`]
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' data("cran_db", package = "cranly")
 #'
 #' ## Build package directives network

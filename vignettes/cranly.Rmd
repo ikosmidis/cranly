@@ -28,7 +28,7 @@ This vignette is a tour to the current capabilities in [**cranly**](https://gith
 
 # Preparing today's CRAN package database
 
-Let's attach **cranly** 
+Let's attach **cranly**
 ```{r}
 library("cranly")
 ```
@@ -37,7 +37,7 @@ and use the cleaned CRAN package database as of `r format(attr(cran_db, "timesta
 data("cran_db", package = "cranly")
 ```
 
-Alternatively, today's package directives and author collaboration networks can be constructed by doing 
+Alternatively, today's package directives and author collaboration networks can be constructed by doing
 ```{r eval = FALSE}
 p_db <- tools::CRAN_package_db()
 ```

@@ -60,7 +60,7 @@ Custom clean-up functions can also be supplied via the
 \code{clean_directives} and \code{clean_author} arguments.
 }
 \examples{
-\donttest{
+\dontrun{
 ## Download today's CRAN package database
 crandb <- tools::CRAN_package_db()
 

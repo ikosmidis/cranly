@@ -31,7 +31,7 @@
 Construct a \code{\link{cranly_dependence_tree}} object
 }
 \examples{
-\donttest{
+\dontrun{
 data("package_network", package = "cranly")
 dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
 plot(dep_tree)

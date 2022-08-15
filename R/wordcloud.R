@@ -32,7 +32,7 @@
 #' @seealso [compute_term_frequency()]
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' ## Package directives network
 #' data("package_network", package = "cranly")
 #' ## Descriptions of all packages in tidyverse

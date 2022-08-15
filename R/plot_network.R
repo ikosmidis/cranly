@@ -16,7 +16,7 @@
 #' @param ... currently not used.
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' data("package_network", package = "cranly")
 #' ## The package directives network of all users with Ioannis in
 #' ## their name from the CRAN database subset crandb
