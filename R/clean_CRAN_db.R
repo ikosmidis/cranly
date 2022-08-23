@@ -47,7 +47,7 @@
 #' `timestamp` attribute.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ## Download today's CRAN package database
 #' crandb <- tools::CRAN_package_db()
 #'

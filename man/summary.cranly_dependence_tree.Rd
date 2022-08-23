@@ -43,7 +43,7 @@ carries, and the maintainers may want to remove any dependencies
 that are not necessary.
 }
 \examples{
-\dontrun{
+\donttest{
 data("package_network", package = "cranly")
 
 ## Two light packages

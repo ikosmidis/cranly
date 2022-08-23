@@ -10,7 +10,7 @@
 #'
 #' @examples
 #'
-#' \dontrun{
+#' \donttest{
 #' data("package_network", package = "cranly")
 #' package_summaries <- summary(package_network)
 #' plot(package_summaries, according_to = "n_imported_by", top = 30)

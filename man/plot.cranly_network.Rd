@@ -66,7 +66,7 @@
 Interactive visualization of a package or author \code{\link{cranly_network}}
 }
 \examples{
-\dontrun{
+\donttest{
 data("package_network", package = "cranly")
 ## The package directives network of all users with Ioannis in
 ## their name from the CRAN database subset crandb

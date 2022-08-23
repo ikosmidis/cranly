@@ -66,12 +66,13 @@ package_summaries <- summary(package_network)
 The `package_summaries` object can now be used for finding the top-20
 packages according to various statistics
 ```{r}
-plot(package_summaries, according_to = "n_imported_by", top = 20)
-plot(package_summaries, according_to = "page_rank", top = 20)
-plot(package_summaries, according_to = "betweenness", top = 20)
-plot(package_summaries, according_to = "n_enhances", top = 20)
 plot(package_summaries, according_to = "n_authors", top = 20)
 plot(package_summaries, according_to = "n_imports", top = 20)
+plot(package_summaries, according_to = "n_imported_by", top = 20)
+```
+The names of the available statistics are 
+```{r}
+names(package_summaries)
 ```
 
 The sub-network for my packages can be found using the extractor function `package_of` which use exact matching by default
@@ -115,9 +116,4 @@ The R Core's collaboration sub-network is
 ```{r}
 plot(author_network, author = "R Core")
 ```
-and my (small but valuable to me!) collaboration sub-network is
-```{r}
-plot(author_network, author = "Kosmidis", exact = FALSE)
-```
-
 

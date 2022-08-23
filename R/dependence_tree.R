@@ -43,7 +43,7 @@ compute_dependence_tree <- function(x, package = NULL, generation = 0) {
 #' @seealso [compute_dependence_tree()] [plot.cranly_dependence_tree()] [summary.cranly_dependence_tree()]
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("package_network", package = "cranly")
 #' dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
 #' plot(dep_tree)
@@ -138,7 +138,7 @@ build_dependence_tree.cranly_network <- function(x,
 #' @seealso [build_dependence_tree.cranly_network()] [compute_dependence_tree()]
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data("package_network", package = "cranly")
 #'
 #' ## Two light packages

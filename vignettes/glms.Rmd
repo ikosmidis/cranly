@@ -48,11 +48,11 @@ The packages that have "glm" in their name are
 ```
 
 The sub-network for `glm_packages` can be visualized using
-```{r}
+```{r, eval = FALSE}
 plot(package_network, package = glm_packages)
 ```
 In order to focus on the sub-network with edges *only* between the packages in `glm_packages`, we do
-```{r}
+```{r, eval = FALSE}
 glm_package_only_network <- subset(package_network, package = glm_packages, only = TRUE)
 plot(glm_package_only_network, package = glm_packages)
 ```

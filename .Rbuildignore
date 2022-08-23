@@ -16,11 +16,12 @@ tests/
 inst/presentations/
 inst/scratch/
 inst/todo.org
+inst/art/
 vignettes/historical.Rmd
 vignettes/tree_analysis.Rmd
-vignettes/cranly.html
-vignettes/glms.html
-vignettes/cranly.pdf
-vignettes/cranly.html
+vignettes/precompile.R
+vignettes/.*\.html
+vignettes/.*\.orig
+vignettes/.*\.pdf
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$

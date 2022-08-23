@@ -32,7 +32,7 @@ collaboration network is analyzed and visualized as undirected by
 all methods in \code{cranly}.
 }
 \examples{
-\dontrun{
+\donttest{
 data("cran_db", package = "cranly")
 
 ## Build package directives network
