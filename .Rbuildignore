@@ -19,6 +19,7 @@ inst/todo.org
 inst/art/
 vignettes/historical.Rmd
 vignettes/tree_analysis.Rmd
+vignettes/glms.Rmd
 vignettes/precompile.R
 vignettes/.*\.html
 vignettes/.*\.orig
