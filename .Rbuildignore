@@ -17,12 +17,11 @@ inst/presentations/
 inst/scratch/
 inst/todo.org
 inst/art/
+^CRAN-RELEASE$
+^CRAN-SUBMISSION$
 vignettes/historical.Rmd
 vignettes/tree_analysis.Rmd
 vignettes/glms.Rmd
-vignettes/precompile.R
 vignettes/.*\.html
 vignettes/.*\.orig
 vignettes/.*\.pdf
-^CRAN-RELEASE$
-^CRAN-SUBMISSION$
