@@ -32,10 +32,11 @@ Let's attach **cranly**
 ```{r}
 library("cranly")
 ```
-and use the cleaned CRAN package database as of `r format(attr(cran_db, "timestamp"), usetz = TRUE)`
+and use an instance of the cleaned CRAN package database
 ```{r}
-data("cran_db", package = "cranly")
+cran_db <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/data/cran_db.rds"))
 ```
+as of `r format(attr(cran_db, "timestamp"), usetz = TRUE)`.
 
 Alternatively, today's package directives and author collaboration networks can be constructed by doing
 ```{r eval = FALSE}

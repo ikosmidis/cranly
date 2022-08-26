@@ -34,7 +34,8 @@
 #' @examples
 #' \donttest{
 #' ## Package directives network
-#' data("package_network", package = "cranly")
+#' cran_db <- clean_CRAN_db()
+#' package_network <- build_network(cran_db)
 #' ## Descriptions of all packages in tidyverse
 #' tidyverse <- imported_by(package_network, "tidyverse", exact = TRUE)
 #' set.seed(123)

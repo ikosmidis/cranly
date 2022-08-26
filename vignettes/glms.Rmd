@@ -27,11 +27,13 @@ Let's attach **cranly**
 ```{r}
 library("cranly")
 ```
-and use the package directives and author collaboration networks from CRAN's state on `r format(attr(package_network, "timestamp"), usetz = TRUE)`
+and use instances of the package directives and author collaboration networks
 ```{r}
-data("package_network", package = "cranly")
-data("author_newtwork", package = "cranly")
+package_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/data/package_network.rds"))
+author_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/data/author_network.rds"))
 ```
+from CRAN's state on `r format(attr(package_network, "timestamp"), usetz = TRUE)`
+
 Alternatively, today's package directives and author collaboration networks can be constructed by doing 
 ```{r eval = FALSE}
 cran_db <- clean_CRAN_db()

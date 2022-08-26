@@ -33,7 +33,7 @@ all methods in \code{cranly}.
 }
 \examples{
 \donttest{
-data("cran_db", package = "cranly")
+cran_db <- clean_CRAN_db()
 
 ## Build package directives network
 package_network <- build_network(object = cran_db, perspective = "package")

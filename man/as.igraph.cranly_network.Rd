@@ -31,11 +31,13 @@ authors.
 \donttest{
 
 ## Package directives network
-data("package_network", package = "cranly")
+cran_db <- clean_CRAN_db()
+
+package_network <- build_network(cran_db)
 igraph::as.igraph(package_network)
 
 ## Author collaboration network
-data("author_network", package = "cranly")
+author_network <- build_network(cran_db, perspective = "author")
 igraph::as.igraph(author_network)
 
 }

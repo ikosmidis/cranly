@@ -44,8 +44,9 @@
 #' @examples
 #' \donttest{
 #' # Using a package directives network
-#' data("package_network", package = "cranly")
-
+#' cran_db <- clean_CRAN_db()
+#' package_network <- build_network(cran_db)
+#'
 #' ## Find all packages containing glm in their name
 #' package_with(package_network, name = "glm")
 #' ## Find all authors of packages containing brglm in their name

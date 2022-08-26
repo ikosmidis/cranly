@@ -67,14 +67,16 @@ Interactive visualization of a package or author \code{\link{cranly_network}}
 }
 \examples{
 \donttest{
-data("package_network", package = "cranly")
+cran_db <- clean_CRAN_db()
+package_network <- build_network(cran_db)
+
 ## The package directives network of all users with Ioannis in
 ## their name from the CRAN database subset crandb
 plot(package_network, author = "Ioannis", exact = FALSE)
 ## The package directives network of "Achim Zeileis"
 plot(package_network, author = "Achim Zeileis")
 
-data("author_network", package = "cranly")
+author_network <- build_network(cran_db, perspective = "author")
 plot(author_network, author = "Ioannis", exact = FALSE, title = TRUE)
 }
 }

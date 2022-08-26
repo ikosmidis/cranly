@@ -26,8 +26,7 @@ vignettes/.*\.html
 vignettes/.*\.orig
 vignettes/.*\.pdf
 vignetters/update_datasets.R
-data/author_network.rda
-data/package_network.rda
-data/cran_db.rda
-
+inst/extdata/.*
+inst/extdata
+R/data.R
 
