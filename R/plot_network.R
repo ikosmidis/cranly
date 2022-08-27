@@ -1,17 +1,17 @@
 # Copyright (C) 2018- Ioannis Kosmidis
 
-#' Interactive visualization of a package or author [cranly_network()]
+#' Interactive visualization of a package or author [`cranly_network`]
 #'
 #' @inheritParams subset.cranly_network
 #' @inheritParams summary.cranly_network
 #' @inheritParams visNetwork::visNetwork
-#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is `200`. See, also [`visNetwork::visEdges`].
+#' @param physics_threshold integer. How many nodes before switching off physics simulations for edges? Default is `200`. See, also [visNetwork::visEdges()].
 #' @param dragNodes logical. Should the user be able to drag the nodes that are not fixed? Default is [`TRUE`].
 #' @param dragView logical. Should the user be able to drag the view around? Default is [`TRUE`].
 #' @param zoomView logical. Should the user be able to zoom in? Default is [`TRUE`].
 #' @param legend logical. Should a legend be added on the resulting visualization? Default is [`TRUE`].
 #' @param title logical. Should a title be added on the resulting visualization? Default is [`TRUE`].
-#' @param global locical. If `TRUE` (default) the network summary statistics are computed on `object`, otherwise, on the subset of `object` according to `package`, `author`, `directive`, `base`, `recommended`.
+#' @param global logical. If `TRUE` (default) the network summary statistics are computed on `object`, otherwise, on the subset of `object` according to `package`, `author`, `directive`, `base`, `recommended`.
 #' @param plot logical. Should the visualization be returned? Default is [`TRUE`].
 #' @param ... currently not used.
 #'
@@ -19,14 +19,15 @@
 #' \donttest{
 #' cran_db <- clean_CRAN_db()
 #' package_network <- build_network(cran_db)
+#'
 #' ## The package directives network of all users with Ioannis in
-#' ## their name from the CRAN database subset cran_db
-#' plot(package_network, author = "Ioannis")
+#' ## their name from the CRAN database subset crandb
+#' plot(package_network, author = "Ioannis", exact = FALSE)
 #' ## The package directives network of "Achim Zeileis"
 #' plot(package_network, author = "Achim Zeileis")
 #'
 #' author_network <- build_network(cran_db, perspective = "author")
-#' plot(author_network, author = "Ioannis", title = TRUE)
+#' plot(author_network, author = "Ioannis", exact = FALSE, title = TRUE)
 #' }
 #' @export
 plot.cranly_network <- function(x,
@@ -47,6 +48,10 @@ plot.cranly_network <- function(x,
                                 title = TRUE,
                                 plot = TRUE,
                                 ...) {
+    if (!has_usable_data(x)) {
+        message("The supplied object has no package or author information. Nothing to plot")
+        return(invisible(NULL))
+    }
 
     if (global) {
         summaries <- summary(x, advanced = FALSE)
@@ -175,12 +180,12 @@ x
     edges_subset <- edges_subset[match(c("from", "to", "color", "title", "dashes"), names(edges_subset), nomatch = 0)]
     res <- visNetwork::visNetwork(nodes_subset, edges_subset, height = height, width = width,
                            main = list(text = main,
-                                       style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) %>%
+                                       style = "font-family:Georgia, Times New Roman, Times, serif;font-size:15px")) |>
         visNetwork::visEdges(arrows = if (perspective == "author") NULL else list(to = list(enabled = TRUE, scaleFactor = 0.5)),
-                             physics = nrow(nodes_subset) < physics_threshold) %>%
-            visNetwork::visOptions(highlightNearest = TRUE) %>%
-            visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) %>%
-            visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) %>%
+                             physics = nrow(nodes_subset) < physics_threshold) |>
+            visNetwork::visOptions(highlightNearest = TRUE) |>
+            visNetwork::visLegend(addNodes = lnodes, addEdges = ledges, useGroups = FALSE) |>
+            visNetwork::visInteraction(dragNodes = dragNodes, dragView = dragView, zoomView = zoomView) |>
             visNetwork::visExport(name = export_name, label = "PNG snapshot", style = "")
     if (plot) {
         return(res)

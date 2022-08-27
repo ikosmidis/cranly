@@ -5,8 +5,14 @@
 \alias{cranly_dependence_tree}
 \title{Construct a \code{\link{cranly_dependence_tree}} object}
 \usage{
-\method{build_dependence_tree}{cranly_network}(x, package = Inf,
-  base = FALSE, recommended = TRUE, global = TRUE, ...)
+\method{build_dependence_tree}{cranly_network}(
+  x,
+  package = Inf,
+  base = FALSE,
+  recommended = TRUE,
+  global = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a  \code{\link{cranly_network}} object.}
@@ -17,7 +23,7 @@
 
 \item{recommended}{logical. Should we include recommended packages in the subset? Default is \code{TRUE}.}
 
-\item{global}{locical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}.}
+\item{global}{logical. If \code{TRUE} (default) the network summary statistics are computed on \code{object}, otherwise, on the subset of \code{object} according to \code{package}, \code{author}, \code{directive}, \code{base}, \code{recommended}.}
 
 \item{...}{currently not used.}
 }
@@ -27,12 +33,12 @@ Construct a \code{\link{cranly_dependence_tree}} object
 \examples{
 \donttest{
 cran_db <- clean_CRAN_db()
-package_network <- build_network(object = cran_db)
+package_network <- build_network(cran_db)
 dep_tree <- build_dependence_tree(package_network, package = "PlackettLuce")
 plot(dep_tree)
 }
 
 }
 \seealso{
-\code{\link{compute_dependence_tree}} \code{\link{plot.cranly_dependence_tree}} \code{\link{summary.cranly_dependence_tree}}
+\code{\link[=compute_dependence_tree]{compute_dependence_tree()}} \code{\link[=plot.cranly_dependence_tree]{plot.cranly_dependence_tree()}} \code{\link[=summary.cranly_dependence_tree]{summary.cranly_dependence_tree()}}
 }

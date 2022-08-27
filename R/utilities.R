@@ -25,3 +25,7 @@ split_and_replace <- function(string, base_patterns, replacement,
         }
     string
 }
+
+has_usable_data <- function(x) {
+    !(isTRUE(length(x$nodes) == 0) & isTRUE(length(x$edges) == 0))
+}

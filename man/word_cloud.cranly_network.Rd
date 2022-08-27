@@ -6,18 +6,31 @@
 \alias{word_cloud.numeric}
 \title{wordcloud of author names, package descriptions, and package titles}
 \usage{
-\method{word_cloud}{cranly_network}(x, package = Inf, author = Inf,
-  maintainer = Inf, base = TRUE, recommended = TRUE, exact = TRUE,
-  perspective = "description", random_order = FALSE,
-  ignore_words = c("www.jstor.org", "www.arxiv.org", "arxiv.org",
-  "provides", "https"), stem = FALSE,
-  colors = rev(colorspace::heat_hcl(10)), ...)
+\method{word_cloud}{cranly_network}(
+  x,
+  package = Inf,
+  author = Inf,
+  maintainer = Inf,
+  base = TRUE,
+  recommended = TRUE,
+  exact = TRUE,
+  perspective = "description",
+  random_order = FALSE,
+  ignore_words = c("www.jstor.org", "www.arxiv.org", "arxiv.org", "provides", "https"),
+  stem = FALSE,
+  colors = rev(colorspace::heat_hcl(10)),
+  ...
+)
 
-\method{word_cloud}{numeric}(x, random_order = FALSE,
-  colors = rev(colorspace::heat_hcl(10)), ...)
+\method{word_cloud}{numeric}(
+  x,
+  random_order = FALSE,
+  colors = rev(colorspace::heat_hcl(10)),
+  ...
+)
 }
 \arguments{
-\item{x}{either a  \code{\link{cranly_network}} object or a named vector of term frequencies (typically the output of \code{\link{compute_term_frequency}} with \code{frequency = "term"}.}
+\item{x}{either a  \code{\link{cranly_network}} object or a named vector of term frequencies (typically the output of \code{\link[=compute_term_frequency]{compute_term_frequency()}} with \code{frequency = "term"}.}
 
 \item{package}{a vector of character strings with the package names to be matched. Default is \code{\link{Inf}} which returns all available packages in \code{x} for further subsetting.}
 
@@ -37,7 +50,7 @@
 
 \item{ignore_words}{a vector of words to be ignored when forming the corpus.}
 
-\item{stem}{should words be stemmed using Porter's stemming algorithm? Default is \code{FALSE}. See \link[tm:stemDocument]{tm::stemDocument}.}
+\item{stem}{should words be stemmed using Porter's stemming algorithm? Default is \code{FALSE}. See \code{\link[tm:stemDocument]{tm::stemDocument()}}.}
 
 \item{colors}{color words from least to most frequent}
 
@@ -50,27 +63,26 @@ A word cloud.
 wordcloud of author names, package descriptions, and package titles
 }
 \details{
-When applied to \code{\link{cranly_network}} objects, \code{word_cloud} subsets
+When applied to \code{\link{cranly_network}} objects, \code{\link[=word_cloud]{word_cloud()}} subsets
 either according to \code{author} (using the intersection of the result
-of \code{\link{author_of}} and \code{\link{author_with}}) or according to package
-(using the intersection of the results of \code{\link{package_with}} and
-\code{\link{package_by}}).
+of \code{\link[=author_of]{author_of()}} and \code{\link[=author_with]{author_with()}}) or according to package
+(using the intersection of the results of \code{\link[=package_with]{package_with()}} and
+\code{\link[=package_by]{package_by()}}).
 
 For handling more complex queries, one can manually extract the #'
-term frequencies froom a supplied vector of character strings (see
-\code{\link{compute_term_frequency}}), and use \code{word_cloud} on them. See the
+term frequencies from a supplied vector of character strings (see
+\code{\link[=compute_term_frequency]{compute_term_frequency()}}), and use \code{\link[=word_cloud]{word_cloud()}} on them. See the
 examples.
 }
 \examples{
 \donttest{
-cran_db <- clean_CRAN_db()
 ## Package directives network
-package_network <- build_network(object = cran_db, perspective = "package")
+cran_db <- clean_CRAN_db()
+package_network <- build_network(cran_db)
 ## Descriptions of all packages in tidyverse
 tidyverse <- imported_by(package_network, "tidyverse", exact = TRUE)
 set.seed(123)
 word_cloud(package_network, package = tidyverse, exact = TRUE, min.freq = 2)
-
 
 ## or by manually creating the term frequencies from descriptions
 descriptions <- descriptions_of(package_network, tidyverse, exact = TRUE)
@@ -81,5 +93,5 @@ word_cloud(term_freq, min.freq = 2)
 
 }
 \seealso{
-\code{\link{compute_term_frequency}}
+\code{\link[=compute_term_frequency]{compute_term_frequency()}}
 }

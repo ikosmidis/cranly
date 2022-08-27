@@ -1,4 +1,5 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 [![Travis-CI Build
 Status](https://travis-ci.org/ikosmidis/cranly.svg?branch=master)](https://travis-ci.org/ikosmidis/cranly)
 [![Coverage
@@ -6,8 +7,7 @@ Status](https://img.shields.io/codecov/c/github/ikosmidis/cranly/master.svg)](ht
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/cranly)](https://cran.r-project.org/package=cranly)
 [![Licence](https://img.shields.io/badge/licence-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
-cranly
-======
+# cranly
 
 [**cranly**](https://github.com/ikosmidis/cranly) provides core
 visualizations and summaries for the CRAN package database. It is aimed
@@ -50,7 +50,7 @@ package and author names in the data frame that results from a call to
 The CRAN database we use is from
 
     attr(package_db, "timestamp")
-    #> [1] "2019-07-16 14:19:20 BST"
+    #> [1] "2022-06-17 11:12:49 BST"
 
 #### Package directives networks
 
@@ -63,12 +63,12 @@ The package directives network can then be built using
 
     my_packages <- package_by(package_network, "Ioannis Kosmidis")
     my_packages
-    #>  [1] "betareg"      "brglm"        "brglm2"       "cranly"      
-    #>  [5] "enrichwith"   "PlackettLuce" "profileModel" "semnar"      
-    #>  [9] "trackeR"      "trackeRapp"
+    #> [1] "betareg"          "brglm"            "brglm2"           "detectseparation"
+    #> [5] "enrichwith"       "PlackettLuce"     "profileModel"     "trackeR"         
+    #> [9] "trackeRapp"
 
 and their sub-network of directives can be summarized in an interactive
-visualization, a shapshot of which is below
+visualization, a snapshot of which is below
 
     plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 
@@ -78,8 +78,6 @@ We can also compute package summaries and plot “Top-n” lists according
 to the various summaries
 
     package_summaries <- summary(package_network)
-    #> Warning in closeness(cranly_graph, normalized = FALSE): At centrality.c:
-    #> 2784 :closeness centrality is not well-defined for disconnected graphs
     plot(package_summaries, according_to = "n_imported_by", top = 20)
 
 ![](inst/README_files/README-pkg_summaries-1.png)
@@ -96,7 +94,7 @@ The collaboration network can also be built using a similar call
 
 and the extractor functions work exactly as they did for the package
 directives network. For example, my collaboration network results can be
-summarized as an interactive visualization, a shapshot of which is below
+summarized as an interactive visualization, a snapshot of which is below
 
     plot(author_network, author = "Ioannis Kosmidis")
 
@@ -150,11 +148,12 @@ that is to 0 the “lighter” the package is
     #> [1] 3
     #> 
     #> $parents
-    #> [1] "igraph"      "Matrix"      "partykit"    "psychotools" "psychotree" 
-    #> [6] "qvcalc"      "rARPACK"     "sandwich"   
+    #>  [1] "CVXR"        "igraph"      "Matrix"      "matrixStats" "partykit"   
+    #>  [6] "psychotools" "psychotree"  "qvcalc"      "R6"          "RSpectra"   
+    #> [11] "sandwich"   
     #> 
     #> $dependence_index
-    #> [1] 0.3857451
+    #> [1] 0.6107209
 
 Check the package vignettes for a more comprehensive tour of the package
 and for network visualizations on authors with orders of magnitude

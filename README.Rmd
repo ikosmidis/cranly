@@ -65,10 +65,11 @@ package_network <- build_network(package_db)
 my_packages <- package_by(package_network, "Ioannis Kosmidis")
 my_packages
 ```
-and their sub-network of directives can be summarized in an interactive visualization, a shapshot of which is below
-```{r my_pkgs}
+and their sub-network of directives can be summarized in an interactive visualization, a snapshot of which is below
+```{r my_pkgs, screenshot.opts = list(delay = 2)}
 plot(package_network, package = my_packages, title = TRUE, legend = TRUE)
 ```
+
 
 We can also compute package summaries and plot "Top-n" lists according to the various summaries
 ```{r pkg_summaries}
@@ -82,8 +83,8 @@ The collaboration network can also be built using a similar call
 ```{r cache = TRUE}
 author_network <- build_network(package_db, perspective = "author")
 ```
-and the extractor functions work exactly as they did for the package directives network. For example, my collaboration network results can be summarized as an interactive visualization, a shapshot of which is below
-```{r my_aut}
+and the extractor functions work exactly as they did for the package directives network. For example, my collaboration network results can be summarized as an interactive visualization, a snapshot of which is below
+```{r my_aut, screenshot.opts = list(delay = 2)}
 plot(author_network, author = "Ioannis Kosmidis")
 ```
 
@@ -108,7 +109,7 @@ working with package dependence tree objects. A package's dependence tree shows 
 
 
 For example, the dependence tree of the **PlackettLuce** R package I am co-authoring is
-```{r dep_tree}
+```{r dep_tree, screenshot.opts = list(delay = 2)}
 PL_dependence_tree <- build_dependence_tree(package_network, "PlackettLuce")
 plot(PL_dependence_tree)
 ```

@@ -3,12 +3,8 @@
 \docType{package}
 \name{cranly}
 \alias{cranly}
-\alias{cranly-package}
 \title{cranly: CRAN package database analytics and visualizations}
 \description{
-cranly: CRAN package database analytics and visualizations
-}
-\details{
 \pkg{cranly} provides core visualizations and summaries for the
 CRAN package database. The package provides comprehensive methods
 for cleaning up and organizing the information in the CRAN package
@@ -19,14 +15,14 @@ visualizations from the resulting networks. Network visualization
 is through the \pkg{visNetwork}
 (\url{https://CRAN.R-project.org/package=visNetwork}) package. The
 package also provides functions to coerce the networks to
-\pkg{igraph} \url{https://CRAN.R-project.org/package=igraph}
-objects for further analyses and modelling.
+\pkg{igraph} \url{https://CRAN.R-project.org/package=igraph} objects
+for further analyses and modelling.
 }
-\section{Acknowledgements}{
-
+\details{
+Acknowledgements:
 \itemize{
 
-\item David Selby (\url{http://selbydavid.com}) experimented with
+\item David Selby (\url{https://selbydavid.com}) experimented with
 and provided helpful comments and feedback on a pre-release version
 of \pkg{cranly}. His help is gratefully acknowledged.
 
@@ -36,4 +32,3 @@ TU/B/000082).
 
 }
 }
-

@@ -2,7 +2,7 @@
 % Please edit documentation in R/coerce.R
 \name{as.igraph.cranly_network}
 \alias{as.igraph.cranly_network}
-\title{Coerce a \code{\link{cranly_network}} to an \code{\link[igraph:graph]{igraph::graph}} object}
+\title{Coerce a \code{\link{cranly_network}} to an \code{\link[igraph:make_graph]{igraph::graph}} object}
 \usage{
 \method{as.igraph}{cranly_network}(x, reverse = FALSE, ...)
 }
@@ -14,7 +14,7 @@
 \item{...}{currently not used.}
 }
 \description{
-Coerce a \code{\link{cranly_network}} to an \code{\link[igraph:graph]{igraph::graph}} object
+Coerce a \code{\link{cranly_network}} to an \code{\link[igraph:make_graph]{igraph::graph}} object
 }
 \details{
 The convention for a \code{\link{cranly_network}} object with \code{perspective = "package"} is that the direction of an edge is from the package
@@ -24,19 +24,20 @@ direction to correctly compute relevant network summaries (see
 \code{summary.cranly_network}). \code{reverse} is only relevant when the
 \code{attr(x, "perspective")} is \code{"package"} and is ignored when
 \code{attr(x, "perspective")} is \code{"author"}, in which case the resulting
-\code{\link[igraph:graph]{igraph::graph}} object represents an undirected network of
+\code{\link[igraph:make_graph]{igraph::graph}} object represents an undirected network of
 authors.
 }
 \examples{
 \donttest{
 
+## Package directives network
 cran_db <- clean_CRAN_db()
-# Package directives network
-package_network <- build_network(object = cran_db, perspective = "package")
+
+package_network <- build_network(cran_db)
 igraph::as.igraph(package_network)
 
 ## Author collaboration network
-author_network <- build_network(object = cran_db, perspective = "author")
+author_network <- build_network(cran_db, perspective = "author")
 igraph::as.igraph(author_network)
 
 }

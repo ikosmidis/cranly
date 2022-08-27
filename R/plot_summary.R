@@ -12,8 +12,8 @@
 #'
 #' \donttest{
 #' cran_db <- clean_CRAN_db()
-#' ## package network
 #' package_network <- build_network(cran_db)
+#'
 #' package_summaries <- summary(package_network)
 #' plot(package_summaries, according_to = "n_imported_by", top = 30)
 #' plot(package_summaries, according_to = "n_depended_by", top = 30)
@@ -29,6 +29,10 @@
 #'
 #' @export
 plot.summary_cranly_network <- function(x, top = 20, according_to = NULL, scale = FALSE, ...) {
+    if (is.null(x)) {
+        message("The supplied object has no package or author information. Nothing to plot.")
+        return(invisible(NULL))
+    }
     perspective <- attr(x, "perspective")
     if (perspective == "package") {
         what <- "package"

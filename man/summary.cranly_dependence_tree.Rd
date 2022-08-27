@@ -45,7 +45,7 @@ that are not necessary.
 \examples{
 \donttest{
 cran_db <- clean_CRAN_db()
-package_network <- build_network(object = cran_db)
+package_network <- build_network(cran_db)
 
 ## Two light packages
 dep_tree <- build_dependence_tree(package_network, package = "brglm")
@@ -62,5 +62,5 @@ summary(dep_tree)
 
 }
 \seealso{
-\code{\link{build_dependence_tree.cranly_network}} \code{\link{compute_dependence_tree}}
+\code{\link[=build_dependence_tree.cranly_network]{build_dependence_tree.cranly_network()}} \code{\link[=compute_dependence_tree]{compute_dependence_tree()}}
 }

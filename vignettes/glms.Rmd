@@ -1,6 +1,6 @@
 ---
 title: "CRAN packages for generalized linear models and with related methods"
-author: "[Ioannis Kosmidis](http://www.ikosmidis.com)"
+author: "[Ioannis Kosmidis](https://www.ikosmidis.com)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -21,20 +21,26 @@ knitr::opts_chunk$set(
 ### Packages for glm's and associated methods
 The current vignette is a quick analysis of all CRAN packages that have "glm" in their name. The crude assumption we make here is that a package with "glm" in its name does something related to generalized linear models.
 
-### Preparing today's CRAN package database
+### CRAN package directives and author collaboration networks
 
-Download today's CRAN database and clean and organize author names, depends, imports, suggests, enhances.
+Let's attach **cranly**
 ```{r}
 library("cranly")
-p_db <- tools::CRAN_package_db()
-package_db <- clean_CRAN_db(p_db)
+```
+and use instances of the package directives and author collaboration networks
+```{r}
+package_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/inst/extdata/package_network.rds"))
+author_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/inst/extdata/author_network.rds"))
+```
+from CRAN's state on `r format(attr(package_network, "timestamp"), usetz = TRUE)`
+
+Alternatively, today's package directives and author collaboration networks can be constructed by doing 
+```{r eval = FALSE}
+cran_db <- clean_CRAN_db()
+package_network <- build_network(cran_db)
+author_network <- build_network(cran_db, perspective = "author")
 ```
 
-Let's build the CRAN package directives and collaboration networks
-```{r}
-package_network <- build_network(package_db)
-author_network <- build_network(package_db, perspective = "author")
-```
 
 ### Packages for generalized linear models
 
@@ -44,11 +50,11 @@ The packages that have "glm" in their name are
 ```
 
 The sub-network for `glm_packages` can be visualized using
-```{r}
+```{r, eval = FALSE}
 plot(package_network, package = glm_packages)
 ```
 In order to focus on the sub-network with edges *only* between the packages in `glm_packages`, we do
-```{r}
+```{r, eval = FALSE}
 glm_package_only_network <- subset(package_network, package = glm_packages, only = TRUE)
 plot(glm_package_only_network, package = glm_packages)
 ```

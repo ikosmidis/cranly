@@ -1,6 +1,6 @@
 ---
-title: "CRAN top 20s and interactive R package directives and collaboration networks"
-author: "[Ioannis Kosmidis](http://www.ikosmidis.com)"
+title: "CRAN top 20s and interactive package and collaboration networks"
+author: "[Ioannis Kosmidis](https://www.ikosmidis.com)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -28,27 +28,35 @@ This vignette is a tour to the current capabilities in [**cranly**](https://gith
 
 # Preparing today's CRAN package database
 
-Download today's CRAN database
+Let's attach **cranly**
 ```{r}
 library("cranly")
+```
+and use an instance of the cleaned CRAN package database
+```{r}
+cran_db <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/inst/extdata/cran_db.rds"))
+```
+as of `r format(attr(cran_db, "timestamp"), usetz = TRUE)`.
+
+Alternatively, today's package directives and author collaboration networks can be constructed by doing
+```{r eval = FALSE}
 p_db <- tools::CRAN_package_db()
 ```
-
-Next we need to clean and organize author names, depends, imports, suggests, enhances
-```{r}
-package_db <- clean_CRAN_db(p_db)
+and then we need to clean and organize author names, depends, imports, suggests, enhances
+```{r eval = FALSE}
+cran_db <- clean_CRAN_db(p_db)
 ```
 
 The resulting dataset carries the timestamp of when it was put together, which helps keeping track of when the data import has taken place and will be helpful in future versions when dynamic analyses and visualization methods are implemented.
 ```{r}
-attr(package_db, "timestamp")
+attr(cran_db, "timestamp")
 ```
 
 # Network of package directives
 
 We can now extract edges and nodes for the CRAN package directives network by simply doing
 ```{r}
-package_network <- build_network(package_db)
+package_network <- build_network(cran_db)
 ```
 and compute various statistics for the package network
 ```{r}
@@ -59,12 +67,13 @@ package_summaries <- summary(package_network)
 The `package_summaries` object can now be used for finding the top-20
 packages according to various statistics
 ```{r}
-plot(package_summaries, according_to = "n_imported_by", top = 20)
-plot(package_summaries, according_to = "page_rank", top = 20)
-plot(package_summaries, according_to = "betweenness", top = 20)
-plot(package_summaries, according_to = "n_enhances", top = 20)
 plot(package_summaries, according_to = "n_authors", top = 20)
 plot(package_summaries, according_to = "n_imports", top = 20)
+plot(package_summaries, according_to = "n_imported_by", top = 20)
+```
+The names of the available statistics are 
+```{r}
+names(package_summaries)
 ```
 
 The sub-network for my packages can be found using the extractor function `package_of` which use exact matching by default
@@ -89,7 +98,7 @@ plot(optional_summary, top = 30, according_to = "n_imported_by")
 
 Next let's build the CRAN collaboration network
 ```{r}
-author_network <- build_network(object = package_db, perspective = "author")
+author_network <- build_network(object = cran_db, perspective = "author")
 ```
 
 Statistics for the collaboration network can be computed using the `summary` method as we did for package directives.
@@ -108,7 +117,4 @@ The R Core's collaboration sub-network is
 ```{r}
 plot(author_network, author = "R Core")
 ```
-and my (small but valuable to me!) collaboration sub-network is
-```{r}
-plot(author_network, author = "Kosmidis", exact = FALSE)
-```
+

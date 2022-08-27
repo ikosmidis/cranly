@@ -6,7 +6,7 @@
 #' @inheritParams subset.cranly_network
 #' @inheritParams compute_term_frequency
 #' @inheritParams wordcloud::wordcloud
-#' @param x either a  [`cranly_network`] object or a named vector of term frequencies (typically the output of [`compute_term_frequency`] with `frequency = "term"`.
+#' @param x either a  [`cranly_network`] object or a named vector of term frequencies (typically the output of [compute_term_frequency()] with `frequency = "term"`.
 #' @param random_order should words be plotted in random order? If \code{FALSE} (default) words are plotted in decreasing frequency.
 #' @param perspective should the wordcloud be that of package descriptions (`perspective = "description"`; default), of package titles (`perspective = "title"`) or of author names (`perspective = "author"`).
 #' @param ... other arguments to be passed to [wordcloud::wordcloud] (except `random.order` which is already defined through `random_order`).
@@ -14,33 +14,32 @@
 #'
 #' @details
 #'
-#' When applied to [`cranly_network`] objects, `word_cloud` subsets
+#' When applied to [`cranly_network`] objects, [word_cloud()] subsets
 #' either according to `author` (using the intersection of the result
-#' of [`author_of`] and [`author_with`]) or according to package
-#' (using the intersection of the results of [`package_with`] and
-#' [`package_by`]).
+#' of [author_of()] and [author_with()]) or according to package
+#' (using the intersection of the results of [package_with()] and
+#' [package_by()]).
 #'
 #' For handling more complex queries, one can manually extract the #'
-#' term frequencies froom a supplied vector of character strings (see
-#' [`compute_term_frequency`]), and use `word_cloud` on them. See the
+#' term frequencies from a supplied vector of character strings (see
+#' [compute_term_frequency()]), and use [word_cloud()] on them. See the
 #' examples.
 #'
 #' @return
 #'
 #' A word cloud.
-#' 
-#' @seealso [`compute_term_frequency`]
-#' 
+#'
+#' @seealso [compute_term_frequency()]
+#'
 #' @examples
 #' \donttest{
-#' cran_db <- clean_CRAN_db()
 #' ## Package directives network
-#' package_network <- build_network(object = cran_db, perspective = "package")
+#' cran_db <- clean_CRAN_db()
+#' package_network <- build_network(cran_db)
 #' ## Descriptions of all packages in tidyverse
 #' tidyverse <- imported_by(package_network, "tidyverse", exact = TRUE)
 #' set.seed(123)
 #' word_cloud(package_network, package = tidyverse, exact = TRUE, min.freq = 2)
-#' 
 #'
 #' ## or by manually creating the term frequencies from descriptions
 #' descriptions <- descriptions_of(package_network, tidyverse, exact = TRUE)
@@ -48,7 +47,7 @@
 #' set.seed(123)
 #' word_cloud(term_freq, min.freq = 2)
 #' }
-#' 
+#'
 #' @export
 word_cloud.cranly_network <- function(x,
                                      package = Inf,
@@ -65,8 +64,13 @@ word_cloud.cranly_network <- function(x,
                                      colors = rev(colorspace::heat_hcl(10)),
                                      ...) {
 
+    if (!has_usable_data(x)) {
+        message("Nothing to plot")
+        return(invisible(NULL))
+    }
+
     perspective <- match.arg(perspective, c("title", "description", "author"))
-    
+
     x <- subset(x, base = base, recommended = recommended)
 
     if (all(is.infinite(package)) & all(is.infinite(author)) & all(is.infinite(maintainer))) {
@@ -93,14 +97,14 @@ word_cloud.cranly_network <- function(x,
             }
         }
     }
-    
+
     txt <- switch(perspective,
                   "author" = authors,
                   "title" = title_of(x, package = packages, exact = TRUE),
                   "description" = description_of(x, package = packages, exact = TRUE))
-    
+
     term_freq <- compute_term_frequency(txt, ignore_words = ignore_words, stem = stem)
-    term_freq <- sort(term_freq)    
+    term_freq <- sort(term_freq)
 
     word_cloud.numeric(term_freq, random_order = random_order, colors = colors, ...)
 
@@ -118,12 +122,12 @@ word_cloud.numeric <- function(x, random_order = FALSE, colors = rev(colorspace:
 #'
 #' @param txt a vector of character strings.
 #' @param ignore_words a vector of words to be ignored when forming the corpus.
-#' @param stem should words be stemmed using Porter's stemming algorithm? Default is \code{FALSE}. See [tm::stemDocument].
-#' @param remove_punctuation should punctuation be removed when forming the corpus? Default is \code{TRUE}. See [tm::removePunctuation].
+#' @param stem should words be stemmed using Porter's stemming algorithm? Default is \code{FALSE}. See [tm::stemDocument()].
+#' @param remove_punctuation should punctuation be removed when forming the corpus? Default is \code{TRUE}. See [tm::removePunctuation()].
 #' @param remove_stopwords should english stopwords be removed when forming the corpus? Default is \code{TRUE}. See [tm::removeWords] and [tm::stopwords].
 #' @param remove_numbers should numbers be removed when forming the corpus? Default is \code{TRUE}. See [tm::removeNumbers].
 #' @param to_lower should all terms be coerced to lower-case when forming the corpus? Default is \code{TRUE}.
-#' @param frequency the type of term frequencies to return. Options are `"term"` (default; a named vector of term frequencies), `"document-term"` (a document-term frequency matrix; see [tm::TermDocumentMatrix]), `"term-document"` (a term-document frequency matrix; see [tm::DocumentTermMatrix]).
+#' @param frequency the type of term frequencies to return. Options are `"term"` (default; a named vector of term frequencies), `"document-term"` (a document-term frequency matrix; see [tm::TermDocumentMatrix()]), `"term-document"` (a term-document frequency matrix; see [tm::DocumentTermMatrix()]).
 #'
 #' The operations are taking place as follows: remove special
 #' characters, covert to lower-case (depending on the values of
@@ -137,13 +141,13 @@ word_cloud.numeric <- function(x, random_order = FALSE, colors = rev(colorspace:
 #'
 #' @return
 #' Either a named numeric vector (`frequency = "term"`), or an object of class [tm::DocumentTermMatrix] (`frequency = "document-term"`), or or an object of class [`tm::TermDocumentMatrix`] (`frequency = "term-document"`).
-#' 
+#'
 #' @details
 #'
 #' If `txt` is a named vector then the names are used as document id's
 #' when forming the corpus.
 #'
-#' @seealso [`word_cloud`]
+#' @seealso [word_cloud()]
 #'
 #' @export
 compute_term_frequency <- function(txt,
@@ -154,12 +158,12 @@ compute_term_frequency <- function(txt,
                                    remove_stopwords = TRUE,
                                    remove_numbers = TRUE,
                                    to_lower = TRUE,
-                                   frequency = "term") {     
+                                   frequency = "term") {
     frequency <- match.arg(frequency, c("term", "document-term", "term-document"))
     doc_id <- if (is.null(names(txt))) seq_along(txt) else names(txt)
     txt <- data.frame(doc_id = doc_id, text = txt, stringsAsFactors = FALSE)
     corpa <- Corpus(DataframeSource(txt))
-    to_space <- content_transformer(function (x, p) str_replace_all(x, p, " "))    
+    to_space <- content_transformer(function (x, p) str_replace_all(x, p, " "))
     corpa <- tm_map(corpa, to_space, "/")
     corpa <- tm_map(corpa, to_space, "@")
     corpa <- tm_map(corpa, to_space, "\\|")

@@ -12,9 +12,9 @@
 #'
 #' A [`data.frame`] of various statistics for the author collaboration
 #' network or the package directives network, depending on whether
-#' `attr(object, "perspective")` is `"author"` or
-#' `"package"`, respectively. See Details for the current list of
-#' statistics returned.
+#' `attr(object, "perspective")` is `"author"` or `"package"`,
+#' respectively. See Details for the current list of statistics
+#' returned.
 #'
 #' @details
 #'
@@ -54,6 +54,11 @@
 #' }
 #' @export
 summary.cranly_network <- function(object, advanced = TRUE, ...) {
+
+    if (!has_usable_data(object)) {
+        message("The supplied object has no package or author information.")
+        return(invisible(NULL))
+    }
 
     perspective <- attr(object, "perspective")
     cranly_graph <- as.igraph.cranly_network(object, reverse = TRUE)

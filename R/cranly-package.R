@@ -2,9 +2,21 @@
 
 #' cranly: CRAN package database analytics and visualizations
 #'
+#' \pkg{cranly} provides core visualizations and summaries for the
+#' CRAN package database. The package provides comprehensive methods
+#' for cleaning up and organizing the information in the CRAN package
+#' database, for building package directives networks (depends,
+#' imports, suggests, enhances, linking to) and collaboration
+#' networks, and for computing summaries and producing interactive
+#' visualizations from the resulting networks. Network visualization
+#' is through the \pkg{visNetwork}
+#' (<https://CRAN.R-project.org/package=visNetwork>) package. The
+#' package also provides functions to coerce the networks to
+#' \pkg{igraph} <https://CRAN.R-project.org/package=igraph> objects
+#' for further analyses and modelling.
+#'
 #' @docType package
 #' @name cranly
-#' @importFrom magrittr %>%
 #' @importFrom stringr str_replace_all str_split
 #' @importFrom utils combn stack head installed.packages
 #' @importFrom stats na.omit
@@ -17,23 +29,10 @@
 #'
 #' @details
 #'
-#' \pkg{cranly} provides core visualizations and summaries for the
-#' CRAN package database. The package provides comprehensive methods
-#' for cleaning up and organizing the information in the CRAN package
-#' database, for building package directives networks (depends,
-#' imports, suggests, enhances, linking to) and collaboration
-#' networks, and for computing summaries and producing interactive
-#' visualizations from the resulting networks. Network visualization
-#' is through the \pkg{visNetwork}
-#' (<https://CRAN.R-project.org/package=visNetwork>) package. The
-#' package also provides functions to coerce the networks to
-#' \pkg{igraph} <https://CRAN.R-project.org/package=igraph>
-#' objects for further analyses and modelling.
-#'
-#' @section Acknowledgements:
+#' Acknowledgements:
 #' \itemize{
 #'
-#' \item David Selby (<http://selbydavid.com>) experimented with
+#' \item David Selby (<https://selbydavid.com>) experimented with
 #' and provided helpful comments and feedback on a pre-release version
 #' of \pkg{cranly}. His help is gratefully acknowledged.
 #'
@@ -163,8 +162,13 @@ release_date_of <- function(x, package = NULL, exact = FALSE, flat = TRUE) {
 }
 
 #' @export
-build_network <- function(object, trace, perspective, ...) {
-    UseMethod("build_network")
+build_network <- function(object, trace = FALSE, perspective = "package", ...) {
+    if (missing(object) || is.null(object)) {
+        build_network.cranly_db(object, trace, perspective, ...)
+    }
+    else {
+        UseMethod("build_network")
+    }
 }
 
 #' @export

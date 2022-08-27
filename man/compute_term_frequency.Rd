@@ -4,19 +4,25 @@
 \alias{compute_term_frequency}
 \title{Compute term frequencies from a vector of text}
 \usage{
-compute_term_frequency(txt, ignore_words = c("www.jstor.org",
-  "www.arxiv.org", "arxiv.org", "provides", "https"), stem = FALSE,
-  remove_punctuation = TRUE, remove_stopwords = TRUE,
-  remove_numbers = TRUE, to_lower = TRUE, frequency = "term")
+compute_term_frequency(
+  txt,
+  ignore_words = c("www.jstor.org", "www.arxiv.org", "arxiv.org", "provides", "https"),
+  stem = FALSE,
+  remove_punctuation = TRUE,
+  remove_stopwords = TRUE,
+  remove_numbers = TRUE,
+  to_lower = TRUE,
+  frequency = "term"
+)
 }
 \arguments{
 \item{txt}{a vector of character strings.}
 
 \item{ignore_words}{a vector of words to be ignored when forming the corpus.}
 
-\item{stem}{should words be stemmed using Porter's stemming algorithm? Default is \code{FALSE}. See \link[tm:stemDocument]{tm::stemDocument}.}
+\item{stem}{should words be stemmed using Porter's stemming algorithm? Default is \code{FALSE}. See \code{\link[tm:stemDocument]{tm::stemDocument()}}.}
 
-\item{remove_punctuation}{should punctuation be removed when forming the corpus? Default is \code{TRUE}. See \link[tm:removePunctuation]{tm::removePunctuation}.}
+\item{remove_punctuation}{should punctuation be removed when forming the corpus? Default is \code{TRUE}. See \code{\link[tm:removePunctuation]{tm::removePunctuation()}}.}
 
 \item{remove_stopwords}{should english stopwords be removed when forming the corpus? Default is \code{TRUE}. See \link[tm:removeWords]{tm::removeWords} and \link[tm:stopwords]{tm::stopwords}.}
 
@@ -24,7 +30,7 @@ compute_term_frequency(txt, ignore_words = c("www.jstor.org",
 
 \item{to_lower}{should all terms be coerced to lower-case when forming the corpus? Default is \code{TRUE}.}
 
-\item{frequency}{the type of term frequencies to return. Options are \code{"term"} (default; a named vector of term frequencies), \code{"document-term"} (a document-term frequency matrix; see \link[tm:TermDocumentMatrix]{tm::TermDocumentMatrix}), \code{"term-document"} (a term-document frequency matrix; see \link[tm:DocumentTermMatrix]{tm::DocumentTermMatrix}).
+\item{frequency}{the type of term frequencies to return. Options are \code{"term"} (default; a named vector of term frequencies), \code{"document-term"} (a document-term frequency matrix; see \code{\link[tm:matrix]{tm::TermDocumentMatrix()}}), \code{"term-document"} (a term-document frequency matrix; see \code{\link[tm:matrix]{tm::DocumentTermMatrix()}}).
 
 The operations are taking place as follows: remove special
 characters, covert to lower-case (depending on the values of
@@ -36,7 +42,7 @@ characters, covert to lower-case (depending on the values of
 and, finally stem words (depending on the value of \code{stem}).}
 }
 \value{
-Either a named numeric vector (\code{frequency = "term"}), or an object of class \link[tm:DocumentTermMatrix]{tm::DocumentTermMatrix} (\code{frequency = "document-term"}), or or an object of class \code{\link[tm:TermDocumentMatrix]{tm::TermDocumentMatrix}} (\code{frequency = "term-document"}).
+Either a named numeric vector (\code{frequency = "term"}), or an object of class \link[tm:matrix]{tm::DocumentTermMatrix} (\code{frequency = "document-term"}), or or an object of class \code{\link[tm:matrix]{tm::TermDocumentMatrix}} (\code{frequency = "term-document"}).
 }
 \description{
 Compute term frequencies from a vector of text
@@ -46,5 +52,5 @@ If \code{txt} is a named vector then the names are used as document id's
 when forming the corpus.
 }
 \seealso{
-\code{\link{word_cloud}}
+\code{\link[=word_cloud]{word_cloud()}}
 }

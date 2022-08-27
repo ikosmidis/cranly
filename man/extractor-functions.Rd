@@ -61,74 +61,51 @@
 \alias{versions_of}
 \title{Find packages, authors, maintainers, license, versions etc by authors, packages or names matching a specific string}
 \usage{
-\method{package_by}{cranly_network}(x, author = NULL, exact = FALSE,
-  flat = TRUE)
+\method{package_by}{cranly_network}(x, author = NULL, exact = FALSE, flat = TRUE)
 
-\method{package_with}{cranly_network}(x, name = NULL, exact = FALSE,
-  flat = TRUE)
+\method{package_with}{cranly_network}(x, name = NULL, exact = FALSE, flat = TRUE)
 
-\method{author_of}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{author_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{author_with}{cranly_network}(x, name = NULL, exact = FALSE,
-  flat = TRUE)
+\method{author_with}{cranly_network}(x, name = NULL, exact = FALSE, flat = TRUE)
 
-\method{suggested_by}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{suggested_by}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{suggesting}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{suggesting}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{imported_by}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{imported_by}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{importing}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{importing}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{dependency_of}{cranly_network}(x, package = NULL,
-  exact = FALSE, flat = TRUE)
+\method{dependency_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{depending_on}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{depending_on}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{linked_by}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{linked_by}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{linking_to}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{linking_to}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{enhanced_by}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{enhanced_by}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{enhancing}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{enhancing}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{maintainer_of}{cranly_network}(x, package = NULL,
-  exact = FALSE, flat = TRUE)
+\method{maintainer_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{maintained_by}{cranly_network}(x, author = NULL, exact = FALSE,
-  flat = TRUE)
+\method{maintained_by}{cranly_network}(x, author = NULL, exact = FALSE, flat = TRUE)
 
-\method{email_of}{cranly_network}(x, author = NULL, exact = FALSE,
-  flat = TRUE)
+\method{email_of}{cranly_network}(x, author = NULL, exact = FALSE, flat = TRUE)
 
-\method{email_with}{cranly_network}(x, name = NULL, exact = FALSE,
-  flat = TRUE)
+\method{email_with}{cranly_network}(x, name = NULL, exact = FALSE, flat = TRUE)
 
-\method{description_of}{cranly_network}(x, package = NULL,
-  exact = FALSE, flat = TRUE)
+\method{description_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{title_of}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{title_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{license_of}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{license_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{version_of}{cranly_network}(x, package = NULL, exact = FALSE,
-  flat = TRUE)
+\method{version_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
-\method{release_date_of}{cranly_network}(x, package = NULL,
-  exact = FALSE, flat = TRUE)
+\method{release_date_of}{cranly_network}(x, package = NULL, exact = FALSE, flat = TRUE)
 
 packages_by(x, author, exact, flat)
 
@@ -179,7 +156,7 @@ Find packages, authors, maintainers, license, versions etc by authors, packages 
 \details{
 The extractor functions all try to figure out what \code{y} is in the statement
 
-\code{y} is (the) \code{extractor-function} a \code{package}/\code{author}.
+\code{y} is (the) \verb{extractor-function} a \code{package}/\code{author}.
 
 For example, for
 \itemize{
@@ -193,48 +170,50 @@ For example, for
 \donttest{
 # Using a package directives network
 cran_db <- clean_CRAN_db()
-pkg_net <- build_network(cran_db, perspective = "package")
+package_network <- build_network(cran_db)
+
 ## Find all packages containing glm in their name
-package_with(pkg_net, name = "glm")
+package_with(package_network, name = "glm")
 ## Find all authors of packages containing brglm in their name
-author_of(pkg_net, package = "rglm", exact = FALSE)
+author_of(package_network, package = "rglm", exact = FALSE)
 ## Find all packages with brglm in their name
-package_with(pkg_net, name = "rglm", exact = FALSE)
+package_with(package_network, name = "rglm", exact = FALSE)
 ## Find all authors of the package brglm2
-author_of(pkg_net, package = "brglm2", exact = TRUE)
+author_of(package_network, package = "brglm2", exact = TRUE)
 ## Find all authors with Ioannis in their name
-author_with(pkg_net, name = "Ioannis", exact = FALSE)
+author_with(package_network, name = "Ioannis", exact = FALSE)
 ## Find all packages suggested by Rcpp
-suggested_by(pkg_net, package = "Rcpp", exact = TRUE)
-## Find all packages imported by Rcpp 
-imported_by(pkg_net, package = "Rcpp", exact = TRUE)
+suggested_by(package_network, package = "Rcpp", exact = TRUE)
+## Find all packages imported by Rcpp
+imported_by(package_network, package = "Rcpp", exact = TRUE)
 ## Find all packages enhacing brglm
-enhancing(pkg_net, package = "brglm", exact = TRUE)
+enhancing(package_network, package = "brglm", exact = TRUE)
 ## Find all packages linking to RcppArmadillo
-linking_to(pkg_net, package = "RcppArmadillo", exact = TRUE)
+linking_to(package_network, package = "RcppArmadillo", exact = TRUE)
 ## Find the release date of RcppArmadillo
-release_date_of(pkg_net, package = "RcppArmadillo", exact = TRUE)
+release_date_of(package_network, package = "RcppArmadillo", exact = TRUE)
 ## Find the release data of all packages with "brglm" in their name
-release_date_of(pkg_net, package = "brglm", exact = FALSE)
+release_date_of(package_network, package = "brglm", exact = FALSE)
 ## More information about packages with "brglm" in their name
-release_date_of(pkg_net, package = "brglm", exact = FALSE, flat = FALSE)[c("package", "version")]
+release_date_of(package_network, package = "brglm", exact = FALSE,
+                flat = FALSE)[c("package", "version")]
 
 ## Using an author collaboration network
-aut_net <- build_network(cran_db, perspective = "author")
+author_network <- build_network(cran_db, perspective = "author")
 ## Find all packages containing glm in their name
-package_with(aut_net, name = "glm")
+package_with(author_network, name = "glm")
 ## Find all authors of packages containing brglm in their name
-author_of(aut_net, package = "rglm", exact = FALSE)
+author_of(author_network, package = "rglm", exact = FALSE)
 ## Find all packages with brglm in their name
-package_with(aut_net, name = "rglm", exact = FALSE)
+package_with(author_network, name = "rglm", exact = FALSE)
 ## Find all authors of the package brglm2
-author_of(aut_net, package = "brglm2", exact = TRUE)
+author_of(author_network, package = "brglm2", exact = TRUE)
 ## Find all authors with Ioannis in their name
-author_with(aut_net, name = "Ioannis", exact = FALSE)
+author_with(author_network, name = "Ioannis", exact = FALSE)
 }
 
 
 }
 \seealso{
-\code{\link{build_network.cranly_db}} \code{\link{subset.cranly_network}} \code{\link{plot.cranly_network}}
+\code{\link[=build_network.cranly_db]{build_network.cranly_db()}} \code{\link[=subset.cranly_network]{subset.cranly_network()}} \code{\link[=plot.cranly_network]{plot.cranly_network()}}
 }

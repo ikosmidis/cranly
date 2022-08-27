@@ -4,14 +4,24 @@
 \alias{plot.cranly_dependence_tree}
 \title{Interactive visualization of package(s) dependence tree from a \code{\link{cranly_network}}}
 \usage{
-\method{plot}{cranly_dependence_tree}(x, physics_threshold = 200,
-  height = NULL, width = NULL, dragNodes = TRUE, dragView = TRUE,
-  zoomView = TRUE, legend = TRUE, title = TRUE, plot = TRUE, ...)
+\method{plot}{cranly_dependence_tree}(
+  x,
+  physics_threshold = 200,
+  height = NULL,
+  width = NULL,
+  dragNodes = TRUE,
+  dragView = TRUE,
+  zoomView = TRUE,
+  legend = TRUE,
+  title = TRUE,
+  plot = TRUE,
+  ...
+)
 }
 \arguments{
 \item{x}{a \code{\link{cranly_dependence_tree}} object.}
 
-\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork:visEdges]{visNetwork::visEdges}}.}
+\item{physics_threshold}{integer. How many nodes before switching off physics simulations for edges? Default is \code{200}. See, also \code{\link[visNetwork:visEdges]{visNetwork::visEdges()}}.}
 
 \item{height}{: Height (optional, defaults to automatic sizing)}
 
@@ -35,5 +45,5 @@
 Interactive visualization of package(s) dependence tree from a \code{\link{cranly_network}}
 }
 \seealso{
-\code{\link{compute_dependence_tree}} \code{\link{build_dependence_tree.cranly_network}}
+\code{\link[=compute_dependence_tree]{compute_dependence_tree()}} \code{\link[=build_dependence_tree.cranly_network]{build_dependence_tree.cranly_network()}}
 }

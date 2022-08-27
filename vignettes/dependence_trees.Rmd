@@ -1,6 +1,6 @@
 ---
 title: "R package dependence trees"
-author: "[Ioannis Kosmidis](http://www.ikosmidis.com)"
+author: "[Ioannis Kosmidis](https://www.ikosmidis.com)"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -30,14 +30,23 @@ Since version 0.2 **cranly** includes functions for constructing and working wit
 
 Constructing `cranly_dependence_tree` objects is straightforward once a package directives network has been derived.
 
-Let's download, clean and organize today's CRAN database, and build the package directives network
+Let's attach **cranly**
 ```{r}
 library("cranly")
+```
+and use an instance of the package directives network
+```{r}
+package_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/inst/extdata/package_network.rds"))
+```
+from CRAN's state on `r format(attr(package_network, "timestamp"), usetz = TRUE)`. 
+
+Alternatively, today's package directives network can be constructed by doing 
+```{r eval = FALSE}
 cran_db <- clean_CRAN_db()
-package_network <- build_network(cran_db, perspective = "package")
+package_network <- build_network(cran_db)
 ```
 
-We can then compute dependence trees for any package in CRAN using the function `compute_dependence_tree` on the package directives network. For example the dependence tree of [**brglm2**](https://cran.r-project.org/package=brglm2) is
+We can compute dependence trees for any package in CRAN using the function `compute_dependence_tree` on the package directives network. For example the dependence tree of [**brglm2**](https://cran.r-project.org/package=brglm2) is
 ```{r}
  compute_dependence_tree(package_network, "brglm2")
 ```

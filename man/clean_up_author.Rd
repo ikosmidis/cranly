@@ -17,5 +17,5 @@ Clean up author names
 }
 \examples{
 clean_up_author(paste("The R Core team, Brian & with some assistance from Achim, Hadley;",
-                      "Kurt\\n Portugal; Ireland; Italy; Greece; Spain"))
+                           "Kurt\n Portugal; Ireland; Italy; Greece; Spain"))
 }
