@@ -1,9 +1,13 @@
+# cranly 0.6.1
+
+
+
 # cranly 0.6.0
 ## Other improvements, updates and additions
 
 * Methods fail gracefully with an informative message if access to CRAN mirrors is not possible, or if objects with no package or author information are passed.
 * Base pipe `|>` is now used internally instead of `%>%`.
-* Added a snapshot data set (see `?crandb`) for running examples and vignettes more efficiently.
+* Added remote snapshot data sets (see vignettes) for compiling vignettes more efficiently.
 
 # cranly 0.5.4
 
