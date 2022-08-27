@@ -199,7 +199,7 @@ release_date_of(package_network, package = "brglm", exact = FALSE,
                 flat = FALSE)[c("package", "version")]
 
 ## Using an author collaboration network
-data("author_network", package = "cranly")
+author_network <- build_network(cran_db, perspective = "author")
 ## Find all packages containing glm in their name
 package_with(author_network, name = "glm")
 ## Find all authors of packages containing brglm in their name

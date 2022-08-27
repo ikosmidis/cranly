@@ -34,7 +34,7 @@ library("cranly")
 ```
 and use an instance of the cleaned CRAN package database
 ```{r}
-cran_db <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/data/cran_db.rds"))
+cran_db <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/inst/extdata/cran_db.rds"))
 ```
 as of `r format(attr(cran_db, "timestamp"), usetz = TRUE)`.
 

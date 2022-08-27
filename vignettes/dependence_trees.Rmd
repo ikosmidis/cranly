@@ -36,7 +36,7 @@ library("cranly")
 ```
 and use an instance of the package directives network
 ```{r}
-package_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/data/package_network.rds"))
+package_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/inst/extdata/package_network.rds"))
 ```
 from CRAN's state on `r format(attr(package_network, "timestamp"), usetz = TRUE)`. 
 

@@ -28,10 +28,10 @@ library("cranly")
 and use instances of the package directives and author collaboration networks
 
 ```r
-package_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/data/package_network.rds"))
-author_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/data/author_network.rds"))
+package_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/inst/extdata/package_network.rds"))
+author_network <- readRDS(url("https://raw.githubusercontent.com/ikosmidis/cranly/develop/inst/extdata/author_network.rds"))
 ```
-from CRAN's state on 2022-08-26 13:45:06 BST
+from CRAN's state on 2022-08-26 14:43:43 BST
 
 Alternatively, today's package directives and author collaboration networks can be constructed by doing
 
