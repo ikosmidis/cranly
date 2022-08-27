@@ -15,6 +15,9 @@ Encoding: UTF-8
 LazyData: true
 LazyDataCompression: xz
 RoxygenNote: 7.2.1
-Suggests: knitr, rmarkdown
+Suggests: 
+    covr,
+    knitr,
+    rmarkdown
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
