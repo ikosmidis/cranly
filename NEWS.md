@@ -1,9 +1,10 @@
-# cranly 0.6.1
+# cranly 0.6.0.111
 
 ## Other improvements, updates and additions
 
 * Removed obsolete badges from README
 * Moved CI to github actions
+
 
 # cranly 0.6.0
 ## Other improvements, updates and additions

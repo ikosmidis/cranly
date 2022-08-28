@@ -26,10 +26,15 @@ The package provides methods for cleaning up and organizing the information in t
 
 ### Installation
 
-Install the development version from github:
+You can install the released version of **cranly** from CRAN with:
+``` r
+install.packages("cranly")
+```
+
+You can install the latest development version from github:
 ``` r
 # install.packages("devtools")
-devtools::install_github("ikosmidis/cranly")
+devtools::install_github("ikosmidis/cranly", ref = "develop")
 ```
 
 ### Collaboration and package directives networks in CRAN
